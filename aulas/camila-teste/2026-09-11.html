@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão de Aula - Camilla Bitencourt Leal</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px 12px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .header-title h1 {
+      font-size: 1.4rem;
+      color: var(--text);
+    }
+
+    .header-title p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-toggle {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .btn-toggle.active {
+      background: #e0e7ff;
+      color: var(--primary);
+      border-color: #c7d2fe;
+    }
+
+    .audio-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin-left: 6px;
+      vertical-align: middle;
+      transition: transform 0.1s;
+    }
+
+    .audio-btn:hover {
+      transform: scale(1.15);
+    }
+
+    .motivation-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid var(--primary);
+      padding: 18px 20px;
+      border-radius: var(--radius);
+    }
+
+    .motivation-box h3 {
+      font-size: 1.05rem;
+      color: #1e40af;
+      margin-bottom: 6px;
+    }
+
+    .motivation-box p {
+      font-size: 0.95rem;
+      color: #1e3a8a;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Recapitulação Gramatical */
+    .grammar-content {
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .grammar-content ul {
+      margin-left: 20px;
+      margin-top: 8px;
+    }
+
+    .grammar-content li {
+      margin-bottom: 6px;
+    }
+
+    /* Estilos do Treino de Desbloqueio (Paleta Laranja/Azul) */
+    .unlock-theme {
+      --u-orange: #FF7A00;
+      --u-orange-dark: #C75000;
+      --u-blue: #1E5AA8;
+      --u-bg: #fff7ed;
+      --u-border: #ffedd5;
+      border-color: #fed7aa;
+    }
+
+    .unlock-theme .section-title {
+      color: var(--u-blue);
+    }
+
+    .unlock-card {
+      background: #fafafa;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .unlock-card.correct {
+      border-color: var(--u-blue) !important;
+      background-color: #eff6ff !important;
+    }
+
+    .unlock-card.incorrect {
+      border-color: var(--u-orange-dark) !important;
+      background-color: #fff7ed !important;
+    }
+
+    .unlock-card .prompt {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .translation-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    /* Opções Clicáveis Lado a Lado / Múltipla Escolha */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .btn-option {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .btn-option:hover {
+      border-color: var(--u-blue);
+      background: #f0f9ff;
+    }
+
+    .btn-option.selected {
+      border-color: var(--u-blue);
+      background: #e0f2fe;
+      font-weight: 600;
+    }
+
+    /* Reordenar Palavras */
+    .tokens-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+      min-height: 40px;
+    }
+
+    .token-chip {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-weight: 500;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .token-chip:hover {
+      background: #f1f5f9;
+    }
+
+    .assembled-box {
+      min-height: 48px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      background: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    /* Diálogo / Text Inputs */
+    .dialog-line {
+      margin-bottom: 12px;
+      padding: 8px;
+      background: #ffffff;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .dialog-line.line-correct {
+      border-color: var(--u-blue);
+    }
+    
+    .dialog-line.line-incorrect {
+      border-color: var(--u-orange-dark);
+    }
+
+    .input-text {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      margin-top: 6px;
+      outline: none;
+    }
+
+    .input-text:focus {
+      border-color: var(--primary);
+    }
+
+    /* Feedback inline */
+    .item-feedback {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .exercise-translation {
+      display: none;
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Botões de Ação Principais */
+    .btn-action {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 12px;
+    }
+
+    .btn-action:hover {
+      background: var(--primary-hover);
+    }
+
+    .unlock-theme .btn-action {
+      background: var(--u-orange);
+    }
+
+    .unlock-theme .btn-action:hover {
+      background: var(--u-orange-dark);
+    }
+
+    /* Flashcards de Vocabulário */
+    .flashcards-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .flashcard-progress {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: #eff6ff;
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+    .flashcards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .flashcard {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 160px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .flashcard.sabia {
+      border-color: var(--success);
+      background: var(--success-bg);
+    }
+
+    .flashcard.revisar {
+      border-color: #f59e0b;
+      background: #fffbeb;
+    }
+
+    .flashcard-word {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .flashcard-translation {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+      display: none;
+      font-weight: 500;
+    }
+
+    .flashcard-actions {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn-reveal {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .eval-btns {
+      display: none;
+      gap: 6px;
+    }
+
+    .btn-eval {
+      flex: 1;
+      padding: 6px 4px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .btn-sabia { background: var(--success); }
+    .btn-revisar { background: #f59e0b; }
+
+    /* Exercício de Fixação Standard Card */
+    .fixation-card {
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .fixation-card.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .fixation-card.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    select.input-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      margin-top: 6px;
+      background: white;
+      outline: none;
+    }
+
+    .send-toast {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-left: 12px;
+      display: inline-block;
+    }
+
+    /* Homework */
+    .homework-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      padding: 18px 20px;
+      border-radius: var(--radius);
+    }
+
+    .homework-box h3 {
+      color: #166534;
+      margin-bottom: 8px;
+    }
+
+    .homework-box ul {
+      margin-left: 20px;
+      color: #15803d;
+    }
+
+    .copy-summary-btn {
+      margin-top: 16px;
+      background: #ffffff;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .copy-summary-btn:hover {
+      background: #dcfce7;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .flashcards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-title">
+      <h1>Olá, Camilla Bitencourt Leal! 👋</h1>
+      <p>Revisão de Aula • Treino Auditivo & Connected Speech • Nível A1</p>
+    </div>
+    <div class="audio-controls">
+      <button id="slowToggleBtn" class="btn-toggle" onclick="toggleSlowMode()">
+        ⚡ Velocidade Normal (1.0x)
+      </button>
+    </div>
+  </header>
+
+  <!-- MOTIVATION BOX -->
+  <div class="motivation-box">
+    <h3>💡 Seu Espaço de Aprendizado</h3>
+    <p>Excelente trabalho na nossa aula prática! Você provou que consegue entender trechos em inglês diretamente pelo som, sem depender da leitura na tela. Aos poucos, a ansiedade dá lugar à confiança auditiva. Mantenha essa leveza!</p>
+  </div>
+
+  <!-- RECAPITULAÇÃO GRAMATICAL -->
+  <section class="section-card">
+    <h2 class="section-title">📌 Recapitulação: Percepção Auditiva & Connected Speech</h2>
+    <div class="grammar-content">
+      <p>Na aula de hoje praticamos como os sons das palavras se conectam no inglês falado e cantado (*Connected Speech*):</p>
+      <ul>
+        <li><strong>Linking Sounds:</strong> Conexão entre a consoante final de uma palavra e a vogal inicial da seguinte (ex: <em>"at all I see"</em> soa como um único bloco contínuo).</li>
+        <li><strong>Reduções Fônicas:</strong> Palavras gramaticais curtas (como preposições e conectores) perdem a ênfase e soam mais rápidas (ex: <em>"use somebody"</em>, <em>"for the cold weather"</em>).</li>
+        <li><strong>Técnica do Balbuceio Fônico:</strong> Imitar o som direto antes de tentar traduzir ajuda o cérebro a reconhecer padrões sem travar na leitura.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TREINO DE DESBLOQUEIO -->
+  <section class="section-card unlock-theme">
+    <h2 class="section-title">🎯 Treino de Desbloqueio Auditivo</h2>
+    <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 16px;">
+      Exercícios focados em escuta ativa, segmentação de frases e uso de conectores.
+    </p>
+
+    <!-- Item 1: Compare / Contrast -->
+    <div class="unlock-card" id="unlock-item-0">
+      <div class="prompt">Qual frase mantém a concordância natural do hábito no presente sem misturar tempos verbais?</div>
+      <div class="options-grid">
+        <button class="btn-option" onclick="selectOption(0, 'a')">
+          A) He buys a warm blanket when he feels cold.
+        </button>
+        <button class="btn-option" onclick="selectOption(0, 'b')">
+          B) He buys a warm blanket when he felt cold.
+        </button>
+      </div>
+      <div class="item-feedback" id="feedback-0"></div>
+    </div>
+
+    <!-- Item 2: Multiple Choice -->
+    <div class="unlock-card" id="unlock-item-1">
+      <div class="prompt">
+        A: Does she work late every day? <br>
+        B: Yes, she is a workaholic, ____ she needs an ergonomic chair.
+        <button class="audio-btn" onclick="speak('Does she work late every day? Yes, she is a workaholic, so she needs an ergonomic chair.')">🔊</button>
+      </div>
+      <div class="translation-text">"Sim, ela é viciada em trabalho, [então] ela precisa de uma cadeira ergonômica."</div>
+      <div class="options-grid">
+        <button class="btn-option" onclick="selectOption(1, 0)">so</button>
+        <button class="btn-option" onclick="selectOption(1, 1)">because</button>
+        <button class="btn-option" onclick="selectOption(1, 2)">but</button>
+        <button class="btn-option" onclick="selectOption(1, 3)">or</button>
+      </div>
+      <div class="item-feedback" id="feedback-1"></div>
+    </div>
+
+    <!-- Item 3: Diálogo Tempos Mistos -->
+    <div class="unlock-card" id="unlock-item-2">
+      <div class="prompt">Complete o diálogo acompanhando os auxiliares dos tempos verbais:</div>
+      
+      <div class="dialog-line" id="dialog-line-0">
+        <p><strong>A:</strong> Do you usually tune your ear to the music? <button class="audio-btn" onclick="speak('Do you usually tune your ear to the music?')">🔊</button></p>
+        <p><strong>B:</strong> Yes, I <input type="text" id="dlg-0" class="input-text" style="width: 120px; display: inline-block;" placeholder="Digite sua resposta em inglês..."></p>
+        <div class="exercise-translation">Você costuma afiar seu ouvido para a música? Sim, eu costumo.</div>
+      </div>
+
+      <div class="dialog-line" id="dialog-line-1">
+        <p><strong>A:</strong> Did you tune your ear to the news yesterday? <button class="audio-btn" onclick="speak('Did you tune your ear to the news yesterday?')">🔊</button></p>
+        <p><strong>B:</strong> Yes, I <input type="text" id="dlg-1" class="input-text" style="width: 120px; display: inline-block;" placeholder="Digite sua resposta em inglês..."></p>
+        <div class="exercise-translation">Você afiou seu ouvido para as notícias ontem? Sim, eu afiei.</div>
+      </div>
+
+      <div class="dialog-line" id="dialog-line-2">
+        <p><strong>A:</strong> Will you tune your ear to the radio tomorrow? <button class="audio-btn" onclick="speak('Will you tune your ear to the radio tomorrow?')">🔊</button></p>
+        <p><strong>B:</strong> Yes, I <input type="text" id="dlg-2" class="input-text" style="width: 120px; display: inline-block;" placeholder="Digite sua resposta em inglês..."></p>
+        <div class="exercise-translation">Você afiará seu ouvido para o rádio amanhã? Sim, eu afiarei.</div>
+      </div>
+
+      <div class="item-feedback" id="feedback-2"></div>
+    </div>
+
+    <!-- Item 4: Reordenar Palavras -->
+    <div class="unlock-card" id="unlock-item-3">
+      <div class="prompt">Clique nas palavras para montar a frase completa:</div>
+      <div class="assembled-box" id="assembled-box-3"></div>
+      <div class="tokens-container" id="tokens-box-3"></div>
+      <div class="exercise-translation" id="trans-3">Como está o tempo hoje? Está frio.</div>
+      <div class="item-feedback" id="feedback-3"></div>
+    </div>
+
+    <!-- Item 5: Translation Challenge 1 -->
+    <div class="unlock-card" id="unlock-item-4">
+      <div class="prompt">Traduza para o inglês: "Ele cantarola uma música porque o clima está bom."</div>
+      <input type="text" id="trans-input-4" class="input-text" placeholder="Type in English...">
+      <div class="exercise-translation">Ele cantarola uma música porque o clima está bom.</div>
+      <div class="item-feedback" id="feedback-4"></div>
+    </div>
+
+    <!-- Item 6: Translation Challenge 2 -->
+    <div class="unlock-card" id="unlock-item-5">
+      <div class="prompt">Traduza para o inglês: "Eu tenho um cobertor para o clima frio."</div>
+      <input type="text" id="trans-input-5" class="input-text" placeholder="Type in English...">
+      <div class="exercise-translation">Eu tenho um cobertor para o clima frio.</div>
+      <div class="item-feedback" id="feedback-5"></div>
+    </div>
+
+    <!-- Item 7: Translation Challenge 3 -->
+    <div class="unlock-card" id="unlock-item-6">
+      <div class="prompt">Traduza para o inglês: "Ela é viciada em trabalho e precisa de uma cadeira ergonômica."</div>
+      <input type="text" id="trans-input-6" class="input-text" placeholder="Type in English...">
+      <div class="exercise-translation">Ela é viciada em trabalho e precisa de uma cadeira ergonômica.</div>
+      <div class="item-feedback" id="feedback-6"></div>
+    </div>
+
+    <button class="btn-action" onclick="verificarTreinoDesbloqueio()">Verificar Respostas</button>
+    <span class="send-toast" id="toast-unlock"></span>
+  </section>
+
+  <!-- VOCABULÁRIO NOVO (FLASHCARDS) -->
+  <section class="section-card">
+    <div class="flashcards-header">
+      <h2 class="section-title">📚 Vocabulário Novo (Flashcards)</h2>
+      <span class="flashcard-progress" id="flashcardCount">0 de 10 revisadas</span>
+    </div>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+      Ouça a palavra, tente se lembrar do significado e clique em "Revelar tradução" para autoavaliar sua retenção.
+    </p>
+
+    <div class="flashcards-grid" id="flashcardsGrid">
+      <!-- 10 Flashcards gerados via JavaScript -->
+    </div>
+  </section>
+
+  <!-- EXERCÍCIO DE FIXAÇÃO -->
+  <section class="section-card">
+    <h2 class="section-title">✏️ Exercício de Fixação</h2>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+      Fixe as junções sonoras e termos aprendidos na aula.
+    </p>
+
+    <!-- Fixação 1 -->
+    <div class="fixation-card" id="fix-card-0">
+      <p><strong>1. Complete com o termo correto para "afiar / sintonizar o ouvido":</strong></p>
+      <p>I need to ______ my ear to connected speech.</p>
+      <select class="input-select" id="fix-input-0">
+        <option value="">-- Selecione --</option>
+        <option value="shake">shake</option>
+        <option value="tune">tune</option>
+        <option value="hum">hum</option>
+      </select>
+      <div class="exercise-translation">Eu preciso sintonizar meu ouvido para a fala conectada.</div>
+      <div class="item-feedback" id="fix-feedback-0"></div>
+    </div>
+
+    <!-- Fixação 2 -->
+    <div class="fixation-card" id="fix-card-1">
+      <p><strong>2. Qual expressão significa "pedir ajuda / suporte"?</strong></p>
+      <select class="input-select" id="fix-input-1">
+        <option value="">-- Selecione --</option>
+        <option value="to ask for">to ask for</option>
+        <option value="to hum">to hum</option>
+        <option value="to tune">to tune</option>
+      </select>
+      <div class="exercise-translation">pedir ajuda / suporte</div>
+      <div class="item-feedback" id="fix-feedback-1"></div>
+    </div>
+
+    <!-- Fixação 3 -->
+    <div class="fixation-card" id="fix-card-2">
+      <p><strong>3. Complete com a palavra que descreve um hábito de cantarolar baixo:</strong></p>
+      <p>She likes to ______ songs while studying. <button class="audio-btn" onclick="speak('She likes to hum songs while studying.')">🔊</button></p>
+      <input type="text" id="fix-input-2" class="input-text" placeholder="Digite sua resposta em inglês...">
+      <div class="exercise-translation">Ela gosta de cantarolar músicas enquanto estuda.</div>
+      <div class="item-feedback" id="fix-feedback-2"></div>
+    </div>
+
+    <!-- Fixação 4 -->
+    <div class="fixation-card" id="fix-card-3">
+      <p><strong>4. Como traduzimos "Pink eye"?</strong></p>
+      <select class="input-select" id="fix-input-3">
+        <option value="">-- Selecione --</option>
+        <option value="Olhos azuis">Olhos azuis</option>
+        <option value="Conjuntivite">Conjuntivite</option>
+        <option value="Cansaço visual">Cansaço visual</option>
+      </select>
+      <div class="exercise-translation">Pink eye = Conjuntivite</div>
+      <div class="item-feedback" id="fix-feedback-3"></div>
+    </div>
+
+    <button class="btn-action" onclick="verificarFixacao()">Verificar Respostas</button>
+    <span class="send-toast" id="toast-fixation"></span>
+  </section>
+
+  <!-- HOMEWORK -->
+  <section class="homework-box">
+    <h3>🎯 Homework</h3>
+    <ul>
+      <li>Praticar o escutar/cantar a música "Use Somebody" (Kings of Leon) no site/app <em>Lyrics Training</em> ou em aplicativo de karaokê, focando na reprodução das junções de fala conectada (*connected speech*).</li>
+      <li>Manter o final de semana leve e sem tarefas extensas de escrita!</li>
+    </ul>
+    <button class="copy-summary-btn" onclick="copiarResumo()">📋 Copiar Resumo para Estudos</button>
+  </section>
+
+</div>
+
+<script>
+  // Global Slow Mode
+  let slowMode = false;
+  function toggleSlowMode() {
+    slowMode = !slowMode;
+    const btn = document.getElementById('slowToggleBtn');
+    if (slowMode) {
+      btn.classList.add('active');
+      btn.innerHTML = '🐢 Modo Lento (0.75x) ON';
+    } else {
+      btn.classList.remove('active');
+      btn.innerHTML = '⚡ Velocidade Normal (1.0x)';
+    }
+  }
+
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = slowMode ? 0.75 : 1.0;
+    window.speechSynthesis.speak(utterance);
+  }
+
+  // Normalização de string
+  function normalize(str) {
+    if (!str) return '';
+    return str.trim().toLowerCase()
+      .replace(/[\.\?\!\,\"\']/g, '')
+      .replace(/\s+/g, ' ');
+  }
+
+  // Envio de Resultado Automático (Apps Script)
+  function enviarResultado(secao, acertos, total) {
+    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec";
+    if (!appsScriptUrl) return;
+
+    const payload = {
+      meeting_id: "84597548491",
+      aluno: "Camila Leal",
+      data_aula: "11/09/26",
+      secao: secao,
+      acertos: acertos,
+      total: total
+    };
+
+    fetch(appsScriptUrl, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  }
+
+  // --- TREINO DE DESBLOQUEIO LOGIC ---
+  const userAnswersUnlock = {};
+
+  function selectOption(itemIdx, val) {
+    userAnswersUnlock[itemIdx] = val;
+    const card = document.getElementById(`unlock-item-${itemIdx}`);
+    const btns = card.querySelectorAll('.btn-option');
+    btns.forEach((btn, idx) => {
+      if (typeof val === 'number') {
+        btn.classList.toggle('selected', idx === val);
+      } else {
+        btn.classList.toggle('selected', (idx === 0 && val === 'a') || (idx === 1 && val === 'b'));
+      }
+    });
+  }
+
+  // Tokens Reordenar Palavras
+  const initialTokens = ["weather", "is", "cold.", "is", "How", "today?", "It", "the"];
+  let availableTokens = [...initialTokens];
+  let assembledTokens = [];
+
+  function renderTokens() {
+    const tokensBox = document.getElementById('tokens-box-3');
+    const assembledBox = document.getElementById('assembled-box-3');
+    tokensBox.innerHTML = '';
+    assembledBox.innerHTML = '';
+
+    availableTokens.forEach((token, index) => {
+      const chip = document.createElement('span');
+      chip.className = 'token-chip';
+      chip.innerText = token;
+      chip.onclick = () => {
+        availableTokens.splice(index, 1);
+        assembledTokens.push(token);
+        renderTokens();
+      };
+      tokensBox.appendChild(chip);
+    });
+
+    assembledTokens.forEach((token, index) => {
+      const chip = document.createElement('span');
+      chip.className = 'token-chip';
+      chip.style.borderColor = 'var(--primary)';
+      chip.innerText = token;
+      chip.onclick = () => {
+        assembledTokens.splice(index, 1);
+        availableTokens.push(token);
+        renderTokens();
+      };
+      assembledBox.appendChild(chip);
+    });
+  }
+  renderTokens();
+
+  function verificarTreinoDesbloqueio() {
+    let acertos = 0;
+    const total = 7;
+
+    // Mostrar traduções ocultas do treino
+    document.querySelectorAll('.unlock-theme .exercise-translation').forEach(el => el.style.display = 'block');
+
+    // Item 0: Compare/Contrast
+    const fb0 = document.getElementById('feedback-0');
+    const card0 = document.getElementById('unlock-item-0');
+    fb0.style.display = 'block';
+    if (userAnswersUnlock[0] === 'a') {
+      acertos++;
+      card0.className = 'unlock-card correct';
+      fb0.innerHTML = '<span style="color: var(--u-blue);">✅ Correto!</span> A frase mantêm a concordância no presente.';
+    } else {
+      card0.className = 'unlock-card incorrect';
+      fb0.innerHTML = '<span style="color: var(--u-orange-dark);">✅ Resposta correta: Opção A</span> — A frase "A" usa o presente em ambas as partes ("buys" e "feels"), mantendo a fluidez sem saltos temporais.';
+    }
+
+    // Item 1: Multiple Choice
+    const fb1 = document.getElementById('feedback-1');
+    const card1 = document.getElementById('unlock-item-1');
+    fb1.style.display = 'block';
+    if (userAnswersUnlock[1] === 0) {
+      acertos++;
+      card1.className = 'unlock-card correct';
+      fb1.innerHTML = '<span style="color: var(--u-blue);">✅ Correto!</span> "so" (então/por isso) conecta a causa à consequência.';
+    } else {
+      card1.className = 'unlock-card incorrect';
+      fb1.innerHTML = '<span style="color: var(--u-orange-dark);">✅ Resposta correta: so</span> — Usamos "so" para conectar a causa à consequência de forma natural em frases faladas encadeadas.';
+    }
+
+    // Item 2: Diálogo
+    const dlg0 = normalize(document.getElementById('dlg-0').value);
+    const dlg1 = normalize(document.getElementById('dlg-1').value);
+    const dlg2 = normalize(document.getElementById('dlg-2').value);
+    const fb2 = document.getElementById('feedback-2');
+    const card2 = document.getElementById('unlock-item-2');
+    
+    let dlgCorrect = 0;
+    document.getElementById('dialog-line-0').className = 'dialog-line ' + (dlg0 === 'yes i do' || dlg0 === 'i do' || dlg0 === 'do' ? 'line-correct' : 'line-incorrect');
+    if (dlg0 === 'yes i do' || dlg0 === 'i do' || dlg0 === 'do') dlgCorrect++;
+
+    document.getElementById('dialog-line-1').className = 'dialog-line ' + (dlg1 === 'yes i did' || dlg1 === 'i did' || dlg1 === 'did' ? 'line-correct' : 'line-incorrect');
+    if (dlg1 === 'yes i did' || dlg1 === 'i did' || dlg1 === 'did') dlgCorrect++;
+
+    document.getElementById('dialog-line-2').className = 'dialog-line ' + (dlg2 === 'yes i will' || dlg2 === 'i will' || dlg2 === 'will' ? 'line-correct' : 'line-incorrect');
+    if (dlg2 === 'yes i will' || dlg2 === 'i will' || dlg2 === 'will') dlgCorrect++;
+
+    fb2.style.display = 'block';
+    if (dlgCorrect === 3) {
+      acertos++;
+      card2.className = 'unlock-card correct';
+      fb2.innerHTML = '<span style="color: var(--u-blue);">✅ Correto!</span> Excelente percepção dos auxiliares (do / did / will).';
+    } else {
+      card2.className = 'unlock-card incorrect';
+      fb2.innerHTML = '<span style="color: var(--u-orange-dark);">✅ Resposta correta: 1) do | 2) did | 3) will</span> — Acompanhar a mudança dos auxiliares é fundamental para processar os tempos verbais.';
+    }
+
+    // Item 3: Reordenar
+    const userPhrase = assembledTokens.join(' ');
+    const targetPhrase = "How is the weather today? It is cold.";
+    const fb3 = document.getElementById('feedback-3');
+    const card3 = document.getElementById('unlock-item-3');
+    fb3.style.display = 'block';
+
+    if (normalize(userPhrase) === normalize(targetPhrase)) {
+      acertos++;
+      card3.className = 'unlock-card correct';
+      fb3.innerHTML = '<span style="color: var(--u-blue);">✅ Correto!</span> Frase perfeitamente ordenada.';
+    } else {
+      card3.className = 'unlock-card incorrect';
+      fb3.innerHTML = `<span style="color: var(--u-orange-dark);">✅ Resposta correta: "${targetPhrase}"</span> — A ordem natural de pergunta e resposta ajuda o cérebro a segmentar blocos de fala.`;
+    }
+
+    // Item 4: Translation 1
+    const t4 = normalize(document.getElementById('trans-input-4').value);
+    const card4 = document.getElementById('unlock-item-4');
+    const fb4 = document.getElementById('feedback-4');
+    fb4.style.display = 'block';
+    if (t4 === normalize("He hums a song because the weather is good") || t4 === normalize("He hums a song because the weather is fine")) {
+      acertos++;
+      card4.className = 'unlock-card correct';
+      fb4.innerHTML = '<span style="color: var(--u-blue);">✅ Correto!</span>';
+    } else {
+      card4.className = 'unlock-card incorrect';
+      fb4.innerHTML = '<span style="color: var(--u-orange-dark);">✅ Resposta correta: "He hums a song because the weather is good."</span> — A conjunção "because" conecta duas orações simples.';
+    }
+
+    // Item 5: Translation 2
+    const t5 = normalize(document.getElementById('trans-input-5').value);
+    const card5 = document.getElementById('unlock-item-5');
+    const fb5 = document.getElementById('feedback-5');
+    fb5.style.display = 'block';
+    if (t5 === normalize("I have a blanket for the cold weather") || t5 === normalize("I have a blanket for cold weather")) {
+      acertos++;
+      card5.className = 'unlock-card correct';
+      fb5.innerHTML = '<span style="color: var(--u-blue);">✅ Correto!</span>';
+    } else {
+      card5.className = 'unlock-card incorrect';
+      fb5.innerHTML = '<span style="color: var(--u-orange-dark);">✅ Resposta correta: "I have a blanket for the cold weather."</span> — Preposições como "for" costumam ser pronunciadas de forma rápida na fala conectada.';
+    }
+
+    // Item 6: Translation 3
+    const t6 = normalize(document.getElementById('trans-input-6').value);
+    const card6 = document.getElementById('unlock-item-6');
+    const fb6 = document.getElementById('feedback-6');
+    fb6.style.display = 'block';
+    if (t6 === normalize("She is a workaholic and needs an ergonomic chair") || t6 === normalize("She's a workaholic and needs an ergonomic chair")) {
+      acertos++;
+      card6.className = 'unlock-card correct';
+      fb6.innerHTML = '<span style="color: var(--u-blue);">✅ Correto!</span>';
+    } else {
+      card6.className = 'unlock-card incorrect';
+      fb6.innerHTML = '<span style="color: var(--u-orange-dark);">✅ Resposta correta: "She is a workaholic and needs an ergonomic chair."</span> — O conector "and" junta duas ações sem necessidade de repetir o sujeito "she".';
+    }
+
+    // Toast & Submit
+    enviarResultado("Treino de Desbloqueio", acertos, total);
+    document.getElementById('toast-unlock').innerText = '📤 Resultado enviado ao professor';
+  }
+
+  // --- VOCABULÁRIO (FLASHCARDS) LOGIC ---
+  const vocabData = [
+    { word: "Pink eye", trans: "Conjuntivite" },
+    { word: "Eclectic", trans: "Eclético(a)" },
+    { word: "To tune", trans: "Afiar / Ajustar / Sintonizar (o ouvido)" },
+    { word: "To hum", trans: "Balbucear / Cantarolar / Murmurar" },
+    { word: "Countless", trans: "Inumeráveis / Incontáveis" },
+    { word: "Subtle", trans: "Sutil" },
+    { word: "To shake", trans: "Sacudir / Tremer" },
+    { word: "Karaoke", trans: "Karaokê" },
+    { word: "To ask for", trans: "Pedir (ajuda/suporte)" },
+    { word: "Workaholic", trans: "Viciado(a) em trabalho" }
+  ];
+
+  let reviewedSet = new Set();
+
+  function renderFlashcards() {
+    const grid = document.getElementById('flashcardsGrid');
+    grid.innerHTML = '';
+
+    vocabData.forEach((item, idx) => {
+      const card = document.createElement('div');
+      card.className = 'flashcard';
+      card.id = `fc-${idx}`;
+
+      card.innerHTML = `
+        <div>
+          <div class="flashcard-word">
+            <span>${item.word}</span>
+            <button class="audio-btn" onclick="speak('${item.word.replace(/'/g, "\\'")}')">🔊</button>
+          </div>
+          <div class="flashcard-translation" id="fc-trans-${idx}">${item.trans}</div>
+        </div>
+        <div class="flashcard-actions">
+          <button class="btn-reveal" id="btn-rev-${idx}" onclick="revealFlashcard(${idx})">Revelar tradução</button>
+          <div class="eval-btns" id="eval-btns-${idx}">
+            <button class="btn-eval btn-sabia" onclick="evalFlashcard(${idx}, 'sabia')">✅ Eu sabia</button>
+            <button class="btn-eval btn-revisar" onclick="evalFlashcard(${idx}, 'revisar')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function revealFlashcard(idx) {
+    document.getElementById(`fc-trans-${idx}`).style.display = 'block';
+    document.getElementById(`btn-rev-${idx}`).style.display = 'none';
+    document.getElementById(`eval-btns-${idx}`).style.display = 'flex';
+  }
+
+  function evalFlashcard(idx, status) {
+    const card = document.getElementById(`fc-${idx}`);
+    card.classList.remove('sabia', 'revisar');
+    card.classList.add(status);
+    reviewedSet.add(idx);
+    document.getElementById('flashcardCount').innerText = `${reviewedSet.size} de ${vocabData.length} revisadas`;
+  }
+
+  renderFlashcards();
+
+  // --- EXERCÍCIO DE FIXAÇÃO LOGIC ---
+  function verificarFixacao() {
+    let acertos = 0;
+    const total = 4;
+
+    document.querySelectorAll('.section-card .exercise-translation').forEach(el => el.style.display = 'block');
+
+    // Fix 0
+    const val0 = document.getElementById('fix-input-0').value;
+    const card0 = document.getElementById('fix-card-0');
+    const fb0 = document.getElementById('fix-feedback-0');
+    fb0.style.display = 'block';
+    if (val0 === 'tune') {
+      acertos++;
+      card0.className = 'fixation-card correct';
+      fb0.innerHTML = '<span style="color: var(--success);">✅ Correto!</span> "To tune your ear" significa afiar/sintonizar o ouvido.';
+    } else {
+      card0.className = 'fixation-card incorrect';
+      fb0.innerHTML = '<span style="color: var(--error);">✅ Resposta correta: tune</span> — "To tune your ear" é sintonizar seu ouvido.';
+    }
+
+    // Fix 1
+    const val1 = document.getElementById('fix-input-1').value;
+    const card1 = document.getElementById('fix-card-1');
+    const fb1 = document.getElementById('fix-feedback-1');
+    fb1.style.display = 'block';
+    if (val1 === 'to ask for') {
+      acertos++;
+      card1.className = 'fixation-card correct';
+      fb1.innerHTML = '<span style="color: var(--success);">✅ Correto!</span>';
+    } else {
+      card1.className = 'fixation-card incorrect';
+      fb1.innerHTML = '<span style="color: var(--error);">✅ Resposta correta: to ask for</span> — Significa pedir por algo/ajuda.';
+    }
+
+    // Fix 2
+    const val2 = normalize(document.getElementById('fix-input-2').value);
+    const card2 = document.getElementById('fix-card-2');
+    const fb2 = document.getElementById('fix-feedback-2');
+    fb2.style.display = 'block';
+    if (val2 === 'hum') {
+      acertos++;
+      card2.className = 'fixation-card correct';
+      fb2.innerHTML = '<span style="color: var(--success);">✅ Correto!</span>';
+    } else {
+      card2.className = 'fixation-card incorrect';
+      fb2.innerHTML = '<span style="color: var(--error);">✅ Resposta correta: hum</span> — "To hum" significa cantarolar / murmurar.';
+    }
+
+    // Fix 3
+    const val3 = document.getElementById('fix-input-3').value;
+    const card3 = document.getElementById('fix-card-3');
+    const fb3 = document.getElementById('fix-feedback-3');
+    fb3.style.display = 'block';
+    if (val3 === 'Conjuntivite') {
+      acertos++;
+      card3.className = 'fixation-card correct';
+      fb3.innerHTML = '<span style="color: var(--success);">✅ Correto!</span>';
+    } else {
+      card3.className = 'fixation-card incorrect';
+      fb3.innerHTML = '<span style="color: var(--error);">✅ Resposta correta: Conjuntivite</span> — "Pink eye" é o termo informal em inglês para conjuntivite.';
+    }
+
+    enviarResultado("Exercício de Fixação", acertos, total);
+    document.getElementById('toast-fixation').innerText = '📤 Resultado enviado ao professor';
+  }
+
+  // Copiar Resumo
+  function copiarResumo() {
+    const texto = `Revisão de Aula - Camilla Bitencourt Leal (11/09/26)\nTópico: Connected Speech & Listening Drill (Kings of Leon)\nVocabulary Key Points:\n- Pink eye (Conjuntivite)\n- Eclectic (Eclético)\n- To tune (Sintonizar o ouvido)\n- To hum (Cantarolar)\n- Countless (Incontáveis)\n- Subtle (Sutil)\n- Workaholic (Viciado em trabalho)\nHomework: Praticar "Use Somebody" no Lyrics Training focando na junção de sons.`;
+    navigator.clipboard.writeText(texto).then(() => {
+      alert("Resumo copiado com sucesso!");
+    });
+  }
+</script>
+
+</body>
+</html>
