@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão de Aula - Lorraine Gomes do Carmo</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      
+      /* Paleta do Treino de Desbloqueio */
+      --tb-orange: #FF7A00;
+      --tb-blue: #1E5AA8;
+      --tb-bg: #FFF8F0;
+      --tb-err: #C75000;
+      --tb-err-bg: #FFF0E6;
+      --tb-ok: #1E5AA8;
+      --tb-ok-bg: #F0F4FA;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    /* Controls & Header */
+    header {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .user-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .user-info h1 {
+      font-size: 1.4rem;
+      color: var(--text);
+    }
+
+    .cefr-tag {
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg);
+      padding: 8px 14px;
+      border-radius: 8px;
+      width: fit-content;
+    }
+
+    .speed-control label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .toggle-btn {
+      background: #cbd5e1;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Cards e Seções */
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Psychological Box */
+    .motivation-box {
+      background: #eff6ff;
+      border-left: 5px solid var(--primary);
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .motivation-box p {
+      font-size: 0.95rem;
+      color: #1e40af;
+    }
+
+    /* Helper Elements */
+    .audio-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      margin-left: 6px;
+      vertical-align: middle;
+      transition: background 0.2s;
+    }
+
+    .audio-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .translation-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      display: block;
+      font-style: italic;
+    }
+
+    .exercise-translation {
+      display: none;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    .exercise-item {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      background: #fafafa;
+      transition: all 0.2s ease;
+    }
+
+    .exercise-item.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .exercise-item.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    .feedback-msg {
+      margin-top: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .exercise-item.correct .feedback-msg {
+      display: block;
+      color: var(--success);
+    }
+
+    .exercise-item.incorrect .feedback-msg {
+      display: block;
+      color: var(--error);
+    }
+
+    .check-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    .check-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Flashcards Vocabulário */
+    .flashcard-counter {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .flashcards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .flashcard {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      background: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 160px;
+      transition: border-color 0.3s;
+    }
+
+    .flashcard.known {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .flashcard.review {
+      border-color: #d97706;
+      background-color: #fffbeb;
+    }
+
+    .flashcard-word {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .flashcard-trans {
+      display: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 10px 0;
+    }
+
+    .flashcard-actions {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .btn-fc {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-fc-reveal {
+      background: #e2e8f0;
+      color: var(--text);
+      width: 100%;
+    }
+
+    .btn-fc-known {
+      background: #dcfce7;
+      color: #166534;
+      flex: 1;
+    }
+
+    .btn-fc-review {
+      background: #fef3c7;
+      color: #92400e;
+      flex: 1;
+    }
+
+    /* Treino de Desbloqueio (Escopado Laranja/Azul) */
+    .tb-section {
+      background: var(--tb-bg);
+      border: 2px solid var(--tb-orange);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .tb-section .section-title {
+      color: var(--tb-blue);
+    }
+
+    .tb-item {
+      background: #ffffff;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .tb-item.tb-correct {
+      border: 2px solid var(--tb-ok);
+      background-color: var(--tb-ok-bg);
+    }
+
+    .tb-item.tb-incorrect {
+      border: 2px solid var(--tb-err);
+      background-color: var(--tb-err-bg);
+    }
+
+    .tb-item .feedback-msg.tb-correct-msg {
+      display: block;
+      color: var(--tb-ok);
+      font-weight: bold;
+    }
+
+    .tb-item .feedback-msg.tb-incorrect-msg {
+      display: block;
+      color: var(--tb-err);
+      font-weight: bold;
+    }
+
+    .tb-btn {
+      background: var(--tb-orange);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    .tb-btn:hover {
+      background: #e66e00;
+    }
+
+    /* Side-by-side clickable options */
+    .option-cards {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .opt-card {
+      flex: 1;
+      min-width: 200px;
+      border: 2px solid var(--border);
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #fff;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .opt-card:hover {
+      border-color: var(--tb-blue);
+    }
+
+    .opt-card.selected {
+      border-color: var(--tb-orange);
+      background: #fff7ed;
+    }
+
+    /* Word reorder tokens */
+    .tokens-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+      min-height: 40px;
+      padding: 8px;
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+
+    .token-chip {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 500;
+      user-select: none;
+    }
+
+    .token-chip:hover {
+      background: #e2e8f0;
+    }
+
+    .constructed-sentence {
+      min-height: 44px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    /* Inputs */
+    input[type="text"], select {
+      padding: 8px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      width: 100%;
+      max-width: 400px;
+      margin-top: 6px;
+    }
+
+    /* Options grid for multiple choice */
+    .mc-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .mc-btn {
+      text-align: left;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .mc-btn.selected {
+      border-color: var(--primary);
+      background-color: #eff6ff;
+      font-weight: bold;
+    }
+
+    .tb-section .mc-btn.selected {
+      border-color: var(--tb-orange);
+      background-color: #fff7ed;
+    }
+
+    /* Accordion Gabarito */
+    details summary {
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--primary);
+      padding: 8px 0;
+    }
+
+    .homework-list {
+      list-style-type: square;
+      padding-left: 20px;
+      margin-top: 8px;
+    }
+
+    .homework-list li {
+      margin-bottom: 6px;
+    }
+
+    .copy-btn {
+      background: #475569;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .copy-btn:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="user-info">
+      <h1>Olá, Lorraine Gomes do Carmo! 👋</h1>
+      <span class="cefr-tag">Nível CEFR: A1</span>
+    </div>
+    <div class="speed-control">
+      <label>🔊 Velocidade do Áudio:</label>
+      <button id="btn-speed-normal" class="toggle-btn active" onclick="toggleAudioSpeed(false)">1.0x (Normal)</button>
+      <button id="btn-speed-slow" class="toggle-btn" onclick="toggleAudioSpeed(true)">0.75x (Lento)</button>
+    </div>
+  </header>
+
+  <!-- MOOD / APOIO PSICOLÓGICO -->
+  <div class="motivation-box">
+    <p>💡 <strong>Mensagem de Apoio:</strong> Lorraine, você demonstrou excelente raciocínio ao aplicar as respostas curtíssimas no passado! A sensação de "ir péssima" é só o perfeccionismo falando. Em Londres, a fala nativa é rápida mesmo, mas desacelerar o áudio com o botão de velocidade (0.75x) é o seu segredo para treinar sem ansiedade. Passo a passo você vai destravar!</p>
+  </div>
+
+  <!-- RECAPITULAÇÃO DA REGRA -->
+  <section class="section-card">
+    <h2 class="section-title">📌 Recapitulação: Respostas Curtas e Tempos Verbais</h2>
+    <p>Em inglês, a resposta curta sempre <strong>espelha o verbo auxiliar</strong> usado na pergunta:</p>
+    <ul style="margin: 10px 0 10px 20px; font-size: 0.95rem;">
+      <li><strong>Passado (Did):</strong> Did you talk? ➔ Yes, I <em>did</em>. / No, I <em>didn't</em>.</li>
+      <li><strong>Presente (Do):</strong> Do you accept? ➔ Yes, I <em>do</em>. / No, I <em>don't</em>.</li>
+      <li><strong>Futuro (Will):</strong> Will it rain? ➔ Yes, it <em>will</em>. / No, it <em>won't</em>.</li>
+      <li><strong>Hipótese (Would):</strong> Would you mind? ➔ No, I <em>wouldn't</em>.</li>
+    </ul>
+    <span class="translation-text">Lembrete: Para negar uma ação que JÁ ACONTECEU no passado, use <strong>didn't</strong> (nunca don't!).</span>
+  </section>
+
+  <!-- 📚 REVISÃO CUMULATIVA (SEMPRE PRESENTE) -->
+  <section class="section-card">
+    <h2 class="section-title">📚 Revisão Cumulativa</h2>
+    
+    <div id="rev-cumulativa-container">
+      <!-- Tópico 1 -->
+      <div style="margin-bottom: 16px;">
+        <h3 style="font-size: 1rem; color: var(--primary);">1. Questions and Answers (do - did - will - would) - Short Answers</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">Em perguntas com auxiliares, a resposta curta espelha o auxiliar do tempo verbal.</p>
+        
+        <!-- Ex 1 -->
+        <div class="exercise-item" id="rc-item-0">
+          <p>Did you watch the football match yesterday? - Yes, I ____.
+            <button class="audio-btn" onclick="speak('Did you watch the football match yesterday? Yes, I did.')">🔊</button>
+          </p>
+          <span class="translation-text">Você assistiu ao jogo de futebol ontem? - Sim, eu assisti.</span>
+          <input type="text" id="rc-input-0" placeholder="Digite sua resposta...">
+          <div class="feedback-msg" id="rc-fb-0"></div>
+        </div>
+
+        <!-- Ex 2 -->
+        <div class="exercise-item" id="rc-item-1">
+          <p>Will you go to London next week? - No, I ____.
+            <button class="audio-btn" onclick="speak('Will you go to London next week? No, I won\'t.')">🔊</button>
+          </p>
+          <span class="translation-text">Você irá para Londres na próxima semana? - Não, eu não irei.</span>
+          <div class="mc-options" id="rc-mc-1">
+            <button class="mc-btn" onclick="selectMC('rc-mc-1', 0, this)">won't</button>
+            <button class="mc-btn" onclick="selectMC('rc-mc-1', 1, this)">don't</button>
+            <button class="mc-btn" onclick="selectMC('rc-mc-1', 2, this)">didn't</button>
+          </div>
+          <div class="feedback-msg" id="rc-fb-1"></div>
+        </div>
+      </div>
+
+      <!-- Tópico 2 -->
+      <div>
+        <h3 style="font-size: 1rem; color: var(--primary);">2. Simple Present vs Past Negatives (Don't vs Didn't)</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">Usa-se 'don't/doesn't' para hábitos no presente e 'didn't' para o passado.</p>
+        
+        <!-- Ex 3 -->
+        <div class="exercise-item" id="rc-item-2">
+          <p>I usually drink tea, but I ____ drink tea this morning.
+            <button class="audio-btn" onclick="speak('I usually drink tea, but I didn\'t drink tea this morning.')">🔊</button>
+          </p>
+          <span class="translation-text">Eu costumo beber chá, mas não bebi chá esta manhã.</span>
+          <input type="text" id="rc-input-2" placeholder="Digite sua resposta...">
+          <div class="feedback-msg" id="rc-fb-2"></div>
+        </div>
+
+        <!-- Ex 4 -->
+        <div class="exercise-item" id="rc-item-3">
+          <p>She ____ like coffee, so she drinks tea every day.
+            <button class="audio-btn" onclick="speak('She doesn\'t like coffee, so she drinks tea every day.')">🔊</button>
+          </p>
+          <span class="translation-text">Ela não gosta de café, então bebe chá todos os dias.</span>
+          <div class="mc-options" id="rc-mc-3">
+            <button class="mc-btn" onclick="selectMC('rc-mc-3', 0, this)">doesn't</button>
+            <button class="mc-btn" onclick="selectMC('rc-mc-3', 1, this)">didn't</button>
+            <button class="mc-btn" onclick="selectMC('rc-mc-3', 2, this)">wouldn't</button>
+          </div>
+          <div class="feedback-msg" id="rc-fb-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="check-btn" onclick="checkRevisaoCumulativa()">Verificar Revisão Cumulativa</button>
+  </section>
+
+  <!-- 🎯 TREINO DE DESBLOQUEIO (ESCOPADO) -->
+  <section class="tb-section">
+    <h2 class="section-title">🎯 Treino de Desbloqueio: Erro Zero no Passado</h2>
+    <p style="font-size: 0.9rem; color: var(--tb-blue); margin-bottom: 14px;">
+      Foco: Eliminar a substituição involuntária de <strong>didn't</strong> por <strong>don't</strong> em frases no passado.
+    </p>
+
+    <!-- Item 1: compare_contrast_implicito -->
+    <div class="tb-item" id="tb-item-0">
+      <p><strong>1. Qual das frases responde corretamente à pergunta sobre uma conversa no passado?</strong></p>
+      <div class="option-cards" id="tb-opt-grid-0">
+        <div class="opt-card" onclick="selectTbOpt(0, 'a', this)">
+          <strong>A)</strong> Did you talk to Sarah? No, I didn't.
+          <button class="audio-btn" onclick="event.stopPropagation(); speak('Did you talk to Sarah? No, I didn\'t.')">🔊</button>
+        </div>
+        <div class="opt-card" onclick="selectTbOpt(0, 'b', this)">
+          <strong>B)</strong> Did you talk to Sarah? No, I don't.
+          <button class="audio-btn" onclick="event.stopPropagation(); speak('Did you talk to Sarah? No, I don\'t.')">🔊</button>
+        </div>
+      </div>
+      <span class="exercise-translation" id="tb-trans-0">Tradução: Você conversou com a Sarah? Não, não conversei.</span>
+      <div class="feedback-msg" id="tb-fb-0"></div>
+    </div>
+
+    <!-- Item 2: multiple_choice_avancado -->
+    <div class="tb-item" id="tb-item-1">
+      <p><strong>2. Complete a lacuna corretamente:</strong></p>
+      <p style="margin-top: 6px;">A: Did you forget your umbrella? B: No, I ____.
+        <button class="audio-btn" onclick="speak('Did you forget your umbrella? No, I didn\'t.')">🔊</button>
+      </p>
+      <div class="mc-options" id="tb-mc-1">
+        <button class="mc-btn" onclick="selectMC('tb-mc-1', 0, this)">didn't</button>
+        <button class="mc-btn" onclick="selectMC('tb-mc-1', 1, this)">don't</button>
+        <button class="mc-btn" onclick="selectMC('tb-mc-1', 2, this)">doesn't</button>
+        <button class="mc-btn" onclick="selectMC('tb-mc-1', 3, this)">wasn't</button>
+      </div>
+      <span class="exercise-translation" id="tb-trans-1">Tradução: Você esqueceu seu guarda-chuva? Não, não esqueci.</span>
+      <div class="feedback-msg" id="tb-fb-1"></div>
+    </div>
+
+    <!-- Item 3: dialogo_tempos_mistos -->
+    <div class="tb-item" id="tb-item-2">
+      <p><strong>3. Diálogo de Tempos Mistos - Complete com o auxiliar negativo correto:</strong></p>
+      
+      <div style="margin-top: 10px;" id="tb-diag-line-0">
+        <p>A: Do you accept the invitation? <br>B: No, I <input type="text" id="tb-diag-inp-0" style="width: 120px; display: inline-block;">.</p>
+        <span class="exercise-translation" id="tb-diag-trans-0">Tradução: Você aceita o convite? Não, não aceito.</span>
+        <div class="feedback-msg" id="tb-diag-fb-0"></div>
+      </div>
+
+      <div style="margin-top: 10px;" id="tb-diag-line-1">
+        <p>A: Did you accept the invitation? <br>B: No, I <input type="text" id="tb-diag-inp-1" style="width: 120px; display: inline-block;">.</p>
+        <span class="exercise-translation" id="tb-diag-trans-1">Tradução: Você aceitou o convite? Não, não aceitei.</span>
+        <div class="feedback-msg" id="tb-diag-fb-1"></div>
+      </div>
+
+      <div style="margin-top: 10px;" id="tb-diag-line-2">
+        <p>A: Will you accept the invitation? <br>B: No, I <input type="text" id="tb-diag-inp-2" style="width: 120px; display: inline-block;">.</p>
+        <span class="exercise-translation" id="tb-diag-trans-2">Tradução: Você aceitará o convite? Não, não aceitarei.</span>
+        <div class="feedback-msg" id="tb-diag-fb-2"></div>
+      </div>
+    </div>
+
+    <!-- Item 4: reordenar_palavras -->
+    <div class="tb-item" id="tb-item-3">
+      <p><strong>4. Reordene as palavras para formar a pergunta e resposta corretas:</strong></p>
+      <div class="constructed-sentence" id="constructed-area"></div>
+      <div class="tokens-container" id="tokens-pool">
+        <span class="token-chip" onclick="moveToken(this)">didn't.</span>
+        <span class="token-chip" onclick="moveToken(this)">rain?</span>
+        <span class="token-chip" onclick="moveToken(this)">Did</span>
+        <span class="token-chip" onclick="moveToken(this)">No,</span>
+        <span class="token-chip" onclick="moveToken(this)">it</span>
+        <span class="token-chip" onclick="moveToken(this)">it</span>
+      </div>
+      <span class="exercise-translation" id="tb-trans-3">Tradução: Choveu? Não, não choveu.</span>
+      <div class="feedback-msg" id="tb-fb-3"></div>
+    </div>
+
+    <!-- Item 5: translation_challenge 1 -->
+    <div class="tb-item" id="tb-item-4">
+      <p><strong>5. Desafio de Tradução:</strong> "Eu não esqueci meu guarda-chuva."</p>
+      <input type="text" id="tb-trans-inp-4" placeholder="Escreva a frase em inglês...">
+      <span class="exercise-translation" id="tb-trans-4">Dica: Use "didn't" e o verbo "forget".</span>
+      <div class="feedback-msg" id="tb-fb-4"></div>
+    </div>
+
+    <!-- Item 6: translation_challenge 2 -->
+    <div class="tb-item" id="tb-item-5">
+      <p><strong>6. Desafio de Tradução:</strong> "Você conversou com ele? Não, eu não conversei."</p>
+      <input type="text" id="tb-trans-inp-5" placeholder="Escreva a pergunta e resposta em inglês...">
+      <span class="exercise-translation" id="tb-trans-5">Dica: Resposta curta no passado usa "didn't".</span>
+      <div class="feedback-msg" id="tb-fb-5"></div>
+    </div>
+
+    <!-- Item 7: translation_challenge 3 -->
+    <div class="tb-item" id="tb-item-6">
+      <p><strong>7. Desafio de Tradução:</strong> "O sino não tocou."</p>
+      <input type="text" id="tb-trans-inp-6" placeholder="Escreva a frase em inglês...">
+      <span class="exercise-translation" id="tb-trans-6">Dica: "Sino" = bell, "Tocar" = ring.</span>
+      <div class="feedback-msg" id="tb-fb-6"></div>
+    </div>
+
+    <button class="tb-btn" onclick="checkTreinoDesbloqueio()">Verificar Treino de Desbloqueio</button>
+  </section>
+
+  <!-- 📚 VOCABULÁRIO NOVO (FLASHCARDS RECALL ATIVO) -->
+  <section class="section-card">
+    <h2 class="section-title">📚 Vocabulário Novo (Active Recall)</h2>
+    <div class="flashcard-counter">Progresso: <span id="fc-count">0</span> de 3 revisadas</div>
+    
+    <div class="flashcards-grid">
+      <!-- Card 1 -->
+      <div class="flashcard" id="fc-0">
+        <div>
+          <div class="flashcard-word">
+            Slow down
+            <button class="audio-btn" onclick="speak('Slow down')">🔊</button>
+          </div>
+          <div class="flashcard-trans" id="fc-trans-0">Desacelerar / Diminuir a velocidade</div>
+        </div>
+        <div id="fc-action-0">
+          <button class="btn-fc btn-fc-reveal" onclick="revealFC(0)">Revelar tradução</button>
+        </div>
+        <div class="flashcard-actions" id="fc-eval-0" style="display: none;">
+          <button class="btn-fc btn-fc-known" onclick="evalFC(0, true)">✅ Eu sabia</button>
+          <button class="btn-fc btn-fc-review" onclick="evalFC(0, false)">🔄 Preciso revisar</button>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="flashcard" id="fc-1">
+        <div>
+          <div class="flashcard-word">
+            Settings
+            <button class="audio-btn" onclick="speak('Settings')">🔊</button>
+          </div>
+          <div class="flashcard-trans" id="fc-trans-1">Configurações / Ajustes</div>
+        </div>
+        <div id="fc-action-1">
+          <button class="btn-fc btn-fc-reveal" onclick="revealFC(1)">Revelar tradução</button>
+        </div>
+        <div class="flashcard-actions" id="fc-eval-1" style="display: none;">
+          <button class="btn-fc btn-fc-known" onclick="evalFC(1, true)">✅ Eu sabia</button>
+          <button class="btn-fc btn-fc-review" onclick="evalFC(1, false)">🔄 Preciso revisar</button>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="flashcard" id="fc-2">
+        <div>
+          <div class="flashcard-word">
+            Umbrella
+            <button class="audio-btn" onclick="speak('Umbrella')">🔊</button>
+          </div>
+          <div class="flashcard-trans" id="fc-trans-2">Guarda-chuva / Sombrinha</div>
+        </div>
+        <div id="fc-action-2">
+          <button class="btn-fc btn-fc-reveal" onclick="revealFC(2)">Revelar tradução</button>
+        </div>
+        <div class="flashcard-actions" id="fc-eval-2" style="display: none;">
+          <button class="btn-fc btn-fc-known" onclick="evalFC(2, true)">✅ Eu sabia</button>
+          <button class="btn-fc btn-fc-review" onclick="evalFC(2, false)">🔄 Preciso revisar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✏️ EXERCÍCIO DE FIXAÇÃO -->
+  <section class="section-card">
+    <h2 class="section-title">✏️ Exercício de Fixação - Vocabulário Recente</h2>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Preencha as lacunas com as palavras corretas da aula anterior:</p>
+
+    <div class="exercise-item" id="fix-item-0">
+      <p>1. Did the church 
+        <select id="fix-sel-0">
+          <option value="">-- selecione --</option>
+          <option value="bell">bell</option>
+          <option value="invitation">invitation</option>
+          <option value="talk">talk</option>
+          <option value="forget">forget</option>
+          <option value="mind">mind</option>
+        </select> 
+        ring at 12 PM?
+        <button class="audio-btn" onclick="speak('Did the church bell ring at 12 PM?')">🔊</button>
+      </p>
+      <span class="exercise-translation">Tradução: O sino da igreja tocou ao meio-dia?</span>
+      <div class="feedback-msg" id="fix-fb-0"></div>
+    </div>
+
+    <div class="exercise-item" id="fix-item-1">
+      <p>2. Would you like to accept the 
+        <select id="fix-sel-1">
+          <option value="">-- selecione --</option>
+          <option value="bell">bell</option>
+          <option value="invitation">invitation</option>
+          <option value="talk">talk</option>
+          <option value="forget">forget</option>
+          <option value="mind">mind</option>
+        </select> 
+        to visit our house?
+        <button class="audio-btn" onclick="speak('Would you like to accept the invitation to visit our house?')">🔊</button>
+      </p>
+      <span class="exercise-translation">Tradução: Você gostaria de aceitar o convite para visitar nossa casa?</span>
+      <div class="feedback-msg" id="fix-fb-1"></div>
+    </div>
+
+    <div class="exercise-item" id="fix-item-2">
+      <p>3. Did you 
+        <select id="fix-sel-2">
+          <option value="">-- selecione --</option>
+          <option value="bell">bell</option>
+          <option value="invitation">invitation</option>
+          <option value="talk">talk</option>
+          <option value="forget">forget</option>
+          <option value="mind">mind</option>
+        </select> 
+        to the teacher at school?
+        <button class="audio-btn" onclick="speak('Did you talk to the teacher at school?')">🔊</button>
+      </p>
+      <span class="exercise-translation">Tradução: Você conversou com a professora na escola?</span>
+      <div class="feedback-msg" id="fix-fb-2"></div>
+    </div>
+
+    <div class="exercise-item" id="fix-item-3">
+      <p>4. Don't 
+        <select id="fix-sel-3">
+          <option value="">-- selecione --</option>
+          <option value="bell">bell</option>
+          <option value="invitation">invitation</option>
+          <option value="talk">talk</option>
+          <option value="forget">forget</option>
+          <option value="mind">mind</option>
+        </select> 
+        your umbrella, it will rain tonight.
+        <button class="audio-btn" onclick="speak('Don\'t forget your umbrella, it will rain tonight.')">🔊</button>
+      </p>
+      <span class="exercise-translation">Tradução: Não esqueça seu guarda-chuva, vai chover hoje à noite.</span>
+      <div class="feedback-msg" id="fix-fb-3"></div>
+    </div>
+
+    <div class="exercise-item" id="fix-item-4">
+      <p>5. Would she 
+        <select id="fix-sel-4">
+          <option value="">-- selecione --</option>
+          <option value="bell">bell</option>
+          <option value="invitation">invitation</option>
+          <option value="talk">talk</option>
+          <option value="forget">forget</option>
+          <option value="mind">mind</option>
+        </select> 
+        if we arrive a few minutes late?
+        <button class="audio-btn" onclick="speak('Would she mind if we arrive a few minutes late?')">🔊</button>
+      </p>
+      <span class="exercise-translation">Tradução: Ela se importaria se chegássemos alguns minutos atrasados?</span>
+      <div class="feedback-msg" id="fix-fb-4"></div>
+    </div>
+
+    <button class="check-btn" onclick="checkFixacao()">Verificar Exercício de Fixação</button>
+  </section>
+
+  <!-- 🔍 GABARITO -->
+  <section class="section-card">
+    <details>
+      <summary>🔍 Gabarito Completo da Aula (Clique para expandir)</summary>
+      <div style="margin-top: 10px; font-size: 0.9rem;">
+        <p><strong>Exercício de Fixação:</strong></p>
+        <ol style="margin-left: 20px;">
+          <li>bell</li>
+          <li>invitation</li>
+          <li>talk</li>
+          <li>forget</li>
+          <li>mind</li>
+        </ol>
+        <p style="margin-top: 10px;"><strong>Treino de Desbloqueio:</strong></p>
+        <ul style="margin-left: 20px;">
+          <li>1) A (didn't)</li>
+          <li>2) didn't</li>
+          <li>3) don't / didn't / won't</li>
+          <li>4) Did it rain? No, it didn't.</li>
+          <li>5) I didn't forget my umbrella.</li>
+          <li>6) Did you talk to him? No, I didn't.</li>
+          <li>7) The bell didn't ring.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- 🎯 HOMEWORK -->
+  <section class="section-card">
+    <h2 class="section-title">🎯 Tarefa de Casa (Homework)</h2>
+    <ul class="homework-list">
+      <li>Estudar as frases no Google Tradutor ativando a opção de <strong>velocidade reduzida (ícone da engrenagem)</strong> para praticar escuta e repetição (shadowing).</li>
+      <li>Repetir em voz alta as respostas curtas e contrações negativas (<em>didn't, won't, wouldn't</em>) para destravar a fala.</li>
+    </ul>
+    <button class="copy-btn" onclick="copyHomeworkSummary()">📋 Copiar Resumo para Estudos</button>
+  </section>
+
+  <script>
+    // --- AUDIO SPEED STATE & SYNTHESIS ---
+    let slowMode = false;
+
+    function toggleAudioSpeed(isSlow) {
+      slowMode = isSlow;
+      document.getElementById('btn-speed-normal').classList.toggle('active', !isSlow);
+      document.getElementById('btn-speed-slow').classList.toggle('active', isSlow);
+    }
+
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'en-GB';
+        utter.rate = slowMode ? 0.75 : 1.0;
+        window.speechSynthesis.speak(utter);
+      } else {
+        alert("Recurso de voz não suportado neste navegador.");
+      }
+    }
+
+    // --- NORMALIZATION HELPER ---
+    function normalizeText(str) {
+      if (!str) return "";
+      return str.toLowerCase()
+        .trim()
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’]/g, "")
+        .replace(/\s+/g, " ");
+    }
+
+    // --- MULTIPLE CHOICE HELPER ---
+    const mcSelections = {};
+    function selectMC(groupId, index, el) {
+      mcSelections[groupId] = index;
+      const parent = document.getElementById(groupId);
+      const btns = parent.getElementsByClassName('mc-btn');
+      for (let btn of btns) {
+        btn.classList.remove('selected');
+      }
+      el.classList.add('selected');
+    }
+
+    // --- TREINO DE DESBLOQUEIO OPTIONS ---
+    const tbOptSelections = {};
+    function selectTbOpt(itemIdx, value, el) {
+      tbOptSelections[itemIdx] = value;
+      const parent = document.getElementById(`tb-opt-grid-${itemIdx}`);
+      const cards = parent.getElementsByClassName('opt-card');
+      for (let c of cards) {
+        c.classList.remove('selected');
+      }
+      el.classList.add('selected');
+    }
+
+    // --- REORDENAR PALAVRAS ---
+    function moveToken(chip) {
+      const pool = document.getElementById('tokens-pool');
+      const constructed = document.getElementById('constructed-area');
+      if (chip.parentElement === pool) {
+        constructed.appendChild(chip);
+      } else {
+        pool.appendChild(chip);
+      }
+    }
+
+    // --- FLASHCARDS LOGIC ---
+    let reviewedCount = 0;
+    const reviewedCards = new Set();
+
+    function revealFC(idx) {
+      document.getElementById(`fc-trans-${idx}`).style.display = 'block';
+      document.getElementById(`fc-action-${idx}`).style.display = 'none';
+      document.getElementById(`fc-eval-${idx}`).style.display = 'flex';
+    }
+
+    function evalFC(idx, isKnown) {
+      const card = document.getElementById(`fc-${idx}`);
+      card.classList.remove('known', 'review');
+      if (isKnown) {
+        card.classList.add('known');
+      } else {
+        card.classList.add('review');
+      }
+      if (!reviewedCards.has(idx)) {
+        reviewedCards.add(idx);
+        reviewedCount++;
+        document.getElementById('fc-count').innerText = reviewedCount;
+      }
+    }
+
+    // --- VERIFICAÇÃO: REVISÃO CUMULATIVA ---
+    function checkRevisaoCumulativa() {
+      // Ex 0: gap_fill ("did")
+      const inp0 = normalizeText(document.getElementById('rc-input-0').value);
+      const item0 = document.getElementById('rc-item-0');
+      const fb0 = document.getElementById('rc-fb-0');
+      if (inp0 === "did") {
+        item0.className = "exercise-item correct";
+        fb0.innerText = "✅ Correto! Perguntas no passado com 'Did' espelham 'did' na resposta curta.";
+      } else {
+        item0.className = "exercise-item incorrect";
+        fb0.innerText = "✅ Resposta correta: did — Perguntas com 'Did' exigem 'did' na resposta afirmativa.";
+      }
+
+      // Ex 1: multiple_choice_simples ("won't" -> index 0)
+      const sel1 = mcSelections['rc-mc-1'];
+      const item1 = document.getElementById('rc-item-1');
+      const fb1 = document.getElementById('rc-fb-1');
+      if (sel1 === 0) {
+        item1.className = "exercise-item correct";
+        fb1.innerText = "✅ Correto! 'Will' no futuro vira 'won't' na negativa.";
+      } else {
+        item1.className = "exercise-item incorrect";
+        fb1.innerText = "✅ Resposta correta: won't — A pergunta usou 'Will' no futuro.";
+      }
+
+      // Ex 2: gap_fill ("didn't")
+      const inp2 = normalizeText(document.getElementById('rc-input-2').value);
+      const item2 = document.getElementById('rc-item-2');
+      const fb2 = document.getElementById('rc-fb-2');
+      if (inp2 === "didnt" || inp2 === "didn t" || inp2 === "did not") {
+        item2.className = "exercise-item correct";
+        fb2.innerText = "✅ Correto! Refere-se a esta manhã (passado), logo usa-se 'didn't'.";
+      } else {
+        item2.className = "exercise-item incorrect";
+        fb2.innerText = "✅ Resposta correta: didn't — Para ações concluídas no passado, use 'didn't'.";
+      }
+
+      // Ex 3: multiple_choice_simples ("doesn't" -> index 0)
+      const sel3 = mcSelections['rc-mc-3'];
+      const item3 = document.getElementById('rc-item-3');
+      const fb3 = document.getElementById('rc-fb-3');
+      if (sel3 === 0) {
+        item3.className = "exercise-item correct";
+        fb3.innerText = "✅ Correto! 'She' no presente habitual exige 'doesn't'.";
+      } else {
+        item3.className = "exercise-item incorrect";
+        fb3.innerText = "✅ Resposta correta: doesn't — Trata-se de um hábito presente para terceira pessoa (she).";
+      }
+    }
+
+    // --- VERIFICAÇÃO: TREINO DE DESBLOQUEIO ---
+    function checkTreinoDesbloqueio() {
+      // Mostrar todas as traduções
+      for (let i = 0; i <= 6; i++) {
+        const tr = document.getElementById(`tb-trans-${i}`);
+        if (tr) tr.style.display = 'block';
+      }
+
+      // Item 0: compare_contrast_implicito (a)
+      const sel0 = tbOptSelections[0];
+      const item0 = document.getElementById('tb-item-0');
+      const fb0 = document.getElementById('tb-fb-0');
+      if (sel0 === 'a') {
+        item0.className = "tb-item tb-correct";
+        fb0.className = "feedback-msg tb-correct-msg";
+        fb0.innerText = "✅ Correto! 'Did' pede 'didn't' na resposta curta.";
+      } else {
+        item0.className = "tb-item tb-incorrect";
+        fb0.className = "feedback-msg tb-incorrect-msg";
+        fb0.innerText = "✅ Resposta correta: A — A pergunta começa com 'Did', exigindo 'didn't', não 'don't'.";
+      }
+
+      // Item 1: multiple_choice_avancado (index 0 -> "didn't")
+      const sel1 = mcSelections['tb-mc-1'];
+      const item1 = document.getElementById('tb-item-1');
+      const fb1 = document.getElementById('tb-fb-1');
+      if (sel1 === 0) {
+        item1.className = "tb-item tb-correct";
+        fb1.className = "feedback-msg tb-correct-msg";
+        fb1.innerText = "✅ Correto! Como a pergunta usou 'Did', a resposta negativa é 'didn't'.";
+      } else {
+        item1.className = "tb-item tb-incorrect";
+        fb1.className = "feedback-msg tb-incorrect-msg";
+        fb1.innerText = "✅ Resposta correta: didn't — Pergunta no passado com 'Did' pede 'didn't'.";
+      }
+
+      // Item 2: dialogo_tempos_mistos
+      const diagAns = ["dont", "didnt", "wont"];
+      const diagFull = ["don't", "didn't", "won't"];
+      for (let l = 0; l < 3; l++) {
+        const inp = normalizeText(document.getElementById(`tb-diag-inp-${l}`).value);
+        const fb = document.getElementById(`tb-diag-fb-${l}`);
+        const tr = document.getElementById(`tb-diag-trans-${l}`);
+        if (tr) tr.style.display = 'block';
+
+        if (inp === diagAns[l] || inp === diagFull[l].replace("'", "")) {
+          fb.className = "feedback-msg tb-correct-msg";
+          fb.innerText = `✅ Linha ${l+1} correta! (${diagFull[l]})`;
+        } else {
+          fb.className = "feedback-msg tb-incorrect-msg";
+          fb.innerText = `✅ Resposta correta para linha ${l+1}: ${diagFull[l]}`;
+        }
+      }
+
+      // Item 3: reordenar_palavras
+      const chips = document.getElementById('constructed-area').getElementsByClassName('token-chip');
+      let currentPhrase = "";
+      for (let c of chips) {
+        currentPhrase += c.innerText + " ";
+      }
+      const normConstructed = normalizeText(currentPhrase);
+      const normTarget = normalizeText("Did it rain? No, it didn't.");
+      const item3 = document.getElementById('tb-item-3');
+      const fb3 = document.getElementById('tb-fb-3');
+      if (normConstructed === normTarget) {
+        item3.className = "tb-item tb-correct";
+        fb3.className = "feedback-msg tb-correct-msg";
+        fb3.innerText = "✅ Perfeito! 'Did it rain? No, it didn't.'";
+      } else {
+        item3.className = "tb-item tb-incorrect";
+        fb3.className = "feedback-msg tb-incorrect-msg";
+        fb3.innerText = "✅ Resposta correta: Did it rain? No, it didn't. — Observe a ordem e o uso do didn't.";
+      }
+
+      // Items 4, 5, 6: translation_challenges
+      checkTranslationItem(4, ["i didnt forget my umbrella", "i did not forget my umbrella"], "I didn't forget my umbrella.");
+      checkTranslationItem(5, ["did you talk to him no i didnt", "did you talk to him no i did not"], "Did you talk to him? No, I didn't.");
+      checkTranslationItem(6, ["the bell didnt ring", "the bell did not ring"], "The bell didn't ring.");
+    }
+
+    function checkTranslationItem(idx, validArray, displayCorrect) {
+      const val = normalizeText(document.getElementById(`tb-trans-inp-${idx}`).value);
+      const item = document.getElementById(`tb-item-${idx}`);
+      const fb = document.getElementById(`tb-fb-${idx}`);
+      const isValid = validArray.some(ans => normalizeText(ans) === val);
+
+      if (isValid) {
+        item.className = "tb-item tb-correct";
+        fb.className = "feedback-msg tb-correct-msg";
+        fb.innerText = "✅ Tradução perfeita!";
+      } else {
+        item.className = "tb-item tb-incorrect";
+        fb.className = "feedback-msg tb-incorrect-msg";
+        fb.innerText = `✅ Resposta correta: ${displayCorrect}`;
+      }
+    }
+
+    // --- VERIFICAÇÃO: EXERCÍCIO DE FIXAÇÃO ---
+    function checkFixacao() {
+      const answers = ["bell", "invitation", "talk", "forget", "mind"];
+      for (let i = 0; i < 5; i++) {
+        const sel = document.getElementById(`fix-sel-${i}`).value;
+        const item = document.getElementById(`fix-item-${i}`);
+        const fb = document.getElementById(`fix-fb-${i}`);
+        
+        // Show hidden translation
+        const trans = item.querySelector('.exercise-translation');
+        if (trans) trans.style.display = 'block';
+
+        if (sel === answers[i]) {
+          item.className = "exercise-item correct";
+          fb.innerText = "✅ Excelente!";
+        } else {
+          item.className = "exercise-item incorrect";
+          fb.innerText = `✅ Resposta correta: ${answers[i]}`;
+        }
+      }
+    }
+
+    // --- COPY SUMMARY ---
+    function copyHomeworkSummary() {
+      const summaryText = `Resumo de Estudos - Lorraine\n\n📌 Regra Foco: Espelhamento no Passado\n• Did you...? No, I didn't. (Nunca use "don't" no passado!)\n\n📚 Vocabulário Novo:\n• Slow down = Desacelerar\n• Settings = Configurações\n• Umbrella = Guarda-chuva\n\n🎯 Tarefa:\nPraticar frases no Google Tradutor com áudio lento (0.75x) e fazer shadowing das respostas curtíssimas!`;
+      navigator.clipboard.writeText(summaryText).then(() => {
+        alert("Resumo copiado para a área de transferência!");
+      });
+    }
+  </script>
+</body>
+</html>
