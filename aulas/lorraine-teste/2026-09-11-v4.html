@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão de Aula - Lorraine Gomes do Carmo</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --error: #dc2626;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      
+      /* Treino de Desbloqueio Palette */
+      --desb-primary: #1E5AA8;
+      --desb-accent: #FF7A00;
+      --desb-correct: #1E5AA8;
+      --desb-incorrect: #C75000;
+      --desb-bg: #FFF8F2;
+      --desb-border: #FFD8B3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 1rem;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .header-card {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-card h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .audio-controls {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      width: fit-content;
+    }
+
+    .toggle-btn {
+      background: white;
+      color: var(--primary);
+      border: none;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn.active {
+      background: #fde047;
+      color: #854d0e;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text);
+    }
+
+    /* Support Box */
+    .motivation-box {
+      background-color: #f0f9ff;
+      border-left: 4px solid #0284c7;
+      padding: 1rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .motivation-box p {
+      margin-bottom: 0.5rem;
+      color: #0369a1;
+      font-size: 0.95rem;
+    }
+
+    .motivation-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Grammar Recap */
+    .grammar-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .grammar-table th, .grammar-table td {
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+    }
+
+    .grammar-table th {
+      background-color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    /* Desbloqueio Section Styling */
+    .desbloqueio-container {
+      background-color: var(--desb-bg);
+      border: 2px solid var(--desb-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .desbloqueio-container .section-title {
+      color: var(--desb-primary);
+    }
+
+    .desb-item-card {
+      background: white;
+      border: 2px solid #FFE4CC;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+      transition: all 0.2s;
+    }
+
+    .desb-item-card.correct {
+      border-color: var(--desb-correct) !important;
+      background-color: #F0F6FF;
+    }
+
+    .desb-item-card.incorrect {
+      border-color: var(--desb-incorrect) !important;
+      background-color: #FFF0F0;
+    }
+
+    .item-prompt {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .translation-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+
+    .btn-audio {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      margin-left: 0.3rem;
+      vertical-align: middle;
+    }
+
+    /* Interactive Inputs */
+    .opt-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.6rem 1rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.15s;
+    }
+
+    .opt-btn:hover {
+      background: #f8fafc;
+    }
+
+    .opt-btn.selected {
+      border-color: var(--desb-primary);
+      background: #e0f2fe;
+      font-weight: 600;
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      margin-top: 0.4rem;
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* Word Order Chips */
+    .chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+      min-height: 40px;
+      padding: 0.5rem;
+      border: 1px dashed var(--border);
+      border-radius: 6px;
+      background: #fafafa;
+    }
+
+    .chip {
+      background: #e2e8f0;
+      padding: 0.4rem 0.8rem;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .chip.used {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .target-chips {
+      background: #ffffff;
+      border: 2px solid var(--desb-primary);
+    }
+
+    /* Flashcards Section */
+    .flashcards-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .flashcards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .flashcard {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 140px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+
+    .flashcard.sabia {
+      border-color: var(--success);
+      background-color: #f0fdf4;
+    }
+
+    .flashcard.revisar {
+      border-color: #eab308;
+      background-color: #fefce8;
+    }
+
+    .flashcard-word {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .flashcard-translation {
+      font-size: 1rem;
+      color: var(--text);
+      margin: 0.5rem 0;
+      font-weight: 500;
+    }
+
+    .btn-reveal {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .eval-btns {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .eval-btn {
+      flex: 1;
+      padding: 0.3rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+    }
+
+    .eval-btn.yes { background-color: var(--success); }
+    .eval-btn.no { background-color: #d97706; }
+
+    /* Buttons & Feedback */
+    .btn-action {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 1rem;
+    }
+
+    .btn-action:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-desb-action {
+      background: var(--desb-primary);
+    }
+    .btn-desb-action:hover {
+      background: #174685;
+    }
+
+    .feedback-box {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .feedback-box.visible {
+      display: block;
+    }
+
+    .exercise-translation {
+      display: none;
+    }
+
+    .exercise-translation.visible {
+      display: block;
+    }
+
+    .send-status {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    /* Fixação Section */
+    .fix-item-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: white;
+    }
+
+    .fix-item-card.correct {
+      border-color: var(--success);
+      background-color: #f0fdf4;
+    }
+
+    .fix-item-card.incorrect {
+      border-color: var(--error);
+      background-color: #fef2f2;
+    }
+
+    select.fix-select {
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      margin: 0 0.3rem;
+    }
+
+    /* Homework */
+    .homework-box {
+      background: #fffbe3;
+      border: 1px solid #fde047;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .homework-box ul {
+      margin-left: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .copy-btn {
+      background: #334155;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      body { padding: 0.5rem; }
+      .header-card, .section-card, .desbloqueio-container { padding: 1rem; }
+      .flashcards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header-card">
+    <h1>Revisão de Aula - Respostas Curtas & Vocabulário</h1>
+    <div class="header-meta">
+      <span>👤 <strong>Aluno:</strong> Lorraine Gomes do Carmo</span>
+      <span>📅 <strong>Data:</strong> 11/09/26</span>
+      <span>🎯 <strong>Nível:</strong> CEFR A1</span>
+    </div>
+    <div class="audio-controls">
+      <span>🔊 Velocidade do Áudio:</span>
+      <button id="slowToggleBtn" class="toggle-btn active" onclick="toggleSlowMode()">0.75x (Lento)</button>
+    </div>
+  </header>
+
+  <!-- Apoio Psicológico -->
+  <div class="motivation-box">
+    <p>💡 <strong>Mensagem para você, Lorraine:</strong></p>
+    <p>Sabemos que a rotina em Londres com o trabalho e os cuidados com a Maria Luisa é intensa e exaustiva. Apesar de você ter sentido insegurança na aula, sua prática mostrou exatamente o oposto: você acertou a grande maioria das respostas e já consegue identificar os auxiliares e vocabulários com clareza sem precisar traduzir palavra por palavra!</p>
+    <p>Não se cobre a perfeição imediata. Erros fazem parte do treino e o seu progresso está acontecendo de verdade. Vamos aos exercícios de hoje com calma e no seu ritmo!</p>
+  </div>
+
+  <!-- Recapitulação Gramatical -->
+  <section class="section-card">
+    <h2 class="section-title">📌 Recapitulação: Espelhamento de Auxiliares</h2>
+    <p>Em inglês, para dar respostas curtas e naturais, você sempre <strong>espelha o verbo auxiliar</strong> que foi usado na pergunta:</p>
+    <table class="grammar-table">
+      <thead>
+        <tr>
+          <th>Tempo Verbal</th>
+          <th>Pergunta</th>
+          <th>Resposta Curta Negativa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Passado</strong></td>
+          <td><strong>Did</strong> you cry?</td>
+          <td>No, I <strong>didn't</strong>.</td>
+        </tr>
+        <tr>
+          <td><strong>Presente (Rotina)</strong></td>
+          <td><strong>Do</strong> you talk to her?</td>
+          <td>No, I <strong>don't</strong>.</td>
+        </tr>
+        <tr>
+          <td><strong>Futuro</strong></td>
+          <td><strong>Will</strong> you accept?</td>
+          <td>No, I <strong>won't</strong>.</td>
+        </tr>
+        <tr>
+          <td><strong>Condicional</strong></td>
+          <td><strong>Would</strong> you mind?</td>
+          <td>No, I <strong>wouldn't</strong>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Treino de Desbloqueio (Ativo) -->
+  <section class="desbloqueio-container" id="sec-desbloqueio">
+    <h2 class="section-title">🎯 Treino de Desbloqueio: Cuidado com o "Don't" no Passado</h2>
+    <p style="font-size: 0.9rem; margin-bottom: 1rem; color: #475569;">
+      Atenção especial: Sob pressão de responder rápido, evite responder "don't" para perguntas no passado. Lembre-se: Pergunta com <strong>Did</strong> ➔ Resposta com <strong>didn't</strong>!
+    </p>
+
+    <!-- Item 1: Compare Contrast -->
+    <div class="desb-item-card" id="desb-item-0">
+      <div class="item-prompt">
+        1. Qual frase responde corretamente à pergunta no passado?
+      </div>
+      <button class="opt-btn" onclick="selectDesbOption(0, 'a', this)">a) Did you accept the invitation? No, I didn't. <button class="btn-audio" onclick="playAudio('Did you accept the invitation? No, I didn\'t.'); event.stopPropagation();">🔊</button></button>
+      <button class="opt-btn" onclick="selectDesbOption(0, 'b', this)">b) Did you accept the invitation? No, I don't. <button class="btn-audio" onclick="playAudio('Did you accept the invitation? No, I don\'t.'); event.stopPropagation();">🔊</button></button>
+      <div class="feedback-box" id="desb-fb-0"></div>
+    </div>
+
+    <!-- Item 2: Multiple Choice -->
+    <div class="desb-item-card" id="desb-item-1">
+      <div class="item-prompt">
+        2. A: Did the bell ring? B: No, it ____. <button class="btn-audio" onclick="playAudio('Did the bell ring? No, it didn\'t.')">🔊</button>
+      </div>
+      <button class="opt-btn" onclick="selectDesbOption(1, 0, this)">a) didn't</button>
+      <button class="opt-btn" onclick="selectDesbOption(1, 1, this)">b) don't</button>
+      <button class="opt-btn" onclick="selectDesbOption(1, 2, this)">c) doesn't</button>
+      <button class="opt-btn" onclick="selectDesbOption(1, 3, this)">d) wasn't</button>
+      <div class="feedback-box" id="desb-fb-1"></div>
+    </div>
+
+    <!-- Item 3: Diálogo Tempos Mistos -->
+    <div class="desb-item-card" id="desb-item-2">
+      <div class="item-prompt">3. Complete as respostas do diálogo conforme o tempo verbal:</div>
+      
+      <div style="margin-bottom: 0.8rem;">
+        <p style="font-size: 0.9rem;">• Do you usually talk to her? <button class="btn-audio" onclick="playAudio('Do you usually talk to her?')">🔊</button></p>
+        <p style="font-size: 0.85rem; color: #64748b;">(Você costuma conversar com ela?)</p>
+        <input type="text" class="text-input" id="dial-0" placeholder="Digite: No, I don't.">
+      </div>
+
+      <div style="margin-bottom: 0.8rem;">
+        <p style="font-size: 0.9rem;">• Did you talk to her about the rain? <button class="btn-audio" onclick="playAudio('Did you talk to her about the rain?')">🔊</button></p>
+        <p style="font-size: 0.85rem; color: #64748b;">(Você conversou com ela sobre a chuva?)</p>
+        <input type="text" class="text-input" id="dial-1" placeholder="Digite: No, I didn't.">
+      </div>
+
+      <div style="margin-bottom: 0.8rem;">
+        <p style="font-size: 0.9rem;">• Will you talk to her tomorrow? <button class="btn-audio" onclick="playAudio('Will you talk to her tomorrow?')">🔊</button></p>
+        <p style="font-size: 0.85rem; color: #64748b;">(Você vai conversar com ela amanhã?)</p>
+        <input type="text" class="text-input" id="dial-2" placeholder="Digite: No, I won't.">
+      </div>
+      <div class="feedback-box" id="desb-fb-2"></div>
+    </div>
+
+    <!-- Item 4: Reordenar Palavras -->
+    <div class="desb-item-card" id="desb-item-3">
+      <div class="item-prompt">4. Monte a frase na ordem correta (clique nas palavras):</div>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">Sua frase:</p>
+      <div class="chips-container target-chips" id="target-chips-3"></div>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">Palavras disponíveis:</p>
+      <div class="chips-container" id="source-chips-3"></div>
+      <div class="feedback-box" id="desb-fb-3"></div>
+    </div>
+
+    <!-- Item 5: Translation Challenge 1 -->
+    <div class="desb-item-card" id="desb-item-4">
+      <div class="item-prompt">5. Traduza para o inglês: "Você chorou? Não, eu não chorei."</div>
+      <input type="text" class="text-input" id="trans-input-4" placeholder="Sua resposta em inglês...">
+      <div class="feedback-box" id="desb-fb-4"></div>
+    </div>
+
+    <!-- Item 6: Translation Challenge 2 -->
+    <div class="desb-item-card" id="desb-item-5">
+      <div class="item-prompt">6. Traduza para o inglês: "Ela aceitou o convite? Não, ela não aceitou."</div>
+      <input type="text" class="text-input" id="trans-input-5" placeholder="Sua resposta em inglês...">
+      <div class="feedback-box" id="desb-fb-5"></div>
+    </div>
+
+    <!-- Item 7: Translation Challenge 3 -->
+    <div class="desb-item-card" id="desb-item-6">
+      <div class="item-prompt">7. Traduza para o inglês: "O sino tocou? Não, não tocou."</div>
+      <input type="text" class="text-input" id="trans-input-6" placeholder="Sua resposta em inglês...">
+      <div class="feedback-box" id="desb-fb-6"></div>
+    </div>
+
+    <button class="btn-action btn-desb-action" onclick="verificarTreinoDesbloqueio()">Verificar Treino de Desbloqueio</button>
+    <div class="send-status" id="send-status-desb"></div>
+  </section>
+
+  <!-- Vocabulário Novo (Flashcards) -->
+  <section class="section-card">
+    <div class="flashcards-header">
+      <h2 class="section-title">📚 Vocabulário Novo (Recall Ativo)</h2>
+      <span id="flashcard-counter" style="font-size: 0.9rem; font-weight: 600; color: var(--primary);">0 de 10 revisadas</span>
+    </div>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+      Tente se lembrar do significado em português antes de clicar em "Revelar Tradução":
+    </p>
+    <div class="flashcards-grid" id="flashcards-grid">
+      <!-- Flashcards renderizados via JS -->
+    </div>
+  </section>
+
+  <!-- Exercício de Fixação -->
+  <section class="section-card" id="sec-fixacao">
+    <h2 class="section-title">✏️ Exercício de Fixação</h2>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+      Escolha o auxiliar correto para completar cada resposta curta baseando-se no vocabulário da aula:
+    </p>
+
+    <!-- Fix 1 -->
+    <div class="fix-item-card" id="fix-item-0">
+      <p class="fix-prompt">
+        1. Did you forget your umbrella? No, I 
+        <select class="fix-select" id="fix-sel-0">
+          <option value="">-- escolha --</option>
+          <option value="don't">don't</option>
+          <option value="didn't">didn't</option>
+          <option value="won't">won't</option>
+        </select>.
+        <button class="btn-audio" onclick="playAudio('Did you forget your umbrella? No, I didn\'t.')">🔊</button>
+      </p>
+      <p class="translation-text exercise-translation">(Você esqueceu seu guarda-chuva? Não, não esqueci.)</p>
+      <div class="feedback-box" id="fix-fb-0"></div>
+    </div>
+
+    <!-- Fix 2 -->
+    <div class="fix-item-card" id="fix-item-1">
+      <p class="fix-prompt">
+        2. Would you mind if it starts to rain? No, I 
+        <select class="fix-select" id="fix-sel-1">
+          <option value="">-- escolha --</option>
+          <option value="wouldn't">wouldn't</option>
+          <option value="didn't">didn't</option>
+          <option value="don't">don't</option>
+        </select>.
+        <button class="btn-audio" onclick="playAudio('Would you mind if it starts to rain? No, I wouldn\'t.')">🔊</button>
+      </p>
+      <p class="translation-text exercise-translation">(Você se importaria se começasse a chover? Não, não me importaria.)</p>
+      <div class="feedback-box" id="fix-fb-1"></div>
+    </div>
+
+    <!-- Fix 3 -->
+    <div class="fix-item-card" id="fix-item-2">
+      <p class="fix-prompt">
+        3. Will she accept the invitation? No, she 
+        <select class="fix-select" id="fix-sel-2">
+          <option value="">-- escolha --</option>
+          <option value="doesn't">doesn't</option>
+          <option value="didn't">didn't</option>
+          <option value="won't">won't</option>
+        </select>.
+        <button class="btn-audio" onclick="playAudio('Will she accept the invitation? No, she won\'t.')">🔊</button>
+      </p>
+      <p class="translation-text exercise-translation">(Ela vai aceitar o convite? Não, ela não vai.)</p>
+      <div class="feedback-box" id="fix-fb-2"></div>
+    </div>
+
+    <!-- Fix 4 -->
+    <div class="fix-item-card" id="fix-item-3">
+      <p class="fix-prompt">
+        4. Do you usually talk to her? No, I 
+        <select class="fix-select" id="fix-sel-3">
+          <option value="">-- escolha --</option>
+          <option value="don't">don't</option>
+          <option value="didn't">didn't</option>
+          <option value="won't">won't</option>
+        </select>.
+        <button class="btn-audio" onclick="playAudio('Do you usually talk to her? No, I don\'t.')">🔊</button>
+      </p>
+      <p class="translation-text exercise-translation">(Você costuma falar com ela? Não, não costumo.)</p>
+      <div class="feedback-box" id="fix-fb-3"></div>
+    </div>
+
+    <button class="btn-action" onclick="verificarFixacao()">Verificar Respostas</button>
+    <div class="send-status" id="send-status-fix"></div>
+  </section>
+
+  <!-- Gabarito -->
+  <section class="section-card" id="sec-gabarito" style="display: none;">
+    <h2 class="section-title">🔍 Gabarito Explicação Detalhada</h2>
+    <div id="gabarito-content"></div>
+  </section>
+
+  <!-- Homework -->
+  <section class="section-card">
+    <h2 class="section-title">🎯 Homework & Próximos Passos</h2>
+    <div class="homework-box">
+      <p><strong>Sua tarefa de casa para praticar:</strong></p>
+      <ul>
+        <li>Treinar a leitura e a escuta das frases deste widget utilizando a velocidade reduzida (0.75x) no botão no topo da página.</li>
+        <li>Repetir em voz alta as frases focando na pronúncia bem articulada do som do <strong>R</strong> e do duplo <strong>C</strong> (palavras: <em>ring</em>, <em>rain</em>, <em>accept</em>).</li>
+        <li>Próxima aula: Transição definitiva para o Módulo 2 do Syllabus (Nouns & Pronouns - Describing Household & Cleaning Supplies).</li>
+      </ul>
+      <button class="copy-btn" onclick="copiarResumo()">📋 Copiar Resumo para o Professor</button>
+      <span id="copy-status" style="font-size: 0.85rem; margin-left: 0.5rem; color: var(--success);"></span>
+    </div>
+  </section>
+
+  <script>
+    // Configurações Globais
+    const META_ENVIO = {"meeting_id": "83913812781", "aluno": "Lorraine Gomes do Carmo", "data_aula": "11/09/26", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+    const VOCABULARIO = [{"palavra": "Cry", "traducao": "Chorar"}, {"palavra": "Talk to", "traducao": "Conversar com / Falar com"}, {"palavra": "Bell", "traducao": "Sino / Campainha"}, {"palavra": "Ring", "traducao": "Tocar (sino, campainha, telefone)"}, {"palavra": "Forget", "traducao": "Esquecer"}, {"palavra": "Rain", "traducao": "Chover / Chuva"}, {"palavra": "Mind", "traducao": "Importar-se / Preocupar-se / Ligar"}, {"palavra": "Accept", "traducao": "Aceitar"}, {"palavra": "Invitation", "traducao": "Convite"}, {"palavra": "Umbrella", "traducao": "Guarda-chuva"}];
+    const DESBLOQUEIO_DATA = {"module_id": "treino_desbloqueio", "erro_alvo": "Uso inercial de 'don't' em vez de 'didn't' em respostas negativas no passado", "nivel_cefr": "A1", "accent": "UK", "items": [{"type": "compare_contrast_implicito", "sentence_a": "Did you accept the invitation? No, I didn't.", "sentence_b": "Did you accept the invitation? No, I don't.", "question_pt": "Qual frase responde corretamente à pergunta no passado?", "correct_answer": "a", "explanation_pt": "Como a pergunta começa com 'Did' (passado), a resposta curta negativa deve usar 'didn't' (No, I didn't). O uso de 'don't' é para o presente."}, {"type": "multiple_choice_avancado", "prompt_en": "A: Did the bell ring? B: No, it ____.", "options": ["didn't", "don't", "doesn't", "wasn't"], "correct_index": 0, "explanation_pt": "Para responder negativamente a uma pergunta feita com o auxiliar no passado 'Did', usamos 'didn't'. 'Don't' e 'doesn't' são para o presente, e 'wasn't' é usado apenas com o verbo 'to be'."}, {"type": "dialogo_tempos_mistos", "linhas": [{"pergunta": "Do you usually talk to her?", "resposta_com_lacuna": "No, I ____.", "resposta_completa": "No, I don't.", "tempo": "presente"}, {"pergunta": "Did you talk to her about the rain?", "resposta_com_lacuna": "No, I ____.", "resposta_completa": "No, I didn't.", "tempo": "passado"}, {"pergunta": "Will you talk to her tomorrow?", "resposta_com_lacuna": "No, I ____.", "resposta_completa": "No, I won't.", "tempo": "futuro"}], "explanation_pt": "Observe a mudança do verbo auxiliar em cada tempo verbal: 'don't' para rotinas (presente), 'didn't' para eventos passados (passado) e 'won't' para o futuro."}, {"type": "reordenar_palavras", "tokens_embaralhados": ["forget", "didn't.", "Did", "umbrella?", "you", "No,", "the", "I"], "frase_correta": "Did you forget the umbrella? No, I didn't.", "explanation_pt": "A estrutura correta de pergunta e resposta curta no passado exige 'Did' no início da pergunta e 'didn't' na resposta negativa."}, {"type": "translation_challenge", "source_text_pt": "Você chorou? Não, eu não chorei.", "correct_answer": ["Did you cry? No, I didn't.", "Did you cry? No, I didn't cry."], "explanation_pt": "No passado, perguntas diretas começam com 'Did' e a resposta negativa usa 'didn't' (e não 'don't')."}, {"type": "translation_challenge", "source_text_pt": "Ela aceitou o convite? Não, ela não aceitou.", "correct_answer": ["Did she accept the invitation? No, she didn't.", "Did she accept the invitation? No, she didn't accept."], "explanation_pt": "Mesmo para a terceira pessoa (she), o passado usa 'didn't' na resposta negativa. Lembre-se de não usar 'don't' nem 'doesn't' para o passado."}, {"type": "translation_challenge", "source_text_pt": "O sino tocou? Não, não tocou.", "correct_answer": ["Did the bell ring? No, it didn't.", "Did the bell ring? No, it didn't ring."], "explanation_pt": "Para coisas/objetos (the bell / it), a resposta negativa no passado é 'No, it didn't'."}]};
+
+    let slowMode = true;
+    let selectedDesbOptions = {};
+    let currentChipsState = {};
+    let flashcardReviewed = new Set();
+
+    // Controle de Velocidade de Áudio
+    function toggleSlowMode() {
+      slowMode = !slowMode;
+      const btn = document.getElementById("slowToggleBtn");
+      if (slowMode) {
+        btn.innerText = "0.75x (Lento)";
+        btn.classList.add("active");
+      } else {
+        btn.innerText = "1.0x (Normal)";
+        btn.classList.remove("active");
+      }
+    }
+
+    function playAudio(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-GB'; // British English
+        utterance.rate = slowMode ? 0.75 : 1.0;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Envio Automático para Apps Script
+    function enviarResultado(secao, acertos, total) {
+      if (!META_ENVIO.apps_script_url) return;
+      const payload = {
+        meeting_id: META_ENVIO.meeting_id,
+        aluno: META_ENVIO.aluno,
+        data_aula: META_ENVIO.data_aula,
+        secao: secao,
+        acertos: acertos,
+        total: total
+      };
+      fetch(META_ENVIO.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      }).catch(() => {});
+    }
+
+    // Normalização para Comparação Estrita de Texto
+    function normalizeText(str) {
+      if (!str) return '';
+      return str
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, ' ')
+        .replace(/[.,?!'"]/g, '');
+    }
+
+    // --- RENDERIZAÇÃO E LÓGICA DO TREINO DE DESBLOQUEIO ---
+    function selectDesbOption(itemIdx, value, element) {
+      selectedDesbOptions[itemIdx] = value;
+      const parent = element.parentElement;
+      const btns = parent.querySelectorAll('.opt-btn');
+      btns.forEach(b => b.classList.remove('selected'));
+      element.classList.add('selected');
+    }
+
+    // Setup Word Reorder
+    function initWordReorder(itemIdx, tokens) {
+      currentChipsState[itemIdx] = {
+        available: [...tokens],
+        selected: []
+      };
+      renderChips(itemIdx);
+    }
+
+    function renderChips(itemIdx) {
+      const sourceContainer = document.getElementById(`source-chips-${itemIdx}`);
+      const targetContainer = document.getElementById(`target-chips-${itemIdx}`);
+      if (!sourceContainer || !targetContainer) return;
+
+      sourceContainer.innerHTML = '';
+      targetContainer.innerHTML = '';
+
+      const state = currentChipsState[itemIdx];
+
+      state.available.forEach((token, idx) => {
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.innerText = token;
+        chip.onclick = () => {
+          state.selected.push(token);
+          state.available.splice(idx, 1);
+          renderChips(itemIdx);
+        };
+        sourceContainer.appendChild(chip);
+      });
+
+      state.selected.forEach((token, idx) => {
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.innerText = token;
+        chip.onclick = () => {
+          state.available.push(token);
+          state.selected.splice(idx, 1);
+          renderChips(itemIdx);
+        };
+        targetContainer.appendChild(chip);
+      });
+    }
+
+    function verificarTreinoDesbloqueio() {
+      let acertos = 0;
+      const total = DESBLOQUEIO_DATA.items.length;
+
+      DESBLOQUEIO_DATA.items.forEach((item, idx) => {
+        const card = document.getElementById(`desb-item-${idx}`);
+        const fb = document.getElementById(`desb-fb-${idx}`);
+        let isCorrect = false;
+        let correctTextShow = "";
+
+        if (item.type === 'compare_contrast_implicito') {
+          const userSel = selectedDesbOptions[idx];
+          isCorrect = (userSel === item.correct_answer);
+          correctTextShow = item.correct_answer === 'a' ? item.sentence_a : item.sentence_b;
+        } 
+        else if (item.type === 'multiple_choice_avancado') {
+          const userSel = selectedDesbOptions[idx];
+          isCorrect = (userSel === item.correct_index);
+          correctTextShow = item.options[item.correct_index];
+        } 
+        else if (item.type === 'dialogo_tempos_mistos') {
+          let line1 = normalizeText(document.getElementById('dial-0').value);
+          let line2 = normalizeText(document.getElementById('dial-1').value);
+          let line3 = normalizeText(document.getElementById('dial-2').value);
+
+          let c1 = line1 === normalizeText(item.linhas[0].resposta_completa) || line1 === "no i dont";
+          let c2 = line2 === normalizeText(item.linhas[1].resposta_completa) || line2 === "no i didnt";
+          let c3 = line3 === normalizeText(item.linhas[2].resposta_completa) || line3 === "no i wont";
+
+          isCorrect = c1 && c2 && c3;
+          correctTextShow = item.linhas.map(l => l.resposta_completa).join(" | ");
+        } 
+        else if (item.type === 'reordenar_palavras') {
+          const userPhrase = (currentChipsState[idx]?.selected || []).join(' ');
+          isCorrect = normalizeText(userPhrase) === normalizeText(item.frase_correta);
+          correctTextShow = item.frase_correta;
+        } 
+        else if (item.type === 'translation_challenge') {
+          const userVal = normalizeText(document.getElementById(`trans-input-${idx}`).value);
+          const accepted = Array.isArray(item.correct_answer) 
+            ? item.correct_answer.map(a => normalizeText(a)) 
+            : [normalizeText(item.correct_answer)];
+          
+          isCorrect = accepted.includes(userVal);
+          correctTextShow = Array.isArray(item.correct_answer) ? item.correct_answer[0] : item.correct_answer;
+        }
+
+        // Visual Feedback
+        fb.classList.add('visible');
+        if (isCorrect) {
+          acertos++;
+          card.className = 'desb-item-card correct';
+          fb.style.color = 'var(--desb-correct)';
+          fb.innerHTML = `<strong>✨ Correto!</strong> ${item.explanation_pt}`;
+        } else {
+          card.className = 'desb-item-card incorrect';
+          fb.style.color = 'var(--desb-incorrect)';
+          fb.innerHTML = `<strong>⚠️ Resposta Incorreta.</strong><br>✅ Resposta correta: <em>${correctTextShow}</em><br>💡 ${item.explanation_pt}`;
+        }
+      });
+
+      // Envio de Resultado
+      enviarResultado("Treino de Desbloqueio", acertos, total);
+      document.getElementById('send-status-desb').innerText = `📤 Resultado enviado ao professor (${acertos}/${total} acertos).`;
+    }
+
+    // --- RENDERIZAÇÃO FLASHCARDS VOCABULÁRIO ---
+    function renderFlashcards() {
+      const container = document.getElementById('flashcards-grid');
+      container.innerHTML = '';
+
+      VOCABULARIO.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'flashcard';
+        card.id = `flashcard-${idx}`;
+
+        card.innerHTML = `
+          <div>
+            <div class="flashcard-word">
+              ${item.palavra} 
+              <button class="btn-audio" onclick="playAudio('${item.palavra}')">🔊</button>
+            </div>
+            <div class="flashcard-translation" id="ft-trans-${idx}" style="visibility: hidden;">
+              ${item.traducao}
+            </div>
+          </div>
+          <div>
+            <button class="btn-reveal" id="ft-rev-${idx}" onclick="revealFlashcard(${idx})">Revelar Tradução</button>
+            <div class="eval-btns" id="ft-eval-${idx}" style="display: none;">
+              <button class="eval-btn yes" onclick="evalFlashcard(${idx}, 'sabia')">✅ Eu sabia</button>
+              <button class="eval-btn no" onclick="evalFlashcard(${idx}, 'revisar')">🔄 Preciso revisar</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function revealFlashcard(idx) {
+      document.getElementById(`ft-trans-${idx}`).style.visibility = 'visible';
+      document.getElementById(`ft-rev-${idx}`).style.display = 'none';
+      document.getElementById(`ft-eval-${idx}`).style.display = 'flex';
+    }
+
+    function evalFlashcard(idx, status) {
+      const card = document.getElementById(`flashcard-${idx}`);
+      card.className = `flashcard ${status}`;
+      flashcardReviewed.add(idx);
+      document.getElementById('flashcard-counter').innerText = `${flashcardReviewed.size} de ${VOCABULARIO.length} revisadas`;
+    }
+
+    // --- EXERCÍCIO DE FIXAÇÃO ---
+    function verificarFixacao() {
+      const gabaData = [
+        { sel: "fix-sel-0", correct: "didn't", item: "fix-item-0", fb: "fix-fb-0", exp: "Pergunta com 'Did' (passado) exige resposta com 'didn't'." },
+        { sel: "fix-sel-1", correct: "wouldn't", item: "fix-item-1", fb: "fix-fb-1", exp: "Pergunta com 'Would' exige resposta com 'wouldn't'." },
+        { sel: "fix-sel-2", correct: "won't", item: "fix-item-2", fb: "fix-fb-2", exp: "Pergunta com 'Will' (futuro) exige resposta com 'won't'." },
+        { sel: "fix-sel-3", correct: "don't", item: "fix-item-3", fb: "fix-fb-3", exp: "Pergunta no presente ('Do you...') exige resposta com 'don't'." }
+      ];
+
+      let acertos = 0;
+
+      // Revelar traduções ocultas
+      document.querySelectorAll('.exercise-translation').forEach(el => el.classList.add('visible'));
+
+      gabaData.forEach((data, idx) => {
+        const val = document.getElementById(data.sel).value;
+        const card = document.getElementById(data.item);
+        const fb = document.getElementById(data.fb);
+
+        fb.classList.add('visible');
+
+        if (val === data.correct) {
+          acertos++;
+          card.className = 'fix-item-card correct';
+          fb.style.color = 'var(--success)';
+          fb.innerHTML = `<strong>✨ Correto!</strong> ${data.exp}`;
+        } else {
+          card.className = 'fix-item-card incorrect';
+          fb.style.color = 'var(--error)';
+          fb.innerHTML = `<strong>⚠️ Incorreto.</strong> ✅ Resposta correta: <strong>${data.correct}</strong> — ${data.exp}`;
+        }
+      });
+
+      enviarResultado("Exercício de Fixação", acertos, gabaData.length);
+      document.getElementById('send-status-fix').innerText = `📤 Resultado enviado ao professor (${acertos}/${gabaData.length} acertos).`;
+
+      // Mostrar Gabarito Resumido no final
+      document.getElementById('sec-gabarito').style.display = 'block';
+      document.getElementById('gabarito-content').innerHTML = `
+        <p style="font-size: 0.95rem;">Você acertou <strong>${acertos} de ${gabaData.length}</strong> no Exercício de Fixação.</p>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">
+          Lembre-se sempre de ouvir a palavra inicial da pergunta (Did, Do, Will, Would) e replicá-la imediatamente na resposta!
+        </p>
+      `;
+    }
+
+    function copiarResumo() {
+      const texto = `Olá professor! Concluí a revisão da aula de Respostas Curtas (11/09/26).\nTreinei os flashcards de vocabulário e os exercícios de espelhamento de auxiliares!`;
+      navigator.clipboard.writeText(texto).then(() => {
+        document.getElementById('copy-status').innerText = '✓ Copiado com sucesso!';
+        setTimeout(() => { document.getElementById('copy-status').innerText = ''; }, 3000);
+      });
+    }
+
+    // Inicialização do Canvas
+    window.onload = function() {
+      renderFlashcards();
+      // Inicializar chip reorder item idx 3
+      const reorderToken = DESBLOQUEIO_DATA.items.find(i => i.type === 'reordenar_palavras');
+      if (reorderToken) {
+        initWordReorder(3, reorderToken.tokens_embaralhados);
+      }
+    };
+  </script>
+</body>
+</html>
