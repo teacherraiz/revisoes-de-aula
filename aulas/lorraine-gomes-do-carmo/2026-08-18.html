@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão de Aula - Lorraine Gomes do Carmo</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+
+      /* Treino de Desbloqueio Scoped Palette */
+      --td-blue: #1E5AA8;
+      --td-orange: #FF7A00;
+      --td-orange-hover: #e06b00;
+      --td-bg: #fffbf7;
+      --td-correct: #1E5AA8;
+      --td-incorrect: #C75000;
+      --td-incorrect-bg: #fff5ed;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px 12px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .user-info h1 {
+      font-size: 1.4rem;
+      color: var(--text);
+    }
+
+    .user-info p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-toggle {
+      background: #eff6ff;
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .btn-toggle:hover {
+      background: #dbeafe;
+    }
+
+    /* Section Commons */
+    section {
+      background: var(--card);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 24px;
+    }
+
+    section h2 {
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Psychological Support Box */
+    .motivation-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+      border-left: 4px solid var(--primary);
+    }
+
+    .motivation-box p {
+      color: #1e3a8a;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    .motivation-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Grammar Recap */
+    .grammar-recap {
+      border-left: 4px solid #8b5cf6;
+    }
+
+    .grammar-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+
+    .grammar-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    .grammar-table th, .grammar-table td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .grammar-table th {
+      background: #f1f5f9;
+    }
+
+    /* Treino de Desbloqueio (Scoped) */
+    .td-section {
+      background: var(--td-bg);
+      border: 2px solid var(--td-blue);
+    }
+
+    .td-section h2 {
+      color: var(--td-blue);
+    }
+
+    .td-target-badge {
+      background: #fff3e6;
+      border: 1px solid var(--td-orange);
+      color: var(--td-incorrect);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .td-item {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .td-item.correct {
+      border-color: var(--td-correct) !important;
+      background-color: #f0f7ff;
+    }
+
+    .td-item.incorrect {
+      border-color: var(--td-incorrect) !important;
+      background-color: var(--td-incorrect-bg);
+    }
+
+    /* Option buttons for Compare & Contrast */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .option-btn {
+      background: #f8fafc;
+      border: 2px solid var(--border);
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .option-btn:hover {
+      border-color: var(--td-blue);
+    }
+
+    .option-btn.selected {
+      border-color: var(--td-blue);
+      background: #eef6ff;
+      font-weight: 600;
+    }
+
+    /* Dialogue Line */
+    .dialogue-line {
+      margin-bottom: 12px;
+    }
+
+    .dialogue-speaker {
+      font-weight: 600;
+      color: var(--td-blue);
+      margin-bottom: 4px;
+    }
+
+    /* Word Reorder Tokens */
+    .tokens-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+      min-height: 44px;
+      padding: 8px;
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+
+    .token-chip {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 500;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .token-chip:hover {
+      background: #e2e8f0;
+    }
+
+    .constructed-sentence {
+      min-height: 48px;
+      border: 2px dashed var(--td-blue);
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      background: #ffffff;
+    }
+
+    /* Text Inputs */
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      margin-top: 6px;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--td-blue);
+    }
+
+    /* Feedback inline */
+    .item-feedback {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .td-item.correct .item-feedback {
+      display: block;
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
+    .td-item.incorrect .item-feedback {
+      display: block;
+      background: #fff1f2;
+      color: #9f1239;
+      border: 1px solid #fecdd3;
+    }
+
+    /* Vocab Flashcards */
+    .vocab-tracker {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .flashcards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .flashcard {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 160px;
+      transition: all 0.2s;
+    }
+
+    .flashcard.sabia {
+      border-color: var(--success) !important;
+      background: var(--success-bg);
+    }
+
+    .flashcard.revisar {
+      border-color: var(--td-orange) !important;
+      background: #fffcf5;
+    }
+
+    .flashcard-front {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .flashcard-word {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .btn-audio {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 50%;
+    }
+
+    .btn-audio:hover {
+      background: #f1f5f9;
+    }
+
+    .flashcard-back {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: none;
+      font-weight: 500;
+    }
+
+    .flashcard-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-reveal {
+      width: 100%;
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .btn-reveal:hover {
+      background: #e2e8f0;
+    }
+
+    .eval-btns {
+      display: none;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .btn-eval {
+      flex: 1;
+      padding: 6px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-eval-sabia {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .btn-eval-revisar {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    /* Exercício de Fixação */
+    .fixation-item {
+      background: #f8fafc;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .fixation-item.correct {
+      border-color: var(--success);
+      background: var(--success-bg);
+    }
+
+    .fixation-item.incorrect {
+      border-color: var(--error);
+      background: var(--error-bg);
+    }
+
+    .fixation-sentence {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    select.fixation-select {
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background: #ffffff;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .exercise-translation {
+      display: none;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    /* Primary Action Buttons */
+    .btn-submit {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 12px;
+      transition: background 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-submit-td {
+      background: var(--td-orange);
+    }
+
+    .btn-submit-td:hover {
+      background: var(--td-orange-hover);
+    }
+
+    .submission-toast {
+      display: none;
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Homework Section */
+    .homework-box {
+      border-left: 4px solid var(--success);
+    }
+
+    .homework-list {
+      list-style-type: square;
+      padding-left: 20px;
+      margin-top: 10px;
+      font-size: 0.95rem;
+    }
+
+    .homework-list li {
+      margin-bottom: 8px;
+    }
+
+    .btn-copy {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-top: 12px;
+    }
+
+    .btn-copy:hover {
+      background: #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="user-info">
+      <h1>👋 Olá, Lorraine Gomes do Carmo!</h1>
+      <p>Nível A1 • Aula de Diagnóstico • Data: 18/08/26</p>
+    </div>
+    <div class="audio-controls">
+      <button class="btn-toggle" id="speed-btn" onclick="toggleSpeed()">⚡ Velocidade: 1.0x</button>
+    </div>
+  </header>
+
+  <!-- Psychological Support Box -->
+  <section class="motivation-box">
+    <h2>💙 Mente Aberta &amp; Sem Medo de Errar</h2>
+    <p>Lorraine, parabéns pela sua dedicação! Morar em Londres e cuidar da sua rotina com a Maria Luisa é um grande passo. Lembre-se: <strong>abraçar o caos e errar faz parte do aprendizado!</strong></p>
+    <p>Esqueça a perfeição. Nosso objetivo é a comunicação prática do dia a dia na escola, no supermercado e na comunidade. Pequenos passos diários de 15 minutos constroem a sua fluência!</p>
+  </section>
+
+  <!-- Grammar Recap -->
+  <section class="grammar-recap">
+    <h2>📖 Recapitulação: Verbo "To Be" no Presente</h2>
+    <p>Para falar sobre quem somos, nossa profissão ou onde estamos, o verbo <strong>to be</strong> (ser/estar) muda de forma conforme a pessoa:</p>
+    
+    <div class="grammar-card">
+      <table class="grammar-table">
+        <thead>
+          <tr>
+            <th>Pessoa</th>
+            <th>Verbo</th>
+            <th>Exemplo em Inglês</th>
+            <th>Tradução</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>I</strong> (Eu)</td>
+            <td><strong>am</strong></td>
+            <td>I am at church. <button class="btn-audio" onclick="speak('I am at church.')">🔊</button></td>
+            <td>Eu estou na igreja.</td>
+          </tr>
+          <tr>
+            <td><strong>He / She / It</strong> (Ele/Ela)</td>
+            <td><strong>is</strong></td>
+            <td>She is a housekeeper. <button class="btn-audio" onclick="speak('She is a housekeeper.')">🔊</button></td>
+            <td>Ela é governanta.</td>
+          </tr>
+          <tr>
+            <td><strong>You / We / They</strong></td>
+            <td><strong>are</strong></td>
+            <td>We are in London. <button class="btn-audio" onclick="speak('We are in London.')">🔊</button></td>
+            <td>Nós estamos em Londres.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">
+        ⚠️ <em>Atenção:</em> Nunca diga "My job <s>be</s> housekeeper". Use sempre a forma conjugada: "My job <strong>is</strong> housekeeper" ou "I <strong>am</strong> a housekeeper".
+      </p>
+    </div>
+  </section>
+
+  <!-- Treino de Desbloqueio -->
+  <section class="td-section">
+    <h2>🎯 Treino de Desbloqueio</h2>
+    <div class="td-target-badge">
+      🎯 Foco de Correção: Conjugação do Verbo To Be (Ex: evitar "My job be...")
+    </div>
+
+    <!-- Item 1: Compare & Contrast -->
+    <div class="td-item" id="td-item-1">
+      <p><strong>1. Compare e escolha a opção correta:</strong></p>
+      <p style="font-size: 0.9rem; margin-top: 4px;">Qual frase descreve a profissão da madrasta de forma gramaticalmente correta?</p>
+      <div class="options-grid">
+        <button class="option-btn" onclick="selectCompare('a')">
+          <strong>A)</strong> My stepmother is a housekeeper.
+          <button class="btn-audio" onclick="event.stopPropagation(); speak('My stepmother is a housekeeper.')">🔊</button>
+        </button>
+        <button class="option-btn" onclick="selectCompare('b')">
+          <strong>B)</strong> My stepmother be a housekeeper.
+          <button class="btn-audio" onclick="event.stopPropagation(); speak('My stepmother be a housekeeper.')">🔊</button>
+        </button>
+      </div>
+      <div class="item-feedback" id="td-feedback-1"></div>
+    </div>
+
+    <!-- Item 2: Multiple Choice -->
+    <div class="td-item" id="td-item-2">
+      <p><strong>2. Preencha a lacuna com a opção correta:</strong></p>
+      <p style="font-size: 1rem; margin: 8px 0;">"My daily routine ____ very simple."</p>
+      <div class="options-grid">
+        <button class="option-btn" onclick="selectMC(0)">A) is</button>
+        <button class="option-btn" onclick="selectMC(1)">B) be</button>
+        <button class="option-btn" onclick="selectMC(2)">C) are</button>
+        <button class="option-btn" onclick="selectMC(3)">D) am</button>
+      </div>
+      <div class="item-feedback" id="td-feedback-2"></div>
+    </div>
+
+    <!-- Item 3: Dialogue Mixed Tenses -->
+    <div class="td-item" id="td-item-3">
+      <p><strong>3. Complete o diálogo com as respostas curtas corretas:</strong></p>
+      
+      <div class="dialogue-line" style="margin-top: 10px;">
+        <p class="dialogue-speaker">A: Are you a housekeeper? <button class="btn-audio" onclick="speak('Are you a housekeeper?')">🔊</button></p>
+        <p>B: Yes, I <input type="text" id="td-dial-1" placeholder="Digite sua resposta em inglês..." style="width: 140px; display: inline-block;">.</p>
+      </div>
+
+      <div class="dialogue-line">
+        <p class="dialogue-speaker">A: Were you at the church yesterday? <button class="btn-audio" onclick="speak('Were you at the church yesterday?')">🔊</button></p>
+        <p>B: No, I <input type="text" id="td-dial-2" placeholder="Digite sua resposta em inglês..." style="width: 140px; display: inline-block;">.</p>
+      </div>
+
+      <div class="dialogue-line">
+        <p class="dialogue-speaker">A: Will you be at the shopping mall tomorrow? <button class="btn-audio" onclick="speak('Will you be at the shopping mall tomorrow?')">🔊</button></p>
+        <p>B: Yes, I <input type="text" id="td-dial-3" placeholder="Digite sua resposta em inglês..." style="width: 140px; display: inline-block;">.</p>
+      </div>
+
+      <div class="item-feedback" id="td-feedback-3"></div>
+    </div>
+
+    <!-- Item 4: Reorder Words -->
+    <div class="td-item" id="td-item-4">
+      <p><strong>4. Clique nas palavras na ordem correta para formar a frase:</strong></p>
+      <div class="tokens-container" id="tokens-pool"></div>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">Sua frase montada:</p>
+      <div class="constructed-sentence" id="tokens-constructed"></div>
+      <div class="item-feedback" id="td-feedback-4"></div>
+    </div>
+
+    <!-- Item 5: Translation Challenge 1 -->
+    <div class="td-item" id="td-item-5">
+      <p><strong>5. Traduza para o inglês:</strong> "A minha madrasta é governanta."</p>
+      <input type="text" id="td-trans-1" placeholder="Type in English...">
+      <div class="item-feedback" id="td-feedback-5"></div>
+    </div>
+
+    <!-- Item 6: Translation Challenge 2 -->
+    <div class="td-item" id="td-item-6">
+      <p><strong>6. Traduza para o inglês:</strong> "A rotina dela é boa."</p>
+      <input type="text" id="td-trans-2" placeholder="Type in English...">
+      <div class="item-feedback" id="td-feedback-6"></div>
+    </div>
+
+    <!-- Item 7: Translation Challenge 3 -->
+    <div class="td-item" id="td-item-7">
+      <p><strong>7. Traduza para o inglês:</strong> "Eu estou na igreja e ela está no shopping center."</p>
+      <input type="text" id="td-trans-3" placeholder="Type in English...">
+      <div class="item-feedback" id="td-feedback-7"></div>
+    </div>
+
+    <button class="btn-submit btn-submit-td" onclick="verificarTreinoDesbloqueio()">Verificar Treino de Desbloqueio</button>
+    <div class="submission-toast" id="toast-td">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- Vocabulário Novo Flashcards -->
+  <section class="vocab-section">
+    <h2>📚 Vocabulário Novo (Recall Ativo)</h2>
+    <p class="vocab-tracker" id="vocab-tracker">0 de 6 revisadas</p>
+
+    <div class="flashcards-grid">
+      <!-- Card 1 -->
+      <div class="flashcard" id="card-0">
+        <div>
+          <div class="flashcard-front">
+            <span class="flashcard-word">housekeeper</span>
+            <button class="btn-audio" onclick="speak('housekeeper')">🔊</button>
+          </div>
+          <div class="flashcard-back" id="card-back-0">arrumadeira / governanta</div>
+        </div>
+        <div>
+          <button class="btn-reveal" id="btn-reveal-0" onclick="revelarCard(0)">Revelar tradução</button>
+          <div class="eval-btns" id="eval-btns-0">
+            <button class="btn-eval btn-eval-sabia" onclick="avaliarCard(0, 'sabia')">✅ Eu sabia</button>
+            <button class="btn-eval btn-eval-revisar" onclick="avaliarCard(0, 'revisar')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="flashcard" id="card-1">
+        <div>
+          <div class="flashcard-front">
+            <span class="flashcard-word">habits</span>
+            <button class="btn-audio" onclick="speak('habits')">🔊</button>
+          </div>
+          <div class="flashcard-back" id="card-back-1">hábitos / rotina</div>
+        </div>
+        <div>
+          <button class="btn-reveal" id="btn-reveal-1" onclick="revelarCard(1)">Revelar tradução</button>
+          <div class="eval-btns" id="eval-btns-1">
+            <button class="btn-eval btn-eval-sabia" onclick="avaliarCard(1, 'sabia')">✅ Eu sabia</button>
+            <button class="btn-eval btn-eval-revisar" onclick="avaliarCard(1, 'revisar')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="flashcard" id="card-2">
+        <div>
+          <div class="flashcard-front">
+            <span class="flashcard-word">church</span>
+            <button class="btn-audio" onclick="speak('church')">🔊</button>
+          </div>
+          <div class="flashcard-back" id="card-back-2">igreja</div>
+        </div>
+        <div>
+          <button class="btn-reveal" id="btn-reveal-2" onclick="revelarCard(2)">Revelar tradução</button>
+          <div class="eval-btns" id="eval-btns-2">
+            <button class="btn-eval btn-eval-sabia" onclick="avaliarCard(2, 'sabia')">✅ Eu sabia</button>
+            <button class="btn-eval btn-eval-revisar" onclick="avaliarCard(2, 'revisar')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="flashcard" id="card-3">
+        <div>
+          <div class="flashcard-front">
+            <span class="flashcard-word">stepmother</span>
+            <button class="btn-audio" onclick="speak('stepmother')">🔊</button>
+          </div>
+          <div class="flashcard-back" id="card-back-3">madrasta</div>
+        </div>
+        <div>
+          <button class="btn-reveal" id="btn-reveal-3" onclick="revelarCard(3)">Revelar tradução</button>
+          <div class="eval-btns" id="eval-btns-3">
+            <button class="btn-eval btn-eval-sabia" onclick="avaliarCard(3, 'sabia')">✅ Eu sabia</button>
+            <button class="btn-eval btn-eval-revisar" onclick="avaliarCard(3, 'revisar')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="flashcard" id="card-4">
+        <div>
+          <div class="flashcard-front">
+            <span class="flashcard-word">routine</span>
+            <button class="btn-audio" onclick="speak('routine')">🔊</button>
+          </div>
+          <div class="flashcard-back" id="card-back-4">rotina</div>
+        </div>
+        <div>
+          <button class="btn-reveal" id="btn-reveal-4" onclick="revelarCard(4)">Revelar tradução</button>
+          <div class="eval-btns" id="eval-btns-4">
+            <button class="btn-eval btn-eval-sabia" onclick="avaliarCard(4, 'sabia')">✅ Eu sabia</button>
+            <button class="btn-eval btn-eval-revisar" onclick="avaliarCard(4, 'revisar')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="flashcard" id="card-5">
+        <div>
+          <div class="flashcard-front">
+            <span class="flashcard-word">shopping mall</span>
+            <button class="btn-audio" onclick="speak('shopping mall')">🔊</button>
+          </div>
+          <div class="flashcard-back" id="card-back-5">shopping center</div>
+        </div>
+        <div>
+          <button class="btn-reveal" id="btn-reveal-5" onclick="revelarCard(5)">Revelar tradução</button>
+          <div class="eval-btns" id="eval-btns-5">
+            <button class="btn-eval btn-eval-sabia" onclick="avaliarCard(5, 'sabia')">✅ Eu sabia</button>
+            <button class="btn-eval btn-eval-revisar" onclick="avaliarCard(5, 'revisar')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exercício de Fixação -->
+  <section class="fixation-section">
+    <h2>✏️ Exercício de Fixação</h2>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+      Selecione a palavra do vocabulário que melhor completa cada frase:
+    </p>
+
+    <!-- Item 1 -->
+    <div class="fixation-item" id="fix-item-0">
+      <div class="fixation-sentence">
+        <span>1. My</span>
+        <select class="fixation-select" id="fix-select-0">
+          <option value="" disabled selected>-- Selecione --</option>
+          <option value="housekeeper">housekeeper</option>
+          <option value="habits">habits</option>
+          <option value="church">church</option>
+          <option value="stepmother">stepmother</option>
+          <option value="routine">routine</option>
+          <option value="shopping mall">shopping mall</option>
+        </select>
+        <span>is very kind and helps my family in London.</span>
+        <button class="btn-audio" onclick="speak('My stepmother is very kind and helps my family in London.')">🔊</button>
+      </div>
+      <div class="exercise-translation" id="fix-trans-0">Minha madrasta é muito gentil e ajuda minha família em Londres.</div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="fixation-item" id="fix-item-1">
+      <div class="fixation-sentence">
+        <span>2. She works as a</span>
+        <select class="fixation-select" id="fix-select-1">
+          <option value="" disabled selected>-- Selecione --</option>
+          <option value="housekeeper">housekeeper</option>
+          <option value="habits">habits</option>
+          <option value="church">church</option>
+          <option value="stepmother">stepmother</option>
+          <option value="routine">routine</option>
+          <option value="shopping mall">shopping mall</option>
+        </select>
+        <span>in a big house.</span>
+        <button class="btn-audio" onclick="speak('She works as a housekeeper in a big house.')">🔊</button>
+      </div>
+      <div class="exercise-translation" id="fix-trans-1">Ela trabalha como governanta/arrumadeira em uma casa grande.</div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="fixation-item" id="fix-item-2">
+      <div class="fixation-sentence">
+        <span>3. My daily</span>
+        <select class="fixation-select" id="fix-select-2">
+          <option value="" disabled selected>-- Selecione --</option>
+          <option value="housekeeper">housekeeper</option>
+          <option value="habits">habits</option>
+          <option value="church">church</option>
+          <option value="stepmother">stepmother</option>
+          <option value="routine">routine</option>
+          <option value="shopping mall">shopping mall</option>
+        </select>
+        <span>includes taking my daughter Maria Luisa to school.</span>
+        <button class="btn-audio" onclick="speak('My daily routine includes taking my daughter Maria Luisa to school.')">🔊</button>
+      </div>
+      <div class="exercise-translation" id="fix-trans-2">Minha rotina diária inclui levar minha filha Maria Luisa para a escola.</div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="fixation-item" id="fix-item-3">
+      <div class="fixation-sentence">
+        <span>4. On Sundays, we go to</span>
+        <select class="fixation-select" id="fix-select-3">
+          <option value="" disabled selected>-- Selecione --</option>
+          <option value="housekeeper">housekeeper</option>
+          <option value="habits">habits</option>
+          <option value="church">church</option>
+          <option value="stepmother">stepmother</option>
+          <option value="routine">routine</option>
+          <option value="shopping mall">shopping mall</option>
+        </select>
+        <span>together.</span>
+        <button class="btn-audio" onclick="speak('On Sundays, we go to church together.')">🔊</button>
+      </div>
+      <div class="exercise-translation" id="fix-trans-3">Aos domingos, nós vamos à igreja juntas.</div>
+    </div>
+
+    <!-- Item 5 -->
+    <div class="fixation-item" id="fix-item-4">
+      <div class="fixation-sentence">
+        <span>5. We love shopping for clothes at the</span>
+        <select class="fixation-select" id="fix-select-4">
+          <option value="" disabled selected>-- Selecione --</option>
+          <option value="housekeeper">housekeeper</option>
+          <option value="habits">habits</option>
+          <option value="church">church</option>
+          <option value="stepmother">stepmother</option>
+          <option value="routine">routine</option>
+          <option value="shopping mall">shopping mall</option>
+        </select>
+        <span>on weekends.</span>
+        <button class="btn-audio" onclick="speak('We love shopping for clothes at the shopping mall on weekends.')">🔊</button>
+      </div>
+      <div class="exercise-translation" id="fix-trans-4">Nós amamos comprar roupas no shopping center nos finais de semana.</div>
+    </div>
+
+    <!-- Item 6 -->
+    <div class="fixation-item" id="fix-item-5">
+      <div class="fixation-sentence">
+        <span>6. Drinking water and taking walks are good healthy</span>
+        <select class="fixation-select" id="fix-select-5">
+          <option value="" disabled selected>-- Selecione --</option>
+          <option value="housekeeper">housekeeper</option>
+          <option value="habits">habits</option>
+          <option value="church">church</option>
+          <option value="stepmother">stepmother</option>
+          <option value="routine">routine</option>
+          <option value="shopping mall">shopping mall</option>
+        </select>
+        <span>.</span>
+        <button class="btn-audio" onclick="speak('Drinking water and taking walks are good healthy habits.')">🔊</button>
+      </div>
+      <div class="exercise-translation" id="fix-trans-5">Beber água e fazer caminhadas são bons hábitos saudáveis.</div>
+    </div>
+
+    <button class="btn-submit" onclick="verificarFixacao()">Verificar Respostas</button>
+    <div class="submission-toast" id="toast-fixation">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- Homework -->
+  <section class="homework-box">
+    <h2>🎯 Homework</h2>
+    <p>Para praticar até a nossa próxima aula:</p>
+    <ul class="homework-list">
+      <li><strong>Vídeos Curtos:</strong> Assistir a vídeos curtos com legenda no canal "Easy English" no YouTube por 15 minutos diários, repetindo frases em voz alta.</li>
+      <li><strong>Prática Diária:</strong> Praticar a escrita/digitação diária de palavras novas aprendidas na sua rotina em Londres para reforçar a memorização.</li>
+    </ul>
+    <button class="btn-copy" onclick="copiarResumo()">📋 Copiar Resumo das Tarefas</button>
+  </section>
+
+  <script>
+    // Audio Speed & Synthesis
+    let slowMode = false;
+    function toggleSpeed() {
+      slowMode = !slowMode;
+      document.getElementById('speed-btn').innerText = slowMode ? "🐢 Velocidade: 0.75x" : "⚡ Velocidade: 1.0x";
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-GB';
+      utterance.rate = slowMode ? 0.75 : 1.0;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Normalized String Comparison
+    function normalizeText(text) {
+      return text
+        .trim()
+        .toLowerCase()
+        .replace(/[.,/#!$%^&*;:{}=\-_`~()?"']/g, "")
+        .replace(/\s+/g, " ");
+    }
+
+    // Automatic Payload Delivery
+    function enviarResultado(secao, acertos, total) {
+      const payload = {
+        meeting_id: "83913812781",
+        aluno: "Lorraine Gomes do Carmo",
+        data_aula: "18/08/26",
+        secao: secao,
+        acertos: acertos,
+        total: total
+      };
+      
+      const url = "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec";
+      if (url) {
+        fetch(url, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        }).catch(() => {});
+      }
+    }
+
+    /* --- TREINO DE DESBLOQUEIO STATE & LOGIC --- */
+    let selectedCompare = null;
+    function selectCompare(option) {
+      selectedCompare = option;
+      const btns = document.querySelectorAll('#td-item-1 .option-btn');
+      btns.forEach((btn, idx) => {
+        btn.classList.toggle('selected', (idx === 0 && option === 'a') || (idx === 1 && option === 'b'));
+      });
+    }
+
+    let selectedMC = null;
+    function selectMC(index) {
+      selectedMC = index;
+      const btns = document.querySelectorAll('#td-item-2 .option-btn');
+      btns.forEach((btn, idx) => {
+        btn.classList.toggle('selected', idx === index);
+      });
+    }
+
+    // Reorder Words State
+    const poolTokens = ["stepmother", "shopping", "is", "at", "My", "mall.", "the"];
+    let availableTokens = [...poolTokens];
+    let constructedTokens = [];
+
+    function renderTokens() {
+      const poolContainer = document.getElementById('tokens-pool');
+      const constructedContainer = document.getElementById('tokens-constructed');
+
+      poolContainer.innerHTML = '';
+      availableTokens.forEach((token, index) => {
+        const chip = document.createElement('span');
+        chip.className = 'token-chip';
+        chip.innerText = token;
+        chip.onclick = () => addToken(index);
+        poolContainer.appendChild(chip);
+      });
+
+      constructedContainer.innerHTML = '';
+      constructedTokens.forEach((token, index) => {
+        const chip = document.createElement('span');
+        chip.className = 'token-chip';
+        chip.innerText = token;
+        chip.onclick = () => removeToken(index);
+        constructedContainer.appendChild(chip);
+      });
+    }
+
+    function addToken(index) {
+      const token = availableTokens.splice(index, 1)[0];
+      constructedTokens.push(token);
+      renderTokens();
+    }
+
+    function removeToken(index) {
+      const token = constructedTokens.splice(index, 1)[0];
+      availableTokens.push(token);
+      renderTokens();
+    }
+    renderTokens();
+
+    function verificarTreinoDesbloqueio() {
+      let acertos = 0;
+      const total = 7;
+
+      // 1. Compare & Contrast
+      const item1 = document.getElementById('td-item-1');
+      const fb1 = document.getElementById('td-feedback-1');
+      if (selectedCompare === 'a') {
+        acertos++;
+        item1.className = 'td-item correct';
+        fb1.innerHTML = '✅ Correto! Em inglês, para "she" (minha madrasta), usamos "is", e nunca a forma infinitiva "be".';
+      } else {
+        item1.className = 'td-item incorrect';
+        fb1.innerHTML = '✅ Resposta correta: <strong>A) My stepmother is a housekeeper.</strong> — Em inglês, o verbo "to be" deve ser conjugado no presente de acordo com o sujeito. Para "she", usamos "is".';
+      }
+
+      // 2. Multiple Choice
+      const item2 = document.getElementById('td-item-2');
+      const fb2 = document.getElementById('td-feedback-2');
+      if (selectedMC === 0) {
+        acertos++;
+        item2.className = 'td-item correct';
+        fb2.innerHTML = '✅ Correto! O sujeito "My daily routine" equivale a "it", portanto a conjugação é "is".';
+      } else {
+        item2.className = 'td-item incorrect';
+        fb2.innerHTML = '✅ Resposta correta: <strong>A) is</strong> — O sujeito "My daily routine" equivale à 3ª pessoa do singular ("it"). A conjugação correta do verbo "to be" é "is".';
+      }
+
+      // 3. Dialogue
+      const item3 = document.getElementById('td-item-3');
+      const fb3 = document.getElementById('td-feedback-3');
+      const dial1 = normalizeText(document.getElementById('td-dial-1').value);
+      const dial2 = normalizeText(document.getElementById('td-dial-2').value);
+      const dial3 = normalizeText(document.getElementById('td-dial-3').value);
+
+      const d1Ok = (dial1 === "am" || dial1 === "yes i am");
+      const d2Ok = (dial2 === "wasnt" || dial2 === "was not" || dial2 === "no i wasnt" || dial2 === "no i was not");
+      const d3Ok = (dial3 === "will" || dial3 === "yes i will");
+
+      if (d1Ok && d2Ok && d3Ok) {
+        acertos++;
+        item3.className = 'td-item correct';
+        fb3.innerHTML = '✅ Correto! Você respondeu perfeitamente mantendo a concordância com o tempo verbal de cada pergunta.';
+      } else {
+        item3.className = 'td-item incorrect';
+        fb3.innerHTML = '✅ Respostas corretas: 1) <strong>am</strong> ("Yes, I am."), 2) <strong>wasn\'t</strong> ("No, I wasn\'t."), 3) <strong>will</strong> ("Yes, I will.") — Acompanhe o tempo da pergunta: presente, passado negativo e futuro.';
+      }
+
+      // 4. Reorder
+      const item4 = document.getElementById('td-item-4');
+      const fb4 = document.getElementById('td-feedback-4');
+      const userSentence = normalizeText(constructedTokens.join(" "));
+      const expectedSentence = normalizeText("My stepmother is at the shopping mall.");
+
+      if (userSentence === expectedSentence) {
+        acertos++;
+        item4.className = 'td-item correct';
+        fb4.innerHTML = '✅ Correto! "My stepmother is at the shopping mall."';
+      } else {
+        item4.className = 'td-item incorrect';
+        fb4.innerHTML = '✅ Resposta correta: <strong>My stepmother is at the shopping mall.</strong> — Estrutura: Sujeito (My stepmother) + Verbo conjugado (is) + Preposição e Lugar (at the shopping mall).';
+      }
+
+      // 5. Translation 1
+      const item5 = document.getElementById('td-item-5');
+      const fb5 = document.getElementById('td-feedback-5');
+      const t1 = normalizeText(document.getElementById('td-trans-1').value);
+      if (t1 === normalizeText("My stepmother is a housekeeper.") || t1 === normalizeText("My stepmother is housekeeper.")) {
+        acertos++;
+        item5.className = 'td-item correct';
+        fb5.innerHTML = '✅ Correto! Excelente tradução.';
+      } else {
+        item5.className = 'td-item incorrect';
+        fb5.innerHTML = '✅ Resposta correta: <strong>My stepmother is a housekeeper.</strong> — Para indicar a profissão de alguém (3ª pessoa - she), usamos "is".';
+      }
+
+      // 6. Translation 2
+      const item6 = document.getElementById('td-item-6');
+      const fb6 = document.getElementById('td-feedback-6');
+      const t2 = normalizeText(document.getElementById('td-trans-2').value);
+      if (t2 === normalizeText("Her routine is good.")) {
+        acertos++;
+        item6.className = 'td-item correct';
+        fb6.innerHTML = '✅ Correto!';
+      } else {
+        item6.className = 'td-item incorrect';
+        fb6.innerHTML = '✅ Resposta correta: <strong>Her routine is good.</strong> — O sujeito "Her routine" equivale a "it", portanto o verbo "to be" deve ser "is".';
+      }
+
+      // 7. Translation 3
+      const item7 = document.getElementById('td-item-7');
+      const fb7 = document.getElementById('td-feedback-7');
+      const t3 = normalizeText(document.getElementById('td-trans-3').value);
+      const t3Opt1 = normalizeText("I am at the church and she is at the shopping mall.");
+      const t3Opt2 = normalizeText("I'm at the church and she's at the shopping mall.");
+      if (t3 === t3Opt1 || t3 === t3Opt2) {
+        acertos++;
+        item7.className = 'td-item correct';
+        fb7.innerHTML = '✅ Correto! Perfeita conjugação para "I am" e "she is".';
+      } else {
+        item7.className = 'td-item incorrect';
+        fb7.innerHTML = '✅ Resposta correta: <strong>I am at the church and she is at the shopping mall.</strong> — Use "am" para "I" e "is" para "she".';
+      }
+
+      // Show toast & send payload
+      document.getElementById('toast-td').style.display = 'block';
+      enviarResultado("Treino de Desbloqueio", acertos, total);
+    }
+
+    /* --- FLASHCARDS LOGIC --- */
+    let reviewedCards = new Set();
+    const totalCards = 6;
+
+    function revelarCard(index) {
+      document.getElementById(`card-back-${index}`).style.display = 'block';
+      document.getElementById(`btn-reveal-${index}`).style.display = 'none';
+      document.getElementById(`eval-btns-${index}`).style.display = 'flex';
+    }
+
+    function avaliarCard(index, status) {
+      const card = document.getElementById(`card-${index}`);
+      card.className = `flashcard ${status}`;
+      reviewedCards.add(index);
+      document.getElementById('vocab-tracker').innerText = `${reviewedCards.size} de ${totalCards} revisadas`;
+    }
+
+    /* --- EXERCÍCIO DE FIXAÇÃO LOGIC --- */
+    const fixGabarito = ["stepmother", "housekeeper", "routine", "church", "shopping mall", "habits"];
+
+    function verificarFixacao() {
+      let acertos = 0;
+      const total = fixGabarito.length;
+
+      fixGabarito.forEach((correctVal, idx) => {
+        const item = document.getElementById(`fix-item-${idx}`);
+        const select = document.getElementById(`fix-select-${idx}`);
+        const trans = document.getElementById(`fix-trans-${idx}`);
+        const userVal = select.value;
+
+        trans.style.display = 'block';
+
+        if (userVal === correctVal) {
+          acertos++;
+          item.className = 'fixation-item correct';
+        } else {
+          item.className = 'fixation-item incorrect';
+        }
+      });
+
+      document.getElementById('toast-fixation').style.display = 'block';
+      enviarResultado("Exercício de Fixação", acertos, total);
+    }
+
+    /* --- COPY HOMEWORK SUMMARY --- */
+    function copiarResumo() {
+      const texto = `🎯 Tarefas de Casa - Lorraine Gomes do Carmo:\n- Assistir a vídeos curtos no canal "Easy English" no YouTube por 15 minutos diários com legenda, repetindo frases em voz alta.\n- Praticar a escrita/digitação diária de palavras novas da rotina em Londres para reforçar a memorização.`;
+      navigator.clipboard.writeText(texto).then(() => {
+        alert("Resumo das tarefas copiado para a área de transferência!");
+      });
+    }
+  </script>
+</body>
+</html>
