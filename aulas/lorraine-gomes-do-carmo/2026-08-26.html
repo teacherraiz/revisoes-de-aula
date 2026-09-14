@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão de Aula - Lorraine Gomes do Carmo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --radius: 12px;
+      
+      /* Treino Desbloqueio Palette */
+      --td-primary: #1E5AA8;
+      --td-accent: #FF7A00;
+      --td-accent-hover: #e06b00;
+      --td-bg: #fffbf7;
+      --td-border: #ffd8b3;
+      --td-correct: #1E5AA8;
+      --td-correct-bg: #eff6ff;
+      --td-incorrect: #C75000;
+      --td-incorrect-bg: #fff5ed;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px 12px;
+    }
+
+    .container {
+      max-width: 840px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-info h1 {
+      font-size: 1.4rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .header-info p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .speed-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f5f9;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      border: 1px solid var(--border);
+    }
+
+    .speed-toggle input {
+      cursor: pointer;
+    }
+
+    .motivation-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border-left: 5px solid var(--primary);
+      padding: 20px;
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+    }
+
+    .motivation-box h3 {
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Grammar Section */
+    .grammar-rule {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .grammar-rule h4 {
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .example-item {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: #ffffff;
+      border-radius: 6px;
+      border: 1px solid #edf2f7;
+    }
+
+    .en-text {
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .translation-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .audio-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 2px;
+      transition: transform 0.1s;
+    }
+
+    .audio-btn:active {
+      transform: scale(1.15);
+    }
+
+    /* Treino de Desbloqueio (Scoped Styling) */
+    .desbloqueio-container {
+      background: var(--td-bg);
+      border: 2px solid var(--td-border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .desbloqueio-container .section-title {
+      color: var(--td-primary);
+    }
+
+    .td-badge {
+      background: var(--td-accent);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .exercise-card {
+      background: #ffffff;
+      border: 1px solid #fde0c2;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .exercise-card.correct {
+      border: 2px solid var(--td-correct);
+      background-color: var(--td-correct-bg);
+    }
+
+    .exercise-card.incorrect {
+      border: 2px solid var(--td-incorrect);
+      background-color: var(--td-incorrect-bg);
+    }
+
+    /* Standard Exercise Card */
+    .std-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .std-card.correct {
+      border: 2px solid var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .std-card.incorrect {
+      border: 2px solid var(--error);
+      background-color: var(--error-bg);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .opt-btn {
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .opt-btn:hover {
+      border-color: var(--td-accent);
+      background: #fff8f0;
+    }
+
+    .opt-btn.selected {
+      border-color: var(--td-accent);
+      background: #ffedd5;
+      font-weight: 600;
+    }
+
+    /* Word Reorder Tokens */
+    .tokens-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+      min-height: 44px;
+      padding: 8px;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 8px;
+    }
+
+    .token-chip {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      transition: all 0.15s;
+    }
+
+    .token-chip:hover {
+      border-color: var(--td-accent);
+    }
+
+    .token-chip.used {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      margin-top: 8px;
+      outline: none;
+    }
+
+    .text-input:focus {
+      border-color: var(--primary);
+    }
+
+    /* Flashcards Carousel / Grid */
+    .flashcards-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .fc-counter {
+      font-size: 0.85rem;
+      background: #e2e8f0;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .flashcards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .flashcard {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 160px;
+      transition: all 0.2s;
+    }
+
+    .flashcard.known {
+      border-color: var(--success);
+      background-color: #f0fdf4;
+    }
+
+    .flashcard.review {
+      border-color: #f59e0b;
+      background-color: #fffbeb;
+    }
+
+    .fc-word {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .fc-translation {
+      font-size: 0.95rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .fc-actions {
+      margin-top: 14px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .fc-btn {
+      flex: 1;
+      padding: 6px 8px;
+      font-size: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .fc-btn-reveal {
+      width: 100%;
+      padding: 8px;
+      font-size: 0.85rem;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    /* Select Inputs */
+    .select-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background-color: #fff;
+      margin-top: 8px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select-input:focus {
+      border-color: var(--primary);
+    }
+
+    .verify-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 16px;
+      transition: background 0.2s;
+    }
+
+    .verify-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .verify-btn-td {
+      background: var(--td-accent);
+    }
+
+    .verify-btn-td:hover {
+      background: var(--td-accent-hover);
+    }
+
+    .feedback-msg {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .feedback-msg.show {
+      display: block;
+    }
+
+    .send-status {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .homework-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .homework-list {
+      list-style-type: none;
+      margin-top: 10px;
+    }
+
+    .homework-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .homework-list li::before {
+      content: "📌";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .copy-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 14px;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-info">
+      <h1>Olá, Lorraine! 👋</h1>
+      <p>Revisão Interativa • Aula de 26/08/26</p>
+    </div>
+    <label class="speed-toggle">
+      <input type="checkbox" id="slowModeToggle">
+      <span>🐢 Áudio em velocidade reduzida (0.75x)</span>
+    </label>
+  </header>
+
+  <!-- PSYCHOLOGICAL SUPPORT -->
+  <div class="motivation-box">
+    <h3>💙 Excelente dedicação, Lorraine!</h3>
+    <p>Que incrível você ter se conectado direto da igreja antes dos seus compromissos comunitários! O formato de 30 minutos funcionou perfeitamente e sua retenção foi excelente. Lembre-se: hesitações fonéticas como a diferença entre <strong>slip</strong> (comprovante/folheto) e <strong>sleep</strong> (dormir) são totalmente normais. O seu cérebro já aprendeu a usar o contexto da frase para entender tudo automaticamente sem medo de errar!</p>
+  </div>
+
+  <!-- GRAMMAR RECAP -->
+  <div class="section-card">
+    <div class="section-title">
+      📖 Recapitulação Gramatical: O Verbo "To Be"
+    </div>
+    <div class="grammar-rule">
+      <h4>Conjugação Direta no Presente, Passado e Futuro</h4>
+      <p style="font-size: 0.9rem; color: #475569;">
+        Em inglês, o verbo <em>to be</em> muda de forma de acordo com a pessoa e o tempo verbal. Nunca usamos a palavra "be" solta no presente (ex: "My job is..." e não "My job be...").
+      </p>
+      
+      <div class="example-item">
+        <div class="en-text">
+          <span>My stepmother is a housekeeper.</span>
+          <button class="audio-btn" onclick="playAudio('My stepmother is a housekeeper.')">🔊</button>
+        </div>
+        <div class="translation-text">Minha madrasta é uma arrumadeira.</div>
+      </div>
+
+      <div class="example-item">
+        <div class="en-text">
+          <span>They are in the choir at church.</span>
+          <button class="audio-btn" onclick="playAudio('They are in the choir at church.')">🔊</button>
+        </div>
+        <div class="translation-text">Eles estão no coral na igreja.</div>
+      </div>
+
+      <div class="example-item">
+        <div class="en-text">
+          <span>I was at the shopping centre yesterday, but I will be on time today.</span>
+          <button class="audio-btn" onclick="playAudio('I was at the shopping centre yesterday, but I will be on time today.')">🔊</button>
+        </div>
+        <div class="translation-text">Eu estava no shopping ontem, mas estarei na hora certa hoje.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TREINO DE DESBLOQUEIO -->
+  <div class="desbloqueio-container">
+    <div class="section-title">
+      🎯 Treino de Desbloqueio <span class="td-badge">Ajuste Fino</span>
+    </div>
+    <p style="font-size: 0.9rem; color: #475569; margin-bottom: 16px;">
+      Foco: Eliminar a hesitação na conjugação dos verbos básicos (evitando expressões como "my job be...").
+    </p>
+
+    <!-- Item 1: Compare Contrast -->
+    <div class="exercise-card" id="td-item-1">
+      <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 8px;">1. Qual das frases apresenta a conjugação correta da profissão da minha madrasta?</p>
+      <div class="options-grid">
+        <button class="opt-btn" onclick="selectOpt(1, 'a', this)">
+          A) My stepmother is a housekeeper at the hotel.
+        </button>
+        <button class="opt-btn" onclick="selectOpt(1, 'b', this)">
+          B) My stepmother be a housekeeper at the hotel.
+        </button>
+      </div>
+      <div class="feedback-msg" id="td-fb-1"></div>
+    </div>
+
+    <!-- Item 2: Multiple Choice -->
+    <div class="exercise-card" id="td-item-2">
+      <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 8px;">
+        2. Complete o diálogo com a forma correta:<br>
+        <em>"A: Is your stepmother at church? B: No, she ____ at the shopping centre."</em>
+      </p>
+      <div class="options-grid">
+        <button class="opt-btn" onclick="selectOpt(2, 0, this)">A) is</button>
+        <button class="opt-btn" onclick="selectOpt(2, 1, this)">B) be</button>
+        <button class="opt-btn" onclick="selectOpt(2, 2, this)">C) are</button>
+        <button class="opt-btn" onclick="selectOpt(2, 3, this)">D) am</button>
+      </div>
+      <div class="feedback-msg" id="td-fb-2"></div>
+    </div>
+
+    <!-- Item 3: Dialogue Mixed Tenses -->
+    <div class="exercise-card" id="td-item-3">
+      <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 8px;">3. Complete as respostas do diálogo de acordo com o tempo verbal:</p>
+      
+      <div style="margin-bottom: 10px;">
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Presente:</p>
+        <p style="font-size: 0.9rem;"><strong>Q:</strong> Are you in the choir this year?</p>
+        <input type="text" class="text-input" id="td-dial-0" placeholder="Digite sua resposta em inglês...">
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Passado:</p>
+        <p style="font-size: 0.9rem;"><strong>Q:</strong> Were you in the choir last year?</p>
+        <input type="text" class="text-input" id="td-dial-1" placeholder="Digite sua resposta em inglês...">
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Futuro:</p>
+        <p style="font-size: 0.9rem;"><strong>Q:</strong> Will you be in the choir next year?</p>
+        <input type="text" class="text-input" id="td-dial-2" placeholder="Digite sua resposta em inglês...">
+      </div>
+
+      <div class="feedback-msg" id="td-fb-3"></div>
+    </div>
+
+    <!-- Item 4: Word Reorder -->
+    <div class="exercise-card" id="td-item-4">
+      <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 8px;">4. Clique nas palavras para montar a pergunta e a resposta correta:</p>
+      <div class="tokens-container" id="td-tokens-pool-4"></div>
+      <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Sua frase:</div>
+      <div class="tokens-container" id="td-tokens-target-4" style="border-style: solid; background: #fff;"></div>
+      <div class="feedback-msg" id="td-fb-4"></div>
+    </div>
+
+    <!-- Item 5: Translation Challenge 1 -->
+    <div class="exercise-card" id="td-item-5">
+      <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 4px;">5. Traduza para o inglês:</p>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">"Minha madrasta é uma arrumadeira."</p>
+      <input type="text" class="text-input" id="td-trans-5" placeholder="Type in English...">
+      <div class="feedback-msg" id="td-fb-5"></div>
+    </div>
+
+    <!-- Item 6: Translation Challenge 2 -->
+    <div class="exercise-card" id="td-item-6">
+      <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 4px;">6. Traduza para o inglês:</p>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">"Eles estão no coral."</p>
+      <input type="text" class="text-input" id="td-trans-6" placeholder="Type in English...">
+      <div class="feedback-msg" id="td-fb-6"></div>
+    </div>
+
+    <!-- Item 7: Translation Challenge 3 -->
+    <div class="exercise-card" id="td-item-7">
+      <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 4px;">7. Traduza para o inglês:</p>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">"Eu sou pontual na igreja."</p>
+      <input type="text" class="text-input" id="td-trans-7" placeholder="Type in English...">
+      <div class="feedback-msg" id="td-fb-7"></div>
+    </div>
+
+    <button class="verify-btn verify-btn-td" onclick="verificarTreinoDesbloqueio()">Verificar Treino de Desbloqueio</button>
+    <div class="send-status" id="send-status-td">📤 Resultado enviado ao professor</div>
+  </div>
+
+  <!-- VOCABULÁRIO NOVO (FLASHCARDS RECALL ATIVO) -->
+  <div class="section-card">
+    <div class="flashcards-header">
+      <div class="section-title" style="margin-bottom:0;">
+        📚 Vocabulário da Aula
+      </div>
+      <div class="fc-counter" id="fcCounter">0 de 18 revisadas</div>
+    </div>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+      Clique em 🔊 para praticar a pronúncia, revele a tradução e faça sua autoavaliação.
+    </p>
+
+    <div class="flashcards-grid" id="flashcardsGrid"></div>
+  </div>
+
+  <!-- EXERCÍCIO DE FIXAÇÃO -->
+  <div class="section-card">
+    <div class="section-title">
+      ✏️ Exercício de Fixação
+    </div>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+      Selecione a palavra/expressão correta para cada contexto da rotina escolar e comunitária:
+    </p>
+
+    <!-- Question 1 -->
+    <div class="std-card" id="fix-item-1">
+      <p style="font-size: 0.95rem; font-weight: 600;">1. I need to _____ my daughter from school at 3 PM.</p>
+      <select class="select-input" id="fix-sel-1"></select>
+      <div class="feedback-msg" id="fix-fb-1"></div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="std-card" id="fix-item-2">
+      <p style="font-size: 0.95rem; font-weight: 600;">2. Can you _____ the children while I go to the supermarket?</p>
+      <select class="select-input" id="fix-sel-2"></select>
+      <div class="feedback-msg" id="fix-fb-2"></div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="std-card" id="fix-item-3">
+      <p style="font-size: 0.95rem; font-weight: 600;">3. Please _____ this registration form for the event.</p>
+      <select class="select-input" id="fix-sel-3"></select>
+      <div class="feedback-msg" id="fix-fb-3"></div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="std-card" id="fix-item-4">
+      <p style="font-size: 0.95rem; font-weight: 600;">4. Our church _____ sings beautifully during the service.</p>
+      <select class="select-input" id="fix-sel-4"></select>
+      <div class="feedback-msg" id="fix-fb-4"></div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="std-card" id="fix-item-5">
+      <p style="font-size: 0.95rem; font-weight: 600;">5. Please _____ while I find the right document in my bag.</p>
+      <select class="select-input" id="fix-sel-5"></select>
+      <div class="feedback-msg" id="fix-fb-5"></div>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="std-card" id="fix-item-6">
+      <p style="font-size: 0.95rem; font-weight: 600;">6. He wrote the message on a small _____ of paper.</p>
+      <select class="select-input" id="fix-sel-6"></select>
+      <div class="feedback-msg" id="fix-fb-6"></div>
+    </div>
+
+    <button class="verify-btn" onclick="verificarFixacao()">Verificar Exercício de Fixação</button>
+    <div class="send-status" id="send-status-fix">📤 Resultado enviado ao professor</div>
+  </div>
+
+  <!-- HOMEWORK -->
+  <div class="homework-box">
+    <div class="section-title" style="margin-bottom: 4px;">
+      🎯 Homework
+    </div>
+    <ul class="homework-list">
+      <li>Praticar o Quiz de vocabulário e expressões utilitárias enviado pelo professor no WhatsApp até atingir ao menos 70% de acertos.</li>
+      <li>Revisar a imagem resumo com a lista de phrasal verbs trabalhada na lousa digital.</li>
+    </ul>
+    <button class="copy-btn" onclick="copiarResumo()">📋 Copiar Resumo da Aula</button>
+  </div>
+
+</div>
+
+<script>
+  // Global Data
+  const META_ENVIO = {"meeting_id": "83913812781", "aluno": "Lorraine Gomes do Carmo", "data_aula": "26/08/26", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+
+  const VOCABULARIO_COMPLETO = [
+    {"palavra": "Pick up", "traducao": "Buscar / Pegar"},
+    {"palavra": "Drop off", "traducao": "Deixar (alguém/algo em um lugar)"},
+    {"palavra": "Find out", "traducao": "Descobrir / Informar-se"},
+    {"palavra": "Join in", "traducao": "Juntar-se / Participar"},
+    {"palavra": "Sort out", "traducao": "Organizar / Resolver"},
+    {"palavra": "Pop in", "traducao": "Dar uma passadinha (visita rápida)"},
+    {"palavra": "Take part in", "traducao": "Participar de"},
+    {"palavra": "Bear with me", "traducao": "Tenha paciência comigo"},
+    {"palavra": "Have a word with", "traducao": "Dar uma palavrinha com"},
+    {"palavra": "Make sure", "traducao": "Garantir / Ter certeza"},
+    {"palavra": "On time", "traducao": "Na hora certa / Pontualmente"},
+    {"palavra": "Handful", "traducao": "Trabalhoso / Que dá trabalho"},
+    {"palavra": "Look after", "traducao": "Cuidar de"},
+    {"palavra": "Fill in", "traducao": "Preencher"},
+    {"palavra": "Slip", "traducao": "Tira de papel / Formulário pequeno"},
+    {"palavra": "Pass", "traducao": "Passar (em exame/prova)"},
+    {"palavra": "Choir", "traducao": "Coro / Coral"},
+    {"palavra": "Schedule", "traducao": "Agenda / Cronograma"}
+  ];
+
+  const answersTD = {
+    opt1: null,
+    opt2: null,
+    tokens4: ["Is", "on", "she", "time?", "she", "Yes,", "is."],
+    userTokens4: []
+  };
+
+  const correctFixAnswers = {
+    1: "Pick up",
+    2: "Look after",
+    3: "Fill in",
+    4: "Choir",
+    5: "Bear with me",
+    6: "Slip"
+  };
+
+  const reviewedCards = new Set();
+
+  // Audio Player Function
+  function playAudio(text) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-GB';
+    const isSlow = document.getElementById('slowModeToggle').checked;
+    utterance.rate = isSlow ? 0.75 : 1.0;
+    window.speechSynthesis.speak(utterance);
+  }
+
+  // Automatic Submission Helper
+  function enviarResultado(secao, acertos, total) {
+    if (!META_ENVIO.apps_script_url) return;
+    const payload = {
+      meeting_id: META_ENVIO.meeting_id,
+      aluno: META_ENVIO.aluno,
+      data_aula: META_ENVIO.data_aula,
+      secao: secao,
+      acertos: acertos,
+      total: total
+    };
+    fetch(META_ENVIO.apps_script_url, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  }
+
+  // Option Selection Helpers for TD
+  function selectOpt(itemNum, val, btnEl) {
+    answersTD['opt' + itemNum] = val;
+    const parent = btnEl.parentElement;
+    parent.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+    btnEl.classList.add('selected');
+  }
+
+  // Token Reorder Logic
+  function initTokens() {
+    const poolContainer = document.getElementById('td-tokens-pool-4');
+    const targetContainer = document.getElementById('td-tokens-target-4');
+    poolContainer.innerHTML = '';
+    targetContainer.innerHTML = '';
+
+    answersTD.tokens4.forEach((tok, idx) => {
+      const chip = document.createElement('span');
+      chip.className = 'token-chip';
+      chip.innerText = tok;
+      chip.id = `token-pool-${idx}`;
+      chip.onclick = () => useToken(tok, idx);
+      poolContainer.appendChild(chip);
+    });
+  }
+
+  function useToken(tok, idx) {
+    const chipPool = document.getElementById(`token-pool-${idx}`);
+    if (chipPool.classList.contains('used')) return;
+
+    chipPool.classList.add('used');
+    answersTD.userTokens4.push({ tok, idx });
+    renderTargetTokens();
+  }
+
+  function removeToken(arrayIdx) {
+    const item = answersTD.userTokens4[arrayIdx];
+    const chipPool = document.getElementById(`token-pool-${item.idx}`);
+    if (chipPool) chipPool.classList.remove('used');
+    answersTD.userTokens4.splice(arrayIdx, 1);
+    renderTargetTokens();
+  }
+
+  function renderTargetTokens() {
+    const targetContainer = document.getElementById('td-tokens-target-4');
+    targetContainer.innerHTML = '';
+    answersTD.userTokens4.forEach((item, arrIdx) => {
+      const chip = document.createElement('span');
+      chip.className = 'token-chip';
+      chip.innerText = item.tok;
+      chip.onclick = () => removeToken(arrIdx);
+      targetContainer.appendChild(chip);
+    });
+  }
+
+  // Normalization Function
+  function normalizeText(str) {
+    return (str || '')
+      .toLowerCase()
+      .trim()
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()"'’]/g, "")
+      .replace(/\s+/g, " ");
+  }
+
+  // Verify Treino de Desbloqueio
+  function verificarTreinoDesbloqueio() {
+    let score = 0;
+    const total = 7;
+
+    // Item 1: Compare Contrast
+    const card1 = document.getElementById('td-item-1');
+    const fb1 = document.getElementById('td-fb-1');
+    if (answersTD.opt1 === 'a') {
+      score++;
+      card1.className = 'exercise-card correct';
+      fb1.className = 'feedback-msg show';
+      fb1.style.color = 'var(--td-correct)';
+      fb1.innerHTML = '✅ Correto! Em inglês, conjugamos para "she is" e nunca usamos a forma no infinitivo "be".';
+    } else {
+      card1.className = 'exercise-card incorrect';
+      fb1.className = 'feedback-msg show';
+      fb1.style.color = 'var(--td-incorrect)';
+      fb1.innerHTML = '✅ Resposta correta: A) My stepmother is a housekeeper at the hotel. — Em inglês, o verbo "to be" precisa ser conjugado para a 3ª pessoa ("she is").';
+    }
+
+    // Item 2: Multiple Choice
+    const card2 = document.getElementById('td-item-2');
+    const fb2 = document.getElementById('td-fb-2');
+    if (answersTD.opt2 === 0) {
+      score++;
+      card2.className = 'exercise-card correct';
+      fb2.className = 'feedback-msg show';
+      fb2.style.color = 'var(--td-correct)';
+      fb2.innerHTML = '✅ Correto! Para "she", a forma correta no presente é "is".';
+    } else {
+      card2.className = 'exercise-card incorrect';
+      fb2.className = 'feedback-msg show';
+      fb2.style.color = 'var(--td-incorrect)';
+      fb2.innerHTML = '✅ Resposta correta: A) is — Para a terceira pessoa do singular ("she"), a forma correta é "is".';
+    }
+
+    // Item 3: Dialogue Mixed Tenses
+    const card3 = document.getElementById('td-item-3');
+    const fb3 = document.getElementById('td-fb-3');
+    const val0 = normalizeText(document.getElementById('td-dial-0').value);
+    const val1 = normalizeText(document.getElementById('td-dial-1').value);
+    const val2 = normalizeText(document.getElementById('td-dial-2').value);
+
+    const ok0 = val0 === normalizeText("Yes, I am in the choir.");
+    const ok1 = val1 === normalizeText("Yes, I was in the choir.");
+    const ok2 = val2 === normalizeText("Yes, I will be in the choir.");
+
+    if (ok0 && ok1 && ok2) {
+      score++;
+      card3.className = 'exercise-card correct';
+      fb3.className = 'feedback-msg show';
+      fb3.style.color = 'var(--td-correct)';
+      fb3.innerHTML = '✅ Perfeito! Você conjugou corretamente nos 3 tempos verbais (am / was / will be).';
+    } else {
+      card3.className = 'exercise-card incorrect';
+      fb3.className = 'feedback-msg show';
+      fb3.style.color = 'var(--td-incorrect)';
+      fb3.innerHTML = '✅ Resposta correta:<br>1. Yes, I am in the choir.<br>2. Yes, I was in the choir.<br>3. Yes, I will be in the choir.<br>— Lembre-se: am (presente), was (passado) e will be (futuro).';
+    }
+
+    // Item 4: Reorder
+    const card4 = document.getElementById('td-item-4');
+    const fb4 = document.getElementById('td-fb-4');
+    const userBuiltSentence = answersTD.userTokens4.map(i => i.tok).join(' ');
+    if (normalizeText(userBuiltSentence) === normalizeText("Is she on time? Yes, she is.")) {
+      score++;
+      card4.className = 'exercise-card correct';
+      fb4.className = 'feedback-msg show';
+      fb4.style.color = 'var(--td-correct)';
+      fb4.innerHTML = '✅ Perfeito! Pergunta com o verbo "is" na frente e resposta com "she is".';
+    } else {
+      card4.className = 'exercise-card incorrect';
+      fb4.className = 'feedback-msg show';
+      fb4.style.color = 'var(--td-incorrect)';
+      fb4.innerHTML = '✅ Resposta correta: "Is she on time? Yes, she is." — Na pergunta invertemos o verbo ("Is she..."), e na resposta curta mantemos "she is".';
+    }
+
+    // Item 5: Translation 1
+    const card5 = document.getElementById('td-item-5');
+    const fb5 = document.getElementById('td-fb-5');
+    const val5 = normalizeText(document.getElementById('td-trans-5').value);
+    const acc5 = ["my stepmother is a housekeeper", "my stepmothers a housekeeper"].map(normalizeText);
+
+    if (acc5.includes(val5)) {
+      score++;
+      card5.className = 'exercise-card correct';
+      fb5.className = 'feedback-msg show';
+      fb5.style.color = 'var(--td-correct)';
+      fb5.innerHTML = '✅ Excelente! Conjugação "is" aplicada corretamente.';
+    } else {
+      card5.className = 'exercise-card incorrect';
+      fb5.className = 'feedback-msg show';
+      fb5.style.color = 'var(--td-incorrect)';
+      fb5.innerHTML = '✅ Resposta correta: My stepmother is a housekeeper. — Lembre-se de conjugar o verbo "to be" para a terceira pessoa ("stepmother" = "she").';
+    }
+
+    // Item 6: Translation 2
+    const card6 = document.getElementById('td-item-6');
+    const fb6 = document.getElementById('td-fb-6');
+    const val6 = normalizeText(document.getElementById('td-trans-6').value);
+    const acc6 = ["they are in the choir", "theyre in the choir"].map(normalizeText);
+
+    if (acc6.includes(val6)) {
+      score++;
+      card6.className = 'exercise-card correct';
+      fb6.className = 'feedback-msg show';
+      fb6.style.color = 'var(--td-correct)';
+      fb6.innerHTML = '✅ Ótimo! Para "they", usamos "are".';
+    } else {
+      card6.className = 'exercise-card incorrect';
+      fb6.className = 'feedback-msg show';
+      fb6.style.color = 'var(--td-incorrect)';
+      fb6.innerHTML = '✅ Resposta correta: They are in the choir. — Para o sujeito "they", usamos a forma "are".';
+    }
+
+    // Item 7: Translation 3
+    const card7 = document.getElementById('td-item-7');
+    const fb7 = document.getElementById('td-fb-7');
+    const val7 = normalizeText(document.getElementById('td-trans-7').value);
+    const acc7 = ["i am on time at church", "im on time at church", "i am on time at the church", "im on time at the church"].map(normalizeText);
+
+    if (acc7.includes(val7)) {
+      score++;
+      card7.className = 'exercise-card correct';
+      fb7.className = 'feedback-msg show';
+      fb7.style.color = 'var(--td-correct)';
+      fb7.innerHTML = '✅ Perfeito! Usou "am" com "I" e a expressão "on time".';
+    } else {
+      card7.className = 'exercise-card incorrect';
+      fb7.className = 'feedback-msg show';
+      fb7.style.color = 'var(--td-incorrect)';
+      fb7.innerHTML = '✅ Resposta correta: I am on time at church. — Para "I", usamos a forma "am".';
+    }
+
+    // Submit results automatically
+    enviarResultado("Treino de Desbloqueio", score, total);
+    document.getElementById('send-status-td').style.display = 'block';
+  }
+
+  // Render Flashcards
+  function renderFlashcards() {
+    const grid = document.getElementById('flashcardsGrid');
+    grid.innerHTML = '';
+
+    VOCABULARIO_COMPLETO.forEach((item, index) => {
+      const card = document.createElement('div');
+      card.className = 'flashcard';
+      card.id = `fc-${index}`;
+
+      card.innerHTML = `
+        <div>
+          <div class="fc-word">
+            <span>${item.palavra}</span>
+            <button class="audio-btn" onclick="playAudio('${item.palavra.replace(/'/g, "\\'")}')">🔊</button>
+          </div>
+          <div class="fc-translation" id="fc-trans-${index}">${item.traducao}</div>
+        </div>
+        <div>
+          <button class="fc-btn-reveal" onclick="revealFC(${index})">Revelar tradução</button>
+          <div class="fc-actions" id="fc-actions-${index}" style="display:none;">
+            <button class="fc-btn" style="color:var(--success);" onclick="evalFC(${index}, 'known')">✅ Eu sabia</button>
+            <button class="fc-btn" style="color:#d97706;" onclick="evalFC(${index}, 'review')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function revealFC(index) {
+    document.getElementById(`fc-trans-${index}`).style.display = 'block';
+    document.getElementById(`fc-actions-${index}`).style.display = 'flex';
+  }
+
+  function evalFC(index, type) {
+    const card = document.getElementById(`fc-${index}`);
+    card.classList.remove('known', 'review');
+    if (type === 'known') card.classList.add('known');
+    if (type === 'review') card.classList.add('review');
+
+    reviewedCards.add(index);
+    document.getElementById('fcCounter').innerText = `${reviewedCards.size} de ${VOCABULARIO_COMPLETO.length} revisadas`;
+  }
+
+  // Populate Select Options in Fixação
+  function populateSelects() {
+    for (let i = 1; i <= 6; i++) {
+      const sel = document.getElementById(`fix-sel-${i}`);
+      sel.innerHTML = '<option value="" disabled selected>-- Selecione --</option>';
+      VOCABULARIO_COMPLETO.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.palavra;
+        opt.innerText = v.palavra;
+        sel.appendChild(opt);
+      });
+    }
+  }
+
+  // Verify Exercício de Fixação
+  function verificarFixacao() {
+    let score = 0;
+    const total = 6;
+
+    for (let i = 1; i <= total; i++) {
+      const sel = document.getElementById(`fix-sel-${i}`);
+      const card = document.getElementById(`fix-item-${i}`);
+      const fb = document.getElementById(`fix-fb-${i}`);
+      const userVal = sel.value;
+      const correctVal = correctFixAnswers[i];
+
+      if (userVal === correctVal) {
+        score++;
+        card.className = 'std-card correct';
+        fb.className = 'feedback-msg show';
+        fb.style.color = 'var(--success)';
+        fb.innerHTML = '✅ Correto!';
+      } else {
+        card.className = 'std-card incorrect';
+        fb.className = 'feedback-msg show';
+        fb.style.color = 'var(--error)';
+        fb.innerHTML = `✅ Resposta correta: <strong>${correctVal}</strong> — (${getTraducao(correctVal)})`;
+      }
+    }
+
+    // Submit results automatically
+    enviarResultado("Exercício de Fixação", score, total);
+    document.getElementById('send-status-fix').style.display = 'block';
+  }
+
+  function getTraducao(palavra) {
+    const item = VOCABULARIO_COMPLETO.find(v => v.palavra === palavra);
+    return item ? item.traducao : '';
+  }
+
+  // Copy Summary Helper
+  function copiarResumo() {
+    const text = `📌 Resumo da Aula - Lorraine Gomes do Carmo (26/08/26)\n\n- Tópico: 2º Nouns & Pronouns - Identificação de Produtos e Objetos\n- Foco Gramatical: Conjugação do Verbo 'To Be' (am/is/are, was/were, will be)\n- Vocabulário Trabalhado (18 itens): Phrasal verbs e expressões (Pick up, Drop off, Look after, Fill in, Choir, Slip, Bear with me, etc.)\n- TPC: Praticar Quiz do WhatsApp (alcançar >= 70%) e revisar imagem resumo dos phrasal verbs.`;
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Resumo copiado para a área de transferência!');
+    });
+  }
+
+  // Initialize on load
+  window.onload = function() {
+    initTokens();
+    renderFlashcards();
+    populateSelects();
+  };
+</script>
+
+</body>
+</html>
