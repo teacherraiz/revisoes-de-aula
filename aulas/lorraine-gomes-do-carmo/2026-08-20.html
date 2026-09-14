@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão de Aula - Lorraine Gomes do Carmo</title>
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --success: #16a34a;
+  --error: #dc2626;
+  --warning: #d97706;
+  
+  --desbloqueio-orange: #FF7A00;
+  --desbloqueio-blue: #1E5AA8;
+  --desbloqueio-bg: #fff8f2;
+  --desbloqueio-border: #ffd8b3;
+  --desbloqueio-error: #C75000;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding: 1rem;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.header {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.header-info h1 {
+  font-size: 1.4rem;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.header-info p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.controls-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-toggle-speed {
+  background: #f1f5f9;
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text);
+  transition: all 0.2s ease;
+}
+
+.btn-toggle-speed:hover {
+  background: #e2e8f0;
+}
+
+.motivation-box {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-left: 4px solid var(--primary);
+  padding: 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  color: #1e3a8a;
+}
+
+.section-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* RECAPITULAÇÃO GRAMATICAL */
+.recap-content {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 0.95rem;
+}
+
+.recap-content h4 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.example-box {
+  background: #fff;
+  border-left: 3px solid var(--primary);
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.translation-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+/* TREINO DE DESBLOQUEIO */
+.desbloqueio-section {
+  background: var(--desbloqueio-bg);
+  border: 1px solid var(--desbloqueio-border);
+}
+
+.desbloqueio-title {
+  color: var(--desbloqueio-orange);
+}
+
+.desbloqueio-card {
+  background: #ffffff;
+  border: 1px solid var(--desbloqueio-border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.desbloqueio-card.correct {
+  border: 2px solid var(--desbloqueio-blue) !important;
+  background-color: #f0f7ff;
+}
+
+.desbloqueio-card.incorrect {
+  border: 2px solid var(--desbloqueio-error) !important;
+  background-color: #fff5f0;
+}
+
+.desbloqueio-card h4 {
+  font-size: 0.95rem;
+  color: var(--desbloqueio-blue);
+  margin-bottom: 0.5rem;
+}
+
+.btn-desbloqueio-verify {
+  background: var(--desbloqueio-orange);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.btn-desbloqueio-verify:hover {
+  background: #e06c00;
+}
+
+/* OPTION BUTTONS */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .options-grid { grid-template-columns: 1fr; }
+}
+
+.btn-option {
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.btn-option:hover {
+  background: #f1f5f9;
+}
+
+.btn-option.selected {
+  border-color: var(--desbloqueio-blue);
+  background: #eef6ff;
+  font-weight: 600;
+}
+
+/* REORDERING TOKENS */
+.tokens-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  min-height: 40px;
+  padding: 0.5rem;
+  background: #f8fafc;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+}
+
+.token {
+  background: #ffffff;
+  border: 1px solid var(--desbloqueio-blue);
+  color: var(--desbloqueio-blue);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.token.selected {
+  opacity: 0.4;
+}
+
+/* VOCABULÁRIO FLASHCARDS */
+.flashcard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.flashcard-counter {
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #e2e8f0;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+}
+
+.flashcards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.flashcard {
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 140px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.flashcard.status-known {
+  border-color: var(--success);
+  background-color: #f0fdf4;
+}
+
+.flashcard.status-review {
+  border-color: var(--warning);
+  background-color: #fffbeb;
+}
+
+.flashcard-word {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flashcard-translation {
+  font-size: 0.95rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin-top: 0.5rem;
+  min-height: 1.4rem;
+}
+
+.flashcard-actions {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.4rem;
+  flex-direction: column;
+}
+
+.btn-card {
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-reveal {
+  background: #f1f5f9;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-reveal:hover { background: #e2e8f0; }
+
+.self-eval-btns {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.btn-known {
+  background: #dcfce7;
+  color: #15803d;
+}
+.btn-known:hover { background: #bbf7d0; }
+
+.btn-review {
+  background: #fef3c7;
+  color: #b45309;
+}
+.btn-review:hover { background: #fde68a; }
+
+/* EXERCÍCIO DE FIXAÇÃO */
+.fixacao-item {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+
+.fixacao-item.correct {
+  border: 2px solid var(--success) !important;
+  background-color: #f0fdf4;
+}
+
+.fixacao-item.incorrect {
+  border: 2px solid var(--error) !important;
+  background-color: #fef2f2;
+}
+
+.select-vocab {
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-size: 0.95rem;
+  background-color: #fff;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.input-text {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.btn-audio {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-left: 0.25rem;
+  vertical-align: middle;
+}
+
+.btn-fixacao-verify {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.btn-fixacao-verify:hover { background: var(--primary-hover); }
+
+/* FEEDBACK & SUBMISSION MESH */
+.feedback-msg {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.feedback-msg.correct { color: var(--desbloqueio-blue); }
+.feedback-msg.incorrect { color: var(--desbloqueio-error); }
+.feedback-msg.fix-correct { color: var(--success); }
+.feedback-msg.fix-incorrect { color: var(--error); }
+
+.submission-status {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+/* HOMEWORK */
+.homework-box {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.homework-list {
+  padding-left: 1.2rem;
+  font-size: 0.95rem;
+}
+
+.homework-list li {
+  margin-bottom: 0.5rem;
+}
+
+.btn-copy-summary {
+  background: #0f172a;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.btn-copy-summary:hover { background: #334155; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-info">
+    <h1>Olá, Lorraine! 👋</h1>
+    <p>Revisão Interativa • Aula: <strong>Questions and Answers & Diálogo de Londres</strong></p>
+  </div>
+  <div class="controls-top">
+    <button class="btn-toggle-speed" id="speed-btn" onclick="toggleSpeed()">⚡ Velocidade: 1.0x</button>
+  </div>
+</div>
+
+<div class="motivation-box">
+  💪 <strong>Mensagem do Professor:</strong> Parabéns por continuar adotando a postura de "abraçar o caos"! Durante a leitura do diálogo de Londres, ficou claro que quando você foca no contexto geral (nos pronomes e verbos principais) em vez de tentar traduzir cada palavra ao pé da letra, sua mente conecta os pontos com rapidez incrível. Mantenha essa energia de 10 a 15 minutos diários no seu ritmo de rotina!
+</div>
+
+<!-- RECAPITULAÇÃO GRAMATICAL -->
+<div class="section-card">
+  <div class="section-title">
+    <span>💡</span>
+    <span>Recapitulação: Perguntas e Respostas Curtas (Do / Did / Will)</span>
+  </div>
+  <div class="recap-content">
+    <p>Em inglês britânico e no cotidiano, quando alguém faz uma pergunta direta, a resposta curta natural utiliza o <strong>verbo auxiliar</strong> correspondente ao tempo verbal. Não precisamos repetir toda a frase traduzida do português!</p>
+    
+    <div class="example-box">
+      <strong>Presente (Do/Does):</strong><br>
+      "Do you live in London?" 🔊 <button class="btn-audio" onclick="speak('Do you live in London?')">🔊</button><br>
+      ➔ <strong>Yes, I do.</strong> / <strong>No, I don't.</strong>
+      <span class="translation-text">Você mora em Londres? Sim, eu moro. / Não, eu não moro.</span>
+    </div>
+
+    <div class="example-box">
+      <strong>Passado (Did):</strong><br>
+      "Did you take the underground?" 🔊 <button class="btn-audio" onclick="speak('Did you take the underground?')">🔊</button><br>
+      ➔ <strong>Yes, I did.</strong> / <strong>No, I didn't.</strong>
+      <span class="translation-text">Você pegou o metrô? Sim, eu peguei. / Não, eu não peguei.</span>
+    </div>
+
+    <div class="example-box">
+      <strong>Futuro (Will):</strong><br>
+      "Will you join us tonight?" 🔊 <button class="btn-audio" onclick="speak('Will you join us tonight?')">🔊</button><br>
+      ➔ <strong>Yes, I will.</strong> / <strong>No, I won't.</strong>
+      <span class="translation-text">Você vai se juntar a nós hoje à noite? Sim, eu vou. / Não, eu não vou.</span>
+    </div>
+  </div>
+</div>
+
+<!-- TREINO DE DESBLOQUEIO -->
+<div class="section-card desbloqueio-section" id="section-desbloqueio">
+  <div class="section-title desbloqueio-title">
+    <span>🎯</span>
+    <span>Treino de Desbloqueio (Superando a Tradução Literal)</span>
+  </div>
+  <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+    Desafio focado em desapegar da tradução palavra por palavra e focar no uso natural do inglês britânico.
+  </p>
+
+  <!-- Item 1: compare_contrast_implicito -->
+  <div class="desbloqueio-card" id="desb-item-0">
+    <h4>1. Comparação Natural</h4>
+    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Qual frase soa natural em inglês britânico para perguntar se a pessoa usou o metrô para ir ao trabalho?</p>
+    <div class="options-grid">
+      <button class="btn-option" onclick="selectOption(0, 'a', this)">
+        <strong>A)</strong> Did you take the underground to work?
+      </button>
+      <button class="btn-option" onclick="selectOption(0, 'b', this)">
+        <strong>B)</strong> Did you catch the underground for the job?
+      </button>
+    </div>
+    <div class="feedback-msg" id="desb-fb-0"></div>
+  </div>
+
+  <!-- Item 2: multiple_choice_avancado -->
+  <div class="desbloqueio-card" id="desb-item-1">
+    <h4>2. Expressão de Sensação Física</h4>
+    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">A: Why are you wearing a raincoat?<br>B: Because I ____ cold.</p>
+    <div class="options-grid">
+      <button class="btn-option" onclick="selectOption(1, 0, this)">am</button>
+      <button class="btn-option" onclick="selectOption(1, 1, this)">have</button>
+      <button class="btn-option" onclick="selectOption(1, 2, this)">stay</button>
+      <button class="btn-option" onclick="selectOption(1, 3, this)">make</button>
+    </div>
+    <div class="feedback-msg" id="desb-fb-1"></div>
+  </div>
+
+  <!-- Item 3: dialogo_tempos_mistos -->
+  <div class="desbloqueio-card" id="desb-item-2">
+    <h4>3. Diálogo: Respostas Curtas Naturais</h4>
+    <div style="margin-bottom: 0.5rem; font-size: 0.9rem;">
+      <p><strong>A:</strong> Do you live in a flat near the church?</p>
+      <p><strong>B:</strong> <input type="text" id="dialog-0" class="input-text" style="width: 200px;" placeholder="Digite sua resposta em inglês..."></p>
+    </div>
+    <div style="margin-bottom: 0.5rem; font-size: 0.9rem;">
+      <p><strong>A:</strong> Did you see your neighbor in the queue?</p>
+      <p><strong>B:</strong> <input type="text" id="dialog-1" class="input-text" style="width: 200px;" placeholder="Digite sua resposta em inglês..."></p>
+    </div>
+    <div style="margin-bottom: 0.5rem; font-size: 0.9rem;">
+      <p><strong>A:</strong> Will you join your flatmate tonight?</p>
+      <p><strong>B:</strong> <input type="text" id="dialog-2" class="input-text" style="width: 200px;" placeholder="Digite sua resposta em inglês..."></p>
+    </div>
+    <div class="feedback-msg" id="desb-fb-2"></div>
+  </div>
+
+  <!-- Item 4: reordenar_palavras -->
+  <div class="desbloqueio-card" id="desb-item-3">
+    <h4>4. Reorganize as Fichas</h4>
+    <p style="font-size: 0.9rem; margin-bottom: 0.25rem;">Monte a pergunta e a resposta curta em ordem correta:</p>
+    <div class="tokens-container" id="tokens-pool-3"></div>
+    <p style="font-size: 0.8rem; color: var(--text-muted);">Sua constução:</p>
+    <div class="tokens-container" id="tokens-built-3" style="border-style: solid; background: #fff;"></div>
+    <div class="feedback-msg" id="desb-fb-3"></div>
+  </div>
+
+  <!-- Item 5: translation_challenge 1 -->
+  <div class="desbloqueio-card" id="desb-item-4">
+    <h4>5. Desafio de Expressão</h4>
+    <p style="font-size: 0.9rem;">Como expressar: <em>"Minha madrasta não pegou o metrô hoje."</em>?</p>
+    <input type="text" id="trans-0" class="input-text" placeholder="Type in English...">
+    <div class="feedback-msg" id="desb-fb-4"></div>
+  </div>
+
+  <!-- Item 6: translation_challenge 2 -->
+  <div class="desbloqueio-card" id="desb-item-5">
+    <h4>6. Desafio de Expressão</h4>
+    <p style="font-size: 0.9rem;">Como expressar: <em>"Você vai acompanhar a gente no shopping center esta noite?"</em>?</p>
+    <input type="text" id="trans-1" class="input-text" placeholder="Type in English...">
+    <div class="feedback-msg" id="desb-fb-5"></div>
+  </div>
+
+  <!-- Item 7: translation_challenge 3 -->
+  <div class="desbloqueio-card" id="desb-item-6">
+    <h4>7. Desafio de Expressão</h4>
+    <p style="font-size: 0.9rem;">Como expressar: <em>"Eu estou com fome, mas não tenho libras na minha conta bancária."</em>?</p>
+    <input type="text" id="trans-2" class="input-text" placeholder="Type in English...">
+    <div class="feedback-msg" id="desb-fb-6"></div>
+  </div>
+
+  <button class="btn-desbloqueio-verify" onclick="verificarTreinoDesbloqueio()">Verificar Respostas do Desbloqueio</button>
+  <div class="submission-status" id="sub-status-desbloqueio"></div>
+</div>
+
+<!-- VOCABULÁRIO NOVO (FLASHCARDS RECALL ATIVO) -->
+<div class="section-card">
+  <div class="flashcard-header">
+    <div class="section-title" style="margin-bottom:0;">
+      <span>📚</span>
+      <span>Vocabulário da Aula (Recall Ativo)</span>
+    </div>
+    <div class="flashcard-counter" id="cards-counter">0 de 23 revisadas</div>
+  </div>
+  <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+    Ouça a pronúncia britânica, tente lembrar a tradução e clique para conferir sua autoavaliação.
+  </p>
+
+  <div class="flashcards-grid" id="flashcards-grid"></div>
+</div>
+
+<!-- EXERCÍCIO DE FIXAÇÃO -->
+<div class="section-card">
+  <div class="section-title">
+    <span>✏️</span>
+    <span>Exercício de Fixação</span>
+  </div>
+  <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+    Selecione a palavra correta para preencher as lacunas do cotidiano em Londres.
+  </p>
+
+  <div id="fixacao-container"></div>
+
+  <button class="btn-fixacao-verify" onclick="verificarFixacao()">Verificar Respostas de Fixação</button>
+  <div class="submission-status" id="sub-status-fixacao"></div>
+</div>
+
+<!-- HOMEWORK -->
+<div class="section-card">
+  <div class="section-title">
+    <span>🎯</span>
+    <span>Homework & Próximos Passos</span>
+  </div>
+  <div class="homework-box">
+    <ul class="homework-list">
+      <li><strong>Prática de Escuta e Shadowing:</strong> Pratique escutar e repetir em voz alta o áudio do diálogo de Londres (Lucas & Sarah) por 10 a 15 minutos diários durante tarefas mecânicas.</li>
+      <li><strong>Atenção Especial ao Vocabulário:</strong> Reforce a articulação das palavras: <em>won't</em>, <em>late</em>, <em>chemist</em>, <em>queue</em> e <em>bank account</em>.</li>
+      <li><strong>Próxima Aula:</strong> Treino de Pronúncia, Fluência e Shadowing do Diálogo de Londres.</li>
+    </ul>
+  </div>
+  <button class="btn-copy-summary" onclick="copiarResumo()">📋 Copiar Resumo para Anotações</button>
+</div>
+
+<script>
+// DATA STRUCTURES FROM PIPELINE
+const META_ENVIO = {
+  meeting_id: "83913812781",
+  aluno: "Lorraine Gomes do Carmo",
+  data_aula: "20/08/26",
+  apps_script_url: "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"
+};
+
+const VOCABULARIO_COMPLETO = [
+  {"palavra": "Flat", "traducao": "Apartamento"},
+  {"palavra": "Underground", "traducao": "Metrô / Trem subterrâneo"},
+  {"palavra": "Oyster card", "traducao": "Cartão de transporte público de Londres"},
+  {"palavra": "Rent", "traducao": "Aluguel"},
+  {"palavra": "Landlord", "traducao": "Senhorio / Proprietário do imóvel"},
+  {"palavra": "Job", "traducao": "Trabalho / Emprego"},
+  {"palavra": "Queue", "traducao": "Fila"},
+  {"palavra": "Supermarket", "traducao": "Supermercado"},
+  {"palavra": "Chemist", "traducao": "Farmácia"},
+  {"palavra": "Raincoat", "traducao": "Capa de chuva"},
+  {"palavra": "Pound", "traducao": "Libra (moeda britânica)"},
+  {"palavra": "Bank account", "traducao": "Conta bancária"},
+  {"palavra": "Neighbor", "traducao": "Vizinho(a)"},
+  {"palavra": "Passport", "traducao": "Passaporte"},
+  {"palavra": "Away", "traducao": "De distância / Fora"},
+  {"palavra": "Didn't", "traducao": "Não (passado de do/did)"},
+  {"palavra": "Walked", "traducao": "Andou / Caminhou"},
+  {"palavra": "Which", "traducao": "Qual / Quais"},
+  {"palavra": "Flatmate", "traducao": "Colega de apartamento"},
+  {"palavra": "Won't", "traducao": "Não irá (futuro negativo de will)"},
+  {"palavra": "Late", "traducao": "Tarde / Atrasado(a)"},
+  {"palavra": "Tonight", "traducao": "Hoje à noite / Esta noite"},
+  {"palavra": "Join", "traducao": "Juntar-se / Acompanhar"}
+];
+
+const FIXACAO_ITEMS = [
+  {
+    sentence_pre: "I live in a comfortable ",
+    sentence_post: " in central London.",
+    correct: "Flat",
+    translation_full: "Eu moro em um apartamento confortável no centro de Londres.",
+    explanation: "'Flat' é o termo em inglês britânico para apartamento."
+  },
+  {
+    sentence_pre: "She takes the ",
+    sentence_post: " every morning to get to work.",
+    correct: "Underground",
+    translation_full: "Ela pega o metrô toda manhã para ir ao trabalho.",
+    explanation: "'Underground' (ou Tube) é o metrô de Londres."
+  },
+  {
+    sentence_pre: "Don't forget your ",
+    sentence_post: " before getting on the bus.",
+    correct: "Oyster card",
+    translation_full: "Não esqueça seu cartão Oyster antes de subir no ônibus.",
+    explanation: "'Oyster card' é o cartão de transporte recarregável de Londres."
+  },
+  {
+    sentence_pre: "There is a long ",
+    sentence_post: " outside the supermarket.",
+    correct: "Queue",
+    translation_full: "Há uma longa fila do lado de fora do supermercado.",
+    explanation: "'Queue' é a palavra britânica para fila."
+  },
+  {
+    sentence_pre: "I need to go to the ",
+    sentence_post: " to buy medicine.",
+    correct: "Chemist",
+    translation_full: "Eu preciso ir à farmácia para comprar remédio.",
+    explanation: "'Chemist' é o termo comum no Reino Unido para farmácia."
+  },
+  {
+    sentence_pre: "It looks like rain today, so take your ",
+    sentence_post: ".",
+    correct: "Raincoat",
+    translation_full: "Parece que vai chover hoje, então leve sua capa de chuva.",
+    explanation: "'Raincoat' significa capa de chuva."
+  },
+  {
+    sentence_pre: "Will you ",
+    sentence_post: " us for dinner tonight?",
+    correct: "Join",
+    translation_full: "Você vai acompanhar a gente no jantar esta noite?",
+    explanation: "'Join' é usar para juntar-se ou acompanhar alguém."
+  },
+  {
+    sentence_pre: "He was ",
+    sentence_post: " because the train was delayed.",
+    correct: "Late",
+    translation_full: "Ele estava atrasado porque o trem atrasou.",
+    explanation: "'Late' significa atrasado ou tarde."
+  }
+];
+
+// STATE MANAGEMENT
+let slowMode = false;
+let userDesbloqueioAnswers = {};
+let reorderBuiltTokens = [];
+const reorderTokensPool = ["card?", "have", "you", "an", "I", "Do", "do.", "Oyster", "Yes,"];
+let reviewedCards = new Set();
+
+// INITIALIZATION
+window.onload = function() {
+  renderFlashcards();
+  renderReorderTokens();
+  renderFixacao();
+};
+
+// AUDIO SYNTHESIS
+function toggleSpeed() {
+  slowMode = !slowMode;
+  document.getElementById('speed-btn').innerText = slowMode ? '🐢 Velocidade: 0.75x' : '⚡ Velocidade: 1.0x';
+}
+
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'en-GB';
+  utterance.rate = slowMode ? 0.75 : 1.0;
+  window.speechSynthesis.speak(utterance);
+}
+
+// NORMALIZATION
+function normalizeStr(str) {
+  if (!str) return '';
+  return str.toLowerCase()
+    .trim()
+    .replace(/[.,?!'"]/g, '')
+    .replace(/\s+/g, ' ');
+}
+
+// RESULT SUBMISSION VIA NO-CORS FETCH
+function enviarResultado(secao, acertos, total) {
+  if (!META_ENVIO.apps_script_url) return;
+  const payload = {
+    meeting_id: META_ENVIO.meeting_id,
+    aluno: META_ENVIO.aluno,
+    data_aula: META_ENVIO.data_aula,
+    secao: secao,
+    acertos: acertos,
+    total: total
+  };
+  
+  fetch(META_ENVIO.apps_script_url, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+}
+
+// TREINO DE DESBLOQUEIO LOGIC
+function selectOption(itemIndex, val, btnEl) {
+  userDesbloqueioAnswers[itemIndex] = val;
+  const parent = btnEl.parentElement;
+  const btns = parent.querySelectorAll('.btn-option');
+  btns.forEach(b => b.classList.remove('selected'));
+  btnEl.classList.add('selected');
+}
+
+function renderReorderTokens() {
+  const poolContainer = document.getElementById('tokens-pool-3');
+  const builtContainer = document.getElementById('tokens-built-3');
+  
+  poolContainer.innerHTML = '';
+  builtContainer.innerHTML = '';
+
+  reorderTokensPool.forEach((token, index) => {
+    const isUsed = reorderBuiltTokens.includes(index);
+    const tokenEl = document.createElement('div');
+    tokenEl.className = 'token' + (isUsed ? ' selected' : '');
+    tokenEl.innerText = token;
+    if (!isUsed) {
+      tokenEl.onclick = () => {
+        reorderBuiltTokens.push(index);
+        renderReorderTokens();
+      };
+    }
+    poolContainer.appendChild(tokenEl);
+  });
+
+  reorderBuiltTokens.forEach((poolIndex, builtIndex) => {
+    const tokenEl = document.createElement('div');
+    tokenEl.className = 'token';
+    tokenEl.innerText = reorderTokensPool[poolIndex];
+    tokenEl.onclick = () => {
+      reorderBuiltTokens.splice(builtIndex, 1);
+      renderReorderTokens();
+    };
+    builtContainer.appendChild(tokenEl);
+  });
+}
+
+function verificarTreinoDesbloqueio() {
+  let acertos = 0;
+  const total = 7;
+
+  // 1. compare_contrast_implicito
+  const card0 = document.getElementById('desb-item-0');
+  const fb0 = document.getElementById('desb-fb-0');
+  if (userDesbloqueioAnswers[0] === 'a') {
+    acertos++;
+    card0.className = 'desbloqueio-card correct';
+    fb0.className = 'feedback-msg correct';
+    fb0.innerHTML = '✅ Correto! "Take the underground to work" é a forma natural em inglês britânico.';
+  } else {
+    card0.className = 'desbloqueio-card incorrect';
+    fb0.className = 'feedback-msg incorrect';
+    fb0.innerHTML = '✅ Resposta correta: <strong>A</strong> — Em inglês dizemos "take the underground" e "to work". Evita-se a tradução literal palavra por palavra.';
+  }
+
+  // 2. multiple_choice_avancado
+  const card1 = document.getElementById('desb-item-1');
+  const fb1 = document.getElementById('desb-fb-1');
+  if (userDesbloqueioAnswers[1] === 0) {
+    acertos++;
+    card1.className = 'desbloqueio-card correct';
+    fb1.className = 'feedback-msg correct';
+    fb1.innerHTML = '✅ Correto! "I am cold" (usa-se o verbo to be para sensações físicas).';
+  } else {
+    card1.className = 'desbloqueio-card incorrect';
+    fb1.className = 'feedback-msg incorrect';
+    fb1.innerHTML = '✅ Resposta correta: <strong>am</strong> — Em inglês usa-se "to be" (I am cold), e não "have cold".';
+  }
+
+  // 3. dialogo_tempos_mistos
+  const card2 = document.getElementById('desb-item-2');
+  const fb2 = document.getElementById('desb-fb-2');
+  const d0 = normalizeStr(document.getElementById('dialog-0').value);
+  const d1 = normalizeStr(document.getElementById('dialog-1').value);
+  const d2 = normalizeStr(document.getElementById('dialog-2').value);
+
+  const d0Ok = d0 === 'yes i do';
+  const d1Ok = d1 === 'no i didnt' || d1 === 'no i did not';
+  const d2Ok = d2 === 'yes i will';
+
+  if (d0Ok && d1Ok && d2Ok) {
+    acertos++;
+    card2.className = 'desbloqueio-card correct';
+    fb2.className = 'feedback-msg correct';
+    fb2.innerHTML = '✅ Perfeito! Respostas curtíssimas com auxiliares precisos (do, didn\'t, will).';
+  } else {
+    card2.className = 'desbloqueio-card incorrect';
+    fb2.className = 'feedback-msg incorrect';
+    fb2.innerHTML = '✅ Respostas corretas: Line 1: <strong>Yes, I do.</strong> | Line 2: <strong>No, I didn\'t.</strong> | Line 3: <strong>Yes, I will.</strong> — Usamos apenas o auxiliar correspondente ao tempo verbal.';
+  }
+
+  // 4. reordenar_palavras
+  const card3 = document.getElementById('desb-item-3');
+  const fb3 = document.getElementById('desb-fb-3');
+  const builtSentence = reorderBuiltTokens.map(i => reorderTokensPool[i]).join(' ');
+  const targetSentence = "Do you have an Oyster card? Yes, I do.";
+  if (normalizeStr(builtSentence) === normalizeStr(targetSentence)) {
+    acertos++;
+    card3.className = 'desbloqueio-card correct';
+    fb3.className = 'feedback-msg correct';
+    fb3.innerHTML = '✅ Excelente! A ordem da pergunta com "Do" e a resposta curta "Yes, I do" estão impecáveis.';
+  } else {
+    card3.className = 'desbloqueio-card incorrect';
+    fb3.className = 'feedback-msg incorrect';
+    fb3.innerHTML = '✅ Resposta correta: <strong>Do you have an Oyster card? Yes, I do.</strong>';
+  }
+
+  // 5. translation_challenge 1
+  const card4 = document.getElementById('desb-item-4');
+  const fb4 = document.getElementById('desb-fb-4');
+  const t0 = normalizeStr(document.getElementById('trans-0').value);
+  const t0Valids = ["my stepmother didn't take the underground today", "my stepmother did not take the underground today"];
+  if (t0Valids.includes(t0)) {
+    acertos++;
+    card4.className = 'desbloqueio-card correct';
+    fb4.className = 'feedback-msg correct';
+    fb4.innerHTML = '✅ Correto!';
+  } else {
+    card4.className = 'desbloqueio-card incorrect';
+    fb4.className = 'feedback-msg incorrect';
+    fb4.innerHTML = '✅ Resposta correta: <strong>My stepmother didn\'t take the underground today.</strong> — Para "pegar o metrô", usa-se "take the underground".';
+  }
+
+  // 6. translation_challenge 2
+  const card5 = document.getElementById('desb-item-5');
+  const fb5 = document.getElementById('desb-fb-5');
+  const t1 = normalizeStr(document.getElementById('trans-1').value);
+  const t1Valids = [
+    "will you join us at the shopping mall tonight",
+    "will you join us in the shopping mall tonight",
+    "are you going to join us at the shopping mall tonight"
+  ];
+  if (t1Valids.includes(t1)) {
+    acertos++;
+    card5.className = 'desbloqueio-card correct';
+    fb5.className = 'feedback-msg correct';
+    fb5.innerHTML = '✅ Correto!';
+  } else {
+    card5.className = 'desbloqueio-card incorrect';
+    fb5.className = 'feedback-msg incorrect';
+    fb5.innerHTML = '✅ Resposta correta: <strong>Will you join us at the shopping mall tonight?</strong> — O verbo "join" conecta diretamente a quem acompanha, sem preposição "with".';
+  }
+
+  // 7. translation_challenge 3
+  const card6 = document.getElementById('desb-item-6');
+  const fb6 = document.getElementById('desb-fb-6');
+  const t2 = normalizeStr(document.getElementById('trans-2').value);
+  const t2Valids = [
+    "i am hungry, but i don't have pounds in my bank account",
+    "i'm hungry, but i don't have pounds in my bank account",
+    "i am hungry but i don't have pounds in my bank account",
+    "i'm hungry but i don't have pounds in my bank account"
+  ];
+  if (t2Valids.includes(t2)) {
+    acertos++;
+    card6.className = 'desbloqueio-card correct';
+    fb6.className = 'feedback-msg correct';
+    fb6.innerHTML = '✅ Correto!';
+  } else {
+    card6.className = 'desbloqueio-card incorrect';
+    fb6.className = 'feedback-msg incorrect';
+    fb6.innerHTML = '✅ Resposta correta: <strong>I am hungry, but I don\'t have pounds in my bank account.</strong> — "Estar com fome" é "to be hungry".';
+  }
+
+  // ENVIO AUTOMÁTICO
+  enviarResultado("Treino de Desbloqueio", acertos, total);
+  document.getElementById('sub-status-desbloqueio').innerText = "📤 Resultado enviado ao professor (" + acertos + "/" + total + " acertos)";
+}
+
+// FLASHCARDS LOGIC
+function renderFlashcards() {
+  const container = document.getElementById('flashcards-grid');
+  container.innerHTML = '';
+
+  VOCABULARIO_COMPLETO.forEach((item, index) => {
+    const card = document.createElement('div');
+    card.className = 'flashcard';
+    card.id = `flashcard-${index}`;
+
+    card.innerHTML = `
+      <div>
+        <div class="flashcard-word">
+          <span>${item.palavra}</span>
+          <button class="btn-audio" onclick="speak('${item.palavra.replace(/'/g, "\\'")}')">🔊</button>
+        </div>
+        <div class="flashcard-translation" id="card-trans-${index}" style="display:none;">
+          ${item.traducao}
+        </div>
+      </div>
+      <div class="flashcard-actions" id="card-actions-${index}">
+        <button class="btn-card btn-reveal" onclick="revealCard(${index})">Revelar tradução</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function revealCard(index) {
+  document.getElementById(`card-trans-${index}`).style.display = 'block';
+  const actionsDiv = document.getElementById(`card-actions-${index}`);
+  actionsDiv.innerHTML = `
+    <div class="self-eval-btns">
+      <button class="btn-card btn-known" onclick="evalCard(${index}, 'known')">✅ Eu sabia</button>
+      <button class="btn-card btn-review" onclick="evalCard(${index}, 'review')">🔄 Preciso revisar</button>
+    </div>
+  `;
+}
+
+function evalCard(index, status) {
+  const card = document.getElementById(`flashcard-${index}`);
+  card.classList.remove('status-known', 'status-review');
+  if (status === 'known') {
+    card.classList.add('status-known');
+  } else {
+    card.classList.add('status-review');
+  }
+  reviewedCards.add(index);
+  document.getElementById('cards-counter').innerText = `${reviewedCards.size} de ${VOCABULARIO_COMPLETO.length} revisadas`;
+}
+
+// EXERCÍCIO DE FIXAÇÃO LOGIC
+function renderFixacao() {
+  const container = document.getElementById('fixacao-container');
+  container.innerHTML = '';
+
+  // Sort words for select options
+  const sortedWords = [...VOCABULARIO_COMPLETO].map(v => v.palavra).sort((a, b) => a.localeCompare(b));
+
+  FIXACAO_ITEMS.forEach((item, index) => {
+    const itemEl = document.createElement('div');
+    itemEl.className = 'fixacao-item';
+    itemEl.id = `fix-item-${index}`;
+
+    let optionsHtml = `<option value="" disabled selected>-- Selecione --</option>`;
+    sortedWords.forEach(w => {
+      optionsHtml += `<option value="${w}">${w}</option>`;
+    });
+
+    itemEl.innerHTML = `
+      <div style="font-size: 0.95rem; margin-bottom: 0.25rem;">
+        <strong>${index + 1}.</strong> ${item.sentence_pre}
+        <select class="select-vocab" id="fix-select-${index}">
+          ${optionsHtml}
+        </select>
+        ${item.sentence_post}
+      </div>
+      <div class="exercise-translation translation-text" id="fix-trans-${index}" style="display:none; margin-top: 0.5rem;">
+        🇧🇷 ${item.translation_full}
+      </div>
+      <div class="feedback-msg" id="fix-fb-${index}"></div>
+    `;
+    container.appendChild(itemEl);
+  });
+}
+
+function verificarFixacao() {
+  let acertos = 0;
+  const total = FIXACAO_ITEMS.length;
+
+  FIXACAO_ITEMS.forEach((item, index) => {
+    const selectEl = document.getElementById(`fix-select-${index}`);
+    const itemEl = document.getElementById(`fix-item-${index}`);
+    const fbEl = document.getElementById(`fix-fb-${index}`);
+    const transEl = document.getElementById(`fix-trans-${index}`);
+
+    const selectedVal = selectEl.value;
+    transEl.style.display = 'block'; // Revela tradução após verificar
+
+    if (selectedVal === item.correct) {
+      acertos++;
+      itemEl.className = 'fixacao-item correct';
+      fbEl.className = 'feedback-msg fix-correct';
+      fbEl.innerHTML = `✅ Correto! ${item.explanation}`;
+    } else {
+      itemEl.className = 'fixacao-item incorrect';
+      fbEl.className = 'feedback-msg fix-incorrect';
+      fbEl.innerHTML = `✅ Resposta correta: <strong>${item.correct}</strong> — ${item.explanation}`;
+    }
+  });
+
+  // ENVIO AUTOMÁTICO
+  enviarResultado("Exercício de Fixação", acertos, total);
+  document.getElementById('sub-status-fixacao').innerText = "📤 Resultado enviado ao professor (" + acertos + "/" + total + " acertos)";
+}
+
+// COPY SUMMARY
+function copiarResumo() {
+  const textToCopy = `Revisão de Aula - Lorraine Gomes do Carmo
+Data: ${META_ENVIO.data_aula}
+Tópico: 1º - Questions and Answers (do - did - will - would)
+Foco: Vocabulário de Londres e desapego da tradução literal.
+Status: Revisão interativa concluída com sucesso!`;
+
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    alert("Resumo copiado com sucesso para a área de transferência!");
+  }).catch(() => {
+    alert("Não foi possível copiar automaticamente.");
+  });
+}
+</script>
+
+</body>
+</html>
