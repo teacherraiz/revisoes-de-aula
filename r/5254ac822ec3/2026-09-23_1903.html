@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 23/09/26 — Loeni</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --warning: #d97706;
+      --warning-bg: #fffbeb;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .date-badge {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .audio-speed-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .speed-btn {
+      border: none;
+      background: transparent;
+      padding: 4px 8px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-weight: 600;
+      min-height: 36px;
+    }
+
+    .speed-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+
+    .encorajamento {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 8px;
+      font-style: italic;
+      color: #1e40af;
+      margin-bottom: 20px;
+    }
+
+    .btn-audio {
+      background: #e0e7ff;
+      color: #3730a3;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      min-height: 44px;
+      font-weight: 600;
+    }
+
+    .btn-audio:hover {
+      background: #c7d2fe;
+    }
+
+    .exemplo-item {
+      background: var(--bg);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .exemplo-en {
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .exemplo-pt {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Exercises General */
+    .exercise-group {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .exercise-group:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .topic-subtitle {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .topic-rule-summary {
+      font-size: 0.9rem;
+      background: var(--bg);
+      padding: 10px 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    .question-card {
+      background: var(--bg);
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    .question-card.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .question-card.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    .prompt-text {
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+      color: var(--text);
+      transition: background 0.2s;
+    }
+
+    .option-btn:hover {
+      border-color: var(--primary);
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background-color: #eff6ff;
+      font-weight: 600;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      min-height: 44px;
+      margin-top: 6px;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--primary);
+    }
+
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      min-height: 44px;
+      background: var(--card-bg);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .feedback-box {
+      margin-top: 10px;
+      font-size: 0.88rem;
+      display: none;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .correct-msg {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .incorrect-msg {
+      color: var(--error);
+      font-weight: 600;
+    }
+
+    .explanation-text {
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .action-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      min-height: 44px;
+      margin-top: 12px;
+      transition: background 0.2s;
+    }
+
+    .action-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .score-banner {
+      display: none;
+      padding: 10px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .sent-status {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 6px;
+      display: none;
+    }
+
+    /* Flashcards */
+    .flashcard-counter {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .flashcards-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 480px) {
+      .flashcards-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .flashcard {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 140px;
+      transition: all 0.2s;
+    }
+
+    .flashcard.known {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .flashcard.review {
+      border-color: var(--warning);
+      background-color: var(--warning-bg);
+    }
+
+    .flashcard-word {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flashcard-translation {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .flashcard-actions {
+      margin-top: 12px;
+    }
+
+    .btn-reveal {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      min-height: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .eval-btns {
+      display: none;
+      gap: 6px;
+    }
+
+    .btn-eval {
+      flex: 1;
+      padding: 8px 4px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      min-height: 40px;
+      background: var(--card-bg);
+    }
+
+    .btn-eval.know {
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    .btn-eval.review {
+      border-color: var(--warning);
+      color: var(--warning);
+    }
+
+    /* Homework */
+    .homework-list {
+      list-style-type: none;
+      margin-bottom: 16px;
+    }
+
+    .homework-item {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .homework-item::before {
+      content: "📌";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .btn-copy {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      min-height: 44px;
+    }
+
+    .btn-copy:hover {
+      background: #2563eb;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Cabeçalho -->
+  <header>
+    <div class="header-top">
+      <span class="date-badge">Aula de 23/09/26</span>
+      <div class="audio-speed-control">
+        <span>🔊 Velocidade:</span>
+        <button id="speed-1" class="speed-btn active" onclick="setSpeed(1.0)">1.0x</button>
+        <button id="speed-075" class="speed-btn" onclick="setSpeed(0.75)">0.75x</button>
+      </div>
+    </div>
+    <h1>Olá, Loeni!</h1>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">Sua página personalizada de revisão da aula.</p>
+  </header>
+
+  <!-- 2. Mensagem de encorajamento -->
+  <div class="encorajamento">
+    "Cada palavra que você reconhece pelo som é uma grande vitória para o seu ouvido. Errar faz parte do processo de acostumar o cérebro com o novo idioma!"
+  </div>
+
+  <!-- 3. Recapitulação da Regra -->
+  <section class="card">
+    <div class="section-title">📖 Treino de Escuta e Vocabulário com Música</div>
+    <p style="font-size: 0.95rem; color: var(--text); margin-bottom: 16px;">
+      Ouvir músicas em inglês ajuda a reconhecer como as palavras se conectam na fala natural e fortalece a memória auditiva.
+    </p>
+
+    <div class="exemplo-item">
+      <div class="exemplo-en">
+        <span>My faith will stand in deep waters.</span>
+        <button class="btn-audio" onclick="speak('My faith will stand in deep waters.')">🔊 Ouvir</button>
+      </div>
+      <div class="exemplo-pt">Minha fé se manterá firme em águas profundas.</div>
+    </div>
+
+    <div class="exemplo-item">
+      <div class="exemplo-en">
+        <span>Keep my eyes above the waves.</span>
+        <button class="btn-audio" onclick="speak('Keep my eyes above the waves.')">🔊 Ouvir</button>
+      </div>
+      <div class="exemplo-pt">Mantenha meus olhos acima das ondas.</div>
+    </div>
+
+    <div class="exemplo-item">
+      <div class="exemplo-en">
+        <span>My faith will be made stronger.</span>
+        <button class="btn-audio" onclick="speak('My faith will be made stronger.')">🔊 Ouvir</button>
+      </div>
+      <div class="exemplo-pt">Minha fé será fortalecida.</div>
+    </div>
+  </section>
+
+  <!-- 5. Revisão Cumulativa -->
+  <section class="card" id="sec-cumulativa">
+    <div class="section-title">🔁 Revisão Cumulativa</div>
+    <div id="cumulativa-score" class="score-banner"></div>
+
+    <!-- Tópico 1 -->
+    <div class="exercise-group">
+      <div class="topic-subtitle">Perguntas Básicas e Respostas (Questions and Answers)</div>
+      <div class="topic-rule-summary">Para fazer perguntas em inglês usamos auxiliares no início da frase, como 'do', 'did' ou 'will'.</div>
+
+      <!-- Ex 1: MC -->
+      <div class="question-card" id="cum-q0">
+        <div class="prompt-text">1. ____ you drink tea every morning?</div>
+        <div class="options-grid" id="cum-opts-0"></div>
+        <div class="feedback-box" id="cum-fb-0"></div>
+      </div>
+
+      <!-- Ex 2: Gap Fill -->
+      <div class="question-card" id="cum-q1">
+        <div class="prompt-text">2. ____ (do) you work in London?</div>
+        <input type="text" id="cum-input-1" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+        <div class="feedback-box" id="cum-fb-1"></div>
+      </div>
+    </div>
+
+    <!-- Tópico 2 -->
+    <div class="exercise-group">
+      <div class="topic-subtitle">Inversão com Modais (Can you...?)</div>
+      <div class="topic-rule-summary">Em pedidos e perguntas com 'can', invertemos a ordem: 'Can you...?' em vez de 'You can'.</div>
+
+      <!-- Ex 3: MC -->
+      <div class="question-card" id="cum-q2">
+        <div class="prompt-text">3. ____ help me with this box, please?</div>
+        <div class="options-grid" id="cum-opts-2"></div>
+        <div class="feedback-box" id="cum-fb-2"></div>
+      </div>
+
+      <!-- Ex 4: Gap Fill -->
+      <div class="question-card" id="cum-q3">
+        <div class="prompt-text">4. ____ (can) you open the window, please?</div>
+        <input type="text" id="cum-input-3" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+        <div class="feedback-box" id="cum-fb-3"></div>
+      </div>
+    </div>
+
+    <button class="action-btn" id="btn-cumulativa" onclick="verificarCumulativa()">Verificar</button>
+    <div id="status-cumulativa" class="sent-status">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- 6. Vocabulário Novo -->
+  <section class="card">
+    <div class="section-title">📚 Vocabulário Novo</div>
+    <div class="flashcard-counter" id="card-counter">0 de 14 revisadas</div>
+    <div class="flashcards-container" id="flashcards-list"></div>
+  </section>
+
+  <!-- 7. Exercício de Fixação -->
+  <section class="card" id="sec-fixacao">
+    <div class="section-title">✏️ Exercício de Fixação</div>
+    <div id="fixacao-score" class="score-banner"></div>
+    <div id="fixacao-container"></div>
+    <button class="action-btn" id="btn-fixacao" onclick="verificarFixacao()">Verificar</button>
+    <div id="status-fixacao" class="sent-status">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- 8. Homework -->
+  <section class="card">
+    <div class="section-title">🏠 Homework</div>
+    <ul class="homework-list">
+      <li class="homework-item">Acesse o link do jogo interativo e pratique novamente a música 'Oceans'.</li>
+      <li class="homework-item">Leia a letra da música com a tradução enviada no WhatsApp observando a pronúncia das palavras.</li>
+    </ul>
+    <button class="btn-copy" onclick="copiarHomework()">Copiar homework</button>
+  </section>
+
+  <script>
+    // Configurações e Áudio
+    let currentRate = 1.0;
+    const accent = "UK";
+    const appsScriptUrl = "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec";
+    const alunoId = "loeni";
+    const alunoNome = "Loeni";
+    const dataAula = "23/09/26";
+
+    function setSpeed(rate) {
+      currentRate = rate;
+      document.getElementById('speed-1').classList.toggle('active', rate === 1.0);
+      document.getElementById('speed-075').classList.toggle('active', rate === 0.75);
+    }
+
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = accent === 'UK' ? 'en-GB' : 'en-US';
+        utter.rate = currentRate;
+        const voices = window.speechSynthesis.getVoices();
+        const voice = voices.find(v => v.lang === utter.lang || v.lang.replace('_', '-').startsWith(utter.lang));
+        if (voice) utter.voice = voice;
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    function normalizeText(text) {
+      if (!text) return '';
+      return text
+        .toString()
+        .replace(/[’‘“”]/g, "'")
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .replace(/^["']|["']$/g, '')
+        .replace(/[.!?]+$/g, '')
+        .trim();
+    }
+
+    const enviados = {};
+    function enviarResultado(secao, acertos, total) {
+      if (enviados[secao] || !appsScriptUrl) return;
+      enviados[secao] = true;
+      fetch(appsScriptUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: alunoId,
+          aluno: alunoNome,
+          data_aula: dataAula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+    }
+
+    // Flashcards Data
+    const vocabData = [
+      {"palavra": "waters", "traducao": "águas"},
+      {"palavra": "unknown", "traducao": "desconhecido"},
+      {"palavra": "mystery", "traducao": "mistério"},
+      {"palavra": "deep", "traducao": "profundo"},
+      {"palavra": "faith", "traducao": "fé"},
+      {"palavra": "stand", "traducao": "ficar de pé / manter-se firme"},
+      {"palavra": "waves", "traducao": "ondas"},
+      {"palavra": "rise", "traducao": "levantar / subir"},
+      {"palavra": "embrace", "traducao": "abraço / abraçar"},
+      {"palavra": "grace", "traducao": "graça"},
+      {"palavra": "feet", "traducao": "pés"},
+      {"palavra": "stronger", "traducao": "mais forte"},
+      {"palavra": "presence", "traducao": "presença"},
+      {"palavra": "savior", "traducao": "salvador"}
+    ];
+
+    let reviewedCards = new Set();
+
+    function renderFlashcards() {
+      const container = document.getElementById('flashcards-list');
+      container.innerHTML = '';
+      vocabData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'flashcard';
+        card.id = `flashcard-${index}`;
+        card.innerHTML = `
+          <div>
+            <div class="flashcard-word">
+              <span>${item.palavra}</span>
+              <button class="btn-audio" onclick="speak('${item.palavra}')">🔊</button>
+            </div>
+            <div class="flashcard-translation" id="trans-${index}">${item.traducao}</div>
+          </div>
+          <div class="flashcard-actions">
+            <button class="btn-reveal" id="btn-rev-${index}" onclick="revelarTradução(${index})">Revelar tradução</button>
+            <div class="eval-btns" id="eval-${index}">
+              <button class="btn-eval know" onclick="avaliarCard(${index}, true)">✅ Eu sabia</button>
+              <button class="btn-eval review" onclick="avaliarCard(${index}, false)">🔄 Preciso revisar</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function revelarTradução(index) {
+      document.getElementById(`trans-${index}`).style.display = 'block';
+      document.getElementById(`btn-rev-${index}`).style.display = 'none';
+      document.getElementById(`eval-${index}`).style.display = 'flex';
+    }
+
+    function avaliarCard(index, sabia) {
+      const card = document.getElementById(`flashcard-${index}`);
+      card.classList.remove('known', 'review');
+      if (sabia) {
+        card.classList.add('known');
+      } else {
+        card.classList.add('review');
+      }
+      reviewedCards.add(index);
+      document.getElementById('card-counter').innerText = `${reviewedCards.size} de ${vocabData.length} revisadas`;
+    }
+
+    // Revisão Cumulativa Data & State
+    const cumulativaData = [
+      {
+        type: 'mc',
+        id: 0,
+        options: ["Do", "Are", "Does"],
+        correct: "Do",
+        explanation: "Usamos o auxiliar 'Do' no início da frase para fazer perguntas no presente simples com 'you'."
+      },
+      {
+        type: 'gap',
+        id: 1,
+        correctAnswers: ["do", "Do"],
+        explanation: "Para iniciar uma pergunta no presente simples com 'you', usamos o verbo auxiliar 'Do' no começo da frase."
+      },
+      {
+        type: 'mc',
+        id: 2,
+        options: ["You can", "Can you", "Do you can"],
+        correct: "Can you",
+        explanation: "Em pedidos e perguntas, invertemos a ordem das palavras e usamos 'Can you...?' em vez de 'You can'."
+      },
+      {
+        type: 'gap',
+        id: 3,
+        correctAnswers: ["can", "Can"],
+        explanation: "Em perguntas com modais, colocamos o 'Can' no início da frase, antes do sujeito 'you'."
+      }
+    ];
+
+    let selectedMcCumulativa = {};
+    let cumulativaAttempted = false;
+
+    function renderCumulativaMC() {
+      // Q0
+      const opts0 = [...cumulativaData[0].options].sort(() => Math.random() - 0.5);
+      const container0 = document.getElementById('cum-opts-0');
+      container0.innerHTML = '';
+      opts0.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt;
+        btn.onclick = () => selectMcOption(0, opt, btn);
+        container0.appendChild(btn);
+      });
+
+      // Q2
+      const opts2 = [...cumulativaData[2].options].sort(() => Math.random() - 0.5);
+      const container2 = document.getElementById('cum-opts-2');
+      container2.innerHTML = '';
+      opts2.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt;
+        btn.onclick = () => selectMcOption(2, opt, btn);
+        container2.appendChild(btn);
+      });
+    }
+
+    function selectMcOption(qId, value, element) {
+      selectedMcCumulativa[qId] = value;
+      const parent = element.parentElement;
+      parent.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      element.classList.add('selected');
+    }
+
+    function verificarCumulativa() {
+      const btn = document.getElementById('btn-cumulativa');
+
+      if (cumulativaAttempted) {
+        // Reset
+        cumulativaAttempted = false;
+        btn.innerText = "Verificar";
+        document.getElementById('cumulativa-score').style.display = 'none';
+        cumulativaData.forEach(item => {
+          const card = document.getElementById(`cum-q${item.id}`);
+          card.classList.remove('correct', 'incorrect');
+          const fb = document.getElementById(`cum-fb-${item.id}`);
+          fb.className = 'feedback-box';
+          fb.innerHTML = '';
+          if (item.type === 'gap') {
+            document.getElementById(`cum-input-${item.id}`).value = '';
+          } else {
+            const optsCont = document.getElementById(`cum-opts-${item.id}`);
+            optsCont.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+          }
+        });
+        delete selectedMcCumulativa[0];
+        delete selectedMcCumulativa[2];
+        return;
+      }
+
+      let acertos = 0;
+      const total = cumulativaData.length;
+
+      // Check Q0
+      const item0 = cumulativaData[0];
+      const card0 = document.getElementById('cum-q0');
+      const fb0 = document.getElementById('cum-fb-0');
+      const ans0 = selectedMcCumulativa[0];
+      if (ans0 === item0.correct) {
+        acertos++;
+        card0.className = 'question-card correct';
+        fb0.innerHTML = `<div class="correct-msg">✅ Correto!</div><div class="explanation-text">${item0.explanation}</div>`;
+      } else {
+        card0.className = 'question-card incorrect';
+        fb0.innerHTML = `<div class="incorrect-msg">❌ Incorreto.</div><div>✅ Resposta correta: <strong>${item0.correct}</strong></div><div class="explanation-text">${item0.explanation}</div>`;
+      }
+      fb0.classList.add('show');
+
+      // Check Q1
+      const item1 = cumulativaData[1];
+      const card1 = document.getElementById('cum-q1');
+      const fb1 = document.getElementById('cum-fb-1');
+      const ans1 = normalizeText(document.getElementById('cum-input-1').value);
+      const isCorrect1 = item1.correctAnswers.some(c => normalizeText(c) === ans1);
+      if (isCorrect1) {
+        acertos++;
+        card1.className = 'question-card correct';
+        fb1.innerHTML = `<div class="correct-msg">✅ Correto!</div><div class="explanation-text">${item1.explanation}</div>`;
+      } else {
+        card1.className = 'question-card incorrect';
+        fb1.innerHTML = `<div class="incorrect-msg">❌ Incorreto.</div><div>✅ Resposta correta: <strong>${item1.correctAnswers[0]}</strong></div><div class="explanation-text">${item1.explanation}</div>`;
+      }
+      fb1.classList.add('show');
+
+      // Check Q2
+      const item2 = cumulativaData[2];
+      const card2 = document.getElementById('cum-q2');
+      const fb2 = document.getElementById('cum-fb-2');
+      const ans2 = selectedMcCumulativa[2];
+      if (ans2 === item2.correct) {
+        acertos++;
+        card2.className = 'question-card correct';
+        fb2.innerHTML = `<div class="correct-msg">✅ Correto!</div><div class="explanation-text">${item2.explanation}</div>`;
+      } else {
+        card2.className = 'question-card incorrect';
+        fb2.innerHTML = `<div class="incorrect-msg">❌ Incorreto.</div><div>✅ Resposta correta: <strong>${item2.correct}</strong></div><div class="explanation-text">${item2.explanation}</div>`;
+      }
+      fb2.classList.add('show');
+
+      // Check Q3
+      const item3 = cumulativaData[3];
+      const card3 = document.getElementById('cum-q3');
+      const fb3 = document.getElementById('cum-fb-3');
+      const ans3 = normalizeText(document.getElementById('cum-input-3').value);
+      const isCorrect3 = item3.correctAnswers.some(c => normalizeText(c) === ans3);
+      if (isCorrect3) {
+        acertos++;
+        card3.className = 'question-card correct';
+        fb3.innerHTML = `<div class="correct-msg">✅ Correto!</div><div class="explanation-text">${item3.explanation}</div>`;
+      } else {
+        card3.className = 'question-card incorrect';
+        fb3.innerHTML = `<div class="incorrect-msg">❌ Incorreto.</div><div>✅ Resposta correta: <strong>${item3.correctAnswers[0]}</strong></div><div class="explanation-text">${item3.explanation}</div>`;
+      }
+      fb3.classList.add('show');
+
+      // Score
+      const scoreBanner = document.getElementById('cumulativa-score');
+      scoreBanner.innerText = `Placar: ${acertos} de ${total} corretas`;
+      scoreBanner.style.display = 'block';
+
+      enviarResultado("Revisão Cumulativa", acertos, total);
+      if (appsScriptUrl) {
+        document.getElementById('status-cumulativa').style.display = 'block';
+      }
+
+      cumulativaAttempted = true;
+      btn.innerText = "Tentar de novo";
+    }
+
+    // Exercício de Fixação Data
+    const fixacaoQuestions = [
+      {
+        part1: "The ocean is very ",
+        part2: " and full of secrets.",
+        correct: "deep",
+        distractors: ["feet", "grace", "faith"]
+      },
+      {
+        part1: "She has strong ",
+        part2: " that everything will turn out fine.",
+        correct: "faith",
+        distractors: ["waves", "rise", "savior"]
+      },
+      {
+        part1: "Huge ",
+        part2: " hit the boat during the storm.",
+        correct: "waves",
+        distractors: ["feet", "presence", "mystery"]
+      },
+      {
+        part1: "We survived the difficult times through ",
+        part2: " and peace.",
+        correct: "grace",
+        distractors: ["waters", "rise", "unknown"]
+      },
+      {
+        part1: "My ",
+        part2: " hurt after walking for five miles.",
+        correct: "feet",
+        distractors: ["waves", "faith", "embrace"]
+      },
+      {
+        part1: "Daily practice makes your mind much ",
+        part2: ".",
+        correct: "stronger",
+        distractors: ["unknown", "mystery", "presence"]
+      },
+      {
+        part1: "It was a total ",
+        part2: " how the key disappeared.",
+        correct: "mystery",
+        distractors: ["grace", "feet", "waters"]
+      },
+      {
+        part1: "We watched the sun ",
+        part2: " over the mountains.",
+        correct: "rise",
+        distractors: ["deep", "faith", "embrace"]
+      },
+      {
+        part1: "She gave her mother a warm ",
+        part2: " at the airport.",
+        correct: "embrace",
+        distractors: ["stronger", "waves", "feet"]
+      },
+      {
+        part1: "Everyone felt calm in the teacher's ",
+        part2: ".",
+        correct: "presence",
+        distractors: ["deep", "rise", "grace"]
+      }
+    ];
+
+    let fixacaoAttempted = false;
+
+    function renderFixacao() {
+      const container = document.getElementById('fixacao-container');
+      container.innerHTML = '';
+      fixacaoQuestions.forEach((q, idx) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `fix-card-${idx}`;
+
+        const options = [q.correct, ...q.distractors].sort(() => Math.random() - 0.5);
+
+        let optionsHtml = `<option value="" disabled selected>-- Selecione --</option>`;
+        options.forEach(opt => {
+          optionsHtml += `<option value="${opt}">${opt}</option>`;
+        });
+
+        card.innerHTML = `
+          <div class="prompt-text">
+            ${idx + 1}. ${q.part1}
+            <select id="fix-select-${idx}" style="width: auto; display: inline-block; min-width: 130px;">
+              ${optionsHtml}
+            </select>
+            ${q.part2}
+          </div>
+          <div class="feedback-box" id="fix-fb-${idx}"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function verificarFixacao() {
+      const btn = document.getElementById('btn-fixacao');
+
+      if (fixacaoAttempted) {
+        // Reset
+        fixacaoAttempted = false;
+        btn.innerText = "Verificar";
+        document.getElementById('fixacao-score').style.display = 'none';
+        fixacaoQuestions.forEach((q, idx) => {
+          const card = document.getElementById(`fix-card-${idx}`);
+          card.classList.remove('correct', 'incorrect');
+          const fb = document.getElementById(`fix-fb-${idx}`);
+          fb.className = 'feedback-box';
+          fb.innerHTML = '';
+          document.getElementById(`fix-select-${idx}`).value = '';
+        });
+        return;
+      }
+
+      let acertos = 0;
+      const total = fixacaoQuestions.length;
+
+      fixacaoQuestions.forEach((q, idx) => {
+        const card = document.getElementById(`fix-card-${idx}`);
+        const fb = document.getElementById(`fix-fb-${idx}`);
+        const val = document.getElementById(`fix-select-${idx}`).value;
+
+        if (val === q.correct) {
+          acertos++;
+          card.className = 'question-card correct';
+          fb.innerHTML = `<div class="correct-msg">✅ Correto!</div>`;
+        } else {
+          card.className = 'question-card incorrect';
+          fb.innerHTML = `<div class="incorrect-msg">❌ Incorreto.</div><div>✅ Resposta correta: <strong>${q.correct}</strong></div>`;
+        }
+        fb.classList.add('show');
+      });
+
+      const scoreBanner = document.getElementById('fixacao-score');
+      scoreBanner.innerText = `Placar: ${acertos} de ${total} corretas`;
+      scoreBanner.style.display = 'block';
+
+      enviarResultado("Exercício de Fixação", acertos, total);
+      if (appsScriptUrl) {
+        document.getElementById('status-fixacao').style.display = 'block';
+      }
+
+      fixacaoAttempted = true;
+      btn.innerText = "Tentar de novo";
+    }
+
+    function copiarHomework() {
+      const text = "Homework 23/09/26:\n1. Acesse o link do jogo interativo e pratique novamente a música 'Oceans'.\n2. Leia a letra da música com a tradução enviada no WhatsApp observando a pronúncia das palavras.";
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Homework copiado para a área de transferência!");
+      }).catch(() => {
+        alert("Não foi possível copiar automaticamente. Copie os itens da lista.");
+      });
+    }
+
+    // Inicialização
+    window.addEventListener('DOMContentLoaded', () => {
+      renderFlashcards();
+      renderCumulativaMC();
+      renderFixacao();
+      if (!('speechSynthesis' in window)) {
+        document.querySelectorAll('.btn-audio').forEach(b => b.style.display = 'none');
+      }
+    });
+  </script>
+</body>
+</html>
