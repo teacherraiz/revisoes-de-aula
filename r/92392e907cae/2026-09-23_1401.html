@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 23/09/26 — Claudio</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      
+      /* Treino de Desbloqueio specific palette */
+      --td-orange: #FF7A00;
+      --td-orange-bg: #FFF7ED;
+      --td-blue: #1E5AA8;
+      --td-blue-bg: #EFF6FF;
+      --td-burnt: #C75000;
+      --td-burnt-bg: #FFF1F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px 12px 40px 12px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .greeting {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .audio-speed-toggle {
+      display: inline-flex;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2px;
+      align-items: center;
+    }
+
+    .speed-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      border-radius: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-muted);
+      min-height: 36px;
+    }
+
+    .speed-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+
+    .encouragement {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #1e40af;
+      margin-bottom: 24px;
+    }
+
+    .btn-audio {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-left: 8px;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+
+    .btn-audio:active {
+      transform: scale(0.95);
+    }
+
+    /* Regra Section */
+    .rule-box {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .rule-box p {
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .example-item {
+      background: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 8px;
+    }
+
+    .example-en {
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .example-pt {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Buttons & Controls */
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Treino Specific Controls */
+    .card-treino {
+      border-color: #fdba74;
+    }
+    .card-treino .section-title {
+      color: var(--td-orange);
+    }
+    .card-treino .btn-primary {
+      background: var(--td-orange);
+    }
+    .card-treino .btn-primary:hover {
+      background: #e66e00;
+    }
+
+    .score-board {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .sent-notice {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* Exercise Items */
+    .exercise-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .exercise-prompt {
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .input-text {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      min-height: 44px;
+      margin-top: 6px;
+    }
+
+    .input-text:focus {
+      outline: 2px solid var(--primary);
+      border-color: transparent;
+    }
+
+    .select-input {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: #fff;
+      min-height: 44px;
+      margin: 4px 0;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 480px) {
+      .options-grid.two-cols {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .option-btn {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+      transition: all 0.2s;
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      font-weight: 600;
+    }
+
+    .card-treino .option-btn.selected {
+      border-color: var(--td-orange);
+      background: var(--td-orange-bg);
+    }
+
+    /* Feedback states - Standard */
+    .exercise-item.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+    .exercise-item.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    /* Feedback states - Treino de Desbloqueio */
+    .card-treino .exercise-item.correct {
+      border-color: var(--td-blue);
+      background-color: var(--td-blue-bg);
+    }
+    .card-treino .exercise-item.incorrect {
+      border-color: var(--td-burnt);
+      background-color: var(--td-burnt-bg);
+    }
+
+    .feedback-box {
+      margin-top: 12px;
+      font-size: 0.88rem;
+      display: none;
+    }
+
+    .feedback-box .explanation {
+      margin-top: 4px;
+      color: var(--text-muted);
+    }
+
+    .feedback-box .correct-ans {
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    /* Standard feedback text color */
+    .correct .feedback-box .correct-ans { color: var(--success); }
+    .incorrect .feedback-box .correct-ans { color: var(--error); }
+
+    /* Treino feedback text color */
+    .card-treino .correct .feedback-box .correct-ans { color: var(--td-blue); }
+    .card-treino .incorrect .feedback-box .correct-ans { color: var(--td-burnt); }
+
+    /* Flashcards */
+    .flashcard-counter {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      text-align: right;
+    }
+
+    .flashcard {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: #fff;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .flashcard-word {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .flashcard-trans {
+      font-size: 1rem;
+      color: var(--primary);
+      margin-top: 8px;
+      font-weight: 600;
+      display: none;
+    }
+
+    .flashcard-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .btn-reveal {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+    }
+
+    .btn-eval {
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
+      max-width: 160px;
+      min-height: 44px;
+      background: #fff;
+      display: none;
+    }
+
+    .btn-eval.knew {
+      border: 2px solid var(--success);
+      color: var(--success);
+    }
+    .btn-eval.knew.selected {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .btn-eval.review {
+      border: 2px solid #eab308;
+      color: #ca8a04;
+    }
+    .btn-eval.review.selected {
+      background: #eab308;
+      color: #fff;
+    }
+
+    /* Word Ordering Tokens */
+    .tokens-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      min-height: 44px;
+      padding: 8px;
+      background: var(--bg);
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+    }
+
+    .token {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .token:active {
+      transform: scale(0.95);
+    }
+
+    /* Homework */
+    .homework-list {
+      list-style-type: none;
+      margin-bottom: 16px;
+    }
+
+    .homework-item {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .homework-item::before {
+      content: "📌";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .btn-copy {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-top">
+        <h1>Revisão da aula de 23/09/26</h1>
+        <div class="audio-speed-toggle">
+          <button class="speed-btn active" id="btn-speed-normal" onclick="setSpeed(1.0)">Normal</button>
+          <button class="speed-btn" id="btn-speed-slow" onclick="setSpeed(0.75)">0.75x</button>
+        </div>
+      </div>
+      <div class="greeting">Olá, Claudio!</div>
+    </header>
+
+    <!-- Encorajamento -->
+    <div class="encouragement">
+      Cada ajuste de estrutura constrói a segurança que você precisa no dia a dia. Continue praticando e confiando no seu progresso!
+    </div>
+
+    <!-- Recapitulação da Regra -->
+    <div class="card">
+      <div class="section-title">📖 Recapitulação da Regra: Preposições de Tempo (In, On, At)</div>
+      <div class="rule-box">
+        <p>Usamos 'at' para horários exatos e momentos específicos (ex: at 8 PM, at noon). Usamos 'on' para dias da semana e datas (ex: on Friday, on 15th July). Usamos 'in' para períodos maiores como meses, anos e partes do dia (ex: in July, in 2026, in the afternoon).</p>
+        
+        <div class="example-item">
+          <div class="example-en">
+            <span>The executive pickup is at 8 o'clock.</span>
+            <button class="btn-audio" onclick="speak('The executive pickup is at 8 o\'clock.')">🔊</button>
+          </div>
+          <div class="example-pt">O embarque executivo é às 8 horas em ponto.</div>
+        </div>
+
+        <div class="example-item">
+          <div class="example-en">
+            <span>The VIP group travels on Friday afternoon.</span>
+            <button class="btn-audio" onclick="speak('The VIP group travels on Friday afternoon.')">🔊</button>
+          </div>
+          <div class="example-pt">O grupo VIP viaja na sexta-feira à tarde.</div>
+        </div>
+
+        <div class="example-item">
+          <div class="example-en">
+            <span>The new luxury service starts in September.</span>
+            <button class="btn-audio" onclick="speak('The new luxury service starts in September.')">🔊</button>
+          </div>
+          <div class="example-pt">O novo serviço de luxo começa em setembro.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Treino de Desbloqueio -->
+    <div class="card card-treino" id="sec-treino">
+      <div class="section-title">🎯 Treino de Desbloqueio</div>
+      <div class="score-board" id="score-treino"></div>
+
+      <!-- Item 0: Compare & Contrast -->
+      <div class="exercise-item" id="td-item-0">
+        <div class="exercise-prompt">Qual frase está gramaticalmente correta para descrever o clima?</div>
+        <div class="options-grid two-cols" id="td-0-options"></div>
+        <div class="feedback-box">
+          <div class="correct-ans" id="td-0-ans"></div>
+          <div class="explanation">Em inglês, frases impessoais sobre o clima exigem o sujeito neutro 'It'. Dizer apenas 'Gets cold' sem o 'It' é um erro comum de falantes de português.</div>
+        </div>
+      </div>
+
+      <!-- Item 1: Multiple Choice Avançado -->
+      <div class="exercise-item" id="td-item-1">
+        <div class="exercise-prompt">What is the Estimated Time of Arrival? ____ is expected around midday.</div>
+        <div class="options-grid two-cols" id="td-1-options"></div>
+        <div class="feedback-box">
+          <div class="correct-ans" id="td-1-ans"></div>
+          <div class="explanation">Usamos 'It' como sujeito neutro para nos referirmos a coisas, horários ou informações impessoais. Usar apenas 'Is' deixa a frase em inglês sem sujeito.</div>
+        </div>
+      </div>
+
+      <!-- Item 2: Diálogo Tempos Mistos -->
+      <div class="exercise-item" id="td-item-2">
+        <div class="exercise-prompt">Complete o diálogo com a palavra que falta:</div>
+        
+        <div style="margin-bottom:12px;" id="td-dialogo-l0">
+          <p style="font-size:0.9rem; color:var(--text-muted);">Is it allowed to park here after midnight?</p>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span>No,</span>
+            <input type="text" class="input-text" style="width:80px; display:inline-block;" id="td-d0-in" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="____">
+            <span>is not allowed.</span>
+          </div>
+          <div class="feedback-box" id="td-d0-fb">
+            <div class="correct-ans">✅ Resposta correta: No, it is not allowed.</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;" id="td-dialogo-l1">
+          <p style="font-size:0.9rem; color:var(--text-muted);">Was it necessary to request the criminal certificate yesterday?</p>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span>Yes,</span>
+            <input type="text" class="input-text" style="width:80px; display:inline-block;" id="td-d1-in" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="____">
+            <span>was required immediately.</span>
+          </div>
+          <div class="feedback-box" id="td-d1-fb">
+            <div class="correct-ans">✅ Resposta correta: Yes, it was required immediately.</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;" id="td-dialogo-l2">
+          <p style="font-size:0.9rem; color:var(--text-muted);">Will it be easy to retire next year?</p>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span>Certainly,</span>
+            <input type="text" class="input-text" style="width:80px; display:inline-block;" id="td-d2-in" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="____">
+            <span>will depend on your schedule.</span>
+          </div>
+          <div class="feedback-box" id="td-d2-fb">
+            <div class="correct-ans">✅ Resposta correta: Certainly, it will depend on your schedule.</div>
+          </div>
+        </div>
+
+        <div class="feedback-box" id="td-2-fb-main">
+          <div class="explanation">Em todos os tempos verbais (presente, passado e futuro), orações impessoais em inglês precisam do sujeito 'it'.</div>
+        </div>
+      </div>
+
+      <!-- Item 3: Reordenar Palavras -->
+      <div class="exercise-item" id="td-item-3">
+        <div class="exercise-prompt">Ordene as palavras para formar a frase correta:</div>
+        <div class="tokens-container" id="td-3-pool"></div>
+        <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:4px;">Sua frase:</div>
+        <div class="tokens-container" id="td-3-built" style="background:#fff; border-style:solid;"></div>
+        <div class="feedback-box">
+          <div class="correct-ans" id="td-3-ans"></div>
+          <div class="explanation">A frase impessoal em inglês deve começar com o sujeito neutro 'It', seguido do verbo 'is' e da negação 'not'.</div>
+        </div>
+      </div>
+
+      <!-- Item 4: Translation Challenge 1 -->
+      <div class="exercise-item" id="td-item-4">
+        <div class="exercise-prompt">Traduza: "É permitido agendar uma entrega para o meio-dia?"</div>
+        <input type="text" class="input-text" id="td-4-in" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Type in English...">
+        <div class="feedback-box">
+          <div class="correct-ans" id="td-4-ans"></div>
+          <div class="explanation">Em perguntas impessoais, o 'it' vem logo após o verbo 'Is' (Is it allowed...?). Nunca omitimos o sujeito 'it'.</div>
+        </div>
+      </div>
+
+      <!-- Item 5: Translation Challenge 2 -->
+      <div class="exercise-item" id="td-item-5">
+        <div class="exercise-prompt">Traduza: "Está ligeiramente frio no outono."</div>
+        <input type="text" class="input-text" id="td-5-in" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Type in English...">
+        <div class="feedback-box">
+          <div class="correct-ans" id="td-5-ans"></div>
+          <div class="explanation">Para falar sobre o clima, a frase em inglês deve sempre começar com 'It is' ou 'It's', e não apenas com 'Is'.</div>
+        </div>
+      </div>
+
+      <!-- Item 6: Translation Challenge 3 -->
+      <div class="exercise-item" id="td-item-6">
+        <div class="exercise-prompt">Traduza: "É importante enviar o atestado de antecedentes criminais imediatamente."</div>
+        <input type="text" class="input-text" id="td-6-in" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Type in English...">
+        <div class="feedback-box">
+          <div class="correct-ans" id="td-6-ans"></div>
+          <div class="explanation">Estruturas impessoais como 'É importante...' devem ser traduzidas obrigatoriamente como 'It is important...'.</div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-verify-treino" onclick="verificarTreino()">Verificar Treino</button>
+      <div class="sent-notice" id="notice-treino">📤 Resultado enviado ao professor</div>
+    </div>
+
+    <!-- Revisão Cumulativa -->
+    <div class="card" id="sec-cumulativa">
+      <div class="section-title">🔁 Revisão Cumulativa</div>
+      <div class="score-board" id="score-cumulativa"></div>
+
+      <!-- Tópico 1 -->
+      <div style="margin-bottom: 20px;">
+        <h3 style="font-size:1rem; color:var(--primary); margin-bottom:6px;">Preposições de Tempo (In, On, At)</h3>
+        <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:12px; background:var(--bg); padding:8px 12px; border-radius:6px;">
+          Usamos 'at' para horas e horários exatos, 'on' para dias específicos e datas, e 'in' para meses, anos e períodos do dia.
+        </p>
+
+        <!-- RC Item 0 -->
+        <div class="exercise-item" id="rc-item-0">
+          <div class="exercise-prompt">The team always has a quick stand-up meeting ____ 8:30 AM.</div>
+          <div class="options-grid" id="rc-0-options"></div>
+          <div class="feedback-box">
+            <div class="correct-ans" id="rc-0-ans"></div>
+            <div class="explanation">Usamos 'at' para indicar horas e horários exatos.</div>
+          </div>
+        </div>
+
+        <!-- RC Item 1 -->
+        <div class="exercise-item" id="rc-item-1">
+          <div class="exercise-prompt">Our team usually updates the main report ____ (in / on / at) the morning.</div>
+          <input type="text" class="input-text" id="rc-1-in" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Digite sua resposta em inglês...">
+          <div class="feedback-box">
+            <div class="correct-ans" id="rc-1-ans"></div>
+            <div class="explanation">Usamos 'in' para períodos do dia, como em 'in the morning'.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tópico 2 -->
+      <div>
+        <h3 style="font-size:1rem; color:var(--primary); margin-bottom:6px;">Can & Could (Modal Verbs)</h3>
+        <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:12px; background:var(--bg); padding:8px 12px; border-radius:6px;">
+          Usamos 'could' para pedidos formais e polidos, e 'can' para ofertas diretas e habilidades.
+        </p>
+
+        <!-- RC Item 2 -->
+        <div class="exercise-item" id="rc-item-2">
+          <div class="exercise-prompt">Excuse me, ____ you please send me the financial report?</div>
+          <div class="options-grid" id="rc-2-options"></div>
+          <div class="feedback-box">
+            <div class="correct-ans" id="rc-2-ans"></div>
+            <div class="explanation">Usamos 'could' para fazer pedidos formais e educados.</div>
+          </div>
+        </div>
+
+        <!-- RC Item 3 -->
+        <div class="exercise-item" id="rc-item-3">
+          <div class="exercise-prompt">She ____ (can / could) speak three languages fluently.</div>
+          <input type="text" class="input-text" id="rc-3-in" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Digite sua resposta em inglês...">
+          <div class="feedback-box">
+            <div class="correct-ans" id="rc-3-ans"></div>
+            <div class="explanation">Usamos 'can' para expressar habilidades no presente.</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-verify-cumulativa" onclick="verificarCumulativa()">Verificar Revisão</button>
+      <div class="sent-notice" id="notice-cumulativa">📤 Resultado enviado ao professor</div>
+    </div>
+
+    <!-- Vocabulário Novo -->
+    <div class="card">
+      <div class="section-title">📚 Vocabulário Novo</div>
+      <div class="flashcard-counter" id="fc-counter">0 de 7 revisadas</div>
+
+      <div id="flashcards-list"></div>
+    </div>
+
+    <!-- Exercício de Fixação -->
+    <div class="card" id="sec-fixacao">
+      <div class="section-title">✏️ Exercício de Fixação</div>
+      <div class="score-board" id="score-fixacao"></div>
+
+      <div id="fixacao-list"></div>
+
+      <button class="btn-primary" id="btn-verify-fixacao" onclick="verificarFixacao()">Verificar Fixação</button>
+      <div class="sent-notice" id="notice-fixacao">📤 Resultado enviado ao professor</div>
+    </div>
+
+    <!-- Homework -->
+    <div class="card">
+      <div class="section-title">🏠 Homework</div>
+      <ul class="homework-list" id="hw-list">
+        <li class="homework-item">Praticar a pronúncia e a escuta ativa dos diálogos de atendimento enviados no WhatsApp usando o áudio de apoio.</li>
+        <li class="homework-item">Revisar mentalmente as regras do 'alvo' para preposições de tempo (In, On, At).</li>
+      </ul>
+      <button class="btn-primary btn-copy" onclick="copyHomework()">📋 Copiar homework</button>
+    </div>
+  </div>
+
+  <script>
+    // Global Config & Meta
+    const META = {"aluno_id": "claudio", "aluno": "Claudio", "data_aula": "23/09/26", "accent": "UK", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+    
+    let speechRate = 1.0;
+    const enviados = {};
+
+    function setSpeed(speed) {
+      speechRate = speed;
+      document.getElementById('btn-speed-normal').classList.toggle('active', speed === 1.0);
+      document.getElementById('btn-speed-slow').classList.toggle('active', speed === 0.75);
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const ut = new SpeechSynthesisUtterance(text);
+      ut.lang = 'en-GB';
+      ut.rate = speechRate;
+      
+      const voices = window.speechSynthesis.getVoices();
+      const ukVoice = voices.find(v => v.lang.includes('en-GB') || v.lang.includes('en_GB'));
+      if (ukVoice) ut.voice = ukVoice;
+      
+      window.speechSynthesis.speak(ut);
+    }
+
+    function normalizeText(str) {
+      if (!str) return '';
+      return str
+        .replace(/[’‘“”]/g, m => (m === '’' || m === '‘' ? "'" : '"'))
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .replace(/^["']|["']$/g, '')
+        .replace(/[.!?]$/, '')
+        .trim();
+    }
+
+    function shuffleArray(arr) {
+      const array = [...arr];
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function enviarResultado(secao, acertos, total) {
+      if (!META.apps_script_url || enviados[secao]) return;
+      enviados[secao] = true;
+      
+      fetch(META.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META.aluno_id,
+          aluno: META.aluno,
+          data_aula: META.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+
+      const noticeId = secao === "Treino de Desbloqueio" ? "notice-treino" :
+                       secao === "Revisão Cumulativa" ? "notice-cumulativa" : "notice-fixacao";
+      const el = document.getElementById(noticeId);
+      if (el) el.style.display = "block";
+    }
+
+    // --- INITIALIZATION ---
+    window.addEventListener('DOMContentLoaded', () => {
+      // Check Speech Synthesis Availability
+      if (!('speechSynthesis' in window)) {
+        document.querySelectorAll('.btn-audio').forEach(b => b.style.display = 'none');
+      }
+
+      initTreino();
+      initCumulativa();
+      initFlashcards();
+      initFixacao();
+    });
+
+    // --- TREINO DE DESBLOQUEIO ---
+    let td0_selected = null;
+    let td1_selected = null;
+    let td3_tokens = ["allowed", "It", "is", "midnight.", "not", "after"];
+    let td3_built = [];
+
+    function initTreino() {
+      // Item 0: Compare & Contrast
+      const td0_options = [
+        { text: "It gets slightly cold here in autumn.", correct: true },
+        { text: "Gets slightly cold here in autumn.", correct: false }
+      ];
+      const shuffled0 = shuffleArray(td0_options);
+      const container0 = document.getElementById('td-0-options');
+      shuffled0.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt.text;
+        btn.onclick = () => {
+          container0.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          td0_selected = opt.text;
+        };
+        container0.appendChild(btn);
+      });
+
+      // Item 1: MC Avançado
+      const td1_options = [
+        { text: "Is", correct: false },
+        { text: "It", correct: true },
+        { text: "There", correct: false },
+        { text: "He", correct: false }
+      ];
+      const shuffled1 = shuffleArray(td1_options);
+      const container1 = document.getElementById('td-1-options');
+      shuffled1.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt.text;
+        btn.onclick = () => {
+          container1.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          td1_selected = opt.text;
+        };
+        container1.appendChild(btn);
+      });
+
+      // Item 3: Reordenar
+      renderTd3();
+    }
+
+    function renderTd3() {
+      const poolEl = document.getElementById('td-3-pool');
+      const builtEl = document.getElementById('td-3-built');
+      poolEl.innerHTML = '';
+      builtEl.innerHTML = '';
+
+      td3_tokens.forEach((tok, idx) => {
+        const span = document.createElement('span');
+        span.className = 'token';
+        span.innerText = tok;
+        span.onclick = () => {
+          td3_tokens.splice(idx, 1);
+          td3_built.push(tok);
+          renderTd3();
+        };
+        poolEl.appendChild(span);
+      });
+
+      td3_built.forEach((tok, idx) => {
+        const span = document.createElement('span');
+        span.className = 'token';
+        span.innerText = tok;
+        span.onclick = () => {
+          td3_built.splice(idx, 1);
+          td3_tokens.push(tok);
+          renderTd3();
+        };
+        builtEl.appendChild(span);
+      });
+    }
+
+    let treinoVerified = false;
+
+    function verificarTreino() {
+      if (treinoVerified) {
+        // Reset
+        treinoVerified = false;
+        document.getElementById('btn-verify-treino').innerText = 'Verificar Treino';
+        document.getElementById('score-treino').style.display = 'none';
+        
+        for (let i = 0; i <= 6; i++) {
+          const item = document.getElementById(`td-item-${i}`);
+          item.classList.remove('correct', 'incorrect');
+          item.querySelector('.feedback-box').style.display = 'none';
+        }
+        document.getElementById('td-d0-fb').style.display = 'none';
+        document.getElementById('td-d1-fb').style.display = 'none';
+        document.getElementById('td-d2-fb').style.display = 'none';
+
+        td0_selected = null;
+        td1_selected = null;
+        document.querySelectorAll('#td-sec .option-btn').forEach(b => b.classList.remove('selected'));
+        
+        document.getElementById('td-d0-in').value = '';
+        document.getElementById('td-d1-in').value = '';
+        document.getElementById('td-d2-in').value = '';
+        document.getElementById('td-4-in').value = '';
+        document.getElementById('td-5-in').value = '';
+        document.getElementById('td-6-in').value = '';
+
+        td3_tokens = ["allowed", "It", "is", "midnight.", "not", "after"];
+        td3_built = [];
+        renderTd3();
+        return;
+      }
+
+      let score = 0;
+      const total = 7;
+
+      // 0: Compare
+      const item0 = document.getElementById('td-item-0');
+      const correct0 = "It gets slightly cold here in autumn.";
+      if (td0_selected === correct0) {
+        item0.classList.add('correct');
+        score++;
+      } else {
+        item0.classList.add('incorrect');
+      }
+      document.getElementById('td-0-ans').innerText = "✅ Resposta correta: " + correct0;
+      item0.querySelector('.feedback-box').style.display = 'block';
+
+      // 1: MC
+      const item1 = document.getElementById('td-item-1');
+      const correct1 = "It";
+      if (td1_selected === correct1) {
+        item1.classList.add('correct');
+        score++;
+      } else {
+        item1.classList.add('incorrect');
+      }
+      document.getElementById('td-1-ans').innerText = "✅ Resposta correta: " + correct1;
+      item1.querySelector('.feedback-box').style.display = 'block';
+
+      // 2: Dialogo
+      const item2 = document.getElementById('td-item-2');
+      const d0 = normalizeText(document.getElementById('td-d0-in').value) === "it";
+      const d1 = normalizeText(document.getElementById('td-d1-in').value) === "it";
+      const d2 = normalizeText(document.getElementById('td-d2-in').value) === "it";
+
+      document.getElementById('td-d0-fb').style.display = 'block';
+      document.getElementById('td-d1-fb').style.display = 'block';
+      document.getElementById('td-d2-fb').style.display = 'block';
+
+      if (d0 && d1 && d2) {
+        item2.classList.add('correct');
+        score++;
+      } else {
+        item2.classList.add('incorrect');
+      }
+      document.getElementById('td-2-fb-main').style.display = 'block';
+
+      // 3: Reordenar
+      const item3 = document.getElementById('td-item-3');
+      const userBuilt = td3_built.join(' ');
+      const correct3 = "It is not allowed after midnight.";
+      if (normalizeText(userBuilt) === normalizeText(correct3)) {
+        item3.classList.add('correct');
+        score++;
+      } else {
+        item3.classList.add('incorrect');
+      }
+      document.getElementById('td-3-ans').innerText = "✅ Resposta correta: " + correct3;
+      item3.querySelector('.feedback-box').style.display = 'block';
+
+      // 4: Translation Challenge 1
+      const item4 = document.getElementById('td-item-4');
+      const val4 = normalizeText(document.getElementById('td-4-in').value);
+      const acc4 = [
+        "is it allowed to schedule a delivery for midday",
+        "is it allowed to schedule a delivery at midday"
+      ];
+      if (acc4.includes(val4)) {
+        item4.classList.add('correct');
+        score++;
+      } else {
+        item4.classList.add('incorrect');
+      }
+      document.getElementById('td-4-ans').innerText = "✅ Resposta correta: Is it allowed to schedule a delivery for midday?";
+      item4.querySelector('.feedback-box').style.display = 'block';
+
+      // 5: Translation Challenge 2
+      const item5 = document.getElementById('td-item-5');
+      const val5 = normalizeText(document.getElementById('td-5-in').value);
+      const acc5 = [
+        "it is slightly cold in autumn",
+        "it's slightly cold in autumn"
+      ];
+      if (acc5.includes(val5)) {
+        item5.classList.add('correct');
+        score++;
+      } else {
+        item5.classList.add('incorrect');
+      }
+      document.getElementById('td-5-ans').innerText = "✅ Resposta correta: It is slightly cold in autumn.";
+      item5.querySelector('.feedback-box').style.display = 'block';
+
+      // 6: Translation Challenge 3
+      const item6 = document.getElementById('td-item-6');
+      const val6 = normalizeText(document.getElementById('td-6-in').value);
+      const acc6 = [
+        "it is important to send the criminal certificate immediately",
+        "it's important to send the criminal certificate immediately"
+      ];
+      if (acc6.includes(val6)) {
+        item6.classList.add('correct');
+        score++;
+      } else {
+        item6.classList.add('incorrect');
+      }
+      document.getElementById('td-6-ans').innerText = "✅ Resposta correta: It is important to send the criminal certificate immediately.";
+      item6.querySelector('.feedback-box').style.display = 'block';
+
+      // Show Score
+      const sb = document.getElementById('score-treino');
+      sb.innerText = `Placar: ${score} de ${total} corretas`;
+      sb.style.display = 'block';
+
+      document.getElementById('btn-verify-treino').innerText = 'Tentar de novo';
+      treinoVerified = true;
+
+      enviarResultado("Treino de Desbloqueio", score, total);
+    }
+
+    // --- REVISÃO CUMULATIVA ---
+    let rc0_selected = null;
+    let rc2_selected = null;
+
+    function initCumulativa() {
+      // RC 0: MC
+      const opts0 = [{text:"in", c:false}, {text:"on", c:false}, {text:"at", c:true}];
+      const shuf0 = shuffleArray(opts0);
+      const c0 = document.getElementById('rc-0-options');
+      shuf0.forEach(o => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = o.text;
+        btn.onclick = () => {
+          c0.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          rc0_selected = o.text;
+        };
+        c0.appendChild(btn);
+      });
+
+      // RC 2: MC
+      const opts2 = [{text:"Could", c:true}, {text:"Can", c:false}, {text:"Do", c:false}];
+      const shuf2 = shuffleArray(opts2);
+      const c2 = document.getElementById('rc-2-options');
+      shuf2.forEach(o => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = o.text;
+        btn.onclick = () => {
+          c2.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          rc2_selected = o.text;
+        };
+        c2.appendChild(btn);
+      });
+    }
+
+    let cumulativaVerified = false;
+
+    function verificarCumulativa() {
+      if (cumulativaVerified) {
+        cumulativaVerified = false;
+        document.getElementById('btn-verify-cumulativa').innerText = 'Verificar Revisão';
+        document.getElementById('score-cumulativa').style.display = 'none';
+
+        for (let i = 0; i <= 3; i++) {
+          const item = document.getElementById(`rc-item-${i}`);
+          item.classList.remove('correct', 'incorrect');
+          item.querySelector('.feedback-box').style.display = 'none';
+        }
+        rc0_selected = null;
+        rc2_selected = null;
+        document.querySelectorAll('#sec-cumulativa .option-btn').forEach(b => b.classList.remove('selected'));
+        document.getElementById('rc-1-in').value = '';
+        document.getElementById('rc-3-in').value = '';
+        return;
+      }
+
+      let score = 0;
+      const total = 4;
+
+      // 0: MC
+      const item0 = document.getElementById('rc-item-0');
+      if (rc0_selected === "at") {
+        item0.classList.add('correct');
+        score++;
+      } else {
+        item0.classList.add('incorrect');
+      }
+      document.getElementById('rc-0-ans').innerText = "✅ Resposta correta: at";
+      item0.querySelector('.feedback-box').style.display = 'block';
+
+      // 1: Gap fill
+      const item1 = document.getElementById('rc-item-1');
+      if (normalizeText(document.getElementById('rc-1-in').value) === "in") {
+        item1.classList.add('correct');
+        score++;
+      } else {
+        item1.classList.add('incorrect');
+      }
+      document.getElementById('rc-1-ans').innerText = "✅ Resposta correta: in";
+      item1.querySelector('.feedback-box').style.display = 'block';
+
+      // 2: MC
+      const item2 = document.getElementById('rc-item-2');
+      if (rc2_selected === "Could") {
+        item2.classList.add('correct');
+        score++;
+      } else {
+        item2.classList.add('incorrect');
+      }
+      document.getElementById('rc-2-ans').innerText = "✅ Resposta correta: Could";
+      item2.querySelector('.feedback-box').style.display = 'block';
+
+      // 3: Gap fill
+      const item3 = document.getElementById('rc-item-3');
+      if (normalizeText(document.getElementById('rc-3-in').value) === "can") {
+        item3.classList.add('correct');
+        score++;
+      } else {
+        item3.classList.add('incorrect');
+      }
+      document.getElementById('rc-3-ans').innerText = "✅ Resposta correta: can";
+      item3.querySelector('.feedback-box').style.display = 'block';
+
+      const sb = document.getElementById('score-cumulativa');
+      sb.innerText = `Placar: ${score} de ${total} corretas`;
+      sb.style.display = 'block';
+
+      document.getElementById('btn-verify-cumulativa').innerText = 'Tentar de novo';
+      cumulativaVerified = true;
+
+      enviarResultado("Revisão Cumulativa", score, total);
+    }
+
+    // --- VOCABULÁRIO NOVO (FLASHCARDS) ---
+    const vocabData = [
+      {"palavra": "allowed", "traducao": "permitido"},
+      {"palavra": "midday", "traducao": "meio dia"},
+      {"palavra": "midnight", "traducao": "meia noite"},
+      {"palavra": "schedule", "traducao": "agendar"},
+      {"palavra": "Estimated Time of Arrival", "traducao": "Horário Estimado de Chegada"},
+      {"palavra": "autumn", "traducao": "outono"},
+      {"palavra": "retire", "traducao": "aposentar se"}
+    ];
+
+    const fcReviewedState = new Array(vocabData.length).fill(false);
+
+    function initFlashcards() {
+      const container = document.getElementById('flashcards-list');
+      container.innerHTML = '';
+
+      vocabData.forEach((item, idx) => {
+        const fc = document.createElement('div');
+        fc.className = 'flashcard';
+        fc.id = `fc-card-${idx}`;
+
+        fc.innerHTML = `
+          <div class="flashcard-word">
+            <span>${item.palavra}</span>
+            <button class="btn-audio" onclick="speak('${item.palavra.replace(/'/g, "\\'")}')">🔊</button>
+          </div>
+          <div class="flashcard-trans" id="fc-trans-${idx}">${item.traducao}</div>
+          <div class="flashcard-actions">
+            <button class="btn-reveal" id="fc-rev-${idx}" onclick="revealFc(${idx})">Revelar tradução</button>
+            <button class="btn-eval knew" id="fc-knew-${idx}" onclick="evalFc(${idx}, true)">✅ Eu sabia</button>
+            <button class="btn-eval review" id="fc-revbtn-${idx}" onclick="evalFc(${idx}, false)">🔄 Preciso revisar</button>
+          </div>
+        `;
+        container.appendChild(fc);
+      });
+    }
+
+    function revealFc(idx) {
+      document.getElementById(`fc-trans-${idx}`).style.display = 'block';
+      document.getElementById(`fc-rev-${idx}`).style.display = 'none';
+      document.getElementById(`fc-knew-${idx}`).style.display = 'inline-block';
+      document.getElementById(`fc-revbtn-${idx}`).style.display = 'inline-block';
+    }
+
+    function evalFc(idx, knew) {
+      document.getElementById(`fc-knew-${idx}`).classList.toggle('selected', knew);
+      document.getElementById(`fc-revbtn-${idx}`).classList.toggle('selected', !knew);
+      
+      if (!fcReviewedState[idx]) {
+        fcReviewedState[idx] = true;
+        updateFcCounter();
+      }
+    }
+
+    function updateFcCounter() {
+      const count = fcReviewedState.filter(Boolean).length;
+      document.getElementById('fc-counter').innerText = `${count} de ${vocabData.length} revisadas`;
+    }
+
+    // --- EXERCÍCIO DE FIXAÇÃO ---
+    const fixacaoData = [
+      {
+        sentence: "Parking is not ____ here after 10 PM.",
+        correct: "allowed",
+        distractors: ["retire", "schedule", "midday"]
+      },
+      {
+        sentence: "Let's take a lunch break at ____.",
+        correct: "midday",
+        distractors: ["autumn", "allowed", "schedule"]
+      },
+      {
+        sentence: "The party ended at ____ and everyone went home.",
+        correct: "midnight",
+        distractors: ["midday", "autumn", "retire"]
+      },
+      {
+        sentence: "I need to ____ a meeting with the client.",
+        correct: "schedule",
+        distractors: ["retire", "allowed", "midnight"]
+      },
+      {
+        sentence: "Please inform us of your ____ for the arrival.",
+        correct: "Estimated Time of Arrival",
+        distractors: ["midday", "autumn", "schedule"]
+      },
+      {
+        sentence: "The leaves start falling in ____.",
+        correct: "autumn",
+        distractors: ["midnight", "allowed", "retire"]
+      },
+      {
+        sentence: "He plans to ____ next year after 30 years of work.",
+        correct: "retire",
+        distractors: ["schedule", "allowed", "midday"]
+      }
+    ];
+
+    function initFixacao() {
+      const container = document.getElementById('fixacao-list');
+      container.innerHTML = '';
+
+      fixacaoData.forEach((item, idx) => {
+        const options = shuffleArray([item.correct, ...item.distractors]);
+        const parts = item.sentence.split('____');
+
+        const div = document.createElement('div');
+        div.className = 'exercise-item';
+        div.id = `fix-item-${idx}`;
+
+        let selectHtml = `<select class="select-input" id="fix-sel-${idx}">`;
+        selectHtml += `<option value="" disabled selected>-- Selecione --</option>`;
+        options.forEach(opt => {
+          selectHtml += `<option value="${opt}">${opt}</option>`;
+        });
+        selectHtml += `</select>`;
+
+        div.innerHTML = `
+          <div class="exercise-prompt">
+            ${parts[0]} ${selectHtml} ${parts[1] || ''}
+          </div>
+          <div class="feedback-box">
+            <div class="correct-ans">✅ Resposta correta: ${item.correct}</div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    let fixacaoVerified = false;
+
+    function verificarFixacao() {
+      if (fixacaoVerified) {
+        fixacaoVerified = false;
+        document.getElementById('btn-verify-fixacao').innerText = 'Verificar Fixação';
+        document.getElementById('score-fixacao').style.display = 'none';
+
+        fixacaoData.forEach((_, idx) => {
+          const item = document.getElementById(`fix-item-${idx}`);
+          item.classList.remove('correct', 'incorrect');
+          item.querySelector('.feedback-box').style.display = 'none';
+          document.getElementById(`fix-sel-${idx}`).selectedIndex = 0;
+        });
+        return;
+      }
+
+      let score = 0;
+      const total = fixacaoData.length;
+
+      fixacaoData.forEach((item, idx) => {
+        const itemEl = document.getElementById(`fix-item-${idx}`);
+        const selVal = document.getElementById(`fix-sel-${idx}`).value;
+
+        if (selVal === item.correct) {
+          itemEl.classList.add('correct');
+          score++;
+        } else {
+          itemEl.classList.add('incorrect');
+        }
+        itemEl.querySelector('.feedback-box').style.display = 'block';
+      });
+
+      const sb = document.getElementById('score-fixacao');
+      sb.innerText = `Placar: ${score} de ${total} corretas`;
+      sb.style.display = 'block';
+
+      document.getElementById('btn-verify-fixacao').innerText = 'Tentar de novo';
+      fixacaoVerified = true;
+
+      enviarResultado("Exercício de Fixação", score, total);
+    }
+
+    // --- HOMEWORK ---
+    function copyHomework() {
+      const items = document.querySelectorAll('.homework-item');
+      let text = "Homework:\n";
+      items.forEach(item => {
+        text += `- ${item.innerText}\n`;
+      });
+
+      navigator.clipboard.writeText(text.trim()).then(() => {
+        alert("Homework copiado para a área de transferência!");
+      }).catch(() => {
+        alert("Não foi possível copiar automaticamente.");
+      });
+    }
+  </script>
+</body>
+</html>
