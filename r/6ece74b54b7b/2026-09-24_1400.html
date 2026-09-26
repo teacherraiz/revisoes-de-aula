@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 24/09/26 — Camilla</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 16px 12px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    header h1 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .audio-toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .toggle-btn {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: var(--primary);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .encouragement {
+      background: #f0f9ff;
+      border-left: 4px solid var(--primary);
+      padding: 14px 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: #0369a1;
+    }
+
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    section h2 {
+      font-size: 1.15rem;
+      color: var(--text-main);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rule-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    .example-item {
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .example-item:last-child {
+      border-bottom: none;
+    }
+
+    .example-en {
+      font-weight: 600;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .example-pt {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .btn-audio {
+      background: #eff6ff;
+      border: none;
+      color: var(--primary);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .btn-audio:active {
+      transform: scale(0.95);
+    }
+
+    /* Cumulative & Fixation Styles */
+    .exercise-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 14px;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .exercise-card.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .exercise-card.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    .question-prompt {
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option-btn {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+      color: var(--text-main);
+      transition: all 0.2s;
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      font-weight: 600;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background-color: #fff;
+      color: var(--text-main);
+      margin-top: 6px;
+    }
+
+    input[type="text"]:focus, select:focus {
+      outline: 2px solid var(--primary);
+      border-color: transparent;
+    }
+
+    .feedback-msg {
+      margin-top: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .feedback-msg.correct {
+      color: var(--success);
+    }
+
+    .feedback-msg.incorrect {
+      color: var(--error);
+    }
+
+    .explanation-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .action-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-weight: 600;
+      font-size: 1rem;
+      width: 100%;
+      min-height: 44px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+
+    .action-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .status-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .score-board {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      color: var(--text-main);
+      padding: 8px 12px;
+      background: #f1f5f9;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    /* Flashcards */
+    .flashcard-counter {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .flashcards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .flashcard {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .flashcard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flashcard-word {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .flashcard-translation {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+      font-size: 0.95rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .flashcard-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-reveal {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+      color: var(--text-main);
+    }
+
+    .btn-eval {
+      flex: 1;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      background: white;
+    }
+
+    .btn-eval.knew {
+      border: 2px solid var(--success);
+      color: var(--success);
+    }
+
+    .btn-eval.review {
+      border: 2px solid #eab308;
+      color: #ca8a04;
+    }
+
+    /* Homework */
+    .homework-list {
+      list-style-type: none;
+      margin-bottom: 14px;
+    }
+
+    .homework-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .homework-list li::before {
+      content: "📌";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .btn-copy {
+      background: #f1f5f9;
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Header -->
+  <header>
+    <h1>Revisão da aula de 24/09/26</h1>
+    <p>Olá, Camilla! 👋</p>
+    <div class="audio-toggle-container">
+      <span>Velocidade da pronúncia:</span>
+      <button type="button" class="toggle-btn" id="audioToggleBtn" onclick="toggleAudioSpeed()">
+        🔊 Velocidade: <span id="speedLabel">Normal (1.0x)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 2. Encorajamento -->
+  <div class="encouragement">
+    Sua fluência na conversa espontânea está evoluindo muito rápido! Lembre-se de que cada pequeno ajuste de pronúncia torna sua fala ainda mais natural e confiante no trabalho.
+  </div>
+
+  <!-- 3. Recapitulação da Regra -->
+  <section>
+    <h2>📖 Recapitulação da Regra</h2>
+    <div style="font-weight:600; margin-bottom:8px;">Apresentação de pessoas e navegação com demonstrativos (This, That, These, Those)</div>
+    <div class="rule-box">
+      Usamos 'this' (esta/este) e 'these' (estas/estes) para apresentar pessoas ou indicar itens próximos na tela. Para indicar algo distante ou na tela de outra pessoa, usamos 'that' e 'those'.
+    </div>
+    <div>
+      <div class="example-item">
+        <div class="example-en">
+          <span>This is Sarah, our new SAP consultant.</span>
+          <button type="button" class="btn-audio" onclick="speak('This is Sarah, our new SAP consultant.')">🔊</button>
+        </div>
+        <div class="example-pt">Esta é a Sarah, nossa nova consultora SAP.</div>
+      </div>
+      <div class="example-item">
+        <div class="example-en">
+          <span>These are the members of my team for the project.</span>
+          <button type="button" class="btn-audio" onclick="speak('These are the members of my team for the project.')">🔊</button>
+        </div>
+        <div class="example-pt">Estes são os membros da minha equipe para o projeto.</div>
+      </div>
+      <div class="example-item">
+        <div class="example-en">
+          <span>What is that blue icon on the top corner?</span>
+          <button type="button" class="btn-audio" onclick="speak('What is that blue icon on the top corner?')">🔊</button>
+        </div>
+        <div class="example-pt">O que é aquele ícone azul no canto superior?</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Treino de Desbloqueio: OMITIDO (null) -->
+
+  <!-- 5. Revisão Cumulativa -->
+  <section id="sec-cumulativa">
+    <h2>🔁 Revisão Cumulativa</h2>
+    
+    <div style="margin-bottom: 16px;">
+      <h3 style="font-size: 1rem; color: var(--primary); margin-bottom: 6px;">Demonstratives (this, that, these, those)</h3>
+      <div class="rule-box">
+        Usamos 'this' (singular) e 'these' (plural) para coisas e pessoas próximas, e 'that' (singular) e 'those' (plural) para itens distantes ou introduções no sistema.
+      </div>
+
+      <!-- Ex 1: multiple_choice_simples -->
+      <div class="exercise-card" id="cum-card-0">
+        <div class="question-prompt">1. ____ is my new computer here on my desk.</div>
+        <div class="options-group" id="cum-opt-group-0">
+          <!-- Options rendered via JS -->
+        </div>
+        <div class="feedback-msg" id="cum-fb-0"></div>
+        <div class="explanation-text hidden" id="cum-exp-0">Usamos 'This' para se referir a um único objeto (singular) que está próximo.</div>
+      </div>
+
+      <!-- Ex 2: gap_fill -->
+      <div class="exercise-card" id="cum-card-1">
+        <div class="question-prompt">2. Can you bring me ____ (that) files over there?</div>
+        <input type="text" id="cum-input-1" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+        <div class="feedback-msg" id="cum-fb-1"></div>
+        <div class="explanation-text hidden" id="cum-exp-1">O plural de 'that' é 'those', usado para se referir a itens no plural que estão distantes.</div>
+      </div>
+    </div>
+
+    <div id="cum-score" class="score-board hidden"></div>
+    <button type="button" class="action-btn" id="cum-btn-check" onclick="checkCumulativa()">Verificar Revisão Cumulativa</button>
+    <div id="cum-status" class="status-badge"></div>
+  </section>
+
+  <!-- 6. Vocabulário Novo -->
+  <section>
+    <h2>📚 Vocabulário Novo</h2>
+    <div class="flashcard-counter" id="flashcardCounter">0 de 14 revisadas</div>
+    <div class="flashcards-grid" id="flashcardsGrid">
+      <!-- Flashcards rendered via JS -->
+    </div>
+  </section>
+
+  <!-- 7. Exercício de Fixação -->
+  <section id="sec-fixacao">
+    <h2>✏️ Exercício de Fixação</h2>
+    <div id="fixacaoCardsContainer">
+      <!-- Sentence items rendered via JS -->
+    </div>
+
+    <div id="fix-score" class="score-board hidden"></div>
+    <button type="button" class="action-btn" id="fix-btn-check" onclick="checkFixacao()">Verificar Fixação</button>
+    <div id="fix-status" class="status-badge"></div>
+  </section>
+
+  <!-- 8. Homework -->
+  <section>
+    <h2>🏠 Homework</h2>
+    <ul class="homework-list" id="homeworkList">
+      <li>Pratique em voz alta as frases de apresentação de pessoas em reuniões virtuais usando 'this is' e 'these are'.</li>
+      <li>Faça os exercícios de fixação da revisão interativa para consolidar a diferença de som entre 'this' e 'these'.</li>
+    </ul>
+    <button type="button" class="action-btn btn-copy" onclick="copyHomework()">Copiar homework</button>
+    <div id="copyToast" class="status-badge" style="color: var(--success);"></div>
+  </section>
+
+  <script>
+    // --- DATA INPUTS ---
+    const META_ENVIO = {"aluno_id": "camilla-leal", "aluno": "Camilla Leal", "data_aula": "24/09/26", "accent": "US", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+    
+    const VOCABULARIO_COMPLETO = [
+      {"palavra": "Consultant", "traducao": "Consultor(a)"},
+      {"palavra": "Colleague", "traducao": "Colega de trabalho"},
+      {"palavra": "Handsome", "traducao": "Bonito / Atraente (para homens)"},
+      {"palavra": "Workout partner", "traducao": "Parceiro(a) de treino"},
+      {"palavra": "By myself", "traducao": "Sozinho(a) / Por conta própria"},
+      {"palavra": "Pressure", "traducao": "Pressão"},
+      {"palavra": "Shy", "traducao": "Tímido(a) / Envergonhado(a)"},
+      {"palavra": "Outgoing", "traducao": "Extrovertido(a) / Comunicativo(a)"},
+      {"palavra": "Empathetic", "traducao": "Empático(a)"},
+      {"palavra": "Hard worker", "traducao": "Trabalhador(a) / Dedicado(a) ao trabalho"},
+      {"palavra": "Dedicated", "traducao": "Dedicado(a)"},
+      {"palavra": "Dialogue", "traducao": "Diálogo / Conversa"},
+      {"palavra": "Deadline", "traducao": "Prazo final / Data limite"},
+      {"palavra": "Responsibilities", "traducao": "Responsabilidades / Atribuições"}
+    ];
+
+    const FIXACAO_ITEMS = [
+      {
+        prompt: "She is an expert SAP ____ who helps our team with software implementations.",
+        correct: "consultant",
+        distractors: ["colleague", "hard worker", "workout partner"]
+      },
+      {
+        prompt: "I had lunch with my ____ from the marketing department yesterday.",
+        correct: "colleague",
+        distractors: ["consultant", "deadline", "pressure"]
+      },
+      {
+        prompt: "We must submit the final project report before the ____ tomorrow.",
+        correct: "deadline",
+        distractors: ["pressure", "dialogue", "responsibilities"]
+      },
+      {
+        prompt: "Managing the team's budget is one of my main ____ at work.",
+        correct: "responsibilities",
+        distractors: ["dialogues", "pressures", "colleagues"]
+      },
+      {
+        prompt: "He stays late every day to finish his tasks because he is a very ____.",
+        correct: "hard worker",
+        distractors: ["workout partner", "consultant", "dialogue"]
+      },
+      {
+        prompt: "She is extremely ____ to finishing her assignments with precision.",
+        correct: "dedicated",
+        distractors: ["outgoing", "empathetic", "shy"]
+      },
+      {
+        prompt: "He loves giving presentations and meeting clients because he is very ____.",
+        correct: "outgoing",
+        distractors: ["shy", "empathetic", "dedicated"]
+      },
+      {
+        prompt: "Working under tight timelines can create a lot of ____.",
+        correct: "pressure",
+        distractors: ["dialogue", "deadline", "consultant"]
+      },
+      {
+        prompt: "We need an open ____ between the two teams to solve this issue.",
+        correct: "dialogue",
+        distractors: ["deadline", "pressure", "responsibilities"]
+      },
+      {
+        prompt: "I completed the entire presentation ____ over the weekend.",
+        correct: "by myself",
+        distractors: ["hard worker", "dedicated", "outgoing"]
+      }
+    ];
+
+    // --- AUDIO SYSTEM ---
+    let audioRate = 1.0;
+
+    function toggleAudioSpeed() {
+      if (audioRate === 1.0) {
+        audioRate = 0.75;
+        document.getElementById('speedLabel').textContent = "Lento (0.75x)";
+      } else {
+        audioRate = 1.0;
+        document.getElementById('speedLabel').textContent = "Normal (1.0x)";
+      }
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = META_ENVIO.accent === 'UK' ? 'en-GB' : 'en-US';
+      utterance.rate = audioRate;
+      
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(v => v.lang.startsWith(utterance.lang));
+      if (preferredVoice) utterance.voice = preferredVoice;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Check speech synth availability to hide buttons if unsupported
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!('speechSynthesis' in window)) {
+        document.querySelectorAll('.btn-audio').forEach(btn => btn.style.display = 'none');
+      }
+    });
+
+    // --- UTILS ---
+    function normalizeText(text) {
+      if (!text) return "";
+      return text
+        .replace(/[’‘“”]/g, (m) => (m === '’' || m === '‘' ? "'" : '"'))
+        .trim()
+        .replace(/\s+/g, " ")
+        .toLowerCase()
+        .replace(/^['"]|['"]$/g, "")
+        .replace(/[.!?]$/, "")
+        .trim();
+    }
+
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // --- ENVIO DE RESULTADOS ---
+    const enviados = {};
+    function enviarResultado(secao, acertos, total) {
+      if (enviados[secao]) return;
+      if (!META_ENVIO.apps_script_url) return;
+      enviados[secao] = true;
+      
+      fetch(META_ENVIO.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META_ENVIO.aluno_id,
+          aluno: META_ENVIO.aluno,
+          data_aula: META_ENVIO.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+    }
+
+    // --- REVISÃO CUMULATIVA LOGIC ---
+    let cumState = {
+      selectedMc0: null,
+      mc0CorrectText: "This",
+      checked: false
+    };
+
+    function initCumulativa() {
+      const options = shuffleArray(["This", "These", "Those"]);
+      const group = document.getElementById('cum-opt-group-0');
+      group.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+        btn.onclick = () => {
+          if (cumState.checked) return;
+          cumState.selectedMc0 = opt;
+          Array.from(group.children).forEach(c => c.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+        group.appendChild(btn);
+      });
+    }
+
+    function checkCumulativa() {
+      const btn = document.getElementById('cum-btn-check');
+      if (cumState.checked) {
+        // Reset
+        cumState.checked = false;
+        cumState.selectedMc0 = null;
+        document.getElementById('cum-card-0').className = 'exercise-card';
+        document.getElementById('cum-card-1').className = 'exercise-card';
+        document.getElementById('cum-fb-0').textContent = '';
+        document.getElementById('cum-fb-1').textContent = '';
+        document.getElementById('cum-exp-0').classList.add('hidden');
+        document.getElementById('cum-exp-1').classList.add('hidden');
+        document.getElementById('cum-input-1').value = '';
+        document.getElementById('cum-input-1').disabled = false;
+        document.getElementById('cum-score').classList.add('hidden');
+        btn.textContent = 'Verificar Revisão Cumulativa';
+        initCumulativa();
+        return;
+      }
+
+      let score = 0;
+      const total = 2;
+
+      // Question 1
+      const card0 = document.getElementById('cum-card-0');
+      const fb0 = document.getElementById('cum-fb-0');
+      if (cumState.selectedMc0 && normalizeText(cumState.selectedMc0) === normalizeText(cumState.mc0CorrectText)) {
+        score++;
+        card0.classList.add('correct');
+        fb0.textContent = '✅ Correto!';
+        fb0.className = 'feedback-msg correct';
+      } else {
+        card0.classList.add('incorrect');
+        fb0.textContent = `❌ Resposta incorreta. ✅ Resposta correta: ${cumState.mc0CorrectText}`;
+        fb0.className = 'feedback-msg incorrect';
+      }
+      document.getElementById('cum-exp-0').classList.remove('hidden');
+
+      // Question 2
+      const card1 = document.getElementById('cum-card-1');
+      const fb1 = document.getElementById('cum-fb-1');
+      const input1Val = document.getElementById('cum-input-1').value;
+      document.getElementById('cum-input-1').disabled = true;
+
+      if (normalizeText(input1Val) === normalizeText("those")) {
+        score++;
+        card1.classList.add('correct');
+        fb1.textContent = '✅ Correto!';
+        fb1.className = 'feedback-msg correct';
+      } else {
+        card1.classList.add('incorrect');
+        fb1.textContent = '❌ Resposta incorreta. ✅ Resposta correta: those';
+        fb1.className = 'feedback-msg incorrect';
+      }
+      document.getElementById('cum-exp-1').classList.remove('hidden');
+
+      // Score & Envio
+      const scoreBoard = document.getElementById('cum-score');
+      scoreBoard.textContent = `Placar: ${score} de ${total} corretas`;
+      scoreBoard.classList.remove('hidden');
+
+      cumState.checked = true;
+      btn.textContent = 'Tentar de novo';
+
+      if (META_ENVIO.apps_script_url) {
+        enviarResultado("Revisão Cumulativa", score, total);
+        document.getElementById('cum-status').textContent = '📤 Resultado enviado ao professor';
+      }
+    }
+
+    // --- FLASHCARDS LOGIC ---
+    let reviewedCount = 0;
+    const reviewedSet = new Set();
+
+    function initFlashcards() {
+      const container = document.getElementById('flashcardsGrid');
+      container.innerHTML = '';
+
+      VOCABULARIO_COMPLETO.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'flashcard';
+        card.innerHTML = `
+          <div class="flashcard-top">
+            <span class="flashcard-word">${item.palavra}</span>
+            <button type="button" class="btn-audio" onclick="speak('${item.palavra.replace(/'/g, "\\'")}')">🔊</button>
+          </div>
+          <button type="button" class="btn-reveal" id="btn-reveal-${index}" onclick="revealTranslation(${index})">Revelar tradução</button>
+          <div class="flashcard-translation hidden" id="trans-${index}">${item.traducao}</div>
+          <div class="flashcard-actions hidden" id="actions-${index}">
+            <button type="button" class="btn-eval knew" onclick="evalFlashcard(${index})">✅ Eu sabia</button>
+            <button type="button" class="btn-eval review" onclick="evalFlashcard(${index})">🔄 Preciso revisar</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function revealTranslation(index) {
+      document.getElementById(`btn-reveal-${index}`).classList.add('hidden');
+      document.getElementById(`trans-${index}`).classList.remove('hidden');
+      document.getElementById(`actions-${index}`).classList.remove('hidden');
+    }
+
+    function evalFlashcard(index) {
+      if (!reviewedSet.has(index)) {
+        reviewedSet.add(index);
+        reviewedCount++;
+        document.getElementById('flashcardCounter').textContent = `${reviewedCount} de ${VOCABULARIO_COMPLETO.length} revisadas`;
+      }
+    }
+
+    // --- EXERCÍCIO DE FIXAÇÃO LOGIC ---
+    let fixState = {
+      checked: false,
+      items: []
+    };
+
+    function initFixacao() {
+      const container = document.getElementById('fixacaoCardsContainer');
+      container.innerHTML = '';
+      fixState.items = [];
+
+      FIXACAO_ITEMS.forEach((item, index) => {
+        const allOptions = shuffleArray([item.correct, ...item.distractors]);
+        fixState.items.push({
+          correct: item.correct,
+          options: allOptions
+        });
+
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        card.id = `fix-card-${index}`;
+
+        const promptDiv = document.createElement('div');
+        promptDiv.className = 'question-prompt';
+        promptDiv.textContent = `${index + 1}. ${item.prompt}`;
+
+        const select = document.createElement('select');
+        select.id = `fix-select-${index}`;
+        
+        const defaultOpt = document.createElement('option');
+        defaultOpt.value = '';
+        defaultOpt.textContent = '-- Selecione --';
+        defaultOpt.disabled = true;
+        defaultOpt.selected = true;
+        select.appendChild(defaultOpt);
+
+        allOptions.forEach(opt => {
+          const o = document.createElement('option');
+          o.value = opt;
+          o.textContent = opt;
+          select.appendChild(o);
+        });
+
+        const fb = document.createElement('div');
+        fb.className = 'feedback-msg';
+        fb.id = `fix-fb-${index}`;
+
+        card.appendChild(promptDiv);
+        card.appendChild(select);
+        card.appendChild(fb);
+        container.appendChild(card);
+      });
+    }
+
+    function checkFixacao() {
+      const btn = document.getElementById('fix-btn-check');
+      if (fixState.checked) {
+        // Reset
+        fixState.checked = false;
+        document.getElementById('fix-score').classList.add('hidden');
+        btn.textContent = 'Verificar Fixação';
+        initFixacao();
+        return;
+      }
+
+      let score = 0;
+      const total = FIXACAO_ITEMS.length;
+
+      FIXACAO_ITEMS.forEach((item, index) => {
+        const card = document.getElementById(`fix-card-${index}`);
+        const select = document.getElementById(`fix-select-${index}`);
+        const fb = document.getElementById(`fix-fb-${index}`);
+        const val = select.value;
+        select.disabled = true;
+
+        if (normalizeText(val) === normalizeText(item.correct)) {
+          score++;
+          card.classList.add('correct');
+          fb.textContent = '✅ Correto!';
+          fb.className = 'feedback-msg correct';
+        } else {
+          card.classList.add('incorrect');
+          fb.textContent = `❌ Resposta incorreta. ✅ Resposta correta: ${item.correct}`;
+          fb.className = 'feedback-msg incorrect';
+        }
+      });
+
+      const scoreBoard = document.getElementById('fix-score');
+      scoreBoard.textContent = `Placar: ${score} de ${total} corretas`;
+      scoreBoard.classList.remove('hidden');
+
+      fixState.checked = true;
+      btn.textContent = 'Tentar de novo';
+
+      if (META_ENVIO.apps_script_url) {
+        enviarResultado("Exercício de Fixação", score, total);
+        document.getElementById('fix-status').textContent = '📤 Resultado enviado ao professor';
+      }
+    }
+
+    // --- HOMEWORK LOGIC ---
+    function copyHomework() {
+      const items = Array.from(document.querySelectorAll('#homeworkList li')).map(li => li.textContent);
+      const textToCopy = "Homework:\n" + items.map(i => `- ${i}`).join('\n');
+      
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const toast = document.getElementById('copyToast');
+        toast.textContent = '✅ Tópicos copiados para a área de transferência!';
+        setTimeout(() => toast.textContent = '', 3000);
+      }).catch(() => {});
+    }
+
+    // Initialize Page
+    window.addEventListener('DOMContentLoaded', () => {
+      initCumulativa();
+      initFlashcards();
+      initFixacao();
+    });
+  </script>
+</body>
+</html>
