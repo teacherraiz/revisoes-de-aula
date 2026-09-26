@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 25/09/26 — Luiz</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
+      max-width: 680px;
+      margin: 0 auto;
+      padding-bottom: 40px;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .date-badge {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .toggle-btn {
+      background: #e2e8f0;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text);
+      min-height: 36px;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+
+    .encouragement {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: #1e40af;
+    }
+
+    .rule-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .example-item {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .example-en {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+
+    .example-pt {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .audio-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 4px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 36px;
+      min-height: 36px;
+    }
+
+    .audio-btn:hover {
+      background: #f1f5f9;
+    }
+
+    /* Flashcards */
+    .flashcard-progress {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .flashcard {
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      background: #fafafa;
+      margin-bottom: 16px;
+      transition: all 0.2s;
+    }
+
+    .flashcard.evaluated-known {
+      border-color: var(--success);
+      background: var(--success-bg);
+    }
+
+    .flashcard.evaluated-review {
+      border-color: #eab308;
+      background: #fefce8;
+    }
+
+    .flashcard-word {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .flashcard-translation {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      width: 100%;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .btn-eval-know {
+      background: white;
+      border: 2px solid var(--success);
+      color: var(--success);
+    }
+
+    .btn-eval-review {
+      background: white;
+      border: 2px solid #ca8a04;
+      color: #ca8a04;
+    }
+
+    /* Exercises */
+    .exercise-item {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 14px;
+      background: #fff;
+    }
+
+    .exercise-item.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .exercise-item.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    .exercise-prompt {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .mc-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .mc-option-btn {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 6px;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      min-height: 44px;
+      transition: all 0.2s;
+    }
+
+    .mc-option-btn:hover {
+      background: #f1f5f9;
+    }
+
+    .mc-option-btn.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      font-weight: 600;
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      min-height: 44px;
+      margin-top: 6px;
+    }
+
+    .select-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      min-height: 44px;
+      background: #fff;
+      margin-top: 6px;
+    }
+
+    .feedback-msg {
+      margin-top: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .feedback-msg.correct { color: var(--success); }
+    .feedback-msg.incorrect { color: var(--error); }
+
+    .explanation {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: normal;
+    }
+
+    .score-board {
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .submitted-notice {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* Homework */
+    .homework-list {
+      list-style-type: none;
+      margin-bottom: 16px;
+    }
+
+    .homework-item {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .homework-item:last-child {
+      border-bottom: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <h1>Olá, Luiz!</h1>
+      <span class="date-badge">25/09/26</span>
+    </div>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">Revisão da aula de 25/09/26</p>
+    <div class="audio-controls" id="audioControlBox">
+      <span>Velocidade do áudio:</span>
+      <button class="toggle-btn active" id="btnRateNormal" onclick="setAudioRate(1)">Normal</button>
+      <button class="toggle-btn" id="btnRateSlow" onclick="setAudioRate(0.75)">0.75x</button>
+    </div>
+  </header>
+
+  <section class="encouragement">
+    "Sua comunicação oral é muito fluida e natural. Ajustar o uso das preposições trará ainda mais precisão e profissionalismo às suas reuniões."
+  </section>
+
+  <section class="card">
+    <h2>📖 Recapitulação da Regra</h2>
+    <div class="rule-box">
+      <strong style="display:block; margin-bottom: 6px; color: var(--primary);">Preposições de Tempo e Prazos (for, since, during, until, by)</strong>
+      <p>Para indicar o prazo limite de uma entrega (deadline), usamos 'by'. Para ações que continuam até determinado momento, usamos 'until'. Já 'during' indica a duração dentro de um evento ou período.</p>
+    </div>
+    <div>
+      <div class="example-item">
+        <div class="example-en">
+          <span>We must submit the cybersecurity report by Friday.</span>
+          <button class="audio-btn" onclick="speak('We must submit the cybersecurity report by Friday.')" title="Ouvir áudio">🔊</button>
+        </div>
+        <div class="example-pt">Precisamos enviar o relatório de cibersegurança até sexta-feira.</div>
+      </div>
+      <div class="example-item">
+        <div class="example-en">
+          <span>The system will be offline during the maintenance window.</span>
+          <button class="audio-btn" onclick="speak('The system will be offline during the maintenance window.')" title="Ouvir áudio">🔊</button>
+        </div>
+        <div class="example-pt">O sistema ficará indisponível durante a janela de manutenção.</div>
+      </div>
+      <div class="example-item">
+        <div class="example-en">
+          <span>I have worked on this project for two weeks.</span>
+          <button class="audio-btn" onclick="speak('I have worked on this project for two weeks.')" title="Ouvir áudio">🔊</button>
+        </div>
+        <div class="example-pt">Eu trabalho neste projeto há duas semanas.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Revisão Cumulativa -->
+  <section class="card" id="section-cumulativa">
+    <h2>🔁 Revisão Cumulativa</h2>
+    
+    <div style="margin-bottom: 16px;">
+      <h3 style="font-size: 1rem; margin-bottom: 6px;">Preposições de Tempo e Prazos (for, since, during, until, by)</h3>
+      <p style="font-size: 0.88rem; color: var(--text-muted); background: #f1f5f9; padding: 8px 12px; border-radius: 6px; margin-bottom: 12px;">
+        Usamos 'by' para prazo limite (deadline), 'until' para ações contínuas até um momento, 'during' para períodos e 'for/since' para duração e início.
+      </p>
+
+      <div class="score-board" id="score-cumulativa" style="display:none;"></div>
+
+      <div class="exercise-item" id="cumulativa-ex-0" data-type="mc">
+        <div class="exercise-prompt">1. Please send the report ____ Friday afternoon.</div>
+        <div class="mc-options" id="cumulativa-opt-0"></div>
+        <div class="feedback-msg" id="cumulativa-fb-0"></div>
+      </div>
+
+      <div class="exercise-item" id="cumulativa-ex-1" data-type="gap">
+        <div class="exercise-prompt">2. We stayed in London ____ (for / since) two weeks.</div>
+        <input type="text" class="text-input" id="cumulativa-gap-1" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+        <div class="feedback-msg" id="cumulativa-fb-1"></div>
+      </div>
+    </div>
+
+    <button class="btn" id="btn-verify-cumulativa" onclick="verificarCumulativa()">Verificar</button>
+    <div class="submitted-notice" id="notice-cumulativa" style="display:none;">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- Vocabulário Novo -->
+  <section class="card">
+    <h2>📚 Vocabulário Novo</h2>
+    <div class="flashcard-progress" id="flashcard-progress">0 de 6 revisadas</div>
+    <div id="flashcards-container"></div>
+  </section>
+
+  <!-- Exercício de Fixação -->
+  <section class="card" id="section-fixacao">
+    <h2>✏️ Exercício de Fixação</h2>
+    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">Selecione a palavra correta para preencher a lacuna em cada frase:</p>
+    
+    <div class="score-board" id="score-fixacao" style="display:none;"></div>
+    <div id="fixacao-container"></div>
+
+    <button class="btn" id="btn-verify-fixacao" onclick="verificarFixacao()">Verificar</button>
+    <div class="submitted-notice" id="notice-fixacao" style="display:none;">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- Homework -->
+  <section class="card">
+    <h2>🏠 Homework</h2>
+    <ul class="homework-list" id="homework-list">
+      <li class="homework-item"><span>1.</span> <span>Escreva 5 frases aplicando 'by' para prazos de entregas de projetos de TI.</span></li>
+      <li class="homework-item"><span>2.</span> <span>Escreva 5 frases utilizando 'during' para janelas de manutenção ou eventos de rede.</span></li>
+    </ul>
+    <button class="btn btn-secondary" onclick="copiarHomework()">📋 Copiar homework</button>
+  </section>
+
+  <div class="toast" id="toast">Homework copiado!</div>
+
+  <script>
+    // Globals
+    const META_ENVIO = {"aluno_id": "luiz-maia", "aluno": "Luiz Maia", "data_aula": "25/09/26", "accent": "UK", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+    const VOCABULARIO = [{"palavra": "lapel", "traducao": "lapela"}, {"palavra": "wrist", "traducao": "pulso"}, {"palavra": "grip", "traducao": "pegada"}, {"palavra": "maintenance window", "traducao": "janela de manutenção"}, {"palavra": "shift", "traducao": "turno"}, {"palavra": "deadline", "traducao": "prazo limite"}];
+    
+    let audioRate = 1.0;
+    const enviados = {};
+
+    // Check Speech Synthesis availability
+    if (!('speechSynthesis' in window)) {
+      document.getElementById('audioControlBox').style.display = 'none';
+      document.querySelectorAll('.audio-btn').forEach(btn => btn.style.display = 'none');
+    }
+
+    function setAudioRate(rate) {
+      audioRate = rate;
+      document.getElementById('btnRateNormal').classList.toggle('active', rate === 1);
+      document.getElementById('btnRateSlow').classList.toggle('active', rate === 0.75);
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-GB';
+      utterance.rate = audioRate;
+      
+      const voices = window.speechSynthesis.getVoices();
+      const ukVoice = voices.find(v => v.lang === 'en-GB' || v.lang === 'en_GB');
+      if (ukVoice) utterance.voice = ukVoice;
+      
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function normalizeText(str) {
+      if (!str) return '';
+      return str
+        .replace(/[’‘]/g, "'")
+        .replace(/[“”]/g, '"')
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .replace(/^["']|["']$/g, '')
+        .replace(/[.!?]$/, '');
+    }
+
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function enviarResultado(secao, acertos, total) {
+      if (enviados[secao] || !META_ENVIO.apps_script_url) return;
+      enviados[secao] = true;
+      fetch(META_ENVIO.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META_ENVIO.aluno_id,
+          aluno: META_ENVIO.aluno,
+          data_aula: META_ENVIO.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+    }
+
+    // --- REVISÃO CUMULATIVA SETUP ---
+    const cumulativaMCData = {
+      prompt: "Please send the report ____ Friday afternoon.",
+      options: ["until", "by", "during"],
+      correctText: "by",
+      explanation: "Usamos 'by' para indicar um prazo limite (deadline), significando 'até no máximo' a tarde de sexta-feira."
+    };
+    let cumulativaMCOptionsShuffled = [];
+    let selectedCumulativaMC = null;
+    let stateCumulativa = "initial"; // "initial", "verified"
+
+    function setupCumulativaMC() {
+      cumulativaMCOptionsShuffled = shuffleArray(cumulativaMCData.options);
+      const container = document.getElementById("cumulativa-opt-0");
+      container.innerHTML = "";
+      cumulativaMCOptionsShuffled.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "mc-option-btn";
+        btn.textContent = opt;
+        btn.onclick = () => {
+          if (stateCumulativa === "verified") return;
+          selectedCumulativaMC = opt;
+          container.querySelectorAll(".mc-option-btn").forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function verificarCumulativa() {
+      const btn = document.getElementById("btn-verify-cumulativa");
+
+      if (stateCumulativa === "verified") {
+        // Reset
+        stateCumulativa = "initial";
+        btn.textContent = "Verificar";
+        document.getElementById("score-cumulativa").style.display = "none";
+        
+        // Reset Ex 0
+        selectedCumulativaMC = null;
+        const item0 = document.getElementById("cumulativa-ex-0");
+        item0.className = "exercise-item";
+        document.getElementById("cumulativa-fb-0").innerHTML = "";
+        setupCumulativaMC();
+
+        // Reset Ex 1
+        const item1 = document.getElementById("cumulativa-ex-1");
+        item1.className = "exercise-item";
+        const gap1 = document.getElementById("cumulativa-gap-1");
+        gap1.value = "";
+        gap1.disabled = false;
+        document.getElementById("cumulativa-fb-1").innerHTML = "";
+        return;
+      }
+
+      let acertos = 0;
+      const total = 2;
+
+      // Ex 0 Check
+      const item0 = document.getElementById("cumulativa-ex-0");
+      const fb0 = document.getElementById("cumulativa-fb-0");
+      const isCorrect0 = selectedCumulativaMC === cumulativaMCData.correctText;
+      if (isCorrect0) {
+        acertos++;
+        item0.className = "exercise-item correct";
+        fb0.className = "feedback-msg correct";
+        fb0.innerHTML = `✅ Correto!<div class="explanation">${cumulativaMCData.explanation}</div>`;
+      } else {
+        item0.className = "exercise-item incorrect";
+        fb0.className = "feedback-msg incorrect";
+        fb0.innerHTML = `❌ Errado. <br>✅ Resposta correta: <strong>${cumulativaMCData.correctText}</strong><div class="explanation">${cumulativaMCData.explanation}</div>`;
+      }
+
+      // Ex 1 Check
+      const gap1Val = document.getElementById("cumulativa-gap-1").value;
+      const item1 = document.getElementById("cumulativa-ex-1");
+      const fb1 = document.getElementById("cumulativa-fb-1");
+      const normInput = normalizeText(gap1Val);
+      const isCorrect1 = normInput === "for";
+
+      if (isCorrect1) {
+        acertos++;
+        item1.className = "exercise-item correct";
+        fb1.className = "feedback-msg correct";
+        fb1.innerHTML = `✅ Correto!<div class="explanation">Usamos 'for' para indicar a duração total de um período de tempo (por duas semanas).</div>`;
+      } else {
+        item1.className = "exercise-item incorrect";
+        fb1.className = "feedback-msg incorrect";
+        fb1.innerHTML = `❌ Errado. <br>✅ Resposta correta: <strong>for</strong><div class="explanation">Usamos 'for' para indicar a duração total de um período de tempo (por duas semanas).</div>`;
+      }
+
+      document.getElementById("cumulativa-gap-1").disabled = true;
+
+      // Score Display
+      const scoreBoard = document.getElementById("score-cumulativa");
+      scoreBoard.textContent = `Resultado: ${acertos} de ${total} corretas`;
+      scoreBoard.style.display = "block";
+
+      btn.textContent = "Tentar de novo";
+      stateCumulativa = "verified";
+
+      enviarResultado("Revisão Cumulativa", acertos, total);
+      if (META_ENVIO.apps_script_url) {
+        document.getElementById("notice-cumulativa").style.display = "block";
+      }
+    }
+
+    // --- FLASHCARDS SETUP ---
+    const evaluatedCards = new Set();
+
+    function renderFlashcards() {
+      const container = document.getElementById("flashcards-container");
+      container.innerHTML = "";
+      VOCABULARIO.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "flashcard";
+        card.id = `flashcard-${index}`;
+
+        card.innerHTML = `
+          <div class="flashcard-word">
+            <span>${item.palavra}</span>
+            <button class="audio-btn" onclick="speak('${item.palavra}')" title="Ouvir áudio">🔊</button>
+          </div>
+          <div id="fc-trans-${index}" class="flashcard-translation" style="display:none;">${item.traducao}</div>
+          <div id="fc-actions-${index}" style="margin-top:12px;">
+            <button class="btn btn-secondary" onclick="revealCard(${index})">Revelar tradução</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function revealCard(index) {
+      document.getElementById(`fc-trans-${index}`).style.display = "block";
+      const actions = document.getElementById(`fc-actions-${index}`);
+      actions.innerHTML = `
+        <div class="btn-group">
+          <button class="btn btn-eval-know" onclick="evaluateCard(${index}, 'known')">✅ Eu sabia</button>
+          <button class="btn btn-eval-review" onclick="evaluateCard(${index}, 'review')">🔄 Preciso revisar</button>
+        </div>
+      `;
+    }
+
+    function evaluateCard(index, status) {
+      const card = document.getElementById(`flashcard-${index}`);
+      card.classList.remove("evaluated-known", "evaluated-review");
+      if (status === 'known') card.classList.add("evaluated-known");
+      if (status === 'review') card.classList.add("evaluated-review");
+
+      evaluatedCards.add(index);
+      document.getElementById("flashcard-progress").textContent = `${evaluatedCards.size} de ${VOCABULARIO.length} revisadas`;
+    }
+
+    // --- EXERCÍCIO DE FIXAÇÃO SETUP ---
+    const fixacaoData = [
+      {
+        word: "lapel",
+        sentencePrefix: "He attached his microphone to his jacket ",
+        sentenceSuffix: ".",
+        correct: "lapel"
+      },
+      {
+        word: "wrist",
+        sentencePrefix: "She checks her smartwatch on her ",
+        sentenceSuffix: " before starting the meeting.",
+        correct: "wrist"
+      },
+      {
+        word: "grip",
+        sentencePrefix: "He adjusted his ",
+        sentenceSuffix: " on the steering wheel during the drive.",
+        correct: "grip"
+      },
+      {
+        word: "maintenance window",
+        sentencePrefix: "The server upgrade is scheduled during the overnight ",
+        sentenceSuffix: ".",
+        correct: "maintenance window"
+      },
+      {
+        word: "shift",
+        sentencePrefix: "She works the evening ",
+        sentenceSuffix: " at the tech support center.",
+        correct: "shift"
+      },
+      {
+        word: "deadline",
+        sentencePrefix: "We need to finish this project before the ",
+        sentenceSuffix: " tomorrow.",
+        correct: "deadline"
+      }
+    ];
+
+    let fixacaoShuffledOptions = [];
+    let stateFixacao = "initial";
+
+    function setupFixacao() {
+      const container = document.getElementById("fixacao-container");
+      container.innerHTML = "";
+      fixacaoShuffledOptions = [];
+
+      fixacaoData.forEach((item, idx) => {
+        // Collect distractors from other vocabulary items
+        const distractors = VOCABULARIO.map(v => v.palavra).filter(w => w !== item.correct);
+        const shuffledDistractors = shuffleArray(distractors).slice(0, 3);
+        const options = shuffleArray([item.correct, ...shuffledDistractors]);
+        fixacaoShuffledOptions.push(options);
+
+        const exItem = document.createElement("div");
+        exItem.className = "exercise-item";
+        exItem.id = `fixacao-item-${idx}`;
+
+        let selectHTML = `<select class="select-input" id="fixacao-select-${idx}">`;
+        selectHTML += `<option value="" disabled selected>-- Selecione --</option>`;
+        options.forEach(opt => {
+          selectHTML += `<option value="${opt}">${opt}</option>`;
+        });
+        selectHTML += `</select>`;
+
+        exItem.innerHTML = `
+          <div class="exercise-prompt">${idx + 1}. ${item.sentencePrefix}____${item.sentenceSuffix}</div>
+          ${selectHTML}
+          <div class="feedback-msg" id="fixacao-fb-${idx}"></div>
+        `;
+        container.appendChild(exItem);
+      });
+    }
+
+    function verificarFixacao() {
+      const btn = document.getElementById("btn-verify-fixacao");
+
+      if (stateFixacao === "verified") {
+        stateFixacao = "initial";
+        btn.textContent = "Verificar";
+        document.getElementById("score-fixacao").style.display = "none";
+        setupFixacao();
+        return;
+      }
+
+      let acertos = 0;
+      const total = fixacaoData.length;
+
+      fixacaoData.forEach((item, idx) => {
+        const select = document.getElementById(`fixacao-select-${idx}`);
+        const userVal = select.value;
+        const exItem = document.getElementById(`fixacao-item-${idx}`);
+        const fb = document.getElementById(`fixacao-fb-${idx}`);
+
+        select.disabled = true;
+
+        if (userVal === item.correct) {
+          acertos++;
+          exItem.className = "exercise-item correct";
+          fb.className = "feedback-msg correct";
+          fb.innerHTML = `✅ Correto!`;
+        } else {
+          exItem.className = "exercise-item incorrect";
+          fb.className = "feedback-msg incorrect";
+          fb.innerHTML = `❌ Errado. <br>✅ Resposta correta: <strong>${item.correct}</strong>`;
+        }
+      });
+
+      const scoreBoard = document.getElementById("score-fixacao");
+      scoreBoard.textContent = `Resultado: ${acertos} de ${total} corretas`;
+      scoreBoard.style.display = "block";
+
+      btn.textContent = "Tentar de novo";
+      stateFixacao = "verified";
+
+      enviarResultado("Exercício de Fixação", acertos, total);
+      if (META_ENVIO.apps_script_url) {
+        document.getElementById("notice-fixacao").style.display = "block";
+      }
+    }
+
+    function copiarHomework() {
+      const homeworkItems = document.querySelectorAll(".homework-item span:last-child");
+      let textToCopy = "Homework - Revisão 25/09/26:\n";
+      homeworkItems.forEach((item, index) => {
+        textToCopy += `${index + 1}. ${item.textContent}\n`;
+      });
+
+      navigator.clipboard.writeText(textToCopy.trim()).then(() => {
+        const toast = document.getElementById("toast");
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2500);
+      }).catch(() => {});
+    }
+
+    // Initialize Page
+    window.addEventListener("DOMContentLoaded", () => {
+      setupCumulativaMC();
+      renderFlashcards();
+      setupFixacao();
+    });
+  </script>
+</body>
+</html>
