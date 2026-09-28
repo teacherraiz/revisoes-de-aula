@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 28/09/26 — Karla</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --warning: #eab308;
+      --warning-bg: #fefce8;
+      
+      /* Paleta exclusiva do Treino de Desbloqueio */
+      --td-orange: #FF7A00;
+      --td-orange-dark: #C75000;
+      --td-orange-bg: #FFF7F0;
+      --td-blue: #1E5AA8;
+      --td-blue-bg: #F0F5fc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 12px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .header-title h1 {
+      font-size: 1.25rem;
+      color: var(--primary);
+    }
+
+    .header-title p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .audio-toggle {
+      display: flex;
+      align-items: center;
+      background: #f1f5f9;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .audio-toggle input {
+      cursor: pointer;
+    }
+
+    .encouragement-card {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      color: #1e40af;
+    }
+
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    section h2 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.2s, opacity 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-audio {
+      background: #e0e7ff;
+      color: #3730a3;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      min-height: 36px;
+      padding: 0;
+      margin-left: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Recapitulação da Regra */
+    .rule-box {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .example-item {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 10px;
+    }
+
+    .example-en {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .example-pt {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Treino de Desbloqueio (Laranja / Azul) */
+    .section-td {
+      border-color: #fdba74;
+    }
+
+    .section-td h2 {
+      color: var(--td-blue);
+    }
+
+    .td-card {
+      border: 1px solid #fed7aa;
+      background: #fff;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .td-card.correct {
+      border-color: var(--td-blue) !important;
+      background-color: var(--td-blue-bg) !important;
+    }
+
+    .td-card.incorrect {
+      border-color: var(--td-orange-dark) !important;
+      background-color: var(--td-orange-bg) !important;
+    }
+
+    .td-btn-option {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: var(--text-main);
+      width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+
+    .td-btn-option.selected {
+      border-color: var(--td-blue);
+      background: var(--td-blue-bg);
+      font-weight: 600;
+    }
+
+    /* Tokens / Chips (Reordenar) */
+    .chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0;
+      min-height: 48px;
+      padding: 8px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      border: 1px dashed #cbd5e1;
+    }
+
+    .chip {
+      background: white;
+      border: 1px solid #94a3b8;
+      border-radius: 16px;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      user-select: none;
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* Inputs de texto */
+    input[type="text"] {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    input[type="text"]:focus {
+      outline: 2px solid var(--primary);
+      border-color: transparent;
+    }
+
+    .inline-input {
+      width: auto !important;
+      min-width: 120px;
+      display: inline-block;
+      margin: 0 4px;
+    }
+
+    /* Feedback & Explicação */
+    .feedback-box {
+      margin-top: 8px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      display: none;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .td-card .feedback-box.correct {
+      background: var(--td-blue-bg);
+      color: var(--td-blue);
+    }
+
+    .td-card .feedback-box.incorrect {
+      background: var(--td-orange-bg);
+      color: var(--td-orange-dark);
+    }
+
+    .standard-card .feedback-box.correct {
+      background: var(--success-bg);
+      color: var(--success);
+    }
+
+    .standard-card .feedback-box.incorrect {
+      background: var(--error-bg);
+      color: var(--error);
+    }
+
+    .correct-answer-text {
+      font-weight: bold;
+      margin-top: 4px;
+    }
+
+    .score-banner {
+      font-weight: bold;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-envio {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    /* Flashcards */
+    .flashcard-container {
+      perspective: 1000px;
+      margin-bottom: 12px;
+    }
+
+    .flashcard {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .flashcard.reviewed-green {
+      border: 2px solid var(--success);
+    }
+
+    .flashcard.reviewed-yellow {
+      border: 2px solid var(--warning);
+    }
+
+    .flashcard-word {
+      font-size: 1.2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .flashcard-translation {
+      margin-top: 12px;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      border-top: 1px dashed var(--border-color);
+      padding-top: 8px;
+    }
+
+    .flashcard-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .flashcard-actions button {
+      flex: 1;
+    }
+
+    /* Selects da Fixação */
+    .gap-select {
+      min-height: 40px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      font-size: 0.95rem;
+      background-color: white;
+      margin: 0 4px;
+      max-width: 100%;
+    }
+
+    /* Homework */
+    .homework-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .homework-item input[type="checkbox"] {
+      margin-top: 4px;
+      width: 18px;
+      height: 18px;
+    }
+
+    .standard-card {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+      background: white;
+    }
+
+    .standard-card.correct {
+      border-color: var(--success) !important;
+      background-color: var(--success-bg) !important;
+    }
+
+    .standard-card.incorrect {
+      border-color: var(--error) !important;
+      background-color: var(--error-bg) !important;
+    }
+
+    .topic-group {
+      border-left: 3px solid var(--primary);
+      padding-left: 10px;
+      margin-bottom: 16px;
+    }
+
+    .topic-title {
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .topic-rule {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 8px;
+      }
+      .flashcard-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Cabeçalho -->
+  <header>
+    <div class="header-top">
+      <div class="header-title">
+        <h1>Revisão da aula de 28/09/26</h1>
+        <p>Olá, Karla!</p>
+      </div>
+      <label class="audio-toggle" id="audioToggleLabel">
+        <span>⚡ Velocidade do Áudio:</span>
+        <input type="checkbox" id="speedToggle">
+        <span id="speedLabel">0.75x</span>
+      </label>
+    </div>
+  </header>
+
+  <!-- 2. Encorajamento -->
+  <div class="encouragement-card">
+    Sua capacidade de compreender e responder em cenários práticos do dia a dia está cada vez mais fluida. Continue praticando as respostas curtas para ganhar confiança.
+  </div>
+
+  <!-- 3. Recapitulação da Regra -->
+  <section>
+    <h2>📖 Recapitulação da Regra</h2>
+    <div class="rule-box">
+      <strong>Oferecendo ajuda e cortesia com Can e Would you like me to</strong>
+      <p style="margin-top: 6px; font-size: 0.9rem;">Para oferecer ajuda em inglês, usamos 'Can I...' ou 'Would you like me to...'. Para aceitar ou recusar de forma cortês, usamos respostas diretas e educadas.</p>
+    </div>
+    <div class="example-list">
+      <div class="example-item">
+        <div class="example-en">
+          <span>Can I help you carry those heavy saddles?</span>
+          <button class="btn btn-audio" onclick="playAudio('Can I help you carry those heavy saddles?')">🔊</button>
+        </div>
+        <div class="example-pt">Posso te ajudar a carregar aquelas selas pesadas?</div>
+      </div>
+      <div class="example-item">
+        <div class="example-en">
+          <span>Would you like me to get you a bottle of water?</span>
+          <button class="btn btn-audio" onclick="playAudio('Would you like me to get you a bottle of water?')">🔊</button>
+        </div>
+        <div class="example-pt">Você gostaria que eu te pegasse uma garrafa de água?</div>
+      </div>
+      <div class="example-item">
+        <div class="example-en">
+          <span>No, thanks. I can handle it.</span>
+          <button class="btn btn-audio" onclick="playAudio('No, thanks. I can handle it.')">🔊</button>
+        </div>
+        <div class="example-pt">Não, obrigado. Eu dou conta disso.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Treino de Desbloqueio -->
+  <section class="section-td" id="sec-treino">
+    <h2>🎯 Treino de Desbloqueio</h2>
+    <div class="score-banner" id="score-treino"></div>
+    <div id="container-treino"></div>
+    <button class="btn btn-primary" id="btn-verify-treino" style="background: var(--td-blue);" onclick="verificarTreino()">Verificar</button>
+    <div class="status-envio" id="envio-treino"></div>
+  </section>
+
+  <!-- 5. Revisão Cumulativa -->
+  <section id="sec-cumulativa">
+    <h2>🔁 Revisão Cumulativa</h2>
+    <div class="score-banner" id="score-cumulativa"></div>
+    <div id="container-cumulativa"></div>
+    <button class="btn btn-primary" id="btn-verify-cumulativa" onclick="verificarCumulativa()">Verificar</button>
+    <div class="status-envio" id="envio-cumulativa"></div>
+  </section>
+
+  <!-- 6. Vocabulário Novo -->
+  <section id="sec-vocabulario">
+    <h2>📚 Vocabulário Novo</h2>
+    <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 12px;" id="vocab-counter">0 de 10 revisadas</div>
+    <div id="container-vocab"></div>
+  </section>
+
+  <!-- 7. Exercício de Fixação -->
+  <section id="sec-fixacao">
+    <h2>✏️ Exercício de Fixação</h2>
+    <div class="score-banner" id="score-fixacao"></div>
+    <div id="container-fixacao"></div>
+    <button class="btn btn-primary" id="btn-verify-fixacao" onclick="verificarFixacao()">Verificar</button>
+    <div class="status-envio" id="envio-fixacao"></div>
+  </section>
+
+  <!-- 8. Homework -->
+  <section>
+    <h2>🏠 Homework</h2>
+    <div id="homework-list">
+      <div class="homework-item">
+        <input type="checkbox" id="hw0">
+        <label for="hw0">Escreva 5 frases oferecendo ajuda na sua rotina de trabalho ou em casa usando 'Can I...' e 'Would you like me to...'.</label>
+      </div>
+      <div class="homework-item">
+        <input type="checkbox" id="hw1">
+        <label for="hw1">Pratique em voz alta as respostas de cortesia para aceitar e recusar ajuda de forma educada.</label>
+      </div>
+    </div>
+    <button class="btn btn-primary" style="margin-top: 12px; background: #475569;" onclick="copiarHomework()">Copiar homework</button>
+  </section>
+
+  <script>
+    // DADOS INJETADOS DO PIPELINE
+    const META_ENVIO = {"aluno_id": "karla-reis", "aluno": "Karla Reis", "data_aula": "28/09/26", "accent": "US", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+    const VOCABULARIO_COMPLETO = [{"palavra": "tack room", "traducao": "sala de arreios"}, {"palavra": "saddle", "traducao": "sela"}, {"palavra": "to carry", "traducao": "carregar / transportar"}, {"palavra": "to unload", "traducao": "descarregar"}, {"palavra": "tailgate", "traducao": "tampa traseira"}, {"palavra": "to handle", "traducao": "lidar com / dar conta de"}, {"palavra": "developing", "traducao": "desenvolvendo"}, {"palavra": "bloodline", "traducao": "linhagem / genealogia"}, {"palavra": "rump", "traducao": "anca / garupa"}, {"palavra": "teeth", "traducao": "dentes"}];
+    const JSON_TREINO_DESBLOQUEIO = {"module_id": "treino_desbloqueio", "erro_alvo": "Contaminação do verbo To Be com verbos de ação (ex.: 'I'm go' em vez de 'I go' ou 'I'm going')", "nivel_cefr": "A2", "accent": "US", "items": [{"type": "compare_contrast_implicito", "sentence_a": "I carry the saddles to the tack room every morning.", "sentence_b": "I'm carry the saddles to the tack room every morning.", "question_pt": "Qual frase expressa corretamente uma ação habitual de trabalho?", "correct_answer": "a", "explanation_pt": "Para rotinas no presente, usamos o verbo de ação direto ('I carry'). A forma 'I'm carry' está errada porque não se junta o verbo 'to be' (am/is/are) com a forma base do verbo de ação."}, {"type": "multiple_choice_avancado", "prompt_en": "Every afternoon, the workers ____ the trucks near the operational gate.", "options": ["are unload", "unload", "is unload", "am unloading"], "correct_index": 1, "explanation_pt": "Para descrever uma rotina ('Every afternoon'), usamos o presente simples 'unload'. A opção 'are unload' é um erro comum de colocar o verbo 'to be' antes de um verbo de ação no presente."}, {"type": "dialogo_tempos_mistos", "linhas": [{"pergunta": "Are you handling the new horses right now?", "resposta_com_lacuna": "Yes, I ____ them now.", "resposta_lacuna": ["am handling", "I'm handling"], "resposta_completa": "Yes, I am handling them now.", "tempo": "presente contínuo"}, {"pergunta": "Do you handle the horses every morning?", "resposta_com_lacuna": "Yes, I ____ them every morning.", "resposta_lacuna": ["handle"], "resposta_completa": "Yes, I handle them every morning.", "tempo": "presente simples"}, {"pergunta": "Did you handle the horses yesterday?", "resposta_com_lacuna": "Yes, I ____ them yesterday.", "resposta_lacuna": ["handled"], "resposta_completa": "Yes, I handled them yesterday.", "tempo": "passado simples"}], "explanation_pt": "Para ações acontecendo agora, usamos o verbo 'to be' + ING ('am handling'). Para rotinas, usamos só o verbo principal ('handle'), sem 'am'."}, {"type": "reordenar_palavras", "tokens_embaralhados": ["carry", "them.", "I", "treats?", "Yes,", "Do", "you", "the", "carry"], "frase_correta": "Do you carry the treats? Yes, I carry them.", "explanation_pt": "Em afirmações no presente simples, dizemos 'I carry' diretamente. Evite colocar o 'am' antes do verbo de ação."}, {"type": "translation_challenge", "source_text_pt": "Eu levo as guloseimas para a sala de arreios.", "correct_answer": ["I carry the treats to the tack room.", "I take the treats to the tack room."], "explanation_pt": "Para falar de uma ação normal no presente, use 'I carry' ou 'I take'. Nunca diga 'I'm carry'."}, {"type": "translation_challenge", "source_text_pt": "Eu vou para a sala de equipamentos todos os dias.", "correct_answer": ["I go to the equipment room every day.", "I head to the equipment room every day."], "explanation_pt": "Ações habituais ('every day') pedem o presente simples 'I go'. A forma 'I'm go' é incorreta em inglês."}, {"type": "translation_challenge", "source_text_pt": "Eles fazem uma pausa rápida à tarde.", "correct_answer": ["They take a quick break in the afternoon.", "They have a quick break in the afternoon."], "explanation_pt": "Usamos o verbo principal 'take' ou 'have' diretamente ('They take'). Não inclua 'are' antes do verbo quando indicar rotina."}]};
+    const JSON_REVISAO_CUMULATIVA = {"module_id": "revisao_cumulativa", "topicos": [{"topico": "Modals for Ability & Permission (Can/Could)", "resumo_regra": "Usamos 'can' e 'could' para pedir/dar permissão e oferecer ajuda sem usar 'do/does' ou 'To Be'.", "exercicios": [{"type": "multiple_choice_simples", "prompt_en": "Excuse me, ____ borrow your laptop charger for a few minutes?", "options": ["can I", "do I can", "can I to"], "correct_index": 0, "explanation_pt": "Para pedir permissão, usamos 'can' direto antes do sujeito, sem usar 'do/does' nem a preposição 'to'."}, {"type": "gap_fill", "sentence_with_gap": "Last year, he ____ (not / can) drive, but now he takes his car to work every day.", "correct_answer": ["couldn't", "could not"], "explanation_pt": "Para expressar capacidade no passado na negativa, usamos 'couldn't' (ou 'could not')."}]}, {"topico": "Review A1 - Consolidação Gramatical", "resumo_regra": "Integração de Simple Past, Past Continuous e Wh- Questions em contextos de narrativa e rotina.", "exercicios": [{"type": "multiple_choice_simples", "prompt_en": "What ____ you doing when the manager called yesterday?", "options": ["were", "did", "was"], "correct_index": 0, "explanation_pt": "Em perguntas no Past Continuous com o sujeito 'you', usamos 'were' junto com o verbo principal em -ing."}, {"type": "gap_fill", "sentence_with_gap": "While I was writing the weekly report, the office phone ____ (ring).", "correct_answer": ["rang"], "explanation_pt": "Usamos o Simple Past ('rang') para indicar uma ação pontual que interrompeu uma ação contínua no passado."}]}]};
+
+    // CONTROLE DE AUDIO
+    function playAudio(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = META_ENVIO.accent === "UK" ? "en-GB" : "en-US";
+      const isSlow = document.getElementById("speedToggle").checked;
+      utterance.rate = isSlow ? 0.75 : 1.0;
+      
+      const voices = window.speechSynthesis.getVoices();
+      const prefLang = utterance.lang.toLowerCase();
+      const voice = voices.find(v => v.lang.toLowerCase().replace('_','-') === prefLang);
+      if (voice) utterance.voice = voice;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    if (!('speechSynthesis' in window)) {
+      document.querySelectorAll('.btn-audio').forEach(b => b.style.display = 'none');
+    }
+
+    // UTILITÁRIOS
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function normalizeText(str) {
+      if (!str) return "";
+      return str
+        .replace(/[’‘“”`"]/g, "'")
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .replace(/^[’'"“]+|[’'"”]+$/g, '')
+        .replace(/[.!?]+$/, '');
+    }
+
+    // ENVIO DE RESULTADOS
+    const enviados = {};
+    function enviarResultado(secao, acertos, total) {
+      if (enviados[secao]) return;
+      if (!META_ENVIO.apps_script_url) return;
+      enviados[secao] = true;
+      
+      fetch(META_ENVIO.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META_ENVIO.aluno_id,
+          aluno: META_ENVIO.aluno,
+          data_aula: META_ENVIO.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+
+      let envEl = null;
+      if (secao === "Treino de Desbloqueio") envEl = document.getElementById("envio-treino");
+      if (secao === "Revisão Cumulativa") envEl = document.getElementById("envio-cumulativa");
+      if (secao === "Exercício de Fixação") envEl = document.getElementById("envio-fixacao");
+      if (envEl) envEl.innerText = "📤 Resultado enviado ao professor";
+    }
+
+    // -------------------------------------------------------------
+    // RENDER: TREINO DE DESBLOQUEIO
+    // -------------------------------------------------------------
+    let estadoTreino = [];
+
+    function renderTreino() {
+      const sec = document.getElementById("sec-treino");
+      if (!JSON_TREINO_DESBLOQUEIO || !JSON_TREINO_DESBLOQUEIO.items || JSON_TREINO_DESBLOQUEIO.items.length === 0) {
+        sec.style.display = "none";
+        return;
+      }
+
+      const container = document.getElementById("container-treino");
+      container.innerHTML = "";
+      estadoTreino = [];
+
+      JSON_TREINO_DESBLOQUEIO.items.forEach((item, idx) => {
+        const card = document.createElement("div");
+        card.className = "td-card";
+        card.id = `td-item-${idx}`;
+
+        let content = "";
+
+        if (item.type === "compare_contrast_implicito") {
+          const sentences = item.correct_answer === "a" 
+            ? [{ text: item.sentence_a, isCorrect: true }, { text: item.sentence_b, isCorrect: false }]
+            : [{ text: item.sentence_b, isCorrect: true }, { text: item.sentence_a, isCorrect: false }];
+          
+          const shuffled = shuffleArray(sentences);
+          estadoTreino.push({ type: item.type, correctText: sentences.find(s => s.isCorrect).text, selected: null, explanation: item.explanation_pt });
+
+          content += `<div style="font-weight:600; margin-bottom:8px;">${item.question_pt}</div>`;
+          shuffled.forEach((s, sIdx) => {
+            content += `<button class="btn td-btn-option" onclick="selectTDOption(${idx}, '${s.text.replace(/'/g, "\\'")}', this)">${s.text}</button>`;
+          });
+
+        } else if (item.type === "multiple_choice_avancado") {
+          const targetCorrect = item.options[item.correct_index];
+          const shuffledOpts = shuffleArray(item.options);
+          estadoTreino.push({ type: item.type, correctText: targetCorrect, selected: null, explanation: item.explanation_pt });
+
+          content += `<div style="font-weight:600; margin-bottom:8px;">${item.prompt_en}</div>`;
+          shuffledOpts.forEach(opt => {
+            content += `<button class="btn td-btn-option" onclick="selectTDOption(${idx}, '${opt.replace(/'/g, "\\'")}', this)">${opt}</button>`;
+          });
+
+        } else if (item.type === "dialogo_tempos_mistos") {
+          estadoTreino.push({ type: item.type, linhas: item.linhas, explanation: item.explanation_pt });
+          content += `<div style="font-weight:600; margin-bottom:8px;">Complete o diálogo:</div>`;
+          item.linhas.forEach((linha, lIdx) => {
+            const parts = linha.resposta_com_lacuna.split("____");
+            content += `
+              <div style="margin-bottom:8px; font-size:0.9rem;">
+                <div>💬 <em>${linha.pergunta}</em></div>
+                <div style="margin-top:4px;">
+                  ${parts[0]}<input type="text" class="inline-input" id="td-dialogo-${idx}-${lIdx}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="...">${parts[1] || ''}
+                </div>
+              </div>`;
+          });
+
+        } else if (item.type === "reordenar_palavras") {
+          const shuffledTokens = shuffleArray(item.tokens_embaralhados);
+          estadoTreino.push({ type: item.type, correctSentence: item.frase_correta, explanation: item.explanation_pt, tokens: [] });
+
+          content += `<div style="font-weight:600; margin-bottom:8px;">Monte a frase correta tocando nas palavras:</div>`;
+          content += `<div class="chips-container" id="td-chips-selected-${idx}"></div>`;
+          content += `<div class="chips-container" id="td-chips-pool-${idx}">`;
+          shuffledTokens.forEach((tok, tIdx) => {
+            content += `<span class="chip" id="chip-${idx}-${tIdx}" onclick="toggleChip(${idx}, '${tok.replace(/'/g, "\\'")}', 'chip-${idx}-${tIdx}')">${tok}</span>`;
+          });
+          content += `</div>`;
+
+        } else if (item.type === "translation_challenge") {
+          estadoTreino.push({ type: item.type, correctAnswers: item.correct_answer, explanation: item.explanation_pt });
+          content += `<div style="font-weight:600; margin-bottom:4px;">Traduz para o inglês:</div>`;
+          content += `<div style="margin-bottom:8px; font-size:0.9rem; color:var(--text-muted);">${item.source_text_pt}</div>`;
+          content += `<input type="text" id="td-trans-${idx}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Type in English...">`;
+        }
+
+        content += `<div class="feedback-box" id="td-feedback-${idx}"></div>`;
+        card.innerHTML = content;
+        container.appendChild(card);
+      });
+    }
+
+    function selectTDOption(itemIdx, value, btnEl) {
+      estadoTreino[itemIdx].selected = value;
+      const parent = btnEl.parentElement;
+      parent.querySelectorAll('.td-btn-option').forEach(b => b.classList.remove('selected'));
+      btnEl.classList.add('selected');
+    }
+
+    function toggleChip(itemIdx, tokenText, chipId) {
+      const chipEl = document.getElementById(chipId);
+      const selectedContainer = document.getElementById(`td-chips-selected-${itemIdx}`);
+      const poolContainer = document.getElementById(`td-chips-pool-${itemIdx}`);
+      const itemState = estadoTreino[itemIdx];
+
+      if (chipEl.parentElement === poolContainer) {
+        selectedContainer.appendChild(chipEl);
+        itemState.tokens.push({ id: chipId, text: tokenText });
+      } else {
+        poolContainer.appendChild(chipEl);
+        itemState.tokens = itemState.tokens.filter(t => t.id !== chipId);
+      }
+    }
+
+    let treinoTentado = false;
+    function verificarTreino() {
+      const btn = document.getElementById("btn-verify-treino");
+      if (btn.innerText === "Tentar de novo") {
+        renderTreino();
+        document.getElementById("score-treino").style.display = "none";
+        btn.innerText = "Verificar";
+        return;
+      }
+
+      let acertos = 0;
+      let totalItems = 0;
+
+      estadoTreino.forEach((item, idx) => {
+        const card = document.getElementById(`td-item-${idx}`);
+        const fb = document.getElementById(`td-feedback-${idx}`);
+        let isCorrect = false;
+        let answerText = "";
+
+        if (item.type === "compare_contrast_implicito" || item.type === "multiple_choice_avancado") {
+          totalItems++;
+          if (item.selected && item.selected === item.correctText) {
+            isCorrect = true;
+          }
+          answerText = item.correctText;
+
+        } else if (item.type === "dialogo_tempos_mistos") {
+          let dialogCorrects = 0;
+          item.linhas.forEach((linha, lIdx) => {
+            totalItems++;
+            const inputVal = normalizeText(document.getElementById(`td-dialogo-${idx}-${lIdx}`).value);
+            const isLineCorrect = linha.resposta_lacuna.some(ans => normalizeText(ans) === inputVal);
+            if (isLineCorrect) {
+              dialogCorrects++;
+              acertos++;
+            }
+          });
+          isCorrect = (dialogCorrects === item.linhas.length);
+          answerText = item.linhas.map(l => l.resposta_completa).join("<br>");
+
+        } else if (item.type === "reordenar_palavras") {
+          totalItems++;
+          const builtSentence = normalizeText(item.tokens.map(t => t.text).join(" "));
+          if (builtSentence === normalizeText(item.correctSentence)) {
+            isCorrect = true;
+          }
+          answerText = item.correctSentence;
+
+        } else if (item.type === "translation_challenge") {
+          totalItems++;
+          const inputVal = normalizeText(document.getElementById(`td-trans-${idx}`).value);
+          isCorrect = item.correctAnswers.some(ans => normalizeText(ans) === inputVal);
+          answerText = item.correctAnswers[0];
+        }
+
+        if (item.type !== "dialogo_tempos_mistos" && isCorrect) acertos++;
+
+        card.classList.remove("correct", "incorrect");
+        card.classList.add(isCorrect ? "correct" : "incorrect");
+
+        fb.className = `feedback-box show ${isCorrect ? 'correct' : 'incorrect'}`;
+        fb.innerHTML = `${isCorrect ? '✅ Correto!' : '❌ Incorreto.'} ${item.explanation}<br><div class="correct-answer-text">✅ Resposta correta:<br>${answerText}</div>`;
+      });
+
+      const scoreBanner = document.getElementById("score-treino");
+      scoreBanner.style.display = "flex";
+      scoreBanner.innerHTML = `<span>Placar: ${acertos} de ${totalItems} corretas</span>`;
+
+      if (!treinoTentado) {
+        enviarResultado("Treino de Desbloqueio", acertos, totalItems);
+        treinoTentado = true;
+      }
+
+      btn.innerText = "Tentar de novo";
+    }
+
+    // -------------------------------------------------------------
+    // RENDER: REVISÃO CUMULATIVA
+    // -------------------------------------------------------------
+    let estadoCumulativa = [];
+
+    function renderCumulativa() {
+      const sec = document.getElementById("sec-cumulativa");
+      if (!JSON_REVISAO_CUMULATIVA || !JSON_REVISAO_CUMULATIVA.topicos || JSON_REVISAO_CUMULATIVA.topicos.length === 0) {
+        sec.style.display = "none";
+        return;
+      }
+
+      const container = document.getElementById("container-cumulativa");
+      container.innerHTML = "";
+      estadoCumulativa = [];
+
+      let globalIdx = 0;
+      JSON_REVISAO_CUMULATIVA.topicos.forEach(topico => {
+        const group = document.createElement("div");
+        group.className = "topic-group";
+        group.innerHTML = `<div class="topic-title">${topico.topico}</div><div class="topic-rule">${topico.resumo_regra}</div>`;
+
+        topico.exercicios.forEach(ex => {
+          const card = document.createElement("div");
+          card.className = "standard-card";
+          card.id = `cum-item-${globalIdx}`;
+
+          let content = "";
+          if (ex.type === "multiple_choice_simples") {
+            const correctText = ex.options[ex.correct_index];
+            const shuffled = shuffleArray(ex.options);
+            estadoCumulativa.push({ type: ex.type, correctText: correctText, selected: null, explanation: ex.explanation_pt });
+
+            content += `<div style="font-weight:600; margin-bottom:8px;">${ex.prompt_en}</div>`;
+            shuffled.forEach(opt => {
+              content += `<button class="btn td-btn-option" style="margin-bottom:6px;" onclick="selectCumOption(${globalIdx}, '${opt.replace(/'/g, "\\'")}', this)">${opt}</button>`;
+            });
+
+          } else if (ex.type === "gap_fill") {
+            estadoCumulativa.push({ type: ex.type, correctAnswers: Array.isArray(ex.correct_answer) ? ex.correct_answer : [ex.correct_answer], explanation: ex.explanation_pt });
+            const parts = ex.sentence_with_gap.split("____");
+            content += `<div style="font-weight:600; margin-bottom:8px;">Preencha a lacuna:</div>`;
+            content += `<div>${parts[0]}<input type="text" class="inline-input" id="cum-gap-${globalIdx}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="...">${parts[1] || ''}</div>`;
+          }
+
+          content += `<div class="feedback-box" id="cum-feedback-${globalIdx}"></div>`;
+          card.innerHTML = content;
+          group.appendChild(card);
+          globalIdx++;
+        });
+
+        container.appendChild(group);
+      });
+    }
+
+    function selectCumOption(idx, val, btnEl) {
+      estadoCumulativa[idx].selected = val;
+      const parent = btnEl.parentElement;
+      parent.querySelectorAll('.td-btn-option').forEach(b => b.classList.remove('selected'));
+      btnEl.classList.add('selected');
+    }
+
+    let cumulativaTentada = false;
+    function verificarCumulativa() {
+      const btn = document.getElementById("btn-verify-cumulativa");
+      if (btn.innerText === "Tentar de novo") {
+        renderCumulativa();
+        document.getElementById("score-cumulativa").style.display = "none";
+        btn.innerText = "Verificar";
+        return;
+      }
+
+      let acertos = 0;
+      estadoCumulativa.forEach((item, idx) => {
+        const card = document.getElementById(`cum-item-${idx}`);
+        const fb = document.getElementById(`cum-feedback-${idx}`);
+        let isCorrect = false;
+        let answerText = "";
+
+        if (item.type === "multiple_choice_simples") {
+          if (item.selected === item.correctText) isCorrect = true;
+          answerText = item.correctText;
+        } else if (item.type === "gap_fill") {
+          const val = normalizeText(document.getElementById(`cum-gap-${idx}`).value);
+          isCorrect = item.correctAnswers.some(ans => normalizeText(ans) === val);
+          answerText = item.correctAnswers[0];
+        }
+
+        if (isCorrect) acertos++;
+
+        card.classList.remove("correct", "incorrect");
+        card.classList.add(isCorrect ? "correct" : "incorrect");
+
+        fb.className = `feedback-box show ${isCorrect ? 'correct' : 'incorrect'}`;
+        fb.innerHTML = `${isCorrect ? '✅ Correto!' : '❌ Incorreto.'} ${item.explanation}<br><div class="correct-answer-text">✅ Resposta correta: ${answerText}</div>`;
+      });
+
+      const scoreBanner = document.getElementById("score-cumulativa");
+      scoreBanner.style.display = "flex";
+      scoreBanner.innerHTML = `<span>Placar: ${acertos} de ${estadoCumulativa.length} corretas</span>`;
+
+      if (!cumulativaTentada) {
+        enviarResultado("Revisão Cumulativa", acertos, estadoCumulativa.length);
+        cumulativaTentada = true;
+      }
+
+      btn.innerText = "Tentar de novo";
+    }
+
+    // -------------------------------------------------------------
+    // RENDER: VOCABULÁRIO NOVO (FLASHCARDS)
+    // -------------------------------------------------------------
+    const reviewedVocab = new Set();
+
+    function renderVocabulario() {
+      const container = document.getElementById("container-vocab");
+      container.innerHTML = "";
+
+      VOCABULARIO_COMPLETO.forEach((item, idx) => {
+        const cardContainer = document.createElement("div");
+        cardContainer.className = "flashcard-container";
+
+        cardContainer.innerHTML = `
+          <div class="flashcard" id="vcard-${idx}">
+            <div class="flashcard-word">
+              <span>${item.palavra}</span>
+              <button class="btn btn-audio" onclick="playAudio('${item.palavra.replace(/'/g, "\\'")}')">🔊</button>
+            </div>
+            <div class="flashcard-translation" id="vtrans-${idx}" style="display:none;">${item.traducao}</div>
+            <div style="margin-top:12px;" id="vact-initial-${idx}">
+              <button class="btn" style="background:#f1f5f9; color:var(--text-main); width:100%;" onclick="revelarVocab(${idx})">Revelar tradução</button>
+            </div>
+            <div class="flashcard-actions" id="vact-eval-${idx}" style="display:none;">
+              <button class="btn" style="background:var(--success-bg); color:var(--success); border:1px solid var(--success);" onclick="avaliarVocab(${idx}, 'green')">✅ Eu sabia</button>
+              <button class="btn" style="background:var(--warning-bg); color:#a16207; border:1px solid var(--warning);" onclick="avaliarVocab(${idx}, 'yellow')">🔄 Preciso revisar</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(cardContainer);
+      });
+    }
+
+    function revelarVocab(idx) {
+      document.getElementById(`vtrans-${idx}`).style.display = "block";
+      document.getElementById(`vact-initial-${idx}`).style.display = "none";
+      document.getElementById(`vact-eval-${idx}`).style.display = "flex";
+    }
+
+    function avaliarVocab(idx, status) {
+      const card = document.getElementById(`vcard-${idx}`);
+      card.classList.remove("reviewed-green", "reviewed-yellow");
+      if (status === 'green') card.classList.add("reviewed-green");
+      if (status === 'yellow') card.classList.add("reviewed-yellow");
+
+      reviewedVocab.add(idx);
+      document.getElementById("vocab-counter").innerText = `${reviewedVocab.size} de ${VOCABULARIO_COMPLETO.length} revisadas`;
+    }
+
+    // -------------------------------------------------------------
+    // RENDER: EXERCÍCIO DE FIXAÇÃO
+    // -------------------------------------------------------------
+    const fixacaoSentences = [
+      { text: "The saddles are safely stored inside the ____.", target: "tack room", options: ["tack room", "tailgate", "bloodline", "rump"] },
+      { text: "Please place the heavy ____ on the horse's back.", target: "saddle", options: ["saddle", "tailgate", "rump", "bloodline"] },
+      { text: "Can you help me ____ these heavy boxes to the truck?", target: "carry", options: ["carry", "unload", "handle", "developing"] },
+      { text: "We need to ____ the supplies as soon as the vehicle arrives.", target: "unload", options: ["unload", "carry", "handle", "developing"] },
+      { text: "Lower the ____ of the pickup so we can reach the gear.", target: "tailgate", options: ["tailgate", "tack room", "bloodline", "rump"] },
+      { text: "She knows how to ____ difficult horses with patience.", target: "handle", options: ["handle", "carry", "unload", "developing"] },
+      { text: "The team is ____ a new training protocol for the ranch.", target: "developing", options: ["developing", "carrying", "unloading", "handling"] },
+      { text: "This impressive stallion comes from an elite ____.", target: "bloodline", options: ["bloodline", "tack room", "tailgate", "rump"] },
+      { text: "The horse has strong muscular development around its ____.", target: "rump", options: ["rump", "tailgate", "tack room", "bloodline"] },
+      { text: "The equine vet arrived this morning to check the horse's ____.", target: "teeth", options: ["teeth", "bloodline", "rump", "tailgate"] }
+    ];
+
+    let estadoFixacao = [];
+
+    function renderFixacao() {
+      const container = document.getElementById("container-fixacao");
+      container.innerHTML = "";
+      estadoFixacao = [];
+
+      fixacaoSentences.forEach((item, idx) => {
+        const card = document.createElement("div");
+        card.className = "standard-card";
+        card.id = `fix-card-${idx}`;
+
+        const shuffledOpts = shuffleArray(item.options);
+        estadoFixacao.push({ target: item.target });
+
+        const parts = item.text.split("____");
+        let selectHtml = `<select class="gap-select" id="fix-select-${idx}">`;
+        selectHtml += `<option value="" disabled selected>-- Selecione --</option>`;
+        shuffledOpts.forEach(opt => {
+          selectHtml += `<option value="${opt}">${opt}</option>`;
+        });
+        selectHtml += `</select>`;
+
+        card.innerHTML = `
+          <div>${idx + 1}. ${parts[0]}${selectHtml}${parts[1] || ''}</div>
+          <div class="feedback-box" id="fix-feedback-${idx}"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    let fixacaoTentada = false;
+    function verificarFixacao() {
+      const btn = document.getElementById("btn-verify-fixacao");
+      if (btn.innerText === "Tentar de novo") {
+        renderFixacao();
+        document.getElementById("score-fixacao").style.display = "none";
+        btn.innerText = "Verificar";
+        return;
+      }
+
+      let acertos = 0;
+      estadoFixacao.forEach((item, idx) => {
+        const card = document.getElementById(`fix-card-${idx}`);
+        const fb = document.getElementById(`fix-feedback-${idx}`);
+        const selectEl = document.getElementById(`fix-select-${idx}`);
+        const selectedVal = selectEl.value;
+
+        const isCorrect = (selectedVal === item.target);
+        if (isCorrect) acertos++;
+
+        card.classList.remove("correct", "incorrect");
+        card.classList.add(isCorrect ? "correct" : "incorrect");
+
+        fb.className = `feedback-box show ${isCorrect ? 'correct' : 'incorrect'}`;
+        fb.innerHTML = `${isCorrect ? '✅ Correto!' : '❌ Incorreto.'}<br><div class="correct-answer-text">✅ Resposta correta: ${item.target}</div>`;
+      });
+
+      const scoreBanner = document.getElementById("score-fixacao");
+      scoreBanner.style.display = "flex";
+      scoreBanner.innerHTML = `<span>Placar: ${acertos} de ${estadoFixacao.length} corretas</span>`;
+
+      if (!fixacaoTentada) {
+        enviarResultado("Exercício de Fixação", acertos, estadoFixacao.length);
+        fixacaoTentada = true;
+      }
+
+      btn.innerText = "Tentar de novo";
+    }
+
+    // HOMEWORK COPY
+    function copiarHomework() {
+      const list = ["Escreva 5 frases oferecendo ajuda na sua rotina de trabalho ou em casa usando 'Can I...' e 'Would you like me to...'.", "Pratique em voz alta as respostas de cortesia para aceitar e recusar ajuda de forma educada."];
+      const textToCopy = "Homework - 28/09/26:\n" + list.map(i => "- " + i).join("\n");
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert("Homework copiado para a área de transferência!");
+      }).catch(() => {});
+    }
+
+    // INICIALIZAÇÃO DA PÁGINA
+    window.addEventListener("DOMContentLoaded", () => {
+      renderTreino();
+      renderCumulativa();
+      renderVocabulario();
+      renderFixacao();
+    });
+  </script>
+</body>
+</html>
