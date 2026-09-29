@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 29/09/26 — Alexandre</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+      --success: #16a34a;
+      --success-light: #f0fdf4;
+      --error: #dc2626;
+      --error-light: #fef2f2;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 16px 12px 40px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .date-badge {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .speed-toggle-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      min-height: 44px;
+    }
+
+    .speed-toggle-btn.active {
+      background: #fef3c7;
+      color: #b45309;
+      border-color: #fde68a;
+    }
+
+    /* ENCORAJAMENTO */
+    .encouragement-card {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      padding: 18px 20px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .encouragement-card p {
+      font-size: 0.95rem;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    /* SEÇÕES GERAIS */
+    section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-main);
+    }
+
+    .topic-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .rule-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* EXEMPLOS */
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .example-item {
+      background: var(--bg);
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .example-en {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .example-pt {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* BOTÃO ÁUDIO */
+    .audio-btn {
+      background: var(--primary-light);
+      border: none;
+      color: var(--primary);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .audio-btn:active {
+      transform: scale(0.95);
+      background: #dbeafe;
+    }
+
+    /* EXERCÍCIOS */
+    .exercise-block {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: #ffffff;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .exercise-block.correct {
+      border-color: var(--success);
+      background-color: var(--success-light);
+    }
+
+    .exercise-block.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-light);
+    }
+
+    .prompt {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .option-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      min-height: 44px;
+      transition: all 0.2s;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .option-btn:hover {
+      background: #f1f5f9;
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    /* INPUT TEXT & SELECT */
+    input[type="text"], select {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus, select:focus {
+      border-color: var(--primary);
+    }
+
+    .gap-inline-input {
+      display: inline-block;
+      width: auto;
+      min-width: 120px;
+      max-width: 200px;
+      margin: 0 4px;
+      padding: 6px 10px;
+      min-height: 38px;
+    }
+
+    /* FEEDBACK EXPLICATIVO */
+    .feedback-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      display: none;
+    }
+
+    .exercise-block.correct .feedback-box {
+      display: block;
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .exercise-block.incorrect .feedback-box {
+      display: block;
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .correct-answer-display {
+      font-weight: 700;
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* AÇÕES DA SEÇÃO */
+    .section-actions {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .action-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+      transition: background 0.2s;
+      text-align: center;
+    }
+
+    .action-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .score-badge {
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: center;
+      color: var(--text-main);
+      display: none;
+    }
+
+    .sync-status {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      display: none;
+    }
+
+    /* FLASHCARDS */
+    .flashcard-counter {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .flashcards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .flashcard {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      background: #ffffff;
+      transition: border-color 0.2s;
+    }
+
+    .flashcard.reviewed-known {
+      border-left: 5px solid var(--success);
+    }
+
+    .flashcard.reviewed-review {
+      border-left: 5px solid #eab308;
+    }
+
+    .flashcard-front {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flashcard-word {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .flashcard-back {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+      display: none;
+    }
+
+    .flashcard-translation {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .reveal-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      min-height: 44px;
+      margin-top: 8px;
+    }
+
+    .eval-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .eval-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      background: #ffffff;
+      border: 2px solid;
+    }
+
+    .eval-btn.known {
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    .eval-btn.review {
+      border-color: #eab308;
+      color: #ca8a04;
+    }
+
+    /* HOMEWORK */
+    .homework-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .homework-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .homework-item::before {
+      content: "📌";
+      flex-shrink: 0;
+    }
+
+    .copy-btn {
+      background: #f1f5f9;
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    @media (min-width: 480px) {
+      .options-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header>
+    <div class="header-top">
+      <span class="date-badge">Aula de 29/09/26</span>
+      <button id="speedToggle" class="speed-toggle-btn" onclick="toggleSpeed()">
+        ⚡ Velocidade: 1.0x
+      </button>
+    </div>
+    <h1>Olá, Alexandre!</h1>
+  </header>
+
+  <!-- ENCORAJAMENTO -->
+  <div class="encouragement-card">
+    <p>Sua capacidade de conversar se desenvolve a cada vez que você se permite falar sem se cobrar a perfeição. Parabéns pela segurança e ótimo ritmo de hoje!</p>
+  </div>
+
+  <!-- RECAPITULAÇÃO DA REGRA -->
+  <section>
+    <h2>📖 Recapitulação da Regra</h2>
+    <div class="topic-title">Conversação Livre: Viagens, Gastronomia e Experiências</div>
+    <div class="rule-box">
+      Na conversação espontânea, o mais importante é manter o fluxo da comunicação. Quando você não souber uma palavra específica, use termos simples e diretos para transmitir sua mensagem.
+    </div>
+
+    <div class="example-list">
+      <div class="example-item">
+        <div class="example-en">
+          <span>I prefer white wine and fresh food.</span>
+          <button class="audio-btn" onclick="playAudio('I prefer white wine and fresh food.')" aria-label="Ouvir áudio">🔊</button>
+        </div>
+        <div class="example-pt">Eu prefiro vinho branco e comida fresca.</div>
+      </div>
+
+      <div class="example-item">
+        <div class="example-en">
+          <span>We walked many kilometers during the trip.</span>
+          <button class="audio-btn" onclick="playAudio('We walked many kilometers during the trip.')" aria-label="Ouvir áudio">🔊</button>
+        </div>
+        <div class="example-pt">Nós caminhamos muitos quilômetros durante a viagem.</div>
+      </div>
+
+      <div class="example-item">
+        <div class="example-en">
+          <span>The weather was very cold in the mountains.</span>
+          <button class="audio-btn" onclick="playAudio('The weather was very cold in the mountains.')" aria-label="Ouvir áudio">🔊</button>
+        </div>
+        <div class="example-pt">O tempo estava muito frio nas montanhas.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVISÃO CUMULATIVA -->
+  <section id="sec-cumulativa">
+    <h2>🔁 Revisão Cumulativa</h2>
+
+    <!-- Tópico 1 -->
+    <div style="margin-bottom: 24px;">
+      <div class="topic-title">Questions and Answers (do - did - will - would)</div>
+      <div class="rule-box">
+        Para fazer perguntas fechadas no presente, passado e futuro, usamos o auxiliar no início da frase (Do, Did, Will, Would).
+      </div>
+
+      <!-- Ex 1.1 -->
+      <div class="exercise-block" data-type="mc" data-correct="Did" id="cum-ex-0">
+        <div class="prompt">____ you send the email to the manager yesterday?</div>
+        <div class="options-grid" id="cum-opt-0"></div>
+        <div class="feedback-box">
+          <span class="feedback-text"></span>
+          <span class="correct-answer-display"></span>
+        </div>
+      </div>
+
+      <!-- Ex 1.2 -->
+      <div class="exercise-block" data-type="gap" data-correct='["will"]' id="cum-ex-1">
+        <div class="prompt">
+          <input type="text" class="gap-inline-input" id="cum-gap-1" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"> (will) you attend the project meeting tomorrow?
+        </div>
+        <div class="feedback-box">
+          <span class="feedback-text"></span>
+          <span class="correct-answer-display"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tópico 2 -->
+    <div style="margin-bottom: 16px;">
+      <div class="topic-title">Nouns & Pronouns (Plural Nouns and Basic Adjectives)</div>
+      <div class="rule-box">
+        Substantivos formam plural com -s e adjetivos em inglês nunca mudam de forma (são invariáveis).
+      </div>
+
+      <!-- Ex 2.1 -->
+      <div class="exercise-block" data-type="mc" data-correct="red" id="cum-ex-2">
+        <div class="prompt">They bought two ____ cars for the new sales team.</div>
+        <div class="options-grid" id="cum-opt-2"></div>
+        <div class="feedback-box">
+          <span class="feedback-text"></span>
+          <span class="correct-answer-display"></span>
+        </div>
+      </div>
+
+      <!-- Ex 2.2 -->
+      <div class="exercise-block" data-type="gap" data-correct='["desks"]' id="cum-ex-3">
+        <div class="prompt">
+          There are four small <input type="text" class="gap-inline-input" id="cum-gap-3" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"> (desk) in our office.
+        </div>
+        <div class="feedback-box">
+          <span class="feedback-text"></span>
+          <span class="correct-answer-display"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-actions">
+      <div class="score-badge" id="cum-score"></div>
+      <button class="action-btn" id="cum-btn" onclick="verificarCumulativa()">Verificar Revisão Cumulativa</button>
+      <div class="sync-status" id="cum-sync">📤 Resultado enviado ao professor</div>
+    </div>
+  </section>
+
+  <!-- VOCABULÁRIO NOVO (FLASHCARDS) -->
+  <section>
+    <h2>📚 Vocabulário Novo</h2>
+    <div class="flashcard-counter">
+      <span id="cards-reviewed-count">0</span> de 9 revisadas
+    </div>
+
+    <div class="flashcards-grid">
+
+      <div class="flashcard" id="fc-0">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Codfish</span>
+          <button class="audio-btn" onclick="playAudio('Codfish')">🔊</button>
+        </div>
+        <button class="reveal-btn" onclick="revelarCard(0)">Revelar tradução</button>
+        <div class="flashcard-back" id="fc-back-0">
+          <div class="flashcard-translation">Bacalhau</div>
+          <div class="eval-buttons">
+            <button class="eval-btn known" onclick="avaliarCard(0, 'known')">✅ Eu sabia</button>
+            <button class="eval-btn review" onclick="avaliarCard(0, 'review')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-1">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Sardine</span>
+          <button class="audio-btn" onclick="playAudio('Sardine')">🔊</button>
+        </div>
+        <button class="reveal-btn" onclick="revelarCard(1)">Revelar tradução</button>
+        <div class="flashcard-back" id="fc-back-1">
+          <div class="flashcard-translation">Sardinha</div>
+          <div class="eval-buttons">
+            <button class="eval-btn known" onclick="avaliarCard(1, 'known')">✅ Eu sabia</button>
+            <button class="eval-btn review" onclick="avaliarCard(1, 'review')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-2">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Grill</span>
+          <button class="audio-btn" onclick="playAudio('Grill')">🔊</button>
+        </div>
+        <button class="reveal-btn" onclick="revelarCard(2)">Revelar tradução</button>
+        <div class="flashcard-back" id="fc-back-2">
+          <div class="flashcard-translation">Grelha / Churrasqueira</div>
+          <div class="eval-buttons">
+            <button class="eval-btn known" onclick="avaliarCard(2, 'known')">✅ Eu sabia</button>
+            <button class="eval-btn review" onclick="avaliarCard(2, 'review')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-3">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Sheep</span>
+          <button class="audio-btn" onclick="playAudio('Sheep')">🔊</button>
+        </div>
+        <button class="reveal-btn" onclick="revelarCard(3)">Revelar tradução</button>
+        <div class="flashcard-back" id="fc-back-3">
+          <div class="flashcard-translation">Ovelha / Cordeiro</div>
+          <div class="eval-buttons">
+            <button class="eval-btn known" onclick="avaliarCard(3, 'known')">✅ Eu sabia</button>
+            <button class="eval-btn review" onclick="avaliarCard(3, 'review')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-4">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Red meat</span>
+          <button class="audio-btn" onclick="playAudio('Red meat')">🔊</button>
+        </div>
+        <button class="reveal-btn" onclick="revelarCard(4)">Revelar tradução</button>
+        <div class="flashcard-back" id="fc-back-4">
+          <div class="flashcard-translation">Carne vermelha</div>
+          <div class="eval-buttons">
+            <button class="eval-btn known" onclick="avaliarCard(4, 'known')">✅ Eu sabia</button>
+            <button class="eval-btn review" onclick="avaliarCard(4, 'review')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-5">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Spirits</span>
+          <button class="audio-btn" onclick="playAudio('Spirits')">🔊</button>
+        </div>
+        <button class="reveal-btn" onclick="revelarCard(5)">Revelar tradução</button>
+        <div class="flashcard-back" id="fc-back-5">
+          <div class="flashcard-translation">Bebidas destiladas</div>
+          <div class="eval-buttons">
+            <button class="eval-btn known" onclick="avaliarCard(5, 'known')">✅ Eu sabia</button>
+            <button class="eval-btn review" onclick="avaliarCard(5, 'review')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-6">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Apostle</span>
+          <button class="audio-btn" onclick="playAudio('Apostle')">🔊</button>
+        </div>
+        <button class="reveal-btn" onclick="revelarCard(6)">Revelar tradução</button>
+        <div class="flashcard-back" id="fc-back-6">
+          <div class="flashcard-translation">Apóstolo</div>
+          <div class="eval-buttons">
+            <button class="eval-btn known" onclick="avaliarCard(6, 'known')">✅ Eu sabia</button>
+            <button class="eval-btn review" onclick="avaliarCard(6, 'review')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-7">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Hiking</span>
+          <button class="audio-btn" onclick="playAudio('Hiking')">🔊</button>
+        </div>
+        <button class="reveal-btn" onclick="revelarCard(7)">Revelar tradução</button>
+        <div class="flashcard-back" id="fc-back-7">
+          <div class="flashcard-translation">Caminhada / Trilha</div>
+          <div class="eval-buttons">
+            <button class="eval-btn known" onclick="avaliarCard(7, 'known')">✅ Eu sabia</button>
+            <button class="eval-btn review" onclick="avaliarCard(7, 'review')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-8">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Challenge</span>
+          <button class="audio-btn" onclick="playAudio('Challenge')">🔊</button>
+        </div>
+        <button class="reveal-btn" onclick="revelarCard(8)">Revelar tradução</button>
+        <div class="flashcard-back" id="fc-back-8">
+          <div class="flashcard-translation">Desafio</div>
+          <div class="eval-buttons">
+            <button class="eval-btn known" onclick="avaliarCard(8, 'known')">✅ Eu sabia</button>
+            <button class="eval-btn review" onclick="avaliarCard(8, 'review')">🔄 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXERCÍCIO DE FIXAÇÃO -->
+  <section id="sec-fixacao">
+    <h2>✏️ Exercício de Fixação</h2>
+
+    <div id="fix-container"></div>
+
+    <div class="section-actions">
+      <div class="score-badge" id="fix-score"></div>
+      <button class="action-btn" id="fix-btn" onclick="verificarFixacao()">Verificar Exercício de Fixação</button>
+      <div class="sync-status" id="fix-sync">📤 Resultado enviado ao professor</div>
+    </div>
+  </section>
+
+  <!-- HOMEWORK -->
+  <section>
+    <h2>🏠 Homework</h2>
+    <ul class="homework-list">
+      <li class="homework-item">Grave um áudio de 1 minuto em inglês no WhatsApp contando de forma simples o que você mais gosta na gastronomia de Portugal ou da Espanha.</li>
+      <li class="homework-item">Revise o vocabulário novo sobre gastronomia e caminhadas.</li>
+    </ul>
+    <button class="copy-btn" onclick="copiarHomework(this)">
+      📋 Copiar homework
+    </button>
+  </section>
+
+  <script>
+    // META & CONFIG
+    const META = {
+      aluno_id: "alexandre-bertoluzzi-fernandes",
+      aluno: "Alexandre Bertoluzzi Fernandes",
+      data_aula: "29/09/26",
+      accent: "UK",
+      apps_script_url: "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"
+    };
+
+    // SPEED TOGGLE & AUDIO
+    let isSlow = false;
+    function toggleSpeed() {
+      isSlow = !isSlow;
+      const btn = document.getElementById('speedToggle');
+      if (btn) {
+        btn.textContent = isSlow ? '⚡ Velocidade: 0.75x' : '⚡ Velocidade: 1.0x';
+        btn.classList.toggle('active', isSlow);
+      }
+    }
+
+    function playAudio(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = META.accent === 'UK' ? 'en-GB' : 'en-US';
+      utterance.rate = isSlow ? 0.75 : 1.0;
+      
+      const voices = window.speechSynthesis.getVoices();
+      const matchVoice = voices.find(v => v.lang.replace('_', '-').toLowerCase().includes(utterance.lang.toLowerCase()));
+      if (matchVoice) utterance.voice = matchVoice;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Ocultar botões de áudio se speechSynthesis não estiver disponível
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!('speechSynthesis' in window)) {
+        document.querySelectorAll('.audio-btn').forEach(btn => btn.style.display = 'none');
+      }
+    });
+
+    // COMPARAÇÃO DE TEXTO NORMALIZADA
+    function normalizeText(text) {
+      if (!text) return '';
+      let str = text.replace(/[’‘“”`]/g, "'");
+      str = str.replace(/"/g, "'");
+      str = str.toLowerCase().trim();
+      str = str.replace(/\s+/g, ' ');
+      str = str.replace(/^[.,!?;:'"]+|[.,!?;:'"]+$/g, '');
+      return str.trim();
+    }
+
+    // ENVIO DE RESULTADOS
+    const enviados = {};
+    function enviarResultado(secao, acertos, total) {
+      if (enviados[secao]) return;
+      if (!META.apps_script_url) return;
+      enviados[secao] = true;
+      fetch(META.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META.aluno_id,
+          aluno: META.aluno,
+          data_aula: META.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+    }
+
+    // DADOS DAS OPÇÕES DA REVISÃO CUMULATIVA
+    const cumExercisesData = [
+      {
+        id: 0,
+        type: "mc",
+        correct: "Did",
+        options: ["Do", "Did", "Will"],
+        explanation: "Usamos o auxiliar 'Did' no início da frase para fazer perguntas sobre ações no passado."
+      },
+      {
+        id: 1,
+        type: "gap",
+        correct: ["will"],
+        explanation: "Para fazer perguntas sobre ações futuras, usamos o verbo auxiliar 'Will' no início da frase."
+      },
+      {
+        id: 2,
+        type: "mc",
+        correct: "red",
+        options: ["reds", "red", "redes"],
+        explanation: "Os adjetivos em inglês são invariáveis, portanto não ganham '-s' mesmo quando modificam um substantivo no plural."
+      },
+      {
+        id: 3,
+        type: "gap",
+        correct: ["desks"],
+        explanation: "A maioria dos substantivos em inglês forma o plural adicionando apenas a letra -s ao final."
+      }
+    ];
+
+    const cumSelections = {};
+
+    function initCumulativa() {
+      // Ex 0 (MC)
+      renderMCOptions(0, cumExercisesData[0].options);
+      // Ex 2 (MC)
+      renderMCOptions(2, cumExercisesData[2].options);
+    }
+
+    function renderMCOptions(exId, originalOptions) {
+      const container = document.getElementById(`cum-opt-${exId}`);
+      if (!container) return;
+      // Embaralhar
+      const shuffled = [...originalOptions].sort(() => Math.random() - 0.5);
+      container.innerHTML = '';
+      shuffled.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+        btn.onclick = () => {
+          if (cumExercisesData[exId].verified) return;
+          container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          cumSelections[exId] = opt;
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    let cumVerificadoOnce = false;
+
+    function verificarCumulativa() {
+      const btn = document.getElementById('cum-btn');
+      if (cumVerificadoOnce && btn.textContent === "Tentar de novo") {
+        // Reset
+        cumExercisesData.forEach(ex => {
+          ex.verified = false;
+          const block = document.getElementById(`cum-ex-${ex.id}`);
+          block.classList.remove('correct', 'incorrect');
+          const fb = block.querySelector('.feedback-box');
+          fb.style.display = 'none';
+          if (ex.type === 'mc') {
+            const container = document.getElementById(`cum-opt-${ex.id}`);
+            container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+          } else if (ex.type === 'gap') {
+            const input = document.getElementById(`cum-gap-${ex.id}`);
+            input.value = '';
+            input.disabled = false;
+          }
+        });
+        delete cumSelections[0];
+        delete cumSelections[2];
+        document.getElementById('cum-score').style.display = 'none';
+        btn.textContent = "Verificar Revisão Cumulativa";
+        return;
+      }
+
+      let acertos = 0;
+      const total = cumExercisesData.length;
+
+      cumExercisesData.forEach(ex => {
+        ex.verified = true;
+        const block = document.getElementById(`cum-ex-${ex.id}`);
+        const fb = block.querySelector('.feedback-box');
+        const fbText = fb.querySelector('.feedback-text');
+        const fbCorrect = fb.querySelector('.correct-answer-display');
+        let isCorrect = false;
+
+        if (ex.type === 'mc') {
+          const userSel = cumSelections[ex.id];
+          isCorrect = (userSel === ex.correct);
+          if (!isCorrect) {
+            fbCorrect.textContent = `✅ Resposta correta: ${ex.correct}`;
+          } else {
+            fbCorrect.textContent = '';
+          }
+        } else if (ex.type === 'gap') {
+          const input = document.getElementById(`cum-gap-${ex.id}`);
+          input.disabled = true;
+          const userVal = normalizeText(input.value);
+          isCorrect = ex.correct.some(ans => normalizeText(ans) === userVal);
+          if (!isCorrect) {
+            fbCorrect.textContent = `✅ Resposta correta: ${ex.correct[0]}`;
+          } else {
+            fbCorrect.textContent = '';
+          }
+        }
+
+        if (isCorrect) {
+          acertos++;
+          block.classList.add('correct');
+          block.classList.remove('incorrect');
+          fbText.textContent = ex.explanation;
+        } else {
+          block.classList.add('incorrect');
+          block.classList.remove('correct');
+          fbText.textContent = ex.explanation;
+        }
+        fb.style.display = 'block';
+      });
+
+      const scoreDisplay = document.getElementById('cum-score');
+      scoreDisplay.textContent = `Placar: ${acertos} de ${total} corretas`;
+      scoreDisplay.style.display = 'block';
+
+      if (!cumVerificadoOnce) {
+        cumVerificadoOnce = true;
+        enviarResultado("Revisão Cumulativa", acertos, total);
+        if (META.apps_script_url) {
+          document.getElementById('cum-sync').style.display = 'block';
+        }
+      }
+
+      btn.textContent = "Tentar de novo";
+    }
+
+    // FLASHCARDS
+    const reviewedCards = new Set();
+
+    function revelarCard(id) {
+      document.getElementById(`fc-back-${id}`).style.display = 'block';
+      event.target.style.display = 'none';
+    }
+
+    function avaliarCard(id, state) {
+      const card = document.getElementById(`fc-${id}`);
+      card.classList.remove('reviewed-known', 'reviewed-review');
+      if (state === 'known') {
+        card.classList.add('reviewed-known');
+      } else {
+        card.classList.add('reviewed-review');
+      }
+      reviewedCards.add(id);
+      document.getElementById('cards-reviewed-count').textContent = reviewedCards.size;
+    }
+
+    // EXERCÍCIO DE FIXAÇÃO
+    const fixData = [
+      {
+        id: 0,
+        word: "Codfish",
+        sentence: "We ordered delicious grilled ____ at a traditional Portuguese restaurant.",
+        correct: "codfish",
+        distractors: ["sardine", "sheep", "spirits"],
+        explanation: "'Codfish' significa bacalhau."
+      },
+      {
+        id: 1,
+        word: "Sardine",
+        sentence: "Fresh ____ is very popular in coastal towns during summer.",
+        correct: "sardine",
+        distractors: ["codfish", "sheep", "red meat"],
+        explanation: "'Sardine' significa sardinha."
+      },
+      {
+        id: 2,
+        word: "Grill",
+        sentence: "They decided to cook the vegetables on the outdoor ____.",
+        correct: "grill",
+        distractors: ["hiking", "challenge", "apostle"],
+        explanation: "'Grill' significa grelha ou churrasqueira."
+      },
+      {
+        id: 3,
+        word: "Sheep",
+        sentence: "While driving through the countryside, we saw many white ____ in the field.",
+        correct: "sheep",
+        distractors: ["spirits", "challenges", "sardines"],
+        explanation: "'Sheep' significa ovelha ou cordeiro."
+      },
+      {
+        id: 4,
+        word: "Red meat",
+        sentence: "He is trying to cut down on ____ and eat more fish instead.",
+        correct: "red meat",
+        distractors: ["codfish", "spirits", "hiking"],
+        explanation: "'Red meat' significa carne vermelha."
+      },
+      {
+        id: 5,
+        word: "Spirits",
+        sentence: "After dinner, they served coffee and high-quality ____.",
+        correct: "spirits",
+        distractors: ["apostles", "hiking", "grills"],
+        explanation: "'Spirits' significa bebidas destiladas."
+      },
+      {
+        id: 6,
+        word: "Apostle",
+        sentence: "The cathedral in Santiago is dedicated to St. James the ____.",
+        correct: "apostle",
+        distractors: ["challenge", "grill", "sheep"],
+        explanation: "'Apostle' significa apóstolo."
+      },
+      {
+        id: 7,
+        word: "Hiking",
+        sentence: "They spent the whole weekend ____ in the national park.",
+        correct: "hiking",
+        distractors: ["spirits", "codfish", "apostle"],
+        explanation: "'Hiking' significa caminhada ou trilha."
+      },
+      {
+        id: 8,
+        word: "Challenge",
+        sentence: "Walking 30 kilometers in a single day was a big ____ for us.",
+        correct: "challenge",
+        distractors: ["hiking", "red meat", "sardine"],
+        explanation: "'Challenge' significa desafio."
+      }
+    ];
+
+    function initFixacao() {
+      const container = document.getElementById('fix-container');
+      container.innerHTML = '';
+
+      fixData.forEach((item, idx) => {
+        const options = [item.correct, ...item.distractors].sort(() => Math.random() - 0.5);
+        
+        const block = document.createElement('div');
+        block.className = 'exercise-block';
+        block.id = `fix-block-${idx}`;
+
+        const parts = item.sentence.split('____');
+
+        block.innerHTML = `
+          <div class="prompt">
+            ${parts[0]}
+            <select id="fix-select-${idx}" style="width: auto; display: inline-block; min-width: 130px; margin: 0 4px;">
+              <option value="" disabled selected>-- Selecione --</option>
+              ${options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+            </select>
+            ${parts[1] || ''}
+          </div>
+          <div class="feedback-box">
+            <span class="feedback-text">${item.explanation}</span>
+            <span class="correct-answer-display"></span>
+          </div>
+        `;
+        container.appendChild(block);
+      });
+    }
+
+    let fixVerificadoOnce = false;
+
+    function verificarFixacao() {
+      const btn = document.getElementById('fix-btn');
+      if (fixVerificadoOnce && btn.textContent === "Tentar de novo") {
+        // Reset
+        fixData.forEach((item, idx) => {
+          const block = document.getElementById(`fix-block-${idx}`);
+          block.classList.remove('correct', 'incorrect');
+          const fb = block.querySelector('.feedback-box');
+          fb.style.display = 'none';
+          const sel = document.getElementById(`fix-select-${idx}`);
+          sel.selectedIndex = 0;
+          sel.disabled = false;
+        });
+        document.getElementById('fix-score').style.display = 'none';
+        btn.textContent = "Verificar Exercício de Fixação";
+        return;
+      }
+
+      let acertos = 0;
+      const total = fixData.length;
+
+      fixData.forEach((item, idx) => {
+        const block = document.getElementById(`fix-block-${idx}`);
+        const sel = document.getElementById(`fix-select-${idx}`);
+        sel.disabled = true;
+
+        const fb = block.querySelector('.feedback-box');
+        const fbCorrect = fb.querySelector('.correct-answer-display');
+
+        const userVal = sel.value;
+        const isCorrect = (userVal === item.correct);
+
+        if (isCorrect) {
+          acertos++;
+          block.classList.add('correct');
+          block.classList.remove('incorrect');
+          fbCorrect.textContent = '';
+        } else {
+          block.classList.add('incorrect');
+          block.classList.remove('correct');
+          fbCorrect.textContent = `✅ Resposta correta: ${item.correct}`;
+        }
+        fb.style.display = 'block';
+      });
+
+      const scoreBadge = document.getElementById('fix-score');
+      scoreBadge.textContent = `Placar: ${acertos} de ${total} corretas`;
+      scoreBadge.style.display = 'block';
+
+      if (!fixVerificadoOnce) {
+        fixVerificadoOnce = true;
+        enviarResultado("Exercício de Fixação", acertos, total);
+        if (META.apps_script_url) {
+          document.getElementById('fix-sync').style.display = 'block';
+        }
+      }
+
+      btn.textContent = "Tentar de novo";
+    }
+
+    // COPIAR HOMEWORK
+    function copiarHomework(btn) {
+      const items = Array.from(document.querySelectorAll('.homework-item'))
+        .map(li => "• " + li.textContent.trim())
+        .join('\n');
+      const textToCopy = `Homework - Alexandre (29/09/26):\n\n${items}`;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = "✅ Copiado!";
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+        }, 2000);
+      }).catch(() => {});
+    }
+
+    // INICIALIZAÇÃO PÁGINA
+    window.onload = () => {
+      initCumulativa();
+      initFixacao();
+    };
+  </script>
+</body>
+</html>
