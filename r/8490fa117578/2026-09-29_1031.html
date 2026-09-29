@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 29/09/26 — Astério</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --error: #dc2626;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px 12px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .header-date {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    .audio-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .audio-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .encouragement {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-size: 0.95rem;
+      color: #1e40af;
+    }
+
+    .topic-subtitle {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .rule-explanation {
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .example-item {
+      background: #f1f5f9;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .example-en {
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+
+    }
+
+    .example-pt {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .btn-audio {
+      background: #e2e8f0;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      min-height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .btn-audio:hover {
+      background: #cbd5e1;
+    }
+
+    /* Flashcards */
+    .flashcard-container {
+      perspective: 1000px;
+      margin-bottom: 16px;
+    }
+
+    .flashcard {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 16px;
+      text-align: center;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .flashcard-word {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flashcard-translation {
+      font-size: 1.1rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    .flashcard-controls {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .fc-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      min-height: 44px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .fc-btn-reveal {
+      background: var(--primary);
+      color: white;
+      width: 100%;
+    }
+
+    .fc-btn-reveal:hover {
+      background: var(--primary-hover);
+    }
+
+    .fc-btn-knew {
+      background: #f0fdf4;
+      color: var(--success);
+      border-color: #bbf7d0;
+    }
+
+    .fc-btn-knew:hover {
+      background: #dcfce7;
+    }
+
+    .fc-btn-review {
+      background: #fefce8;
+      color: #ca8a04;
+      border-color: #fef08a;
+    }
+
+    .fc-btn-review:hover {
+      background: #fef9c3;
+    }
+
+    .fc-counter {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .fc-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      min-height: 44px;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    /* Exercise Elements */
+    .exercise-group {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exercise-group:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .exercise-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .exercise-item.correct {
+      border-color: var(--success);
+      background-color: #f0fdf4;
+    }
+
+    .exercise-item.incorrect {
+      border-color: var(--error);
+      background-color: #fef2f2;
+    }
+
+    .exercise-prompt {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .exercise-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn-option {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 6px;
+      text-align: left;
+      font-size: 0.9rem;
+      cursor: pointer;
+      min-height: 44px;
+      transition: all 0.2s;
+    }
+
+    .btn-option:hover {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .btn-option.selected {
+      border-color: var(--primary);
+      background: #dbeafe;
+      font-weight: 600;
+    }
+
+    .gap-input {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      width: 100%;
+      max-width: 280px;
+      margin-top: 4px;
+      min-height: 44px;
+    }
+
+    .gap-select {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background: white;
+      min-height: 44px;
+      width: 100%;
+      max-width: 320px;
+      margin-top: 4px;
+    }
+
+    .feedback-box {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-box.correct {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .feedback-box.incorrect {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .section-controls {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      min-height: 44px;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .score-board {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .submission-status {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+      display: none;
+    }
+
+    /* Homework List */
+    .homework-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .homework-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .homework-item::before {
+      content: "📌";
+      font-size: 1rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-top">
+        <span class="header-date">Aula de 29/09/26</span>
+        <button class="audio-toggle" id="btn-audio-toggle" onclick="toggleAudioSpeed()">
+          <span>🔊</span> <span id="speed-label">1.0x</span>
+        </button>
+      </div>
+      <h1>Olá, Astério!</h1>
+    </header>
+
+    <!-- Encorajamento -->
+    <div class="encouragement">
+      Sua capacidade de transmitir conceitos complexos de mercado em tempo real é impressionante. Cada treino melhora sua precisão e naturalidade.
+    </div>
+
+    <!-- Recapitulação da Regra -->
+    <div class="card">
+      <div class="section-title">📖 Recapitulação da Regra</div>
+      <div class="topic-subtitle">Apresentação Institucional e Logística de Exportação</div>
+      <p class="rule-explanation">Em apresentações formais e diplomáticas, utilizamos expressões consolidadas do setor para transmitir autoridade e precisão sobre qualidade e sustentabilidade.</p>
+      
+      <div class="example-list">
+        <div class="example-item">
+          <div class="example-en">
+            <span>Minas Gerais accounts for over half of Brazil's total coffee output.</span>
+            <button class="btn-audio" onclick="playAudio('Minas Gerais accounts for over half of Brazil\'s total coffee output.')">🔊</button>
+          </div>
+          <div class="example-pt">Minas Gerais responde por mais da metade da produção total de café do Brasil.</div>
+        </div>
+
+        <div class="example-item">
+          <div class="example-en">
+            <span>Our growers comply strictly with the Brazilian Forest Code.</span>
+            <button class="btn-audio" onclick="playAudio('Our growers comply strictly with the Brazilian Forest Code.')">🔊</button>
+          </div>
+          <div class="example-pt">Nossos produtores cumprem rigorosamente o Código Florestal Brasileiro.</div>
+        </div>
+
+        <div class="example-item">
+          <div class="example-en">
+            <span>We established dedicated logistics corridors to mitigate port congestion.</span>
+            <button class="btn-audio" onclick="playAudio('We established dedicated logistics corridors to mitigate port congestion.')">🔊</button>
+          </div>
+          <div class="example-pt">Estabelecemos corredores logísticos dedicados para mitigar o congestionamento portuário.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Treino de Desbloqueio: Omitido pois JSON_TREINO_DESBLOQUEIO é null -->
+
+    <!-- Revisão Cumulativa -->
+    <div class="card" id="sec-revisao-cumulativa">
+      <div class="section-title">🔁 Revisão Cumulativa</div>
+      
+      <!-- Tópico 1 -->
+      <div class="exercise-group">
+        <div class="topic-subtitle">Simple Past</div>
+        <p class="rule-explanation">Para ações concluídas no passado, usamos verbos regulares com -ed ou irregulares, e 'did' para perguntas e negativas.</p>
+        
+        <!-- Ex 1.1 -->
+        <div class="exercise-item" id="rc-ex-0">
+          <div class="exercise-prompt">1. They ____ a new flat in London last year.</div>
+          <div class="exercise-options" id="rc-opt-0"></div>
+          <div class="feedback-box" id="rc-fb-0"></div>
+        </div>
+
+        <!-- Ex 1.2 -->
+        <div class="exercise-item" id="rc-ex-1">
+          <div class="exercise-prompt">2. She ____ (not / call) her manager yesterday.</div>
+          <input type="text" class="gap-input" id="rc-in-1" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+          <div class="feedback-box" id="rc-fb-1"></div>
+        </div>
+      </div>
+
+      <!-- Tópico 2 -->
+      <div class="exercise-group">
+        <div class="topic-subtitle">Present Continuous</div>
+        <p class="rule-explanation">Expressa ações em andamento no momento da fala ou planos futuros confirmados, usando am/is/are + verbo com -ing.</p>
+        
+        <!-- Ex 2.1 -->
+        <div class="exercise-item" id="rc-ex-2">
+          <div class="exercise-prompt">3. Look! The children ____ in the garden at the moment.</div>
+          <div class="exercise-options" id="rc-opt-2"></div>
+          <div class="feedback-box" id="rc-fb-2"></div>
+        </div>
+
+        <!-- Ex 2.2 -->
+        <div class="exercise-item" id="rc-ex-3">
+          <div class="exercise-prompt">4. I ____ (study) English at home right now.</div>
+          <input type="text" class="gap-input" id="rc-in-3" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+          <div class="feedback-box" id="rc-fb-3"></div>
+        </div>
+      </div>
+
+      <div class="section-controls">
+        <div class="score-board" id="rc-score"></div>
+        <button class="btn-primary" id="rc-btn-verify" onclick="verificarRevisaoCumulativa()">Verificar</button>
+        <span class="submission-status" id="rc-status">📤 Resultado enviado ao professor</span>
+      </div>
+    </div>
+
+    <!-- Vocabulário Novo -->
+    <div class="card">
+      <div class="section-title">📚 Vocabulário Novo</div>
+      <div class="fc-counter" id="fc-counter">1 de 27 revisadas</div>
+      
+      <div class="flashcard-container">
+        <div class="flashcard">
+          <div class="flashcard-word">
+            <span id="fc-word-en">second round</span>
+            <button class="btn-audio" id="fc-btn-audio" onclick="playCurrentFcAudio()">🔊</button>
+          </div>
+          <div class="flashcard-translation" id="fc-word-pt" style="display: none;">segundo turno</div>
+        </div>
+      </div>
+
+      <div class="flashcard-controls" id="fc-controls-reveal">
+        <button class="fc-btn fc-btn-reveal" onclick="revealFlashcard()">Revelar tradução</button>
+      </div>
+
+      <div class="flashcard-controls" id="fc-controls-rate" style="display: none;">
+        <button class="fc-btn fc-btn-knew" onclick="rateFlashcard(true)">✅ Eu sabia</button>
+        <button class="fc-btn fc-btn-review" onclick="rateFlashcard(false)">🔄 Preciso revisar</button>
+      </div>
+
+      <div class="fc-nav">
+        <button class="btn-secondary" onclick="prevFlashcard()">← Anterior</button>
+        <button class="btn-secondary" onclick="nextFlashcard()">Próxima →</button>
+      </div>
+    </div>
+
+    <!-- Exercício de Fixação -->
+    <div class="card" id="sec-fixacao">
+      <div class="section-title">✏️ Exercício de Fixação</div>
+      <p class="rule-explanation" style="margin-bottom: 12px;">Selecione a opção correta para preencher a lacuna em cada frase:</p>
+
+      <div id="fixation-container"></div>
+
+      <div class="section-controls">
+        <div class="score-board" id="fix-score"></div>
+        <button class="btn-primary" id="fix-btn-verify" onclick="verificarFixacao()">Verificar</button>
+        <span class="submission-status" id="fix-status">📤 Resultado enviado ao professor</span>
+      </div>
+    </div>
+
+    <!-- Homework -->
+    <div class="card">
+      <div class="section-title">🏠 Homework</div>
+      <ul class="homework-list">
+        <li class="homework-item">Estudar o documento compartilhado com as frases formais da aula.</li>
+        <li class="homework-item">Praticar a leitura em voz alta das estruturas sobre sustentabilidade e logística.</li>
+      </ul>
+      <button class="btn-secondary" style="width: 100%;" onclick="copyHomework()">Copiar homework</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Copiado para a área de transferência!</div>
+
+  <script>
+    // Configurações e Dados
+    const META_ENVIO = {"aluno_id": "asterio-itabayana-neto", "aluno": "Astério Itabayana Neto", "data_aula": "29/09/26", "accent": "UK", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+    const VOCABULARIO = [{"palavra": "second round", "traducao": "segundo turno"}, {"palavra": "unpredictable", "traducao": "imprevisível"}, {"palavra": "trustworthy", "traducao": "confiável"}, {"palavra": "round of interviews", "traducao": "rodada de entrevistas"}, {"palavra": "to refuse", "traducao": "recusar"}, {"palavra": "profitable", "traducao": "lucrativo / vantajoso"}, {"palavra": "to take sides", "traducao": "tomar partido"}, {"palavra": "former mayor", "traducao": "ex-prefeito"}, {"palavra": "coffee grains", "traducao": "grãos de café"}, {"palavra": "total output", "traducao": "produção total"}, {"palavra": "century-old heritage", "traducao": "tradição secular"}, {"palavra": "state of the art", "traducao": "tecnologia de ponta"}, {"palavra": "cutting edge", "traducao": "de última geração"}, {"palavra": "backbone", "traducao": "espinha dorsal / pilar"}, {"palavra": "undisputed", "traducao": "incontestável"}, {"palavra": "to comply strictly with", "traducao": "cumprir rigorosamente"}, {"palavra": "Forest Code", "traducao": "Código Florestal"}, {"palavra": "traceability", "traducao": "rastreabilidade"}, {"palavra": "thoroughly embedded", "traducao": "profundamente integrado"}, {"palavra": "third-party certification", "traducao": "certificação por auditoria independente"}, {"palavra": "ocean freight", "traducao": "frete marítimo"}, {"palavra": "logistics corridor", "traducao": "corredor logístico"}, {"palavra": "to mitigate", "traducao": "mitigar"}, {"palavra": "port congestion", "traducao": "congestionamento portuário"}, {"palavra": "key hubs", "traducao": "principais centros de distribuição"}, {"palavra": "maritime freight rates", "traducao": "tarifas de frete marítimo"}, {"palavra": "volatile", "traducao": "volátil"}];
+
+    let audioRate = 1.0;
+    const enviados = {};
+
+    // Audio helper
+    function toggleAudioSpeed() {
+      audioRate = audioRate === 1.0 ? 0.75 : 1.0;
+      document.getElementById('speed-label').innerText = audioRate === 1.0 ? '1.0x' : '0.75x';
+    }
+
+    function playAudio(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = META_ENVIO.accent === 'UK' ? 'en-GB' : 'en-US';
+      utterance.rate = audioRate;
+      
+      const voices = window.speechSynthesis.getVoices();
+      const targetLang = META_ENVIO.accent === 'UK' ? 'en-GB' : 'en-US';
+      const voice = voices.find(v => v.lang === targetLang || v.lang.startsWith(targetLang.substring(0,2)));
+      if (voice) utterance.voice = voice;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Oculta botões de áudio se não suportado
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!('speechSynthesis' in window)) {
+        document.querySelectorAll('.btn-audio').forEach(btn => btn.style.display = 'none');
+      }
+    });
+
+    // Normalização de texto para validação
+    function normalizeText(text) {
+      if (!text) return '';
+      return text
+        .replace(/[’‘“”]/g, "'")
+        .replace(/["']/g, "'")
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .replace(/[.!?]$/, '');
+    }
+
+    // Embaralhar array
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Envio de resultado
+    function enviarResultado(secao, acertos, total) {
+      if (enviados[secao] || !META_ENVIO.apps_script_url) return;
+      enviados[secao] = true;
+
+      fetch(META_ENVIO.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META_ENVIO.aluno_id,
+          aluno: META_ENVIO.aluno,
+          data_aula: META_ENVIO.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+    }
+
+    // --- REVISÃO CUMULATIVA ---
+    const rcData = [
+      {
+        type: "mc",
+        correctText: "bought",
+        options: ["buyed", "bought", "buying"],
+        explanation: "O passado do verbo irregular 'buy' é 'bought'. A forma 'buyed' não existe."
+      },
+      {
+        type: "gap",
+        correctAnswers: ["didn't call", "did not call"],
+        explanation: "Na negativa do Simple Past, usamos o auxiliar 'didn't' (ou 'did not') acompanhado do verbo principal na forma base."
+      },
+      {
+        type: "mc",
+        correctText: "are playing",
+        options: ["are playing", "plays", "is playing"],
+        explanation: "Para o sujeito plural 'the children' (eles/elas), usamos a forma 'are' + verbo com '-ing'."
+      },
+      {
+        type: "gap",
+        correctAnswers: ["am studying", "'m studying"],
+        explanation: "Com o pronome 'I' no Present Continuous, usamos 'am' (ou a contração ''m') junto com o verbo em '-ing'."
+      }
+    ];
+
+    const rcUserAnswers = {};
+    let rcStateVerified = false;
+
+    function renderRC() {
+      // Ex 0 (MC)
+      const opt0 = shuffleArray(rcData[0].options);
+      const container0 = document.getElementById('rc-opt-0');
+      container0.innerHTML = '';
+      opt0.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-option';
+        btn.innerText = opt;
+        btn.onclick = () => {
+          if (rcStateVerified) return;
+          container0.querySelectorAll('.btn-option').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          rcUserAnswers[0] = opt;
+        };
+        container0.appendChild(btn);
+      });
+
+      // Ex 2 (MC)
+      const opt2 = shuffleArray(rcData[2].options);
+      const container2 = document.getElementById('rc-opt-2');
+      container2.innerHTML = '';
+      opt2.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-option';
+        btn.innerText = opt;
+        btn.onclick = () => {
+          if (rcStateVerified) return;
+          container2.querySelectorAll('.btn-option').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          rcUserAnswers[2] = opt;
+        };
+        container2.appendChild(btn);
+      });
+    }
+
+    function verificarRevisaoCumulativa() {
+      const btn = document.getElementById('rc-btn-verify');
+      if (rcStateVerified) {
+        // Reset
+        rcStateVerified = false;
+        btn.innerText = 'Verificar';
+        document.getElementById('rc-score').style.display = 'none';
+        for (let i = 0; i < 4; i++) {
+          const item = document.getElementById(`rc-ex-${i}`);
+          item.classList.remove('correct', 'incorrect');
+          const fb = document.getElementById(`rc-fb-${i}`);
+          fb.classList.remove('show', 'correct', 'incorrect');
+          fb.innerHTML = '';
+        }
+        document.getElementById('rc-in-1').value = '';
+        document.getElementById('rc-in-3').value = '';
+        document.getElementById('rc-in-1').disabled = false;
+        document.getElementById('rc-in-3').disabled = false;
+        delete rcUserAnswers[0];
+        delete rcUserAnswers[2];
+        renderRC();
+        return;
+      }
+
+      rcStateVerified = true;
+      let acertos = 0;
+
+      // Ex 0
+      const ans0 = rcUserAnswers[0];
+      const is0Correct = ans0 === rcData[0].correctText;
+      if (is0Correct) acertos++;
+      applyFeedback('rc-ex-0', 'rc-fb-0', is0Correct, rcData[0].explanation, rcData[0].correctText);
+
+      // Ex 1
+      const ans1 = normalizeText(document.getElementById('rc-in-1').value);
+      document.getElementById('rc-in-1').disabled = true;
+      const is1Correct = rcData[1].correctAnswers.map(a => normalizeText(a)).includes(ans1);
+      if (is1Correct) acertos++;
+      applyFeedback('rc-ex-1', 'rc-fb-1', is1Correct, rcData[1].explanation, rcData[1].correctAnswers[0]);
+
+      // Ex 2
+      const ans2 = rcUserAnswers[2];
+      const is2Correct = ans2 === rcData[2].correctText;
+      if (is2Correct) acertos++;
+      applyFeedback('rc-ex-2', 'rc-fb-2', is2Correct, rcData[2].explanation, rcData[2].correctText);
+
+      // Ex 3
+      const ans3 = normalizeText(document.getElementById('rc-in-3').value);
+      document.getElementById('rc-in-3').disabled = true;
+      const is3Correct = rcData[3].correctAnswers.map(a => normalizeText(a)).includes(ans3);
+      if (is3Correct) acertos++;
+      applyFeedback('rc-ex-3', 'rc-fb-3', is3Correct, rcData[3].explanation, rcData[3].correctAnswers[0]);
+
+      const scoreBox = document.getElementById('rc-score');
+      scoreBox.innerText = `Placar: ${acertos} de 4 corretas`;
+      scoreBox.style.display = 'flex';
+
+      btn.innerText = 'Tentar de novo';
+
+      if (META_ENVIO.apps_script_url && !enviados["Revisão Cumulativa"]) {
+        enviarResultado("Revisão Cumulativa", acertos, 4);
+        document.getElementById('rc-status').style.display = 'inline';
+      }
+    }
+
+    function applyFeedback(itemId, fbId, isCorrect, explanation, correctAns) {
+      const item = document.getElementById(itemId);
+      const fb = document.getElementById(fbId);
+      item.classList.add(isCorrect ? 'correct' : 'incorrect');
+      fb.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+      if (isCorrect) {
+        fb.innerHTML = `✅ ${explanation}`;
+      } else {
+        fb.innerHTML = `❌ Resposta correta: <strong>${correctAns}</strong><br>${explanation}`;
+      }
+    }
+
+    // --- FLASHCARDS ---
+    let fcIndex = 0;
+    const reviewedCards = new Set();
+
+    function updateFlashcardUI() {
+      const item = VOCABULARIO[fcIndex];
+      document.getElementById('fc-word-en').innerText = item.palavra;
+      document.getElementById('fc-word-pt').innerText = item.traducao;
+      document.getElementById('fc-word-pt').style.display = 'none';
+
+      document.getElementById('fc-controls-reveal').style.display = 'flex';
+      document.getElementById('fc-controls-rate').style.display = 'none';
+
+      document.getElementById('fc-counter').innerText = `${reviewedCards.size} de ${VOCABULARIO.length} revisadas`;
+    }
+
+    function playCurrentFcAudio() {
+      playAudio(VOCABULARIO[fcIndex].palavra);
+    }
+
+    function revealFlashcard() {
+      document.getElementById('fc-word-pt').style.display = 'block';
+      document.getElementById('fc-controls-reveal').style.display = 'none';
+      document.getElementById('fc-controls-rate').style.display = 'flex';
+    }
+
+    function rateFlashcard(knew) {
+      reviewedCards.add(fcIndex);
+      nextFlashcard();
+    }
+
+    function nextFlashcard() {
+      fcIndex = (fcIndex + 1) % VOCABULARIO.length;
+      updateFlashcardUI();
+    }
+
+    function prevFlashcard() {
+      fcIndex = (fcIndex - 1 + VOCABULARIO.length) % VOCABULARIO.length;
+      updateFlashcardUI();
+    }
+
+    // --- EXERCÍCIO DE FIXAÇÃO ---
+    const fixData = [
+      {
+        prompt: "1. The candidates will face each other in the ____ of elections.",
+        correct: "second round",
+        distractors: ["round of interviews", "former mayor", "ocean freight"]
+      },
+      {
+        prompt: "2. The factory increased its total ____ of coffee by twenty percent this quarter.",
+        correct: "total output",
+        distractors: ["port congestion", "traceability", "third-party certification"]
+      },
+      {
+        prompt: "3. All exporters must comply strictly ____ international safety regulations.",
+        correct: "with",
+        distractors: ["to", "at", "for"]
+      },
+      {
+        prompt: "4. We adjusted our shipping schedule to avoid severe port ____.",
+        correct: "congestion",
+        distractors: ["corridor", "freight", "code"]
+      },
+      {
+        prompt: "5. The government is developing a new logistics ____ to speed up cargo transport.",
+        correct: "corridor",
+        distractors: ["heritage", "code", "output"]
+      },
+      {
+        prompt: "6. We implemented new operational measures to ____ potential risks.",
+        correct: "mitigate",
+        distractors: ["refuse", "take sides", "comply"]
+      },
+      {
+        prompt: "7. Our coffee quality is validated by an independent third-party ____.",
+        correct: "certification",
+        distractors: ["congestion", "corridor", "heritage"]
+      },
+      {
+        prompt: "8. Rising fuel prices have increased the cost of ocean ____.",
+        correct: "freight",
+        distractors: ["corridor", "code", "output"]
+      },
+      {
+        prompt: "9. We only work with trustworthy suppliers who deliver on time.",
+        prompt_gap: "9. We only work with ____ suppliers who deliver on time.",
+        correct: "trustworthy",
+        distractors: ["unpredictable", "volatile", "undisputed"]
+      },
+      {
+        prompt_gap: "10. Digital tracking systems ensure full ____ of every shipment.",
+        correct: "traceability",
+        distractors: ["congestion", "output", "heritage"]
+      }
+    ];
+
+    let fixStateVerified = false;
+
+    function renderFixation() {
+      const container = document.getElementById('fixation-container');
+      container.innerHTML = '';
+
+      fixData.forEach((item, index) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'exercise-item';
+        itemDiv.id = `fix-ex-${index}`;
+
+        const promptDiv = document.createElement('div');
+        promptDiv.className = 'exercise-prompt';
+        promptDiv.innerText = item.prompt_gap || item.prompt;
+
+        const select = document.createElement('select');
+        select.className = 'gap-select';
+        select.id = `fix-sel-${index}`;
+
+        const defaultOpt = document.createElement('option');
+        defaultOpt.value = '';
+        defaultOpt.innerText = '-- Selecione --';
+        defaultOpt.disabled = true;
+        defaultOpt.selected = true;
+        select.appendChild(defaultOpt);
+
+        const options = shuffleArray([item.correct, ...item.distractors]);
+        options.forEach(opt => {
+          const optEl = document.createElement('option');
+          optEl.value = opt;
+          optEl.innerText = opt;
+          select.appendChild(optEl);
+        });
+
+        const fb = document.createElement('div');
+        fb.className = 'feedback-box';
+        fb.id = `fix-fb-${index}`;
+
+        itemDiv.appendChild(promptDiv);
+        itemDiv.appendChild(select);
+        itemDiv.appendChild(fb);
+        container.appendChild(itemDiv);
+      });
+    }
+
+    function verificarFixacao() {
+      const btn = document.getElementById('fix-btn-verify');
+      if (fixStateVerified) {
+        fixStateVerified = false;
+        btn.innerText = 'Verificar';
+        document.getElementById('fix-score').style.display = 'none';
+        renderFixation();
+        return;
+      }
+
+      fixStateVerified = true;
+      let acertos = 0;
+
+      fixData.forEach((item, index) => {
+        const select = document.getElementById(`fix-sel-${index}`);
+        select.disabled = true;
+        const val = select.value;
+        const isCorrect = val === item.correct;
+        if (isCorrect) acertos++;
+
+        const itemDiv = document.getElementById(`fix-ex-${index}`);
+        const fb = document.getElementById(`fix-fb-${index}`);
+
+        itemDiv.classList.add(isCorrect ? 'correct' : 'incorrect');
+        fb.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+
+        if (isCorrect) {
+          fb.innerHTML = `✅ Correto!`;
+        } else {
+          fb.innerHTML = `❌ Resposta correta: <strong>${item.correct}</strong>`;
+        }
+      });
+
+      const scoreBox = document.getElementById('fix-score');
+      scoreBox.innerText = `Placar: ${acertos} de ${fixData.length} corretas`;
+      scoreBox.style.display = 'flex';
+
+      btn.innerText = 'Tentar de novo';
+
+      if (META_ENVIO.apps_script_url && !enviados["Exercício de Fixação"]) {
+        enviarResultado("Exercício de Fixação", acertos, fixData.length);
+        document.getElementById('fix-status').style.display = 'inline';
+      }
+    }
+
+    // --- HOMEWORK ---
+    function copyHomework() {
+      const text = "Homework:\n1. Estudar o documento compartilhado com as frases formais da aula.\n2. Praticar a leitura em voz alta das estruturas sobre sustentabilidade e logística.";
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      });
+    }
+
+    // Inicialização
+    renderRC();
+    updateFlashcardUI();
+    renderFixation();
+  </script>
+</body>
+</html>
