@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 03/09/26 — Alexandre</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --success: #16a34a;
+      --success-light: #f0fdf4;
+      --error: #dc2626;
+      --error-light: #fef2f2;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px 12px 40px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .header-tag {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: var(--primary-light);
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    h1 {
+      font-size: 1.35rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .greeting {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* AUDIO CONTROLS */
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg);
+      padding: 8px 12px;
+      border-radius: 20px;
+      margin-top: 12px;
+      width: fit-content;
+      border: 1px solid var(--border);
+    }
+
+    .audio-controls span {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .speed-btn {
+      background: none;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: var(--text-muted);
+      min-height: 32px;
+    }
+
+    .speed-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* SECTIONS */
+    section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      border-bottom: 2px solid var(--bg);
+      padding-bottom: 8px;
+    }
+
+    .encouragement {
+      background: #f0f9ff;
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 4px var(--radius) var(--radius) 4px;
+      font-size: 0.95rem;
+      color: #0369a1;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    /* AUDIO BUTTON */
+    .btn-audio {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      touch-action: manipulation;
+    }
+
+    .btn-audio:active {
+      transform: scale(0.95);
+    }
+
+    /* REGRAS & EXEMPLOS */
+    .rule-explanation {
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .example-item {
+      background: var(--bg);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .example-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .example-pt {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-left: 46px;
+    }
+
+    /* EXERCISES GENERAL */
+    .topic-group {
+      margin-bottom: 24px;
+    }
+
+    .topic-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .topic-summary {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      background: var(--bg);
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    .exercise-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .exercise-card.correct {
+      border-color: var(--success);
+      background: var(--success-light);
+    }
+
+    .exercise-card.incorrect {
+      border-color: var(--error);
+      background: var(--error-light);
+    }
+
+    .exercise-prompt {
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .option-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 6px;
+      text-align: left;
+      font-size: 0.9rem;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    /* INPUTS */
+    .gap-input, .text-input, select.gap-select {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background: var(--card-bg);
+      color: var(--text);
+      margin-top: 6px;
+    }
+
+    .gap-input-inline {
+      display: inline-block;
+      width: auto;
+      min-width: 120px;
+      min-height: 36px;
+      padding: 4px 8px;
+      margin: 0 4px;
+    }
+
+    select.gap-select {
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%2364748b" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 32px;
+    }
+
+    .feedback-msg {
+      margin-top: 10px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      display: none;
+    }
+
+    .feedback-msg.show {
+      display: block;
+    }
+
+    .feedback-correct {
+      color: var(--success);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* ACTIONS & SCORE */
+    .section-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .btn-submit {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+    }
+
+    .btn-submit:active {
+      background: var(--primary-hover);
+    }
+
+    .score-board {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      text-align: center;
+      display: none;
+    }
+
+    .send-status {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      display: none;
+    }
+
+    /* FLASHCARDS */
+    .flashcard-counter {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .flashcards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .flashcard {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s;
+    }
+
+    .flashcard.reviewed-known {
+      border-color: var(--success);
+      background: var(--success-light);
+    }
+
+    .flashcard.reviewed-review {
+      border-color: #eab308;
+      background: #fefce8;
+    }
+
+    .flashcard-front {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .flashcard-word {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .flashcard-back {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+      display: none;
+    }
+
+    .flashcard-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .btn-reveal {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      min-height: 40px;
+      width: 100%;
+      font-weight: 500;
+    }
+
+    .btn-eval {
+      flex: 1;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 40px;
+      border: 1px solid transparent;
+      display: none;
+    }
+
+    .btn-eval-known {
+      background: #dcfce7;
+      color: #15803d;
+      border-color: #86efac;
+    }
+
+    .btn-eval-review {
+      background: #fef9c3;
+      color: #a16207;
+      border-color: #fde047;
+    }
+
+    /* HOMEWORK */
+    .homework-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .homework-item {
+      background: var(--bg);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .homework-item::before {
+      content: "📌";
+      flex-shrink: 0;
+    }
+
+    .btn-copy {
+      background: var(--card-bg);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-copy:active {
+      background: var(--primary-light);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header>
+    <div class="header-top">
+      <span class="header-tag">Revisão de Aula</span>
+      <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">03/09/26</span>
+    </div>
+    <h1>Olá, Alexandre! 👋</h1>
+    <div class="greeting">Pratique e consolide o conteúdo da sua última aula.</div>
+
+    <div class="audio-controls">
+      <span>Áudio:</span>
+      <button type="button" class="speed-btn active" id="btn-speed-1" onclick="setSpeed(1.0)">Normal</button>
+      <button type="button" class="speed-btn" id="btn-speed-075" onclick="setSpeed(0.75)">0.75x</button>
+    </div>
+  </header>
+
+  <!-- MENSAGEM DE ENCORAJAMENTO -->
+  <div class="encouragement">
+    "O seu progresso fica claro quando você foca na estrutura lógica das frases e aceita o processo de aprendizado sem autocobrança. Cada treino consolida sua fluência!"
+  </div>
+
+  <!-- RECAPITULAÇÃO DA REGRA -->
+  <section>
+    <h2>📖 Respostas Curtas em Inglês (Do, Did, Will, Would)</h2>
+    <div class="rule-explanation">
+      Para responder perguntas diretas de forma rápida e natural, combinamos 'Yes' ou 'No' com o pronome adequado e o mesmo auxiliar usado na pergunta.
+    </div>
+
+    <div class="example-list">
+      <div class="example-item">
+        <div class="example-top">
+          <button type="button" class="btn-audio" onclick="playAudio('Do you have a space for a motorhome? Yes, I do.')">🔊</button>
+          <span>Do you have a space for a motorhome? Yes, I do.</span>
+        </div>
+        <div class="example-pt">Você tem espaço para um motorhome? Sim, tenho.</div>
+      </div>
+
+      <div class="example-item">
+        <div class="example-top">
+          <button type="button" class="btn-audio" onclick="playAudio('Did you book the space in advance? No, I didn\'t.')">🔊</button>
+          <span>Did you book the space in advance? No, I didn't.</span>
+        </div>
+        <div class="example-pt">Você reservou o espaço com antecedência? Não, não reservei.</div>
+      </div>
+
+      <div class="example-item">
+        <div class="example-top">
+          <button type="button" class="btn-audio" onclick="playAudio('Will the gate close at night? Yes, it will.')">🔊</button>
+          <span>Will the gate close at night? Yes, it will.</span>
+        </div>
+        <div class="example-pt">O portão vai fechar à noite? Sim, vai.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVISÃO CUMULATIVA -->
+  <section id="sec-revisao-cumulativa">
+    <h2>🔁 Revisão Cumulativa</h2>
+
+    <!-- Tópico 1 -->
+    <div class="topic-group">
+      <div class="topic-title">Respostas Curtas com Auxiliares (Do, Did, Will, Would)</div>
+      <div class="topic-summary">Nas respostas curtas reutilizamos o auxiliar da pergunta ajustando o pronome (ex.: Do you...? Yes, I do / No, I don't).</div>
+
+      <div class="exercise-card" id="rev-0-card">
+        <div class="exercise-prompt">1. Did you visit your family in London last weekend? Yes, I ____.</div>
+        <div class="options-grid" id="rev-0-options"></div>
+        <div class="feedback-msg" id="rev-0-fb"></div>
+      </div>
+
+      <div class="exercise-card" id="rev-1-card">
+        <div class="exercise-prompt">2. Will you attend the meeting tomorrow morning? No, I ____ (not / will).</div>
+        <input type="text" class="gap-input" id="rev-1-input" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+        <div class="feedback-msg" id="rev-1-fb"></div>
+      </div>
+    </div>
+
+    <!-- Tópico 2 -->
+    <div class="topic-group">
+      <div class="topic-title">Perguntas Fechadas com Auxiliares (Do, Did, Will, Would)</div>
+      <div class="topic-summary">Para fazer perguntas diretas em inglês iniciamos com o auxiliar correspondente ao tempo verbal antes do sujeito.</div>
+
+      <div class="exercise-card" id="rev-2-card">
+        <div class="exercise-prompt">3. ____ you call the manager yesterday evening?</div>
+        <div class="options-grid" id="rev-2-options"></div>
+        <div class="feedback-msg" id="rev-2-fb"></div>
+      </div>
+
+      <div class="exercise-card" id="rev-3-card">
+        <div class="exercise-prompt">4. ____ (you / travel) to the UK last year?</div>
+        <input type="text" class="gap-input" id="rev-3-input" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+        <div class="feedback-msg" id="rev-3-fb"></div>
+      </div>
+    </div>
+
+    <div class="section-actions">
+      <div class="score-board" id="score-Revisao-Cumulativa"></div>
+      <button type="button" class="btn-submit" id="btn-check-revisao" onclick="checkRevisaoCumulativa()">Verificar</button>
+      <div class="send-status" id="status-Revisao-Cumulativa">📤 Resultado enviado ao professor</div>
+    </div>
+  </section>
+
+  <!-- VOCABULÁRIO NOVO -->
+  <section>
+    <h2>📚 Vocabulário Novo</h2>
+    <div class="flashcard-counter" id="flashcard-counter">0 de 5 revisadas</div>
+    
+    <div class="flashcards-grid">
+      <div class="flashcard" id="fc-0">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Gate</span>
+          <button type="button" class="btn-audio" onclick="playAudio('Gate')">🔊</button>
+        </div>
+        <div class="flashcard-back" id="fc-0-back">Portão</div>
+        <button type="button" class="btn-reveal" id="fc-0-btn-rev" onclick="revealFlashcard(0)">Revelar tradução</button>
+        <div class="flashcard-actions">
+          <button type="button" class="btn-eval btn-eval-known" id="fc-0-btn-k" onclick="evalFlashcard(0, true)">✅ Eu sabia</button>
+          <button type="button" class="btn-eval btn-eval-review" id="fc-0-btn-r" onclick="evalFlashcard(0, false)">🔄 Preciso revisar</button>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-1">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Showers</span>
+          <button type="button" class="btn-audio" onclick="playAudio('Showers')">🔊</button>
+        </div>
+        <div class="flashcard-back" id="fc-1-back">Chuveiros / Duchas</div>
+        <button type="button" class="btn-reveal" id="fc-1-btn-rev" onclick="revealFlashcard(1)">Revelar tradução</button>
+        <div class="flashcard-actions">
+          <button type="button" class="btn-eval btn-eval-known" id="fc-1-btn-k" onclick="evalFlashcard(1, true)">✅ Eu sabia</button>
+          <button type="button" class="btn-eval btn-eval-review" id="fc-1-btn-r" onclick="evalFlashcard(1, false)">🔄 Preciso revisar</button>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-2">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Dictation</span>
+          <button type="button" class="btn-audio" onclick="playAudio('Dictation')">🔊</button>
+        </div>
+        <div class="flashcard-back" id="fc-2-back">Ditado</div>
+        <button type="button" class="btn-reveal" id="fc-2-btn-rev" onclick="revealFlashcard(2)">Revelar tradução</button>
+        <div class="flashcard-actions">
+          <button type="button" class="btn-eval btn-eval-known" id="fc-2-btn-k" onclick="evalFlashcard(2, true)">✅ Eu sabia</button>
+          <button type="button" class="btn-eval btn-eval-review" id="fc-2-btn-r" onclick="evalFlashcard(2, false)">🔄 Preciso revisar</button>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-3">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Question mark</span>
+          <button type="button" class="btn-audio" onclick="playAudio('Question mark')">🔊</button>
+        </div>
+        <div class="flashcard-back" id="fc-3-back">Ponto de interrogação</div>
+        <button type="button" class="btn-reveal" id="fc-3-btn-rev" onclick="revealFlashcard(3)">Revelar tradução</button>
+        <div class="flashcard-actions">
+          <button type="button" class="btn-eval btn-eval-known" id="fc-3-btn-k" onclick="evalFlashcard(3, true)">✅ Eu sabia</button>
+          <button type="button" class="btn-eval btn-eval-review" id="fc-3-btn-r" onclick="evalFlashcard(3, false)">🔄 Preciso revisar</button>
+        </div>
+      </div>
+
+      <div class="flashcard" id="fc-4">
+        <div class="flashcard-front">
+          <span class="flashcard-word">Spot</span>
+          <button type="button" class="btn-audio" onclick="playAudio('Spot')">🔊</button>
+        </div>
+        <div class="flashcard-back" id="fc-4-back">Vaga / Ponto / Local</div>
+        <button type="button" class="btn-reveal" id="fc-4-btn-rev" onclick="revealFlashcard(4)">Revelar tradução</button>
+        <div class="flashcard-actions">
+          <button type="button" class="btn-eval btn-eval-known" id="fc-4-btn-k" onclick="evalFlashcard(4, true)">✅ Eu sabia</button>
+          <button type="button" class="btn-eval btn-eval-review" id="fc-4-btn-r" onclick="evalFlashcard(4, false)">🔄 Preciso revisar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXERCÍCIO DE FIXAÇÃO -->
+  <section id="sec-fixacao">
+    <h2>✏️ Exercício de Fixação</h2>
+
+    <div class="exercise-card" id="fix-0-card">
+      <div class="exercise-prompt">1. Please close the main _____ before you leave the campsite.</div>
+      <select class="gap-select" id="fix-0-select">
+        <option value="" disabled selected>-- Selecione --</option>
+      </select>
+      <div class="feedback-msg" id="fix-0-fb"></div>
+    </div>
+
+    <div class="exercise-card" id="fix-1-card">
+      <div class="exercise-prompt">2. The campsite has hot _____ available for all guests.</div>
+      <select class="gap-select" id="fix-1-select">
+        <option value="" disabled selected>-- Selecione --</option>
+      </select>
+      <div class="feedback-msg" id="fix-1-fb"></div>
+    </div>
+
+    <div class="exercise-card" id="fix-2-card">
+      <div class="exercise-prompt">3. We had a short spelling _____ during our English class today.</div>
+      <select class="gap-select" id="fix-2-select">
+        <option value="" disabled selected>-- Selecione --</option>
+      </select>
+      <div class="feedback-msg" id="fix-2-fb"></div>
+    </div>
+
+    <div class="exercise-card" id="fix-3-card">
+      <div class="exercise-prompt">4. Don't forget to put a _____ at the end of every question you write.</div>
+      <select class="gap-select" id="fix-3-select">
+        <option value="" disabled selected>-- Selecione --</option>
+      </select>
+      <div class="feedback-msg" id="fix-3-fb"></div>
+    </div>
+
+    <div class="exercise-card" id="fix-4-card">
+      <div class="exercise-prompt">5. We found a perfect _____ to park our motorhome for the night.</div>
+      <select class="gap-select" id="fix-4-select">
+        <option value="" disabled selected>-- Selecione --</option>
+      </select>
+      <div class="feedback-msg" id="fix-4-fb"></div>
+    </div>
+
+    <div class="section-actions">
+      <div class="score-board" id="score-Exercio-de-Fixao"></div>
+      <button type="button" class="btn-submit" id="btn-check-fixacao" onclick="checkFixacao()">Verificar</button>
+      <div class="send-status" id="status-Exercio-de-Fixao">📤 Resultado enviado ao professor</div>
+    </div>
+  </section>
+
+  <!-- HOMEWORK -->
+  <section>
+    <h2>🏠 Homework</h2>
+    <ul class="homework-list">
+      <li class="homework-item">Faça a autocorreção das 5 frases do ditado enviado no WhatsApp e verifique a grafia das palavras.</li>
+      <li class="homework-item">Pratique a leitura em voz alta das frases de respostas curtas focando na associação rápida do pronome com o auxiliar.</li>
+    </ul>
+    <button type="button" class="btn-copy" onclick="copyHomework()">
+      📋 Copiar homework
+    </button>
+  </section>
+
+  <script>
+    // META & CONFIG
+    const META = {
+      aluno_id: "alexandre-bertoluzzi-fernandes",
+      aluno: "Alexandre Bertoluzzi Fernandes",
+      data_aula: "03/09/26",
+      accent: "UK",
+      apps_script_url: "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"
+    };
+
+    let audioRate = 1.0;
+
+    function setSpeed(rate) {
+      audioRate = rate;
+      document.getElementById('btn-speed-1').classList.toggle('active', rate === 1.0);
+      document.getElementById('btn-speed-075').classList.toggle('active', rate === 0.75);
+    }
+
+    function playAudio(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = META.accent === 'UK' ? 'en-GB' : 'en-US';
+      u.rate = audioRate;
+      window.speechSynthesis.speak(u);
+    }
+
+    function normalizeText(str) {
+      if (!str) return '';
+      return str.replace(/[’‘]/g, "'")
+                .replace(/[“”]/g, '"')
+                .trim()
+                .replace(/\s+/g, ' ')
+                .toLowerCase()
+                .replace(/^["']|["']$/g, '')
+                .replace(/[.!?]+$/, '');
+    }
+
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // ENVIO DE RESULTADOS
+    const enviados = {};
+    function enviarResultado(secao, acertos, total) {
+      if (!META.apps_script_url || enviados[secao]) return;
+      enviados[secao] = true;
+      
+      fetch(META.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META.aluno_id,
+          aluno: META.aluno,
+          data_aula: META.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+
+      const safeSecaoId = secao.replace(/[^a-zA-Z0-9]/g, '-');
+      const el = document.getElementById(`status-${safeSecaoId}`);
+      if (el) el.style.display = 'block';
+    }
+
+    // DADOS REVISÃO CUMULATIVA
+    const revData = [
+      {
+        type: 'mc',
+        options: ["did", "do", "visited"],
+        correct: "did",
+        exp: "Como a pergunta foi feita com 'Did', a resposta curta afirmativa reutiliza o mesmo auxiliar: Yes, I did."
+      },
+      {
+        type: 'gap',
+        correct: ["won't", "will not"],
+        exp: "Na resposta curta negativa no futuro, reutilizamos o auxiliar 'will' na forma negativa: won't ou will not."
+      },
+      {
+        type: 'mc',
+        options: ["Did", "Do", "Would"],
+        correct: "Did",
+        exp: "Para perguntas no passado (indicado por 'yesterday'), iniciamos a frase com o auxiliar 'Did'."
+      },
+      {
+        type: 'gap',
+        correct: ["Did you travel"],
+        exp: "Para fazer uma pergunta no passado com 'last year', iniciamos com o auxiliar 'Did' seguido do sujeito e verbo."
+      }
+    ];
+
+    const revUserSelections = {};
+
+    function initRevisao() {
+      // Setup MC 0
+      const mc0Opts = shuffle(revData[0].options);
+      const container0 = document.getElementById('rev-0-options');
+      mc0Opts.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+        btn.onclick = () => selectMcOption(0, opt, btn, 'rev-0-options');
+        container0.appendChild(btn);
+      });
+
+      // Setup MC 2
+      const mc2Opts = shuffle(revData[2].options);
+      const container2 = document.getElementById('rev-2-options');
+      mc2Opts.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+        btn.onclick = () => selectMcOption(2, opt, btn, 'rev-2-options');
+        container2.appendChild(btn);
+      });
+    }
+
+    function selectMcOption(index, val, btnEl, containerId) {
+      revUserSelections[index] = val;
+      const buttons = document.querySelectorAll(`#${containerId} .option-btn`);
+      buttons.forEach(b => b.classList.remove('selected'));
+      btnEl.classList.add('selected');
+    }
+
+    let revStateCheck = false;
+
+    function checkRevisaoCumulativa() {
+      const btn = document.getElementById('btn-check-revisao');
+      if (revStateCheck) {
+        // Reset
+        revStateCheck = false;
+        btn.textContent = "Verificar";
+        document.getElementById('score-Revisao-Cumulativa').style.display = 'none';
+        
+        revData.forEach((item, i) => {
+          const card = document.getElementById(`rev-${i}-card`);
+          card.classList.remove('correct', 'incorrect');
+          const fb = document.getElementById(`rev-${i}-fb`);
+          fb.className = 'feedback-msg';
+          fb.innerHTML = '';
+          
+          if (item.type === 'mc') {
+            const containerId = `rev-${i}-options`;
+            document.querySelectorAll(`#${containerId} .option-btn`).forEach(b => b.classList.remove('selected'));
+            delete revUserSelections[i];
+          } else {
+            const inp = document.getElementById(`rev-${i}-input`);
+            inp.value = '';
+            inp.disabled = false;
+          }
+        });
+        return;
+      }
+
+      let score = 0;
+
+      revData.forEach((item, i) => {
+        const card = document.getElementById(`rev-${i}-card`);
+        const fb = document.getElementById(`rev-${i}-fb`);
+        let isCorrect = false;
+
+        if (item.type === 'mc') {
+          const userVal = revUserSelections[i];
+          if (userVal === item.correct) {
+            isCorrect = true;
+          }
+          fb.innerHTML = `${item.exp}${!isCorrect ? `<br><span class="feedback-correct">✅ Resposta correta: ${item.correct}</span>` : ''}`;
+        } else {
+          const inp = document.getElementById(`rev-${i}-input`);
+          inp.disabled = true;
+          const userVal = normalizeText(inp.value);
+          const accepted = item.correct.map(normalizeText);
+          if (accepted.includes(userVal)) {
+            isCorrect = true;
+          }
+          fb.innerHTML = `${item.exp}${!isCorrect ? `<br><span class="feedback-correct">✅ Resposta correta: ${item.correct[0]}</span>` : ''}`;
+        }
+
+        if (isCorrect) {
+          score++;
+          card.classList.add('correct');
+        } else {
+          card.classList.add('incorrect');
+        }
+        fb.classList.add('show');
+      });
+
+      const total = revData.length;
+      const scoreEl = document.getElementById('score-Revisao-Cumulativa');
+      scoreEl.textContent = `Pontuação: ${score} de ${total} corretas`;
+      scoreEl.style.display = 'block';
+
+      enviarResultado("Revisão Cumulativa", score, total);
+
+      btn.textContent = "Tentar de novo";
+      revStateCheck = true;
+    }
+
+    // FLASHCARDS
+    const flashcardReviewed = [false, false, false, false, false];
+
+    function revealFlashcard(index) {
+      document.getElementById(`fc-${index}-back`).style.display = 'block';
+      document.getElementById(`fc-${index}-btn-rev`).style.display = 'none';
+      document.getElementById(`fc-${index}-btn-k`).style.display = 'block';
+      document.getElementById(`fc-${index}-btn-r`).style.display = 'block';
+    }
+
+    function evalFlashcard(index, known) {
+      const card = document.getElementById(`fc-${index}`);
+      card.classList.remove('reviewed-known', 'reviewed-review');
+      if (known) {
+        card.classList.add('reviewed-known');
+      } else {
+        card.classList.add('reviewed-review');
+      }
+
+      if (!flashcardReviewed[index]) {
+        flashcardReviewed[index] = true;
+        updateFlashcardCounter();
+      }
+    }
+
+    function updateFlashcardCounter() {
+      const count = flashcardReviewed.filter(Boolean).length;
+      document.getElementById('flashcard-counter').textContent = `${count} de 5 revisadas`;
+    }
+
+    // DADOS FIXAÇÃO
+    const fixData = [
+      {
+        correct: "gate",
+        distractors: ["showers", "dictation", "spot"],
+        exp: "Frase: 'Please close the main gate before you leave the campsite.' (Gate = Portão)."
+      },
+      {
+        correct: "showers",
+        distractors: ["gates", "dictations", "spots"],
+        exp: "Frase: 'The campsite has hot showers available for all guests.' (Showers = Chuveiros)."
+      },
+      {
+        correct: "dictation",
+        distractors: ["gate", "shower", "spot"],
+        exp: "Frase: 'We had a short spelling dictation during our English class today.' (Dictation = Ditado)."
+      },
+      {
+        correct: "question mark",
+        distractors: ["gate", "shower", "spot"],
+        exp: "Frase: 'Don't forget to put a question mark at the end...' (Question mark = Ponto de interrogação)."
+      },
+      {
+        correct: "spot",
+        distractors: ["gate", "shower", "dictation"],
+        exp: "Frase: 'We found a perfect spot to park our motorhome...' (Spot = Vaga/Ponto)."
+      }
+    ];
+
+    function initFixacao() {
+      fixData.forEach((item, i) => {
+        const select = document.getElementById(`fix-${i}-select`);
+        const options = shuffle([item.correct, ...item.distractors]);
+        options.forEach(opt => {
+          const el = document.createElement('option');
+          el.value = opt;
+          el.textContent = opt;
+          select.appendChild(el);
+        });
+      });
+    }
+
+    let fixStateCheck = false;
+
+    function checkFixacao() {
+      const btn = document.getElementById('btn-check-fixacao');
+      if (fixStateCheck) {
+        // Reset
+        fixStateCheck = false;
+        btn.textContent = "Verificar";
+        document.getElementById('score-Exercio-de-Fixao').style.display = 'none';
+
+        fixData.forEach((item, i) => {
+          const card = document.getElementById(`fix-${i}-card`);
+          card.classList.remove('correct', 'incorrect');
+          const fb = document.getElementById(`fix-${i}-fb`);
+          fb.className = 'feedback-msg';
+          fb.innerHTML = '';
+          const select = document.getElementById(`fix-${i}-select`);
+          select.value = '';
+          select.disabled = false;
+        });
+        return;
+      }
+
+      let score = 0;
+
+      fixData.forEach((item, i) => {
+        const card = document.getElementById(`fix-${i}-card`);
+        const fb = document.getElementById(`fix-${i}-fb`);
+        const select = document.getElementById(`fix-${i}-select`);
+        select.disabled = true;
+
+        const isCorrect = normalizeText(select.value) === normalizeText(item.correct);
+
+        if (isCorrect) {
+          score++;
+          card.classList.add('correct');
+          fb.innerHTML = item.exp;
+        } else {
+          card.classList.add('incorrect');
+          fb.innerHTML = `${item.exp}<br><span class="feedback-correct">✅ Resposta correta: ${item.correct}</span>`;
+        }
+        fb.classList.add('show');
+      });
+
+      const total = fixData.length;
+      const scoreEl = document.getElementById('score-Exercio-de-Fixao');
+      scoreEl.textContent = `Pontuação: ${score} de ${total} corretas`;
+      scoreEl.style.display = 'block';
+
+      enviarResultado("Exercício de Fixação", score, total);
+
+      btn.textContent = "Tentar de novo";
+      fixStateCheck = true;
+    }
+
+    // HOMEWORK COPY
+    function copyHomework() {
+      const items = [
+        "Faça a autocorreção das 5 frases do ditado enviado no WhatsApp e verifique a grafia das palavras.",
+        "Pratique a leitura em voz alta das frases de respostas curtas focando na associação rápida do pronome com o auxiliar."
+      ];
+      const text = "🏠 Homework:\n\n" + items.map(it => `• ${it}`).join('\n');
+      
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.btn-copy');
+        const orig = btn.innerHTML;
+        btn.innerHTML = '✅ Copiado!';
+        setTimeout(() => { btn.innerHTML = orig; }, 2000);
+      }).catch(() => {});
+    }
+
+    // INITIALIZATION
+    window.addEventListener('DOMContentLoaded', () => {
+      initRevisao();
+      initFixacao();
+    });
+  </script>
+</body>
+</html>
