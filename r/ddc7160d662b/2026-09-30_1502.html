@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 30/09/26 — Lorraine</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      
+      /* Treino de Desbloqueio Palette */
+      --td-orange: #FF7A00;
+      --td-blue: #1E5AA8;
+      --td-burnt: #C75000;
+      --td-blue-bg: #f0f7ff;
+      --td-orange-bg: #fff8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px 12px 40px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      background: var(--card-bg);
+      padding: 20px 16px;
+      border-radius: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .date-badge {
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+      background: #eff6ff;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .speed-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .speed-btn {
+      border: none;
+      background: transparent;
+      padding: 4px 8px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      min-height: 32px;
+    }
+
+    .speed-btn.active {
+      background: var(--card-bg);
+      color: var(--primary);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: var(--text);
+      margin-top: 4px;
+    }
+
+    /* Encorajamento */
+    .encouragement-card {
+      background: #f0f9ff;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+      color: #0369a1;
+    }
+
+    /* Cards e Seções General */
+    section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px 16px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Áudio Button */
+    .btn-audio {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: var(--primary);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .btn-audio:active {
+      background: #dbeafe;
+    }
+
+    /* Recapitulação da Regra */
+    .topic-subtitle {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .rule-explanation {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .example-item {
+      background: var(--bg);
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .example-en {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .example-pt {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      margin-left: 46px;
+    }
+
+    /* Placar e Ações */
+    .score-banner {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .action-btn {
+      width: 100%;
+      min-height: 44px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .action-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .sent-indicator {
+      display: none;
+      font-size: 0.8rem;
+      color: var(--success);
+      margin-top: 8px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* Exercícios / Cards de Item */
+    .exercise-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .exercise-prompt {
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .explanation-box {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+
+    .correct-ans-text {
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    /* Inputs de Texto */
+    .text-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      margin-top: 6px;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* Select Inputs */
+    .native-select {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: var(--card-bg);
+      color: var(--text);
+      margin-top: 6px;
+    }
+
+    /* Dynamic Button Choices */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .opt-btn {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .opt-btn.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* TREINO DE DESBLOQUEIO - Estilos Específicos */
+    .sec-td {
+      border-color: #fed7aa;
+    }
+    .sec-td .section-title {
+      color: #c2410c;
+    }
+
+    .td-card {
+      border-color: #ffedd5;
+    }
+
+    .td-opt-btn.selected {
+      border-color: var(--td-blue);
+      background: var(--td-blue-bg);
+      color: var(--td-blue);
+      font-weight: 600;
+    }
+
+    .td-card.is-correct {
+      border: 2px solid var(--td-blue) !important;
+      background: var(--td-blue-bg) !important;
+    }
+
+    .td-card.is-incorrect {
+      border: 2px solid var(--td-burnt) !important;
+      background: var(--td-orange-bg) !important;
+    }
+
+    .td-exp-box {
+      background: #ffffff;
+      border: 1px solid #fed7aa;
+      color: #7c2d12;
+    }
+
+    /* REVISÃO CUMULATIVA E FIXAÇÃO - Estilos Padronizados */
+    .std-card.is-correct {
+      border: 2px solid var(--success) !important;
+      background: var(--success-bg) !important;
+    }
+
+    .std-card.is-incorrect {
+      border: 2px solid var(--error) !important;
+      background: var(--error-bg) !important;
+    }
+
+    .std-exp-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    /* Word Reorder Chips */
+    .reorder-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tokens-pool, .sentence-target {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 48px;
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .sentence-target {
+      background: var(--card-bg);
+      border: 2px dashed var(--border);
+    }
+
+    .token-chip {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Flashcards Vocabulário */
+    .flashcard-container {
+      perspective: 1000px;
+      margin-bottom: 12px;
+    }
+
+    .flashcard {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      position: relative;
+    }
+
+    .flashcard-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .flashcard-word {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .flashcard-trans {
+      font-size: 1.05rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-top: 8px;
+      min-height: 28px;
+    }
+
+    .fc-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      justify-content: center;
+    }
+
+    .fc-eval-btn {
+      flex: 1;
+      min-height: 40px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      background: var(--card-bg);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .fc-eval-btn.knew {
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    .fc-eval-btn.review {
+      border-color: #d97706;
+      color: #d97706;
+    }
+
+    .fc-reveal-btn {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    /* Homework */
+    .homework-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .homework-item {
+      background: var(--bg);
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 3px solid var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .copy-btn {
+      background: #f1f5f9;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .copy-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .topic-group-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin: 16px 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .topic-rule-summary {
+      background: #f8fafc;
+      border-left: 3px solid var(--primary);
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 12px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 480px) {
+      body {
+        padding: 10px 8px 30px;
+      }
+      section {
+        padding: 16px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Cabeçalho -->
+  <header>
+    <div class="header-top">
+      <span class="date-badge">Aula de 30/09/26</span>
+      <div class="speed-toggle">
+        <span>🔊 Áudio:</span>
+        <button class="speed-btn active" id="btn-speed-10" onclick="setSpeed(1.0)">1.0x</button>
+        <button class="speed-btn" id="btn-speed-075" onclick="setSpeed(0.75)">0.75x</button>
+      </div>
+    </div>
+    <h1>Olá, Lorraine!</h1>
+  </header>
+
+  <!-- 2. Mensagem de Encorajamento -->
+  <div class="encouragement-card">
+    💪 Sua capacidade de entender o contexto geral antes de ler é um superpoder. Não se preocupe em acertar todas as palavras de primeira; o ritmo vem com a prática repetida.
+  </div>
+
+  <!-- 3. Recapitulação da Regra -->
+  <section>
+    <div class="section-title">📖 Recapitulação da Regra</div>
+    <div class="topic-subtitle">Leitura e Vocabulário: Rotina no Supermercado e Hyde Park</div>
+    <p class="rule-explanation">
+      Em inglês, os adjetivos (cores, tamanhos, qualidades) vêm antes dos substantivos. Além disso, palavras terminadas em vogal muda não pronunciam essa última letra.
+    </p>
+    <div class="example-list">
+      <div class="example-item">
+        <div class="example-en">
+          <button class="btn-audio" onclick="speak('Grace buys three red apples.')">🔊</button>
+          <span>Grace buys three red apples.</span>
+        </div>
+        <div class="example-pt">Grace compra três maçãs vermelhas.</div>
+      </div>
+      <div class="example-item">
+        <div class="example-en">
+          <button class="btn-audio" onclick="speak('They sit on a clean bench in the quiet park.')">🔊</button>
+          <span>They sit on a clean bench in the quiet park.</span>
+        </div>
+        <div class="example-pt">Eles sentam em um banco limpo no parque tranquilo.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Treino de Desbloqueio -->
+  <section class="sec-td">
+    <div class="section-title">🎯 Treino de Desbloqueio</div>
+    <div class="score-banner" id="score-td" style="display:none;">
+      <span>Resultado: <span id="score-td-val">0/0</span> acertos</span>
+    </div>
+
+    <div id="td-container"></div>
+
+    <button class="action-btn" id="btn-verify-td" style="background: var(--td-orange);" onclick="verificarTD()">Verificar Treino</button>
+    <div class="sent-indicator" id="sent-msg-Treino-de-Desbloqueio">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- 5. Revisão Cumulativa -->
+  <section>
+    <div class="section-title">🔁 Revisão Cumulativa</div>
+    <div class="score-banner" id="score-rc" style="display:none;">
+      <span>Resultado: <span id="score-rc-val">0/0</span> acertos</span>
+    </div>
+
+    <!-- Tópico 1 -->
+    <div class="topic-group-title">Questions and Answers (do - did - will - would)</div>
+    <div class="topic-rule-summary">Nas respostas curtas, espelhamos o verbo auxiliar e o pronome da pergunta: Did you go? Yes, I did / No, I didn't.</div>
+    
+    <div class="exercise-card std-card" id="rc-card-0">
+      <div class="exercise-prompt">Did you visit your colleague in London yesterday? Yes, I ____.</div>
+      <div class="options-grid" id="rc-opt-0"></div>
+      <div class="explanation-box std-exp-box" id="rc-exp-0"></div>
+    </div>
+
+    <div class="exercise-card std-card" id="rc-card-1">
+      <div class="exercise-prompt">Will you attend the meeting tomorrow? No, I ____ (will / not).</div>
+      <input type="text" class="text-input" id="rc-in-1" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      <div class="explanation-box std-exp-box" id="rc-exp-1"></div>
+    </div>
+
+    <!-- Tópico 2 -->
+    <div class="topic-group-title">Nouns & Pronouns - Substantivos e Adjetivos no Cotidiano</div>
+    <div class="topic-rule-summary">Em inglês, os adjetivos vêm antes dos substantivos: red apples, big oranges, clean benches.</div>
+
+    <div class="exercise-card std-card" id="rc-card-2">
+      <div class="exercise-prompt">We work in a ____ near the city centre.</div>
+      <div class="options-grid" id="rc-opt-2"></div>
+      <div class="explanation-box std-exp-box" id="rc-exp-2"></div>
+    </div>
+
+    <div class="exercise-card std-card" id="rc-card-3">
+      <div class="exercise-prompt">He drives a ____ (car / fast) to work every morning.</div>
+      <input type="text" class="text-input" id="rc-in-3" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      <div class="explanation-box std-exp-box" id="rc-exp-3"></div>
+    </div>
+
+    <button class="action-btn" id="btn-verify-rc" onclick="verificarRC()">Verificar Revisão</button>
+    <div class="sent-indicator" id="sent-msg-Revisão-Cumulativa">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- 6. Vocabulário Novo -->
+  <section>
+    <div class="section-title">📚 Vocabulário Novo</div>
+    <div class="score-banner">
+      <span>Progresso: <span id="fc-counter">0 de 10</span> revisadas</span>
+    </div>
+    <div id="flashcards-container"></div>
+  </section>
+
+  <!-- 7. Exercício de Fixação -->
+  <section>
+    <div class="section-title">✏️ Exercício de Fixação</div>
+    <div class="score-banner" id="score-fix" style="display:none;">
+      <span>Resultado: <span id="score-fix-val">0/0</span> acertos</span>
+    </div>
+
+    <div id="fixation-container"></div>
+
+    <button class="action-btn" id="btn-verify-fix" onclick="verificarFixation()">Verificar Fixação</button>
+    <div class="sent-indicator" id="sent-msg-Exercício-de-Fixação">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- 8. Homework -->
+  <section>
+    <div class="section-title">🏠 Homework</div>
+    <ul class="homework-list" id="hw-list">
+      <li class="homework-item">Escute e acompanhe o texto 'Morning Routine in Hyde Park' no Google Tradutor por 10 minutos diários.</li>
+      <li class="homework-item">Pratique a leitura em voz alta focando nas palavras 'walk', 'routine' e 'benches'.</li>
+    </ul>
+    <button class="action-btn copy-btn" onclick="copyHomework(this)">Copiar homework</button>
+  </section>
+
+  <script>
+    // --- META & UTILS ---
+    const META = {
+      aluno_id: "lorraine-gomes-do-carmo",
+      aluno: "Lorraine Gomes do Carmo",
+      data_aula: "30/09/26",
+      accent: "UK",
+      apps_script_url: "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"
+    };
+
+    let audioRate = 1.0;
+    function setSpeed(rate) {
+      audioRate = rate;
+      document.getElementById('btn-speed-10').classList.toggle('active', rate === 1.0);
+      document.getElementById('btn-speed-075').classList.toggle('active', rate === 0.75);
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-GB';
+      u.rate = audioRate;
+      window.speechSynthesis.speak(u);
+    }
+
+    function normalize(str) {
+      if (!str) return '';
+      let s = str.replace(/[’‘]/g, "'").replace(/[“”]/g, '"');
+      s = s.trim().replace(/\s+/g, ' ').toLowerCase();
+      s = s.replace(/^["']|["']$/g, '');
+      s = s.replace(/[.!?]+$/, '');
+      return s.trim();
+    }
+
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    const enviados = {};
+    function enviarResultado(secao, acertos, total) {
+      if (enviados[secao] || !META.apps_script_url) return;
+      enviados[secao] = true;
+      fetch(META.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META.aluno_id,
+          aluno: META.aluno,
+          data_aula: META.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+      const msgEl = document.getElementById(`sent-msg-${secao.replace(/\s+/g, '-')}`);
+      if (msgEl) msgEl.style.display = 'block';
+    }
+
+    // --- 4. TREINO DE DESBLOQUEIO ---
+    const rawTDData = [
+      {
+        type: "compare_contrast_implicito",
+        sentence_a: "I go for a walk every morning in the quiet park.",
+        sentence_b: "I make a walk every morning in the quiet park.",
+        question_pt: "Qual frase expressa a ideia de 'fazer uma caminhada' de forma natural em inglês?",
+        correct_answer: "a",
+        explanation_pt: "Em inglês, diz-se 'go for a walk' (ou 'take a walk'). Traduzir 'fazer uma caminhada' ao pé da letra como 'make a walk' soa não natural."
+      },
+      {
+        type: "multiple_choice_avancado",
+        prompt_en: "A: Sorry, I forgot the invitation! B: Don't worry, I ____.",
+        options: ["don't mind", "have no mind", "not care", "don't forget"],
+        correct_answer_text: "don't mind",
+        explanation_pt: "A expressão natural 'I don't mind' significa 'eu não me importo / sem problemas'. Tentar traduzir termo por termo gera construções incorretas como 'have no mind'."
+      },
+      {
+        type: "dialogo_tempos_mistos",
+        linhas: [
+          { pergunta: "Do you buy groceries on Saturday?", resposta_com_lacuna: "Yes, it is my Saturday ____.", resposta_lacuna: ["routine"], resposta_completa: "Yes, it is my Saturday routine." },
+          { pergunta: "Did you go for a walk yesterday?", resposta_com_lacuna: "No, because of the ____.", resposta_lacuna: ["rain"], resposta_completa: "No, because of the rain." },
+          { pergunta: "Will you accept his invitation?", resposta_com_lacuna: "Yes, I won't ____.", resposta_lacuna: ["forget"], resposta_completa: "Yes, I won't forget." }
+        ],
+        explanation_pt: "Focar no sentido da frase e nas combinações de palavras corretas ajuda a falar de forma fluida sem travar procurando cada tradução."
+      },
+      {
+        type: "reordenar_palavras",
+        tokens_embaralhados: ["He", "brings", "groceries", "to", "the", "newcomer."],
+        frase_correta: "He brings groceries to the newcomer.",
+        explanation_pt: "Em inglês, a estrutura padrão 'Sujeito + Verbo + Objeto' deve ser seguida, em vez de traduzir palavra por palavra na ordem do português."
+      },
+      {
+        type: "translation_challenge",
+        source_text_pt: "Não tem problema, eu não me importo.",
+        correct_answer: ["Don't worry, I don't mind.", "No problem, I don't mind.", "Don't worry, I do not mind.", "No problem, I do not mind."],
+        explanation_pt: "Use a expressão fixa 'I don't mind' para dizer 'eu não me importo'. Evite traduzir 'importar-se' literalmente de forma isolada."
+      },
+      {
+        type: "translation_challenge",
+        source_text_pt: "Ele traz compras de supermercado para a recém-chegada.",
+        correct_answer: ["He brings groceries to the newcomer.", "He brings groceries for the newcomer."],
+        explanation_pt: "A palavra 'groceries' já significa 'compras de supermercado/mantimentos'. Não tente traduzir termo por termo."
+      },
+      {
+        type: "translation_challenge",
+        source_text_pt: "Você vai aceitar o convite para a igreja?",
+        correct_answer: ["Will you accept the invitation to the church?", "Are you going to accept the invitation to the church?"],
+        explanation_pt: "Pense no bloco 'invitation to' (convite para) em vez de traduzir a preposição isoladamente."
+      }
+    ];
+
+    const tdState = {};
+
+    function renderTD() {
+      const container = document.getElementById('td-container');
+      container.innerHTML = '';
+
+      rawTDData.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card td-card';
+        card.id = `td-card-${idx}`;
+
+        if (item.type === 'compare_contrast_implicito') {
+          // Shuffle sentences
+          const options = Math.random() < 0.5 
+            ? [{ text: item.sentence_a, isCorrect: true }, { text: item.sentence_b, isCorrect: false }]
+            : [{ text: item.sentence_b, isCorrect: false }, { text: item.sentence_a, isCorrect: true }];
+
+          tdState[idx] = { selectedText: null, correctText: item.sentence_a };
+
+          card.innerHTML = `
+            <div class="exercise-prompt">${item.question_pt}</div>
+            <div class="options-grid">
+              ${options.map((opt, oIdx) => `
+                <button class="opt-btn td-opt-btn" onclick="selectTDOpt(${idx}, ${oIdx}, '${opt.text.replace(/'/g, "\\'")}')" id="td-opt-${idx}-${oIdx}">
+                  ${opt.text}
+                </button>
+              `).join('')}
+            </div>
+            <div class="explanation-box td-exp-box" id="td-exp-${idx}"></div>
+          `;
+        } 
+        else if (item.type === 'multiple_choice_avancado') {
+          const shuffledOpts = shuffleArray(item.options);
+          tdState[idx] = { selectedText: null, correctText: item.correct_answer_text };
+
+          card.innerHTML = `
+            <div class="exercise-prompt">${item.prompt_en}</div>
+            <div class="options-grid">
+              ${shuffledOpts.map((opt, oIdx) => `
+                <button class="opt-btn td-opt-btn" onclick="selectTDOpt(${idx}, ${oIdx}, '${opt.replace(/'/g, "\\'")}')" id="td-opt-${idx}-${oIdx}">
+                  ${opt}
+                </button>
+              `).join('')}
+            </div>
+            <div class="explanation-box td-exp-box" id="td-exp-${idx}"></div>
+          `;
+        }
+        else if (item.type === 'dialogo_tempos_mistos') {
+          card.innerHTML = `
+            <div class="exercise-prompt" style="margin-bottom:8px;">Complete o diálogo:</div>
+            ${item.linhas.map((linha, lIdx) => {
+              const parts = linha.resposta_com_lacuna.split('____');
+              return `
+                <div style="margin-bottom:12px; font-size:0.9rem;">
+                  <div style="font-weight:600; color:var(--text-muted);">🗣️ ${linha.pergunta}</div>
+                  <div style="margin-top:4px;">
+                    ${parts[0]}<input type="text" class="text-input" id="td-dlg-${idx}-${lIdx}" placeholder="____" style="width:120px; display:inline-block; min-height:36px; padding:4px 8px;" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">${parts[1] || ''}
+                  </div>
+                  <div class="explanation-box td-exp-box" id="td-dlg-exp-${idx}-${lIdx}"></div>
+                </div>
+              `;
+            }).join('')}
+            <div class="explanation-box td-exp-box" id="td-exp-${idx}"></div>
+          `;
+        }
+        else if (item.type === 'reordenar_palavras') {
+          const tokens = shuffleArray(item.tokens_embaralhados);
+          tdState[idx] = { pool: [...tokens], selected: [] };
+
+          card.innerHTML = `
+            <div class="exercise-prompt">Clique nas palavras para montar a frase correta:</div>
+            <div class="reorder-container">
+              <div class="sentence-target" id="td-target-${idx}"></div>
+              <div class="tokens-pool" id="td-pool-${idx}"></div>
+            </div>
+            <div class="explanation-box td-exp-box" id="td-exp-${idx}"></div>
+          `;
+        }
+        else if (item.type === 'translation_challenge') {
+          card.innerHTML = `
+            <div class="exercise-prompt">Traduzal: "${item.source_text_pt}"</div>
+            <input type="text" class="text-input" id="td-in-${idx}" placeholder="Type in English..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+            <div class="explanation-box td-exp-box" id="td-exp-${idx}"></div>
+          `;
+        }
+
+        container.appendChild(card);
+
+        if (item.type === 'reordenar_palavras') {
+          renderReorderTokens(idx);
+        }
+      });
+    }
+
+    function selectTDOpt(itemIdx, optIdx, text) {
+      tdState[itemIdx].selectedText = text;
+      const card = document.getElementById(`td-card-${itemIdx}`);
+      const btns = card.querySelectorAll('.td-opt-btn');
+      btns.forEach((btn, i) => {
+        btn.classList.toggle('selected', i === optIdx);
+      });
+    }
+
+    function renderReorderTokens(idx) {
+      const poolEl = document.getElementById(`td-pool-${idx}`);
+      const targetEl = document.getElementById(`td-target-${idx}`);
+      poolEl.innerHTML = '';
+      targetEl.innerHTML = '';
+
+      tdState[idx].pool.forEach((token, tIdx) => {
+        const chip = document.createElement('div');
+        chip.className = 'token-chip';
+        chip.innerText = token;
+        chip.onclick = () => {
+          tdState[idx].selected.push(token);
+          tdState[idx].pool.splice(tIdx, 1);
+          renderReorderTokens(idx);
+        };
+        poolEl.appendChild(chip);
+      });
+
+      tdState[idx].selected.forEach((token, sIdx) => {
+        const chip = document.createElement('div');
+        chip.className = 'token-chip';
+        chip.style.background = '#e0f2fe';
+        chip.innerText = token;
+        chip.onclick = () => {
+          tdState[idx].pool.push(token);
+          tdState[idx].selected.splice(sIdx, 1);
+          renderReorderTokens(idx);
+        };
+        targetEl.appendChild(chip);
+      });
+    }
+
+    let tdVerified = false;
+    function verificarTD() {
+      const btn = document.getElementById('btn-verify-td');
+
+      if (tdVerified) {
+        // Reset
+        tdVerified = false;
+        btn.innerText = 'Verificar Treino';
+        document.getElementById('score-td').style.display = 'none';
+        renderTD();
+        return;
+      }
+
+      let acertos = 0;
+      let totalItems = 0;
+
+      rawTDData.forEach((item, idx) => {
+        const card = document.getElementById(`td-card-${idx}`);
+        const expBox = document.getElementById(`td-exp-${idx}`);
+        let isCorrect = false;
+
+        if (item.type === 'compare_contrast_implicito' || item.type === 'multiple_choice_avancado') {
+          totalItems++;
+          const sel = tdState[idx].selectedText;
+          isCorrect = sel && (normalize(sel) === normalize(tdState[idx].correctText));
+          
+          card.className = `exercise-card td-card ${isCorrect ? 'is-correct' : 'is-incorrect'}`;
+          expBox.style.display = 'block';
+          expBox.innerHTML = `
+            ${!isCorrect ? `<span class="correct-ans-text">✅ Resposta correta: ${tdState[idx].correctText}</span>` : ''}
+            <div>${item.explanation_pt}</div>
+          `;
+          if (isCorrect) acertos++;
+        }
+        else if (item.type === 'dialogo_tempos_mistos') {
+          let dlgCorrects = 0;
+          item.linhas.forEach((linha, lIdx) => {
+            totalItems++;
+            const inEl = document.getElementById(`td-dlg-${idx}-${lIdx}`);
+            const lExpBox = document.getElementById(`td-dlg-exp-${idx}-${lIdx}`);
+            const val = normalize(inEl.value);
+            const matches = linha.resposta_lacuna.some(ans => normalize(ans) === val);
+
+            lExpBox.style.display = 'block';
+            if (matches) {
+              dlgCorrects++;
+              acertos++;
+              lExpBox.innerHTML = `<span style="color:var(--td-blue); font-weight:700;">✅ Resposta correta</span>`;
+            } else {
+              lExpBox.innerHTML = `<span style="color:var(--td-burnt); font-weight:700;">✅ Resposta correta: ${linha.resposta_completa}</span>`;
+            }
+          });
+
+          card.className = `exercise-card td-card ${dlgCorrects === item.linhas.length ? 'is-correct' : 'is-incorrect'}`;
+          expBox.style.display = 'block';
+          expBox.innerHTML = `<div>${item.explanation_pt}</div>`;
+        }
+        else if (item.type === 'reordenar_palavras') {
+          totalItems++;
+          const userFrase = tdState[idx].selected.join(' ');
+          isCorrect = normalize(userFrase) === normalize(item.frase_correta);
+
+          card.className = `exercise-card td-card ${isCorrect ? 'is-correct' : 'is-incorrect'}`;
+          expBox.style.display = 'block';
+          expBox.innerHTML = `
+            ${!isCorrect ? `<span class="correct-ans-text">✅ Resposta correta: ${item.frase_correta}</span>` : ''}
+            <div>${item.explanation_pt}</div>
+          `;
+          if (isCorrect) acertos++;
+        }
+        else if (item.type === 'translation_challenge') {
+          totalItems++;
+          const inEl = document.getElementById(`td-in-${idx}`);
+          const val = normalize(inEl.value);
+          isCorrect = item.correct_answer.some(ans => normalize(ans) === val);
+
+          card.className = `exercise-card td-card ${isCorrect ? 'is-correct' : 'is-incorrect'}`;
+          expBox.style.display = 'block';
+          expBox.innerHTML = `
+            ${!isCorrect ? `<span class="correct-ans-text">✅ Resposta correta: ${item.correct_answer[0]}</span>` : ''}
+            <div>${item.explanation_pt}</div>
+          `;
+          if (isCorrect) acertos++;
+        }
+      });
+
+      document.getElementById('score-td-val').innerText = `${acertos}/${totalItems}`;
+      document.getElementById('score-td').style.display = 'flex';
+
+      tdVerified = true;
+      btn.innerText = 'Tentar de novo';
+
+      enviarResultado("Treino de Desbloqueio", acertos, totalItems);
+    }
+
+    // --- 5. REVISÃO CUMULATIVA ---
+    const rcState = {
+      0: { selectedText: null, correctText: "did" },
+      2: { selectedText: null, correctText: "old building" }
+    };
+
+    function initRC() {
+      // Setup options for Ex 0
+      const opts0 = shuffleArray(["visited", "did", "do"]);
+      const container0 = document.getElementById('rc-opt-0');
+      container0.innerHTML = opts0.map((opt, i) => `
+        <button class="opt-btn" onclick="selectRCOpt(0, ${i}, '${opt}')" id="rc-opt-0-${i}">${opt}</button>
+      `).join('');
+
+      // Setup options for Ex 2
+      const opts2 = shuffleArray(["building old", "old building", "buildings old"]);
+      const container2 = document.getElementById('rc-opt-2');
+      container2.innerHTML = opts2.map((opt, i) => `
+        <button class="opt-btn" onclick="selectRCOpt(2, ${i}, '${opt}')" id="rc-opt-2-${i}">${opt}</button>
+      `).join('');
+    }
+
+    function selectRCOpt(exIdx, optIdx, text) {
+      rcState[exIdx].selectedText = text;
+      const card = document.getElementById(`rc-card-${exIdx}`);
+      const btns = card.querySelectorAll('.opt-btn');
+      btns.forEach((btn, i) => {
+        btn.classList.toggle('selected', i === optIdx);
+      });
+    }
+
+    let rcVerified = false;
+    function verificarRC() {
+      const btn = document.getElementById('btn-verify-rc');
+
+      if (rcVerified) {
+        rcVerified = false;
+        btn.innerText = 'Verificar Revisão';
+        document.getElementById('score-rc').style.display = 'none';
+        
+        // Reset Inputs
+        [0, 1, 2, 3].forEach(i => {
+          const card = document.getElementById(`rc-card-${i}`);
+          card.className = 'exercise-card std-card';
+          document.getElementById(`rc-exp-${i}`).style.display = 'none';
+          if (i === 1 || i === 3) document.getElementById(`rc-in-${i}`).value = '';
+        });
+        rcState[0].selectedText = null;
+        rcState[2].selectedText = null;
+        initRC();
+        return;
+      }
+
+      let acertos = 0;
+      const totalItems = 4;
+
+      // Ex 0 (multiple choice)
+      const c0 = document.getElementById('rc-card-0');
+      const e0 = document.getElementById('rc-exp-0');
+      const ok0 = rcState[0].selectedText === rcState[0].correctText;
+      c0.className = `exercise-card std-card ${ok0 ? 'is-correct' : 'is-incorrect'}`;
+      e0.style.display = 'block';
+      e0.innerHTML = `${!ok0 ? `<span class="correct-ans-text" style="color:var(--error)">✅ Resposta correta: did</span>` : ''}Como a pergunta começa com o auxiliar 'Did', a resposta curta afirmativa deve espelhar o mesmo verbo: 'Yes, I did'.`;
+      if (ok0) acertos++;
+
+      // Ex 1 (gap fill)
+      const c1 = document.getElementById('rc-card-1');
+      const e1 = document.getElementById('rc-exp-1');
+      const val1 = normalize(document.getElementById('rc-in-1').value);
+      const ok1 = ['won\'t', 'will not'].some(ans => normalize(ans) === val1);
+      c1.className = `exercise-card std-card ${ok1 ? 'is-correct' : 'is-incorrect'}`;
+      e1.style.display = 'block';
+      e1.innerHTML = `${!ok1 ? `<span class="correct-ans-text" style="color:var(--error)">✅ Resposta correta: won't</span>` : ''}Para responder negativamente a uma pergunta com 'Will', usamos 'won't' (ou 'will not').`;
+      if (ok1) acertos++;
+
+      // Ex 2 (multiple choice)
+      const c2 = document.getElementById('rc-card-2');
+      const e2 = document.getElementById('rc-exp-2');
+      const ok2 = rcState[2].selectedText === rcState[2].correctText;
+      c2.className = `exercise-card std-card ${ok2 ? 'is-correct' : 'is-incorrect'}`;
+      e2.style.display = 'block';
+      e2.innerHTML = `${!ok2 ? `<span class="correct-ans-text" style="color:var(--error)">✅ Resposta correta: old building</span>` : ''}Em inglês, o adjetivo 'old' deve ser posicionado antes do substantivo 'building'.`;
+      if (ok2) acertos++;
+
+      // Ex 3 (gap fill)
+      const c3 = document.getElementById('rc-card-3');
+      const e3 = document.getElementById('rc-exp-3');
+      const val3 = normalize(document.getElementById('rc-in-3').value);
+      const ok3 = normalize('fast car') === val3;
+      c3.className = `exercise-card std-card ${ok3 ? 'is-correct' : 'is-incorrect'}`;
+      e3.style.display = 'block';
+      e3.innerHTML = `${!ok3 ? `<span class="correct-ans-text" style="color:var(--error)">✅ Resposta correta: fast car</span>` : ''}O adjetivo 'fast' deve vir antes do substantivo 'car', resultando em 'fast car'.`;
+      if (ok3) acertos++;
+
+      document.getElementById('score-rc-val').innerText = `${acertos}/${totalItems}`;
+      document.getElementById('score-rc').style.display = 'flex';
+
+      rcVerified = true;
+      btn.innerText = 'Tentar de novo';
+
+      enviarResultado("Revisão Cumulativa", acertos, totalItems);
+    }
+
+    // --- 6. VOCABULÁRIO NOVO (FLASHCARDS) ---
+    const vocabData = [
+      { palavra: "Routine", traducao: "Rotina" },
+      { palavra: "Newcomer", traducao: "Recém-chegado(a)" },
+      { palavra: "Groceries", traducao: "Compras de supermercado / Mantimentos" },
+      { palavra: "Walk", traducao: "Caminhada / Caminhar" },
+      { palavra: "Items", traducao: "Itens / Produtos" },
+      { palavra: "Benches", traducao: "Bancos (de parque)" },
+      { palavra: "Birds", traducao: "Pássaros" },
+      { palavra: "Brings", traducao: "Traz / Trazer" },
+      { palavra: "Bottles", traducao: "Garrafas" },
+      { palavra: "Quiet", traducao: "Calmo / Silencioso / Tranquilo" }
+    ];
+
+    const fcEvaluated = new Set();
+
+    function renderFlashcards() {
+      const container = document.getElementById('flashcards-container');
+      container.innerHTML = '';
+
+      vocabData.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'flashcard-container';
+        card.innerHTML = `
+          <div class="flashcard">
+            <div class="flashcard-header">
+              <button class="btn-audio" onclick="speak('${item.palavra}')">🔊</button>
+              <span class="flashcard-word">${item.palavra}</span>
+            </div>
+            <div id="fc-trans-${idx}" style="display:none;" class="flashcard-trans">${item.traducao}</div>
+            <div id="fc-actions-${idx}" style="margin-top:12px;">
+              <button class="fc-reveal-btn" onclick="revealFC(${idx})">Revelar tradução</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function revealFC(idx) {
+      document.getElementById(`fc-trans-${idx}`).style.display = 'block';
+      const actionsEl = document.getElementById(`fc-actions-${idx}`);
+      actionsEl.innerHTML = `
+        <div class="fc-actions">
+          <button class="fc-eval-btn knew" onclick="evalFC(${idx}, true)">✅ Eu sabia</button>
+          <button class="fc-eval-btn review" onclick="evalFC(${idx}, false)">🔄 Preciso revisar</button>
+        </div>
+      `;
+    }
+
+    function evalFC(idx, knew) {
+      fcEvaluated.add(idx);
+      document.getElementById('fc-counter').innerText = `${fcEvaluated.size} de ${vocabData.length}`;
+      const actionsEl = document.getElementById(`fc-actions-${idx}`);
+      actionsEl.innerHTML = `
+        <span style="font-size:0.85rem; font-weight:600; color:${knew ? 'var(--success)' : '#d97706'}">
+          ${knew ? '✅ Marcado como sabido' : '🔄 Marcado para revisão'}
+        </span>
+      `;
+    }
+
+    // --- 7. EXERCÍCIO DE FIXAÇÃO ---
+    const fixationData = [
+      {
+        prompt: "It is important to have a good daily ____.",
+        correct: "routine",
+        distractors: ["walk", "items", "quiet"]
+      },
+      {
+        prompt: "Everyone welcomed the ____ to the team.",
+        correct: "newcomer",
+        distractors: ["groceries", "bottles", "birds"]
+      },
+      {
+        prompt: "She bought fresh ____ at the supermarket.",
+        correct: "groceries",
+        distractors: ["benches", "routine", "walk"]
+      },
+      {
+        prompt: "We like to go for a ____ in the park.",
+        correct: "walk",
+        distractors: ["items", "birds", "bottles"]
+      },
+      {
+        prompt: "How many ____ are in your shopping basket?",
+        correct: "items",
+        distractors: ["benches", "quiet", "newcomer"]
+      },
+      {
+        prompt: "They sat on the wooden ____ in Hyde Park.",
+        correct: "benches",
+        distractors: ["bottles", "birds", "groceries"]
+      },
+      {
+        prompt: "The ____ were singing in the park trees.",
+        correct: "birds",
+        distractors: ["items", "benches", "routine"]
+      },
+      {
+        prompt: "He always ____ coffee for his colleagues.",
+        correct: "brings",
+        distractors: ["walks", "routines", "items"]
+      },
+      {
+        prompt: "Please recycle those glass ____.",
+        correct: "bottles",
+        distractors: ["benches", "birds", "newcomer"]
+      },
+      {
+        prompt: "It was a very ____ and peaceful afternoon.",
+        correct: "quiet",
+        distractors: ["routine", "groceries", "walk"]
+      }
+    ];
+
+    function renderFixation() {
+      const container = document.getElementById('fixation-container');
+      container.innerHTML = '';
+
+      fixationData.forEach((item, idx) => {
+        const options = shuffleArray([item.correct, ...item.distractors]);
+        const card = document.createElement('div');
+        card.className = 'exercise-card std-card';
+        card.id = `fix-card-${idx}`;
+
+        card.innerHTML = `
+          <div class="exercise-prompt">${idx + 1}. ${item.prompt}</div>
+          <select class="native-select" id="fix-sel-${idx}">
+            <option value="" disabled selected>-- Selecione --</option>
+            ${options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+          </select>
+          <div class="explanation-box std-exp-box" id="fix-exp-${idx}"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    let fixVerified = false;
+    function verificarFixation() {
+      const btn = document.getElementById('btn-verify-fix');
+
+      if (fixVerified) {
+        fixVerified = false;
+        btn.innerText = 'Verificar Fixação';
+        document.getElementById('score-fix').style.display = 'none';
+        renderFixation();
+        return;
+      }
+
+      let acertos = 0;
+      const totalItems = fixationData.length;
+
+      fixationData.forEach((item, idx) => {
+        const card = document.getElementById(`fix-card-${idx}`);
+        const sel = document.getElementById(`fix-sel-${idx}`);
+        const exp = document.getElementById(`fix-exp-${idx}`);
+        const isCorrect = normalize(sel.value) === normalize(item.correct);
+
+        card.className = `exercise-card std-card ${isCorrect ? 'is-correct' : 'is-incorrect'}`;
+        exp.style.display = 'block';
+
+        if (isCorrect) {
+          acertos++;
+          exp.innerHTML = `<span style="color:var(--success); font-weight:700;">✅ Correto!</span>`;
+        } else {
+          exp.innerHTML = `<span class="correct-ans-text" style="color:var(--error)">✅ Resposta correta: ${item.correct}</span>`;
+        }
+      });
+
+      document.getElementById('score-fix-val').innerText = `${acertos}/${totalItems}`;
+      document.getElementById('score-fix').style.display = 'flex';
+
+      fixVerified = true;
+      btn.innerText = 'Tentar de novo';
+
+      enviarResultado("Exercício de Fixação", acertos, totalItems);
+    }
+
+    // --- 8. HOMEWORK COPY ---
+    function copyHomework(btn) {
+      const items = Array.from(document.querySelectorAll('#hw-list li')).map(li => `- ${li.innerText}`).join('\n');
+      navigator.clipboard.writeText(`Homework Lorraine (30/09/26):\n${items}`).then(() => {
+        const origText = btn.innerText;
+        btn.innerText = '✓ Copiado!';
+        setTimeout(() => { btn.innerText = origText; }, 2000);
+      });
+    }
+
+    // INITIALIZATION
+    window.addEventListener('DOMContentLoaded', () => {
+      renderTD();
+      initRC();
+      renderFlashcards();
+      renderFixation();
+    });
+  </script>
+</body>
+</html>
