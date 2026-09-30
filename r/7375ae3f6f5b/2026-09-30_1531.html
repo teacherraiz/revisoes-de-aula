@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão 30/09/26 — Brunna</title>
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --success: #16a34a;
+    --error: #dc2626;
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+    --text-dark: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    
+    /* Unlock Training Theme */
+    --unlock-orange: #FF7A00;
+    --unlock-blue: #1E5AA8;
+    --unlock-orange-dark: #C75000;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    line-height: 1.5;
+    padding: 12px;
+    max-width: 680px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+  }
+
+  /* Header */
+  header {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .date-badge {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: #eff6ff;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .audio-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .audio-toggle-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  /* Sections */
+  .section-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Encouragement */
+  .encouragement-card {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+
+  /* Rule Recapitulation */
+  .rule-box {
+    background: #f8fafc;
+    border-left: 4px solid var(--primary);
+    padding: 14px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+  }
+
+  .example-item {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .example-en {
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+  }
+
+  .example-pt {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .audio-btn {
+    background: #f1f5f9;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+  }
+
+  .audio-btn:hover {
+    background: #e2e8f0;
+  }
+
+  /* Exercise Styles Base */
+  .exercise-item {
+    background: #f8fafc;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .exercise-item.correct {
+    border-color: var(--success) !important;
+    background-color: #f0fdf4;
+  }
+
+  .exercise-item.incorrect {
+    border-color: var(--error) !important;
+    background-color: #fef2f2;
+  }
+
+  /* Unlock theme overrides */
+  .unlock-section .exercise-item.correct {
+    border-color: var(--unlock-blue) !important;
+    background-color: #f0f7ff;
+  }
+
+  .unlock-section .exercise-item.incorrect {
+    border-color: var(--unlock-orange-dark) !important;
+    background-color: #fff7ed;
+  }
+
+  .question-text {
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 0.98rem;
+  }
+
+  .explanation-text {
+    margin-top: 10px;
+    font-size: 0.88rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: none;
+  }
+
+  .exercise-item.correct .explanation-text {
+    display: block;
+    background: #dcfce7;
+    color: #14532d;
+  }
+
+  .exercise-item.incorrect .explanation-text {
+    display: block;
+    background: #fee2e2;
+    color: #7f1d1d;
+  }
+
+  .unlock-section .exercise-item.correct .explanation-text {
+    background: #dbeafe;
+    color: #1e3a8a;
+  }
+
+  .unlock-section .exercise-item.incorrect .explanation-text {
+    background: #ffedd5;
+    color: #7c2d12;
+  }
+
+  .correct-answer-reveal {
+    margin-top: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: none;
+  }
+
+  .exercise-item.incorrect .correct-answer-reveal {
+    display: block;
+  }
+
+  /* Option Buttons Grid */
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .option-btn {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    text-align: left;
+    cursor: pointer;
+    min-height: 44px;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+
+  .option-btn:hover {
+    border-color: var(--primary);
+    background: #f1f5f9;
+  }
+
+  .option-btn.selected {
+    border-color: var(--primary);
+    background: #eff6ff;
+    font-weight: 600;
+  }
+
+  .unlock-section .option-btn.selected {
+    border-color: var(--unlock-blue);
+    background: #f0f7ff;
+  }
+
+  /* Compare Contrast Cards */
+  .cc-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cc-card {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    background: #fff;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .cc-card.selected {
+    border-color: var(--unlock-blue);
+    background: #f0f7ff;
+  }
+
+  /* Inputs */
+  .text-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    min-height: 44px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .text-input:focus {
+    border-color: var(--primary);
+  }
+
+  /* Interactive Chips for Reordering */
+  .chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+    min-height: 48px;
+    padding: 8px;
+    background: #fff;
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+  }
+
+  .chip {
+    background: #e2e8f0;
+    color: var(--text-dark);
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+  }
+
+  .chip-source {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+  }
+
+  /* Select styling */
+  .native-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    min-height: 44px;
+    background: #fff;
+    outline: none;
+  }
+
+  /* Flashcards */
+  .flashcard-container {
+    perspective: 1000px;
+    margin-bottom: 16px;
+  }
+
+  .flashcard {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+
+  .fc-word {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .fc-translation {
+    font-size: 1.1rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+    display: none;
+  }
+
+  .fc-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 16px;
+  }
+
+  .fc-btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    min-height: 44px;
+    border: 2px solid transparent;
+  }
+
+  .fc-btn-reveal {
+    background: #f1f5f9;
+    color: var(--text-dark);
+    border-color: var(--border-color);
+    width: 100%;
+  }
+
+  .fc-btn-knew {
+    background: #f0fdf4;
+    color: #15803d;
+    border-color: #22c55e;
+    flex: 1;
+  }
+
+  .fc-btn-review {
+    background: #fefce8;
+    color: #a16207;
+    border-color: #eab308;
+    flex: 1;
+  }
+
+  .fc-progress {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  /* Action & Control Buttons */
+  .section-actions {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .action-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 44px;
+    width: 100%;
+    transition: background 0.2s;
+  }
+
+  .action-btn:hover {
+    background: var(--primary-hover);
+  }
+
+  .unlock-section .action-btn {
+    background: var(--unlock-blue);
+  }
+
+  .unlock-section .action-btn:hover {
+    background: #184887;
+  }
+
+  .score-badge {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    background: #f1f5f9;
+    display: none;
+  }
+
+  .submission-msg {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-align: center;
+    display: none;
+  }
+
+  /* Homework List */
+  .hw-list {
+    list-style: none;
+    margin-bottom: 16px;
+  }
+
+  .hw-item {
+    padding: 10px 12px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 0.92rem;
+    display: flex;
+    gap: 10px;
+  }
+
+  .hw-icon {
+    color: var(--primary);
+    font-weight: bold;
+  }
+
+  .copy-btn {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .copy-btn:hover {
+    background: #f1f5f9;
+  }
+
+  .topic-group {
+    margin-bottom: 20px;
+  }
+
+  .topic-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+
+  .topic-rule {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    background: #f1f5f9;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  /* Dialogue Line */
+  .dialogue-line {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--border-color);
+  }
+
+  .dialogue-line:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .dialogue-q {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .dialogue-a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .dialogue-input {
+    width: 100px;
+    display: inline-block;
+    padding: 6px 8px;
+    font-size: 0.95rem;
+    min-height: 38px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+  }
+
+  .dialogue-feedback {
+    font-size: 0.85rem;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <span class="date-badge">Aula de 30/09/26</span>
+    <div class="audio-toggle-container">
+      <span>Áudio:</span>
+      <button class="audio-toggle-btn" id="audioSpeedBtn" onclick="toggleAudioSpeed()">1.0x (Normal)</button>
+    </div>
+  </div>
+  <h1>Olá, Brunna!</h1>
+</header>
+
+<!-- Encouragement -->
+<div class="encouragement-card">
+  Sua rapidez para pensar em inglês e resolver problemas no improviso é fantástica. Continue praticando sem medo de errar os pequenos detalhes gramaticais, pois cada ajuste fortalece sua autoridade executiva.
+</div>
+
+<!-- Rule Recapitulation -->
+<div class="section-card">
+  <div class="section-title">📖 Recapitulação da Regra</div>
+  <p style="font-weight: 700; margin-bottom: 6px;">Improvisação oral e resolução de imprevistos em eventos (Simple Present)</p>
+  <div class="rule-box">
+    Para descrever rotinas de trabalho e resolver problemas em eventos, usamos o Simple Present. Lembre-se de ajustar o verbo de acordo com o sujeito: no plural usamos a forma base (they check, things are), enquanto na 3ª pessoa do singular adicionamos -s (she checks, it is).
+  </div>
+  
+  <div class="example-item">
+    <div class="example-en">
+      <span>All of the things in the plenary room are ready.</span>
+      <button class="audio-btn" onclick="playAudio('All of the things in the plenary room are ready.')">🔊</button>
+    </div>
+    <div class="example-pt">Todas as coisas na sala plenária estão prontas.</div>
+  </div>
+
+  <div class="example-item">
+    <div class="example-en">
+      <span>She usually checks the daily schedule every morning.</span>
+      <button class="audio-btn" onclick="playAudio('She usually checks the daily schedule every morning.')">🔊</button>
+    </div>
+    <div class="example-pt">Ela geralmente checa a programação diária toda manhã.</div>
+  </div>
+
+  <div class="example-item">
+    <div class="example-en">
+      <span>If a speaker misses the flight, we notify the team.</span>
+      <button class="audio-btn" onclick="playAudio('If a speaker misses the flight, we notify the team.')">🔊</button>
+    </div>
+    <div class="example-pt">Se um palestrante perder o voo, nós avisamos a equipe.</div>
+  </div>
+</div>
+
+<!-- Treino de Desbloqueio -->
+<div class="section-card unlock-section" id="section-treino">
+  <div class="section-title" style="color: var(--unlock-blue);">🎯 Treino de Desbloqueio</div>
+  <div class="score-badge" id="score-treino"></div>
+
+  <!-- Item 1: compare_contrast_implicito -->
+  <div class="exercise-item" id="unlock-0" data-type="cc" data-correct="a">
+    <div class="question-text">Qual frase está gramaticalmente correta?</div>
+    <div class="cc-cards" id="cc-group-0">
+      <div class="cc-card" onclick="selectCC(0, 'a', this)">All of the speakers are in the plenary room.</div>
+      <div class="cc-card" onclick="selectCC(0, 'b', this)">All of the speakers is in the plenary room.</div>
+    </div>
+    <div class="explanation-text">O sujeito 'all of the speakers' está no plural, por isso devemos usar 'are' em vez de 'is'.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: All of the speakers are in the plenary room.</div>
+  </div>
+
+  <!-- Item 2: multiple_choice_avancado -->
+  <div class="exercise-item" id="unlock-1" data-type="mc" data-correct="are">
+    <div class="question-text">These sudden changes ____ difficult for the registration team.</div>
+    <div class="options-grid" id="mc-options-1">
+      <button class="option-btn" onclick="selectMC(1, 'is', this)">is</button>
+      <button class="option-btn" onclick="selectMC(1, 'are', this)">are</button>
+      <button class="option-btn" onclick="selectMC(1, 'am', this)">am</button>
+      <button class="option-btn" onclick="selectMC(1, 'be', this)">be</button>
+    </div>
+    <div class="explanation-text">'Sudden changes' (mudanças repentinas) é um sujeito no plural, portanto exige o verbo 'are'.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: are</div>
+  </div>
+
+  <!-- Item 3: dialogo_tempos_mistos -->
+  <div class="exercise-item" id="unlock-2" data-type="dialogue">
+    <div class="question-text">Complete o diálogo com a forma correta:</div>
+    <div class="dialogue-line">
+      <div class="dialogue-q">Is the keynote speaker in the plenary room?</div>
+      <div class="dialogue-a">
+        Yes, he <input type="text" class="dialogue-input text-input" data-answers='["is"]' autocorrect="off" autocapitalize="off" spellcheck="false"> ready.
+      </div>
+      <div class="dialogue-feedback" id="diag-fb-0"></div>
+    </div>
+    <div class="dialogue-line">
+      <div class="dialogue-q">Are all the venue rooms available?</div>
+      <div class="dialogue-a">
+        Yes, they <input type="text" class="dialogue-input text-input" data-answers='["are"]' autocorrect="off" autocapitalize="off" spellcheck="false"> open now.
+      </div>
+      <div class="dialogue-feedback" id="diag-fb-1"></div>
+    </div>
+    <div class="dialogue-line">
+      <div class="dialogue-q">Where are the registration team members?</div>
+      <div class="dialogue-a">
+        They <input type="text" class="dialogue-input text-input" data-answers='["are"]' autocorrect="off" autocapitalize="off" spellcheck="false"> at the entrance.
+      </div>
+      <div class="dialogue-feedback" id="diag-fb-2"></div>
+    </div>
+    <div class="explanation-text">Usamos 'is' para sujeitos no singular (he) e 'are' para sujeitos no plural (they).</div>
+  </div>
+
+  <!-- Item 4: reordenar_palavras -->
+  <div class="exercise-item" id="unlock-3" data-type="reorder" data-correct="Where are the plenary rooms?">
+    <div class="question-text">Reordene as palavras para formar a pergunta correta:</div>
+    <div class="chips-container" id="reorder-target-3"></div>
+    <div class="chips-container" id="reorder-source-3">
+      <span class="chip chip-source" onclick="moveChip(this, 'reorder-target-3')">are</span>
+      <span class="chip chip-source" onclick="moveChip(this, 'reorder-target-3')">Where</span>
+      <span class="chip chip-source" onclick="moveChip(this, 'reorder-target-3')">plenary</span>
+      <span class="chip chip-source" onclick="moveChip(this, 'reorder-target-3')">rooms?</span>
+      <span class="chip chip-source" onclick="moveChip(this, 'reorder-target-3')">the</span>
+    </div>
+    <div class="explanation-text">A pergunta começa com a palavra interrogativa 'Where', seguida do verbo 'are' porque o sujeito 'the plenary rooms' está no plural.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: Where are the plenary rooms?</div>
+  </div>
+
+  <!-- Item 5: translation_challenge 1 -->
+  <div class="exercise-item" id="unlock-4" data-type="text" data-correct='["All of these things are important for the event.", "All these things are important for the event."]'>
+    <div class="question-text">Traduza para o inglês: "Todas essas coisas são importantes para o evento."</div>
+    <input type="text" class="text-input" placeholder="Type in English..." autocorrect="off" autocapitalize="off" spellcheck="false">
+    <div class="explanation-text">O sujeito 'these things' é plural, então usamos 'are' (são) e não 'is'.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: All of these things are important for the event.</div>
+  </div>
+
+  <!-- Item 6: translation_challenge 2 -->
+  <div class="exercise-item" id="unlock-5" data-type="text" data-correct='["These sudden changes are bad."]'>
+    <div class="question-text">Traduza para o inglês: "Estas mudanças repentinas são ruins."</div>
+    <input type="text" class="text-input" placeholder="Type in English..." autocorrect="off" autocapitalize="off" spellcheck="false">
+    <div class="explanation-text">'These sudden changes' indica mais de uma mudança, exigindo a forma verbal 'are'.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: These sudden changes are bad.</div>
+  </div>
+
+  <!-- Item 7: translation_challenge 3 -->
+  <div class="exercise-item" id="unlock-6" data-type="text" data-correct='["Are the plenary rooms open now?", "Are plenary rooms open now?"]'>
+    <div class="question-text">Traduza para o inglês: "As salas plenárias estão abertas agora?"</div>
+    <input type="text" class="text-input" placeholder="Type in English..." autocorrect="off" autocapitalize="off" spellcheck="false">
+    <div class="explanation-text">Em perguntas com sujeito plural ('the plenary rooms'), iniciamos a frase com 'Are'.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: Are the plenary rooms open now?</div>
+  </div>
+
+  <div class="section-actions">
+    <button class="action-btn" id="btn-verify-treino" onclick="verifyTreino()">Verificar</button>
+    <div class="submission-msg" id="sub-treino">📤 Resultado enviado ao professor</div>
+  </div>
+</div>
+
+<!-- Revisão Cumulativa -->
+<div class="section-card" id="section-cumulativa">
+  <div class="section-title">🔁 Revisão Cumulativa</div>
+  <div class="score-badge" id="score-cumulativa"></div>
+
+  <!-- Topic 1 -->
+  <div class="topic-group">
+    <div class="topic-title">Simple Present - 3ª pessoa do singular (-s/-es)</div>
+    <div class="topic-rule">Em frases afirmativas no presente com he/she/it, adicionamos -s, -es ou -ies ao verbo: She works, He checks.</div>
+
+    <!-- Ex 1: multiple_choice_simples -->
+    <div class="exercise-item" id="cum-0" data-type="mc" data-correct="checks">
+      <div class="question-text">Sarah ____ the report every Friday.</div>
+      <div class="options-grid" id="mc-options-cum-0">
+        <button class="option-btn" onclick="selectMC('cum-0', 'check', this)">check</button>
+        <button class="option-btn" onclick="selectMC('cum-0', 'checks', this)">checks</button>
+        <button class="option-btn" onclick="selectMC('cum-0', 'checking', this)">checking</button>
+      </div>
+      <div class="explanation-text">Para a 3ª pessoa do singular (Sarah = she) no Simple Present afirmativo, acrescentamos -s ao verbo: checks.</div>
+      <div class="correct-answer-reveal">✅ Resposta correta: checks</div>
+    </div>
+
+    <!-- Ex 2: gap_fill -->
+    <div class="exercise-item" id="cum-1" data-type="text" data-correct='["watches"]'>
+      <div class="question-text">He ____ (watch) the training video after lunch.</div>
+      <input type="text" class="text-input" placeholder="Digite sua resposta em inglês..." autocorrect="off" autocapitalize="off" spellcheck="false">
+      <div class="explanation-text">Verbos terminados em -ch recebem a terminação -es na 3ª pessoa do singular (he): watches.</div>
+      <div class="correct-answer-reveal">✅ Resposta correta: watches</div>
+    </div>
+  </div>
+
+  <!-- Topic 2 -->
+  <div class="topic-group">
+    <div class="topic-title">Simple Present - Perguntas e Negativas</div>
+    <div class="topic-rule">Usamos do/does para perguntas e don't/doesn't para negativas. O verbo principal volta à forma base: Does she check the schedule?</div>
+
+    <!-- Ex 3: multiple_choice_simples -->
+    <div class="exercise-item" id="cum-2" data-type="mc" data-correct="Do">
+      <div class="question-text">____ you need help with this email?</div>
+      <div class="options-grid" id="mc-options-cum-2">
+        <button class="option-btn" onclick="selectMC('cum-2', 'Do', this)">Do</button>
+        <button class="option-btn" onclick="selectMC('cum-2', 'Does', this)">Does</button>
+        <button class="option-btn" onclick="selectMC('cum-2', 'Are', this)">Are</button>
+      </div>
+      <div class="explanation-text">Para fazer perguntas no Simple Present com o sujeito 'you', usamos o auxiliar 'Do'.</div>
+      <div class="correct-answer-reveal">✅ Resposta correta: Do</div>
+    </div>
+
+    <!-- Ex 4: gap_fill -->
+    <div class="exercise-item" id="cum-3" data-type="text" data-correct='["doesn't open", "does not open"]'>
+      <div class="question-text">She ____ (not / open) the office on Sundays.</div>
+      <input type="text" class="text-input" placeholder="Digite sua resposta em inglês..." autocorrect="off" autocapitalize="off" spellcheck="false">
+      <div class="explanation-text">Para negativas com she/he/it no Simple Present, usamos doesn't (ou does not) e o verbo volta à forma base: doesn't open.</div>
+      <div class="correct-answer-reveal">✅ Resposta correta: doesn't open</div>
+    </div>
+  </div>
+
+  <div class="section-actions">
+    <button class="action-btn" id="btn-verify-cumulativa" onclick="verifyCumulativa()">Verificar</button>
+    <div class="submission-msg" id="sub-cumulativa">📤 Resultado enviado ao professor</div>
+  </div>
+</div>
+
+<!-- Vocabulário Novo -->
+<div class="section-card">
+  <div class="section-title">📚 Vocabulário Novo</div>
+  <div class="fc-progress" id="fcProgress">1 de 8 revisadas</div>
+  
+  <div class="flashcard-container">
+    <div class="flashcard">
+      <div class="fc-word">
+        <span id="fcWordEn">Venue</span>
+        <button class="audio-btn" onclick="playAudio(document.getElementById('fcWordEn').innerText)">🔊</button>
+      </div>
+      <div class="fc-translation" id="fcTrans">Local do evento</div>
+    </div>
+  </div>
+
+  <div class="fc-actions" id="fcActionsReveal">
+    <button class="fc-btn fc-btn-reveal" onclick="revealFlashcard()">Revelar tradução</button>
+  </div>
+
+  <div class="fc-actions" id="fcActionsEvaluate" style="display: none;">
+    <button class="fc-btn fc-btn-knew" onclick="rateFlashcard(true)">✅ Eu sabia</button>
+    <button class="fc-btn fc-btn-review" onclick="rateFlashcard(false)">🔄 Preciso revisar</button>
+  </div>
+</div>
+
+<!-- Exercício de Fixação -->
+<div class="section-card" id="section-fixacao">
+  <div class="section-title">✏️ Exercício de Fixação</div>
+  <div class="score-badge" id="score-fixacao"></div>
+
+  <!-- Sentence 1: Venue -->
+  <div class="exercise-item" id="fix-0" data-type="select" data-correct="venue">
+    <div class="question-text">1. The conference will be hosted at a prestigious ____ downtown.</div>
+    <select class="native-select" id="select-fix-0">
+      <option value="" disabled selected>-- Selecione --</option>
+      <!-- Options shuffled dynamically via JS -->
+    </select>
+    <div class="explanation-text">'Venue' significa o local do evento.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: venue</div>
+  </div>
+
+  <!-- Sentence 2: Plenary room -->
+  <div class="exercise-item" id="fix-1" data-type="select" data-correct="plenary room">
+    <div class="question-text">2. All delegates gathered in the main ____ for the opening session.</div>
+    <select class="native-select" id="select-fix-1">
+      <option value="" disabled selected>-- Selecione --</option>
+    </select>
+    <div class="explanation-text">'Plenary room' é a sala plenária.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: plenary room</div>
+  </div>
+
+  <!-- Sentence 3: Daily schedule -->
+  <div class="exercise-item" id="fix-2" data-type="select" data-correct="daily schedule">
+    <div class="question-text">3. Please consult the ____ to verify the coffee break time.</div>
+    <select class="native-select" id="select-fix-2">
+      <option value="" disabled selected>-- Selecione --</option>
+    </select>
+    <div class="explanation-text">'Daily schedule' refere-se à programação diária.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: daily schedule</div>
+  </div>
+
+  <!-- Sentence 4: Sudden changes -->
+  <div class="exercise-item" id="fix-3" data-type="select" data-correct="sudden changes">
+    <div class="question-text">4. We must remain flexible to handle ____ during the event.</div>
+    <select class="native-select" id="select-fix-3">
+      <option value="" disabled selected>-- Selecione --</option>
+    </select>
+    <div class="explanation-text">'Sudden changes' são mudanças repentinas ou imprevistos.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: sudden changes</div>
+  </div>
+
+  <!-- Sentence 5: Keynote speaker -->
+  <div class="exercise-item" id="fix-4" data-type="select" data-correct="keynote speaker">
+    <div class="question-text">5. The ____ delivered an inspiring speech to start the summit.</div>
+    <select class="native-select" id="select-fix-4">
+      <option value="" disabled selected>-- Selecione --</option>
+    </select>
+    <div class="explanation-text">'Keynote speaker' é o palestrante principal.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: keynote speaker</div>
+  </div>
+
+  <!-- Sentence 6: Miss a flight -->
+  <div class="exercise-item" id="fix-5" data-type="select" data-correct="miss a flight">
+    <div class="question-text">6. If you leave too late, you might ____ and arrive late.</div>
+    <select class="native-select" id="select-fix-5">
+      <option value="" disabled selected>-- Selecione --</option>
+    </select>
+    <div class="explanation-text">'Miss a flight' significa perder um voo.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: miss a flight</div>
+  </div>
+
+  <!-- Sentence 7: Registration team -->
+  <div class="exercise-item" id="fix-6" data-type="select" data-correct="registration team">
+    <div class="question-text">7. The ____ will print your badges at the welcome desk.</div>
+    <select class="native-select" id="select-fix-6">
+      <option value="" disabled selected>-- Selecione --</option>
+    </select>
+    <div class="explanation-text">'Registration team' é a equipe de credenciamento.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: registration team</div>
+  </div>
+
+  <!-- Sentence 8: Free time -->
+  <div class="exercise-item" id="fix-7" data-type="select" data-correct="free time">
+    <div class="question-text">8. Attendees will have some ____ to network between presentations.</div>
+    <select class="native-select" id="select-fix-7">
+      <option value="" disabled selected>-- Selecione --</option>
+    </select>
+    <div class="explanation-text">'Free time' significa tempo livre.</div>
+    <div class="correct-answer-reveal">✅ Resposta correta: free time</div>
+  </div>
+
+  <div class="section-actions">
+    <button class="action-btn" id="btn-verify-fixacao" onclick="verifyFixacao()">Verificar</button>
+    <div class="submission-msg" id="sub-fixacao">📤 Resultado enviado ao professor</div>
+  </div>
+</div>
+
+<!-- Homework -->
+<div class="section-card">
+  <div class="section-title">🏠 Homework</div>
+  <ul class="hw-list" id="hwList">
+    <li class="hw-item"><span class="hw-icon">•</span> Grave no WhatsApp suas respostas de 1 minuto para mais 2 cenários de eventos com entonação firme.</li>
+    <li class="hw-item"><span class="hw-icon">•</span> Grave 6 frases treinando a concordância no plural (ex.: 'all of the things are', 'some people take').</li>
+  </ul>
+  <button class="copy-btn" onclick="copyHomework()">Copiar homework</button>
+</div>
+
+<script>
+// Meta Data
+const META = {
+  aluno_id: "brunna-machado",
+  aluno: "Brunna Machado",
+  data_aula: "30/09/26",
+  accent: "US",
+  apps_script_url: "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"
+};
+
+// Global Audio Setup
+let currentAudioRate = 1.0;
+
+function toggleAudioSpeed() {
+  const btn = document.getElementById('audioSpeedBtn');
+  if (currentAudioRate === 1.0) {
+    currentAudioRate = 0.75;
+    btn.innerText = "0.75x (Lento)";
+  } else {
+    currentAudioRate = 1.0;
+    btn.innerText = "1.0x (Normal)";
+  }
+}
+
+function playAudio(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = currentAudioRate;
+  utterance.lang = META.accent === "UK" ? "en-GB" : "en-US";
+  
+  // Try finding voice
+  const voices = window.speechSynthesis.getVoices();
+  const targetLang = META.accent === "UK" ? "en-GB" : "en-US";
+  const voice = voices.find(v => v.lang === targetLang || v.lang.startsWith(targetLang.split('-')[0]));
+  if (voice) utterance.voice = voice;
+
+  window.speechSynthesis.speak(utterance);
+}
+
+// Text Normalization
+function normalizeText(str) {
+  if (!str) return '';
+  return str
+    .replace(/[’‘“”]/g, c => (c === '’' || c === '‘') ? "'" : '"')
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLowerCase()
+    .replace(/^["']|["']$/g, '')
+    .replace(/[.!?]$/, '');
+}
+
+// Data Shuffling Utility
+function shuffleArray(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// Post Results
+const enviados = {};
+function enviarResultado(secao, acertos, total) {
+  if (enviados[secao]) return;
+  if (!META.apps_script_url) return;
+  enviados[secao] = true;
+
+  fetch(META.apps_script_url, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({
+      aluno_id: META.aluno_id,
+      aluno: META.aluno,
+      data_aula: META.data_aula,
+      secao: secao,
+      acertos: acertos,
+      total: total
+    })
+  }).catch(() => {});
+
+  const subEl = document.getElementById('sub-' + (secao === "Treino de Desbloqueio" ? "treino" : secao === "Revisão Cumulativa" ? "cumulativa" : "fixacao"));
+  if (subEl) subEl.style.display = "block";
+}
+
+// Selection Handlers
+function selectCC(itemIdx, val, element) {
+  const container = document.getElementById('cc-group-' + itemIdx);
+  const cards = container.querySelectorAll('.cc-card');
+  cards.forEach(c => c.classList.remove('selected'));
+  element.classList.add('selected');
+  element.parentElement.dataset.userVal = val;
+}
+
+function selectMC(itemId, val, element) {
+  const container = element.parentElement;
+  const btns = container.querySelectorAll('.option-btn');
+  btns.forEach(b => b.classList.remove('selected'));
+  element.classList.add('selected');
+  container.dataset.userVal = val;
+}
+
+// Chip Move for Reordering
+function moveChip(chipEl, targetContainerId) {
+  const target = document.getElementById(targetContainerId);
+  if (chipEl.parentElement.id === targetContainerId) {
+    document.getElementById('reorder-source-3').appendChild(chipEl);
+  } else {
+    target.appendChild(chipEl);
+  }
+}
+
+// Flashcards Logic
+const vocabData = [
+  {"palavra": "Venue", "traducao": "Local do evento"},
+  {"palavra": "Plenary room", "traducao": "Sala plenária"},
+  {"palavra": "Daily schedule", "traducao": "Programação diária"},
+  {"palavra": "Sudden changes", "traducao": "Mudanças repentinas / imprevistos"},
+  {"palavra": "Keynote speaker", "traducao": "Palestrante principal"},
+  {"palavra": "Miss a flight", "traducao": "Perder um vôo"},
+  {"palavra": "Registration team", "traducao": "Equipe de credenciamento"},
+  {"palavra": "Free time", "traducao": "Tempo livre"}
+];
+
+let fcIndex = 0;
+let fcReviewed = 0;
+
+function updateFlashcard() {
+  const current = vocabData[fcIndex];
+  document.getElementById('fcWordEn').innerText = current.palavra;
+  document.getElementById('fcTrans').innerText = current.traducao;
+  document.getElementById('fcTrans').style.display = "none";
+  document.getElementById('fcActionsReveal').style.display = "flex";
+  document.getElementById('fcActionsEvaluate').style.display = "none";
+  document.getElementById('fcProgress').innerText = `${fcReviewed} de ${vocabData.length} revisadas`;
+}
+
+function revealFlashcard() {
+  document.getElementById('fcTrans').style.display = "block";
+  document.getElementById('fcActionsReveal').style.display = "none";
+  document.getElementById('fcActionsEvaluate').style.display = "flex";
+}
+
+function rateFlashcard(knew) {
+  fcReviewed = Math.min(vocabData.length, fcReviewed + 1);
+  fcIndex = (fcIndex + 1) % vocabData.length;
+  updateFlashcard();
+}
+
+// Verification Logic - Treino de Desbloqueio
+let treinoState = 'initial'; // 'initial', 'verified'
+
+function verifyTreino() {
+  const btn = document.getElementById('btn-verify-treino');
+  if (treinoState === 'verified') {
+    // Reset
+    treinoState = 'initial';
+    btn.innerText = "Verificar";
+    document.getElementById('score-treino').style.display = "none";
+    
+    // Clear items
+    const section = document.getElementById('section-treino');
+    section.querySelectorAll('.exercise-item').forEach(el => {
+      el.classList.remove('correct', 'incorrect');
+    });
+    
+    // Clear inputs
+    section.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+    section.querySelectorAll('.cc-card').forEach(c => c.classList.remove('selected'));
+    section.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+    
+    // Reset dialogue line feedbacks
+    section.querySelectorAll('.dialogue-feedback').forEach(f => f.innerText = '');
+
+    // Reset reorder chips
+    const target3 = document.getElementById('reorder-target-3');
+    const source3 = document.getElementById('reorder-source-3');
+    while (target3.firstChild) {
+      source3.appendChild(target3.firstChild);
+    }
+    return;
+  }
+
+  let acertos = 0;
+  const total = 7; // 7 exercises in treino
+
+  // Ex 0: CC
+  const el0 = document.getElementById('unlock-0');
+  const userVal0 = el0.querySelector('.cc-cards').dataset.userVal;
+  if (userVal0 === el0.dataset.correct) {
+    el0.classList.add('correct');
+    acertos++;
+  } else {
+    el0.classList.add('incorrect');
+  }
+
+  // Ex 1: MC
+  const el1 = document.getElementById('unlock-1');
+  const userVal1 = document.getElementById('mc-options-1').dataset.userVal;
+  if (userVal1 === el1.dataset.correct) {
+    el1.classList.add('correct');
+    acertos++;
+  } else {
+    el1.classList.add('incorrect');
+  }
+
+  // Ex 2: Dialogue
+  const el2 = document.getElementById('unlock-2');
+  const dialogueInputs = el2.querySelectorAll('.dialogue-input');
+  let dialogueAllCorrect = true;
+  dialogueInputs.forEach((inp, idx) => {
+    const answers = JSON.parse(inp.dataset.answers).map(normalizeText);
+    const val = normalizeText(inp.value);
+    const fb = document.getElementById('diag-fb-' + idx);
+    if (answers.includes(val)) {
+      fb.innerText = "✅ Correto";
+      fb.style.color = "var(--unlock-blue)";
+    } else {
+      dialogueAllCorrect = false;
+      fb.innerText = `❌ Resposta: ${JSON.parse(inp.dataset.answers)[0]}`;
+      fb.style.color = "var(--unlock-orange-dark)";
+    }
+  });
+  if (dialogueAllCorrect) {
+    el2.classList.add('correct');
+    acertos++;
+  } else {
+    el2.classList.add('incorrect');
+  }
+
+  // Ex 3: Reorder
+  const el3 = document.getElementById('unlock-3');
+  const targetChips = document.getElementById('reorder-target-3').querySelectorAll('.chip');
+  const builtText = Array.from(targetChips).map(c => c.innerText).join(' ');
+  if (normalizeText(builtText) === normalizeText(el3.dataset.correct)) {
+    el3.classList.add('correct');
+    acertos++;
+  } else {
+    el3.classList.add('incorrect');
+  }
+
+  // Ex 4, 5, 6: Text translations
+  [4, 5, 6].forEach(idx => {
+    const el = document.getElementById('unlock-' + idx);
+    const inp = el.querySelector('input');
+    const answers = JSON.parse(el.dataset.correct).map(normalizeText);
+    if (answers.includes(normalizeText(inp.value))) {
+      el.classList.add('correct');
+      acertos++;
+    } else {
+      el.classList.add('incorrect');
+    }
+  });
+
+  // Score Badge
+  const scoreEl = document.getElementById('score-treino');
+  scoreEl.innerText = `Pontuação: ${acertos} de ${total} corretas`;
+  scoreEl.style.display = "block";
+
+  enviarResultado("Treino de Desbloqueio", acertos, total);
+  btn.innerText = "Tentar de novo";
+  treinoState = 'verified';
+}
+
+// Verification Logic - Revisão Cumulativa
+let cumState = 'initial';
+
+function verifyCumulativa() {
+  const btn = document.getElementById('btn-verify-cumulativa');
+  if (cumState === 'verified') {
+    cumState = 'initial';
+    btn.innerText = "Verificar";
+    document.getElementById('score-cumulativa').style.display = "none";
+    
+    const section = document.getElementById('section-cumulativa');
+    section.querySelectorAll('.exercise-item').forEach(el => {
+      el.classList.remove('correct', 'incorrect');
+    });
+    section.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+    section.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+    return;
+  }
+
+  let acertos = 0;
+  const total = 4;
+
+  // Cum 0 (MC)
+  const c0 = document.getElementById('cum-0');
+  if (document.getElementById('mc-options-cum-0').dataset.userVal === c0.dataset.correct) {
+    c0.classList.add('correct');
+    acertos++;
+  } else {
+    c0.classList.add('incorrect');
+  }
+
+  // Cum 1 (Text)
+  const c1 = document.getElementById('cum-1');
+  const c1Ans = JSON.parse(c1.dataset.correct).map(normalizeText);
+  if (c1Ans.includes(normalizeText(c1.querySelector('input').value))) {
+    c1.classList.add('correct');
+    acertos++;
+  } else {
+    c1.classList.add('incorrect');
+  }
+
+  // Cum 2 (MC)
+  const c2 = document.getElementById('cum-2');
+  if (document.getElementById('mc-options-cum-2').dataset.userVal === c2.dataset.correct) {
+    c2.classList.add('correct');
+    acertos++;
+  } else {
+    c2.classList.add('incorrect');
+  }
+
+  // Cum 3 (Text)
+  const c3 = document.getElementById('cum-3');
+  const c3Ans = JSON.parse(c3.dataset.correct).map(normalizeText);
+  if (c3Ans.includes(normalizeText(c3.querySelector('input').value))) {
+    c3.classList.add('correct');
+    acertos++;
+  } else {
+    c3.classList.add('incorrect');
+  }
+
+  const scoreEl = document.getElementById('score-cumulativa');
+  scoreEl.innerText = `Pontuação: ${acertos} de ${total} corretas`;
+  scoreEl.style.display = "block";
+
+  enviarResultado("Revisão Cumulativa", acertos, total);
+  btn.innerText = "Tentar de novo";
+  cumState = 'verified';
+}
+
+// Verification Logic - Exercício de Fixação
+let fixState = 'initial';
+
+function verifyFixacao() {
+  const btn = document.getElementById('btn-verify-fixacao');
+  if (fixState === 'verified') {
+    fixState = 'initial';
+    btn.innerText = "Verificar";
+    document.getElementById('score-fixacao').style.display = "none";
+
+    const section = document.getElementById('section-fixacao');
+    section.querySelectorAll('.exercise-item').forEach(el => {
+      el.classList.remove('correct', 'incorrect');
+    });
+    section.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+    return;
+  }
+
+  let acertos = 0;
+  const total = 8;
+
+  for (let i = 0; i < total; i++) {
+    const el = document.getElementById('fix-' + i);
+    const sel = document.getElementById('select-fix-' + i);
+    if (sel.value === el.dataset.correct) {
+      el.classList.add('correct');
+      acertos++;
+    } else {
+      el.classList.add('incorrect');
+    }
+  }
+
+  const scoreEl = document.getElementById('score-fixacao');
+  scoreEl.innerText = `Pontuação: ${acertos} de ${total} corretas`;
+  scoreEl.style.display = "block";
+
+  enviarResultado("Exercício de Fixação", acertos, total);
+  btn.innerText = "Tentar de novo";
+  fixState = 'verified';
+}
+
+// Copy Homework
+function copyHomework() {
+  const hwItems = document.querySelectorAll('#hwList .hw-item');
+  const text = Array.from(hwItems).map(item => item.innerText.replace(/^•\s*/, '')).join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    alert("Homework copiado para a área de transferência!");
+  }).catch(() => {});
+}
+
+// Populate Fixation Selects and Shuffle Options
+function setupFixationSelects() {
+  const words = vocabData.map(v => v.palavra.toLowerCase());
+
+  for (let i = 0; i < 8; i++) {
+    const el = document.getElementById('fix-' + i);
+    const correctWord = el.dataset.correct;
+    const select = document.getElementById('select-fix-' + i);
+
+    // Get 3 distractors
+    const distractors = words.filter(w => w !== correctWord);
+    const shuffledDistractors = shuffleArray(distractors).slice(0, 3);
+    const options = shuffleArray([correctWord, ...shuffledDistractors]);
+
+    options.forEach(opt => {
+      const optEl = document.createElement('option');
+      optEl.value = opt;
+      optEl.innerText = opt;
+      select.appendChild(optEl);
+    });
+  }
+}
+
+// Shuffle Multiple Choice Option DOM elements
+function shuffleOptionButtons() {
+  ['mc-options-1', 'mc-options-cum-0', 'mc-options-cum-2'].forEach(id => {
+    const container = document.getElementById(id);
+    if (!container) return;
+    const btns = Array.from(container.children);
+    const shuffled = shuffleArray(btns);
+    shuffled.forEach(btn => container.appendChild(btn));
+  });
+
+  // Shuffle Compare Contrast Cards
+  const ccGroup = document.getElementById('cc-group-0');
+  if (ccGroup) {
+    const cards = Array.from(ccGroup.children);
+    const shuffled = shuffleArray(cards);
+    shuffled.forEach(card => ccGroup.appendChild(card));
+  }
+}
+
+// Initialize on load
+window.addEventListener('DOMContentLoaded', () => {
+  setupFixationSelects();
+  shuffleOptionButtons();
+  updateFlashcard();
+});
+</script>
+</body>
+</html>
