@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 03/09/26 — Mário</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+
+      /* Treino de Desbloqueio palette */
+      --treino-blue: #1E5AA8;
+      --treino-blue-bg: #eff6ff;
+      --treino-orange: #FF7A00;
+      --treino-orange-dark: #C75000;
+      --treino-orange-bg: #fff7ed;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    header h1 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .audio-controls {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .btn-toggle-speed {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text);
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    .section {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .encouragement {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: #1e3a8a;
+    }
+
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .example-item {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .example-en {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .example-pt {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .btn-audio {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      min-height: 44px;
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-audio:hover {
+      background: #e2e8f0;
+    }
+
+    /* Exercises General */
+    .exercise-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .exercise-prompt {
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .exercise-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn-option {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 6px;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+    }
+
+    .btn-option:hover {
+      border-color: var(--primary);
+    }
+
+    .btn-option.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      min-height: 44px;
+      margin-top: 6px;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      min-height: 44px;
+      background-color: #fff;
+    }
+
+    .btn-action {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      min-height: 44px;
+      margin-top: 12px;
+    }
+
+    .btn-action:hover {
+      background: var(--primary-dark);
+    }
+
+    .feedback {
+      margin-top: 8px;
+      font-size: 0.875rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .score-board {
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .submission-status {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      text-align: center;
+      display: none;
+    }
+
+    /* Treino de Desbloqueio Section Styling */
+    .section-treino {
+      border-top: 4px solid var(--treino-orange);
+    }
+    .section-treino .section-title {
+      color: var(--treino-orange-dark);
+    }
+    .section-treino .btn-action {
+      background: var(--treino-orange);
+    }
+    .section-treino .btn-action:hover {
+      background: var(--treino-orange-dark);
+    }
+
+    .section-treino .exercise-card.correct {
+      border-color: var(--treino-blue);
+      background-color: var(--treino-blue-bg);
+    }
+    .section-treino .exercise-card.incorrect {
+      border-color: var(--treino-orange-dark);
+      background-color: var(--treino-orange-bg);
+    }
+    .section-treino .btn-option.selected-treino {
+      border-color: var(--treino-orange);
+      background: var(--treino-orange-bg);
+    }
+
+    /* Flashcards */
+    .flashcard-container {
+      text-align: center;
+      padding: 20px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .flashcard-word {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .flashcard-translation {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin: 12px 0;
+      display: none;
+    }
+
+    .flashcard-buttons {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .btn-fc-eval {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      border: 2px solid transparent;
+    }
+
+    .btn-fc-know {
+      background: #f0fdf4;
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    .btn-fc-review {
+      background: #fffbeb;
+      border-color: #d97706;
+      color: #d97706;
+    }
+
+    .fc-counter {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    /* Reorder Tokens */
+    .tokens-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      min-height: 44px;
+      padding: 8px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .token {
+      background: #e2e8f0;
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .token-pool {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Standard correct/incorrect for other sections */
+    .exercise-card.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+    .exercise-card.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    /* Homework List */
+    .homework-list {
+      list-style-position: inside;
+      margin-bottom: 16px;
+    }
+
+    .homework-list li {
+      margin-bottom: 8px;
+      padding-left: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Header -->
+  <header>
+    <h1>Revisão da aula de 03/09/26</h1>
+    <p>Olá, Mário!</p>
+    <div class="audio-controls">
+      <span>Velocidade do áudio:</span>
+      <button class="btn-toggle-speed" id="btnToggleSpeed" onclick="toggleAudioSpeed()">Normal (1.0x)</button>
+    </div>
+  </header>
+
+  <!-- 2. Encouragement -->
+  <div class="encouragement">
+    Sua capacidade de associar a gramática à rotina prática do campo é incrível. Cada pequeno ajuste na escrita constrói a autonomia de que você precisa para gerenciar tudo de forma independente.
+  </div>
+
+  <!-- 3. Rule Recap -->
+  <div class="section">
+    <div class="section-title">📖 Recapitulação da Regra</div>
+    <p style="font-weight: 600; margin-bottom: 6px;">Expressões de posse em inglês (Whose, Caso Genitivo 's e Of)</p>
+    <p style="font-size: 0.95rem; color: var(--text);">Usamos 'Whose' para perguntar 'de quem' é algo. Para indicar posse de pessoas ou animais, usamos o apóstrofo com S ('s). Para partes de objetos inanimados, usamos 'of the'.</p>
+    
+    <div class="example-list">
+      <div class="example-item">
+        <div class="example-en">
+          <span>Whose is this dark horse?</span>
+          <button class="btn-audio" onclick="playAudio('Whose is this dark horse?')">🔊</button>
+        </div>
+        <div class="example-pt">De quem é este cavalo escuro?</div>
+      </div>
+      <div class="example-item">
+        <div class="example-en">
+          <span>Carla's horses are in the pasture.</span>
+          <button class="btn-audio" onclick="playAudio('Carla\'s horses are in the pasture.')">🔊</button>
+        </div>
+        <div class="example-pt">Os cavalos da Carla estão no pasto.</div>
+      </div>
+      <div class="example-item">
+        <div class="example-en">
+          <span>We need to repair the fence of the ranch.</span>
+          <button class="btn-audio" onclick="playAudio('We need to repair the fence of the ranch.')">🔊</button>
+        </div>
+        <div class="example-pt">Precisamos consertar a cerca do rancho.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Treino de Desbloqueio -->
+  <div class="section section-treino" id="sec-treino">
+    <div class="section-title">🎯 Treino de Desbloqueio</div>
+    <div class="score-board" id="score-treino"></div>
+    <div id="container-treino"></div>
+    <button class="btn-action" id="btn-check-treino" onclick="verificarTreino()">Verificar</button>
+    <div class="submission-status" id="status-treino">📤 Resultado enviado ao professor</div>
+  </div>
+
+  <!-- 5. Revisão Cumulativa -->
+  <div class="section" id="sec-cumulativa">
+    <div class="section-title">🔁 Revisão Cumulativa</div>
+    <div class="score-board" id="score-cumulativa"></div>
+    <div id="container-cumulativa"></div>
+    <button class="btn-action" id="btn-check-cumulativa" onclick="verificarCumulativa()">Verificar</button>
+    <div class="submission-status" id="status-cumulativa">📤 Resultado enviado ao professor</div>
+  </div>
+
+  <!-- 6. Vocabulário Novo -->
+  <div class="section" id="sec-vocab">
+    <div class="section-title">📚 Vocabulário Novo</div>
+    <div class="fc-counter" id="fc-counter">1 de 6 revisadas</div>
+    <div class="flashcard-container">
+      <div class="flashcard-word">
+        <span id="fc-en">Blessing</span>
+        <button class="btn-audio" onclick="playAudio(document.getElementById('fc-en').innerText)">🔊</button>
+      </div>
+      <div class="flashcard-translation" id="fc-pt">Bênção / Graça</div>
+      <button class="btn-action" id="btn-fc-reveal" onclick="revealFlashcard()">Revelar tradução</button>
+      <div class="flashcard-buttons" id="fc-eval-buttons" style="display: none;">
+        <button class="btn-fc-eval btn-fc-know" onclick="nextFlashcard()">✅ Eu sabia</button>
+        <button class="btn-fc-eval btn-fc-review" onclick="nextFlashcard()">🔄 Preciso revisar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Exercício de Fixação -->
+  <div class="section" id="sec-fixacao">
+    <div class="section-title">✏️ Exercício de Fixação</div>
+    <div class="score-board" id="score-fixacao"></div>
+    <div id="container-fixacao"></div>
+    <button class="btn-action" id="btn-check-fixacao" onclick="verificarFixacao()">Verificar</button>
+    <div class="submission-status" id="status-fixacao">📤 Resultado enviado ao professor</div>
+  </div>
+
+  <!-- 8. Homework -->
+  <div class="section">
+    <div class="section-title">🏠 Homework</div>
+    <ul class="homework-list" id="hw-list">
+      <li>Escreva 5 perguntas com Whose sobre objetos do rancho sem usar pronomes extras.</li>
+      <li>Crie 5 frases combinando a posse com 's para pessoas e 'of the' para objetos.</li>
+      <li>Pratique a leitura em voz alta das frases com blessings e cujo pronome seja 'whose'.</li>
+    </ul>
+    <button class="btn-action" style="background: #475569;" onclick="copiarHomework()">Copiar homework</button>
+  </div>
+
+  <script>
+    // META & CONFIG
+    const META_ENVIO = {"aluno_id": "mario-pinto-da-silva-junior", "aluno": "Mário Pinto da Silva Junior", "data_aula": "03/09/26", "accent": "US", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+    const VOCABULARIO = [{"palavra": "Blessing", "traducao": "Bênção / Graça"}, {"palavra": "To bless", "traducao": "Abençoar"}, {"palavra": "Tools", "traducao": "Ferramentas / Instrumentos de trabalho"}, {"palavra": "Fence", "traducao": "Cerca / Divisória de pasto"}, {"palavra": "Whose", "traducao": "De quem"}, {"palavra": "To fix", "traducao": "Consertar / Reparar / Reformar"}];
+    const TREINO_DATA = {"module_id": "treino_desbloqueio", "erro_alvo": "Omissão de Sujeito Neutro 'It' em frases declarativas impessoais (ex: 'is difficult' ou 'is important' em vez de 'It is difficult' ou 'It is important')", "nivel_cefr": "A1", "accent": "US", "items": [{"type": "compare_contrast_implicito", "sentence_a": "Look at the street. It is very crowded.", "sentence_b": "Look at the street. Is very crowded.", "question_pt": "Qual frase está correta em inglês?", "correct_answer": "a", "explanation_pt": "Em inglês, toda frase precisa de um sujeito explícito. Ao dizer 'É lotado', devemos usar o sujeito neutro 'It' (It is / It's)."}, {"type": "multiple_choice_avancado", "prompt_en": "A: How is the traffic today? B: ____ bad near the stadium.", "options": ["Is", "It is", "Has", "There"], "correct_index": 1, "explanation_pt": "Em português dizemos apenas 'Está ruim', mas em inglês é obrigatório usar o sujeito neutro 'It': 'It is' (ou 'It's'). A opção 'Has' significa ter/possuir e está errada aqui."}, {"type": "dialogo_tempos_mistos", "linhas": [{"pergunta": "Is the rodeo safe?", "resposta_com_lacuna": "Yes, ____ safe.", "resposta_lacuna": ["it is", "it's"], "resposta_completa": "Yes, it is safe.", "tempo": "presente"}, {"pergunta": "Is it difficult to fix this?", "resposta_com_lacuna": "Yes, ____ very difficult.", "resposta_lacuna": ["it is", "it's"], "resposta_completa": "Yes, it is very difficult.", "tempo": "presente"}, {"pergunta": "Is the traffic heavy right now?", "resposta_com_lacuna": "No, ____ light.", "resposta_lacuna": ["it is", "it's"], "resposta_completa": "No, it is light.", "tempo": "presente"}], "explanation_pt": "Frases impessoais sobre situações ou condições necessitam do sujeito 'It' antes do verbo 'is'."}, {"type": "reordenar_palavras", "tokens_embaralhados": ["important", "It", "vet", "to", "keep", "is", "records."], "frase_correta": "It is important to keep vet records.", "explanation_pt": "A estrutura correta começa com o sujeito neutro 'It', seguido do verbo 'is' + adjetivo: 'It is important...'."}, {"type": "translation_challenge", "source_text_pt": "É importante consertar a cerca.", "correct_answer": ["It is important to fix the fence.", "It's important to fix the fence."], "explanation_pt": "Não omita o 'It'. Em inglês não existe frase sem sujeito: 'É importante' torna-se 'It is important'."}, {"type": "translation_challenge", "source_text_pt": "É difícil usar esta furadeira elétrica.", "correct_answer": ["It is difficult to use this power drill.", "It's difficult to use this power drill.", "It is hard to use this power drill.", "It's hard to use this power drill."], "explanation_pt": "A tradução de 'É difícil' exige o sujeito 'It' no início: 'It is difficult' ou 'It is hard'."}, {"type": "translation_challenge", "source_text_pt": "É uma bênção ter ferramentas boas.", "correct_answer": ["It is a blessing to have good tools.", "It's a blessing to have good tools."], "explanation_pt": "'É uma bênção' se traduz como 'It is a blessing'. O pronome 'It' cumpre a função de sujeito neutro em inglês."}]};
+    const CUMULATIVA_DATA = {"module_id": "revisao_cumulativa", "topicos": [{"topico": "Possessive Adjectives e Genitive Case", "resumo_regra": "Usamos o apóstrofo e S ('s) para indicar posse de pessoas e animais (Carla's horses) e a preposição 'of' para objetos (the gate of the ranch).", "exercicios": [{"type": "multiple_choice_simples", "prompt_en": "We are meeting at ____ office at 2 PM.", "options": ["the office of Paul", "Paul's", "Pauls"], "correct_index": 1, "explanation_pt": "Usamos 's após o nome da pessoa para indicar posse: Paul's office."}, {"type": "gap_fill", "sentence_with_gap": "This is ____ (Maria) new computer.", "correct_answer": ["Maria's"], "explanation_pt": "Para indicar a posse de uma pessoa, adicionamos 's ao nome: Maria's."}]}, {"topico": "Advérbios de Frequência", "resumo_regra": "Advérbios de frequência ficam antes dos verbos comuns (I usually check) e depois do verbo To Be (I am always).", "exercicios": [{"type": "multiple_choice_simples", "prompt_en": "She ____ tired after a long day at work.", "options": ["is usually", "usually is", "usually"], "correct_index": 0, "explanation_pt": "O advérbio de frequência fica depois do verbo To Be (is): is usually."}, {"type": "gap_fill", "sentence_with_gap": "I ____ (always / check) my emails in the morning.", "correct_answer": ["always check"], "explanation_pt": "Com verbos comuns, o advérbio de frequência vem antes do verbo principal: always check."}]}]};
+
+    // AUDIO SYSTEM
+    let audioRate = 1.0;
+    function toggleAudioSpeed() {
+      const btn = document.getElementById('btnToggleSpeed');
+      if (audioRate === 1.0) {
+        audioRate = 0.75;
+        btn.innerText = 'Lento (0.75x)';
+      } else {
+        audioRate = 1.0;
+        btn.innerText = 'Normal (1.0x)';
+      }
+    }
+
+    function playAudio(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = META_ENVIO.accent === 'UK' ? 'en-GB' : 'en-US';
+      utterance.rate = audioRate;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Check TTS Support
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!('speechSynthesis' in window)) {
+        document.querySelectorAll('.btn-audio').forEach(b => b.style.display = 'none');
+      }
+    });
+
+    // NORMALIZATION UTILITY
+    function normalize(str) {
+      if (!str) return '';
+      return str.toString()
+        .replace(/[’‘“”]/g, (m) => (m === '’' || m === '‘' ? "'" : '"'))
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .replace(/^["']|["']$/g, '')
+        .replace(/[\.\!\?]$/, '');
+    }
+
+    // SHUFFLE UTILITY
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // SUBMISSION SYSTEM
+    const enviados = {};
+    function enviarResultado(secao, acertos, total) {
+      if (enviados[secao]) return;
+      if (!META_ENVIO.apps_script_url) return;
+      enviados[secao] = true;
+
+      fetch(META_ENVIO.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META_ENVIO.aluno_id,
+          aluno: META_ENVIO.aluno,
+          data_aula: META_ENVIO.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+
+      let statusId = "";
+      if (secao === "Treino de Desbloqueio") statusId = "status-treino";
+      if (secao === "Revisão Cumulativa") statusId = "status-cumulativa";
+      if (secao === "Exercício de Fixação") statusId = "status-fixacao";
+      if (statusId) {
+        document.getElementById(statusId).style.display = "block";
+      }
+    }
+
+    // RENDER TREINO DE DESBLOQUEIO
+    let stateTreino = { verified: false };
+    function renderTreino() {
+      const container = document.getElementById('container-treino');
+      if (!TREINO_DATA || !TREINO_DATA.items || TREINO_DATA.items.length === 0) {
+        document.getElementById('sec-treino').style.display = 'none';
+        return;
+      }
+      
+      let html = '';
+      TREINO_DATA.items.forEach((item, idx) => {
+        html += `<div class="exercise-card" id="card-treino-${idx}">`;
+        
+        if (item.type === 'compare_contrast_implicito') {
+          html += `<div class="exercise-prompt">${item.question_pt}</div>`;
+          const isAShortFirst = Math.random() < 0.5;
+          const opt1 = isAShortFirst ? { id: 'a', text: item.sentence_a } : { id: 'b', text: item.sentence_b };
+          const opt2 = isAShortFirst ? { id: 'b', text: item.sentence_b } : { id: 'a', text: item.sentence_a };
+          html += `<div class="exercise-options">
+            <button class="btn-option" data-val="${opt1.id}" onclick="selectOption('treino', ${idx}, '${opt1.id}', this)">${opt1.text}</button>
+            <button class="btn-option" data-val="${opt2.id}" onclick="selectOption('treino', ${idx}, '${opt2.id}', this)">${opt2.text}</button>
+          </div>`;
+        } else if (item.type === 'multiple_choice_avancado') {
+          html += `<div class="exercise-prompt">${item.prompt_en}</div>`;
+          const correctText = item.options[item.correct_index];
+          const shuffledOpts = shuffle(item.options);
+          html += `<div class="exercise-options">`;
+          shuffledOpts.forEach(opt => {
+            html += `<button class="btn-option" data-val="${opt}" onclick="selectOption('treino', ${idx}, '${opt}', this)">${opt}</button>`;
+          });
+          html += `</div>`;
+          item._correctText = correctText;
+        } else if (item.type === 'dialogo_tempos_mistos') {
+          html += `<div class="exercise-prompt">Complete as respostas do diálogo:</div>`;
+          item.linhas.forEach((linha, lIdx) => {
+            const gapInput = `<input type="text" id="input-treino-${idx}-${lIdx}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Digite sua resposta em inglês...">`;
+            const promptWithGap = linha.resposta_com_lacuna.replace('____', gapInput);
+            html += `<div style="margin-bottom: 12px;" id="subcard-treino-${idx}-${lIdx}">
+              <p><strong>A:</strong> ${linha.pergunta}</p>
+              <p><strong>B:</strong> ${promptWithGap}</p>
+              <div class="feedback" id="fb-treino-${idx}-${lIdx}"></div>
+            </div>`;
+          });
+        } else if (item.type === 'reordenar_palavras') {
+          html += `<div class="exercise-prompt">Ordene as palavras para formar a frase correta:</div>`;
+          const shuffledTokens = shuffle(item.tokens_embaralhados);
+          html += `<div class="tokens-container" id="target-tokens-${idx}"></div>`;
+          html += `<div class="token-pool" id="pool-tokens-${idx}">`;
+          shuffledTokens.forEach((tok, tIdx) => {
+            html += `<span class="token" id="tok-${idx}-${tIdx}" onclick="toggleToken(${idx}, 'tok-${idx}-${tIdx}')">${tok}</span>`;
+          });
+          html += `</div>`;
+        } else if (item.type === 'translation_challenge') {
+          html += `<div class="exercise-prompt">Traduza: "${item.source_text_pt}"</div>`;
+          html += `<input type="text" id="input-treino-${idx}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Type in English...">`;
+        }
+
+        if (item.type !== 'dialogo_tempos_mistos') {
+          html += `<div class="feedback" id="fb-treino-${idx}"></div>`;
+        }
+        html += `</div>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    let selectionsTreino = {};
+    function selectOption(sec, idx, val, btn) {
+      if (sec === 'treino' && stateTreino.verified) return;
+      if (sec === 'cumulativa' && stateCumulativa.verified) return;
+
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.btn-option').forEach(b => {
+        b.classList.remove('selected', 'selected-treino');
+      });
+      btn.classList.add(sec === 'treino' ? 'selected-treino' : 'selected');
+
+      if (sec === 'treino') selectionsTreino[idx] = val;
+      if (sec === 'cumulativa') selectionsCumulativa[idx] = val;
+    }
+
+    function toggleToken(itemIdx, tokenId) {
+      if (stateTreino.verified) return;
+      const tokEl = document.getElementById(tokenId);
+      const target = document.getElementById(`target-tokens-${itemIdx}`);
+      const pool = document.getElementById(`pool-tokens-${itemIdx}`);
+
+      if (tokEl.parentElement === pool) {
+        target.appendChild(tokEl);
+      } else {
+        pool.appendChild(tokEl);
+      }
+    }
+
+    function verificarTreino() {
+      if (stateTreino.verified) {
+        // Reset
+        stateTreino.verified = false;
+        selectionsTreino = {};
+        document.getElementById('score-treino').innerText = '';
+        document.getElementById('btn-check-treino').innerText = 'Verificar';
+        renderTreino();
+        return;
+      }
+
+      let total = 0;
+      let acertos = 0;
+
+      TREINO_DATA.items.forEach((item, idx) => {
+        const card = document.getElementById(`card-treino-${idx}`);
+        
+        if (item.type === 'dialogo_tempos_mistos') {
+          item.linhas.forEach((linha, lIdx) => {
+            total++;
+            const input = document.getElementById(`input-treino-${idx}-${lIdx}`);
+            const fb = document.getElementById(`fb-treino-${idx}-${lIdx}`);
+            const val = normalize(input.value);
+            const isCorrect = linha.resposta_lacuna.some(ans => normalize(ans) === val);
+
+            fb.style.display = 'block';
+            if (isCorrect) {
+              acertos++;
+              fb.style.color = 'var(--treino-blue)';
+              fb.innerText = '✅ Resposta correta!';
+            } else {
+              fb.style.color = 'var(--treino-orange-dark)';
+              fb.innerText = `❌ Resposta correta: ${linha.resposta_completa}`;
+            }
+          });
+          return;
+        }
+
+        total++;
+        const fb = document.getElementById(`fb-treino-${idx}`);
+        fb.style.display = 'block';
+        let isCorrect = false;
+        let correctAnswerText = '';
+
+        if (item.type === 'compare_contrast_implicito') {
+          isCorrect = (selectionsTreino[idx] === item.correct_answer);
+          correctAnswerText = item.correct_answer === 'a' ? item.sentence_a : item.sentence_b;
+        } else if (item.type === 'multiple_choice_avancado') {
+          isCorrect = (selectionsTreino[idx] === item._correctText);
+          correctAnswerText = item._correctText;
+        } else if (item.type === 'reordenar_palavras') {
+          const target = document.getElementById(`target-tokens-${idx}`);
+          const constructed = Array.from(target.children).map(c => c.innerText).join(' ');
+          isCorrect = (normalize(constructed) === normalize(item.frase_correta));
+          correctAnswerText = item.frase_correta;
+        } else if (item.type === 'translation_challenge') {
+          const val = normalize(document.getElementById(`input-treino-${idx}`).value);
+          isCorrect = item.correct_answer.some(ans => normalize(ans) === val);
+          correctAnswerText = item.correct_answer[0];
+        }
+
+        if (isCorrect) {
+          acertos++;
+          card.classList.add('correct');
+          fb.style.color = 'var(--treino-blue)';
+          fb.innerHTML = `✅ Correto! ${item.explanation_pt}`;
+        } else {
+          card.classList.add('incorrect');
+          fb.style.color = 'var(--treino-orange-dark)';
+          fb.innerHTML = `❌ Resposta correta: <strong>${correctAnswerText}</strong>.<br>${item.explanation_pt}`;
+        }
+      });
+
+      document.getElementById('score-treino').innerText = `Placar: ${acertos} de ${total} corretas`;
+      document.getElementById('btn-check-treino').innerText = 'Tentar de novo';
+      stateTreino.verified = true;
+
+      enviarResultado("Treino de Desbloqueio", acertos, total);
+    }
+
+    // RENDER REVISÃO CUMULATIVA
+    let stateCumulativa = { verified: false };
+    let selectionsCumulativa = {};
+    let cumulativaFlatItems = [];
+
+    function renderCumulativa() {
+      const container = document.getElementById('container-cumulativa');
+      if (!CUMULATIVA_DATA || !CUMULATIVA_DATA.topicos || CUMULATIVA_DATA.topicos.length === 0) {
+        document.getElementById('sec-cumulativa').style.display = 'none';
+        return;
+      }
+
+      let html = '';
+      cumulativaFlatItems = [];
+      let flatIdx = 0;
+
+      CUMULATIVA_DATA.topicos.forEach(topico => {
+        html += `<div style="margin-bottom: 20px;">
+          <h3 style="font-size: 1rem; color: var(--primary); margin-bottom: 4px;">${topico.topico}</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 12px;">${topico.resumo_regra}</p>`;
+
+        topico.exercicios.forEach(ex => {
+          cumulativaFlatItems.push(ex);
+          html += `<div class="exercise-card" id="card-cumulativa-${flatIdx}">`;
+
+          if (ex.type === 'multiple_choice_simples') {
+            html += `<div class="exercise-prompt">${ex.prompt_en}</div>`;
+            const correctText = ex.options[ex.correct_index];
+            const shuffledOpts = shuffle(ex.options);
+            html += `<div class="exercise-options">`;
+            shuffledOpts.forEach(opt => {
+              html += `<button class="btn-option" data-val="${opt}" onclick="selectOption('cumulativa', ${flatIdx}, '${opt}', this)">${opt}</button>`;
+            });
+            html += `</div>`;
+            ex._correctText = correctText;
+          } else if (ex.type === 'gap_fill') {
+            const gapInput = `<input type="text" id="input-cumulativa-${flatIdx}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Digite sua resposta em inglês..." style="width: 150px; display: inline-block;">`;
+            const promptWithGap = ex.sentence_with_gap.replace('____', gapInput);
+            html += `<div class="exercise-prompt">${promptWithGap}</div>`;
+          }
+
+          html += `<div class="feedback" id="fb-cumulativa-${flatIdx}"></div></div>`;
+          flatIdx++;
+        });
+
+        html += `</div>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function verificarCumulativa() {
+      if (stateCumulativa.verified) {
+        stateCumulativa.verified = false;
+        selectionsCumulativa = {};
+        document.getElementById('score-cumulativa').innerText = '';
+        document.getElementById('btn-check-cumulativa').innerText = 'Verificar';
+        renderCumulativa();
+        return;
+      }
+
+      let total = cumulativaFlatItems.length;
+      let acertos = 0;
+
+      cumulativaFlatItems.forEach((ex, idx) => {
+        const card = document.getElementById(`card-cumulativa-${idx}`);
+        const fb = document.getElementById(`fb-cumulativa-${idx}`);
+        fb.style.display = 'block';
+
+        let isCorrect = false;
+        let correctAnswerText = '';
+
+        if (ex.type === 'multiple_choice_simples') {
+          isCorrect = (selectionsCumulativa[idx] === ex._correctText);
+          correctAnswerText = ex._correctText;
+        } else if (ex.type === 'gap_fill') {
+          const val = normalize(document.getElementById(`input-cumulativa-${idx}`).value);
+          const accepted = Array.isArray(ex.correct_answer) ? ex.correct_answer : [ex.correct_answer];
+          isCorrect = accepted.some(ans => normalize(ans) === val);
+          correctAnswerText = accepted[0];
+        }
+
+        if (isCorrect) {
+          acertos++;
+          card.classList.add('correct');
+          fb.style.color = 'var(--success)';
+          fb.innerHTML = `✅ Correto! ${ex.explanation_pt}`;
+        } else {
+          card.classList.add('incorrect');
+          fb.style.color = 'var(--error)';
+          fb.innerHTML = `❌ Resposta correta: <strong>${correctAnswerText}</strong>.<br>${ex.explanation_pt}`;
+        }
+      });
+
+      document.getElementById('score-cumulativa').innerText = `Placar: ${acertos} de ${total} corretas`;
+      document.getElementById('btn-check-cumulativa').innerText = 'Tentar de novo';
+      stateCumulativa.verified = true;
+
+      enviarResultado("Revisão Cumulativa", acertos, total);
+    }
+
+    // RENDER VOCABULÁRIO (FLASHCARDS)
+    let fcIndex = 0;
+    function renderFlashcard() {
+      if (!VOCABULARIO || VOCABULARIO.length === 0) {
+        document.getElementById('sec-vocab').style.display = 'none';
+        return;
+      }
+
+      const item = VOCABULARIO[fcIndex];
+      document.getElementById('fc-counter').innerText = `${fcIndex + 1} de ${VOCABULARIO.length} revisadas`;
+      document.getElementById('fc-en').innerText = item.palavra;
+      document.getElementById('fc-pt').innerText = item.traducao;
+
+      document.getElementById('fc-pt').style.display = 'none';
+      document.getElementById('btn-fc-reveal').style.display = 'block';
+      document.getElementById('fc-eval-buttons').style.display = 'none';
+    }
+
+    function revealFlashcard() {
+      document.getElementById('fc-pt').style.display = 'block';
+      document.getElementById('btn-fc-reveal').style.display = 'none';
+      document.getElementById('fc-eval-buttons').style.display = 'flex';
+    }
+
+    function nextFlashcard() {
+      fcIndex = (fcIndex + 1) % VOCABULARIO.length;
+      renderFlashcard();
+    }
+
+    // RENDER EXERCÍCIO DE FIXAÇÃO
+    let fixacaoItems = [];
+    let stateFixacao = { verified: false };
+
+    function prepareFixacao() {
+      // Create fill-in-the-blank sentences for Vocabulary
+      const fixSentences = [
+        { word: "Blessing", correct: "blessing", dists: ["fence", "tool", "fix"], prompt: "Having a good harvest this year is a great ____ for our family.", explanation: "'Blessing' significa bênção/graça nesta frase." },
+        { word: "To bless", correct: "bless", dists: ["fix", "fence", "tools"], prompt: "The priest came to the ranch to ____ the new tractor.", explanation: "'To bless' é o verbo abençoar." },
+        { word: "Tools", correct: "tools", dists: ["fences", "blessings", "fixes"], prompt: "He left all his work ____ inside the shed.", explanation: "'Tools' significa ferramentas / instrumentos de trabalho." },
+        { word: "Fence", correct: "fence", dists: ["blessing", "tool", "whose"], prompt: "The cows escaped because the wooden ____ was broken.", explanation: "'Fence' significa cerca ou divisória de pasto." },
+        { word: "Whose", correct: "Whose", dists: ["Fence", "Tool", "Fix"], prompt: "____ dark horse is standing near the pasture?", explanation: "'Whose' é usado para perguntar 'de quem' é algo." },
+        { word: "To fix", correct: "fix", dists: ["bless", "fence", "tool"], prompt: "We need a mechanic to ____ the generator.", explanation: "'To fix' significa consertar / reparar." }
+      ];
+
+      fixacaoItems = fixSentences.slice(0, 10);
+    }
+
+    function renderFixacao() {
+      const container = document.getElementById('container-fixacao');
+      if (!fixacaoItems || fixacaoItems.length === 0) {
+        document.getElementById('sec-fixacao').style.display = 'none';
+        return;
+      }
+
+      let html = '';
+      fixacaoItems.forEach((item, idx) => {
+        const allOpts = shuffle([item.correct, ...item.dists]);
+        let selectHtml = `<select id="select-fix-${idx}"><option value="" disabled selected>-- Selecione --</option>`;
+        allOpts.forEach(opt => {
+          selectHtml += `<option value="${opt}">${opt}</option>`;
+        });
+        selectHtml += `</select>`;
+
+        const promptWithGap = item.prompt.replace('____', selectHtml);
+
+        html += `<div class="exercise-card" id="card-fix-${idx}">
+          <div class="exercise-prompt">${promptWithGap}</div>
+          <div class="feedback" id="fb-fix-${idx}"></div>
+        </div>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function verificarFixacao() {
+      if (stateFixacao.verified) {
+        stateFixacao.verified = false;
+        document.getElementById('score-fixacao').innerText = '';
+        document.getElementById('btn-check-fixacao').innerText = 'Verificar';
+        renderFixacao();
+        return;
+      }
+
+      let total = fixacaoItems.length;
+      let acertos = 0;
+
+      fixacaoItems.forEach((item, idx) => {
+        const card = document.getElementById(`card-fix-${idx}`);
+        const fb = document.getElementById(`fb-fix-${idx}`);
+        const sel = document.getElementById(`select-fix-${idx}`);
+        const val = sel.value;
+
+        fb.style.display = 'block';
+        if (val === item.correct) {
+          acertos++;
+          card.classList.add('correct');
+          fb.style.color = 'var(--success)';
+          fb.innerHTML = `✅ Correto! ${item.explanation}`;
+        } else {
+          card.classList.add('incorrect');
+          fb.style.color = 'var(--error)';
+          fb.innerHTML = `❌ Resposta correta: <strong>${item.correct}</strong>.<br>${item.explanation}`;
+        }
+      });
+
+      document.getElementById('score-fixacao').innerText = `Placar: ${acertos} de ${total} corretas`;
+      document.getElementById('btn-check-fixacao').innerText = 'Tentar de novo';
+      stateFixacao.verified = true;
+
+      enviarResultado("Exercício de Fixação", acertos, total);
+    }
+
+    // HOMEWORK COPY
+    function copiarHomework() {
+      const items = Array.from(document.querySelectorAll('#hw-list li')).map(li => li.innerText);
+      const text = "Homework:\n" + items.map((it, i) => `${i + 1}. ${it}`).join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Homework copiado para a área de transferência!");
+      }).catch(() => {});
+    }
+
+    // INITIALIZATION
+    window.addEventListener('DOMContentLoaded', () => {
+      renderTreino();
+      renderCumulativa();
+      renderFlashcard();
+      prepareFixacao();
+      renderFixacao();
+    });
+  </script>
+</body>
+</html>
