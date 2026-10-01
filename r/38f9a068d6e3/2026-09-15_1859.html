@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão 15/09/26 — Carlos</title>
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary: #64748b;
+    --success: #16a34a;
+    --success-bg: #f0fdf4;
+    --error: #dc2626;
+    --error-bg: #fef2f2;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #0f172a;
+    --text-muted: #475569;
+    --border: #e2e8f0;
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+  body { background-color: var(--bg); color: var(--text); line-height: 1.5; padding: 16px 12px 40px 12px; max-width: 680px; margin: 0 auto; }
+
+  header { background: var(--card-bg); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 20px; }
+  .header-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .header-title { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+  .header-subtitle { font-size: 1rem; color: var(--text-muted); margin-top: 4px; }
+  
+  .audio-toggle { display: inline-flex; align-items: center; background: #f1f5f9; padding: 6px 12px; border-radius: 20px; font-size: 0.875rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); user-select: none; }
+  .audio-toggle input { display: none; }
+  .audio-toggle span { color: var(--text-muted); }
+  .audio-toggle span.active { color: var(--primary); font-weight: 700; }
+
+  .encouragement-card { background: #eff6ff; border-left: 4px solid var(--primary); padding: 16px; border-radius: 8px; font-size: 0.95rem; color: #1e40af; margin-bottom: 24px; line-height: 1.6; }
+
+  section { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  section h2 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
+  .audio-btn { background: #eff6ff; color: var(--primary); border: none; border-radius: 50%; width: 36px; height: 36px; min-width: 36px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; margin-left: 8px; transition: background 0.2s; }
+  .audio-btn:hover { background: #dbeafe; }
+
+  .rule-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .rule-box h3 { font-size: 1rem; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+  .rule-box p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 12px; }
+  .example-item { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 8px; }
+  .example-en { font-weight: 600; font-size: 0.95rem; color: var(--text); display: flex; justify-content: space-between; align-items: center; }
+  .example-pt { font-size: 0.875rem; color: var(--text-muted); margin-top: 4px; }
+
+  .topic-group { margin-bottom: 24px; }
+  .topic-group:last-child { margin-bottom: 0; }
+  .topic-title { font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+  .topic-resumo { font-size: 0.875rem; color: var(--text-muted); background: #f1f5f9; padding: 10px 12px; border-radius: 6px; margin-bottom: 14px; }
+
+  .exercise-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px; transition: border-color 0.2s, background-color 0.2s; }
+  .exercise-card.correct { border-color: var(--success); background-color: var(--success-bg); }
+  .exercise-card.incorrect { border-color: var(--error); background-color: var(--error-bg); }
+  .exercise-prompt { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+
+  .options-grid { display: flex; flex-direction: column; gap: 8px; }
+  .option-btn { width: 100%; min-height: 44px; text-align: left; padding: 10px 14px; background: #fff; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; color: var(--text); cursor: pointer; transition: all 0.2s; }
+  .option-btn:hover { background: #f1f5f9; }
+  .option-btn.selected { border-color: var(--primary); background: #eff6ff; color: var(--primary); font-weight: 600; }
+
+  .text-input-gap { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; margin-top: 8px; outline: none; }
+  .text-input-gap:focus { border-color: var(--primary); }
+
+  .select-gap { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; margin-top: 8px; outline: none; background: #fff; color: var(--text); }
+  .select-gap:focus { border-color: var(--primary); }
+
+  .feedback-box { margin-top: 12px; font-size: 0.875rem; line-height: 1.4; display: none; }
+  .feedback-box.show { display: block; }
+  .feedback-box .correct-ans { font-weight: 700; color: var(--success); margin-bottom: 4px; }
+  .feedback-box .explanation { color: var(--text-muted); }
+
+  .flashcard-container { display: flex; flex-direction: column; align-items: center; }
+  .flashcard-counter { font-size: 0.875rem; font-weight: 600; color: var(--text-muted); margin-bottom: 12px; }
+  .flashcard { width: 100%; background: #fff; border: 2px solid var(--border); border-radius: 12px; padding: 24px 16px; text-align: center; min-height: 160px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 16px; position: relative; }
+  .flashcard-en { font-size: 1.3rem; font-weight: 700; color: var(--text); display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .flashcard-pt { font-size: 1.1rem; color: var(--primary); font-weight: 600; margin-top: 12px; display: none; }
+  .flashcard-pt.show { display: block; }
+  
+  .flashcard-actions { display: flex; gap: 10px; width: 100%; flex-wrap: wrap; justify-content: center; }
+  .btn-reveal { background: var(--primary); color: #fff; border: none; padding: 12px 20px; border-radius: 8px; font-weight: 600; min-height: 44px; cursor: pointer; width: 100%; font-size: 0.95rem; }
+  .btn-eval { flex: 1; min-width: 130px; min-height: 44px; border: 2px solid var(--border); background: #fff; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.9rem; padding: 8px; }
+  .btn-eval.knew { border-color: var(--success); color: var(--success); }
+  .btn-eval.knew:hover { background: var(--success-bg); }
+  .btn-eval.review { border-color: #d97706; color: #d97706; }
+  .btn-eval.review:hover { background: #fffbebfb; }
+
+  .homework-list { list-style: none; margin-bottom: 16px; }
+  .homework-list li { background: #f8fafc; border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 8px; font-size: 0.9rem; color: var(--text); display: flex; align-items: flex-start; gap: 8px; }
+  .homework-list li::before { content: "•"; color: var(--primary); font-size: 1.2rem; line-height: 1; }
+
+  .action-btn { background: var(--primary); color: #fff; border: none; border-radius: 8px; padding: 12px 24px; font-size: 0.95rem; font-weight: 600; min-height: 44px; cursor: pointer; width: 100%; transition: background 0.2s; }
+  .action-btn:hover { background: var(--primary-dark); }
+  .action-btn.secondary { background: #f1f5f9; color: var(--text); border: 1px solid var(--border); }
+  .action-btn.secondary:hover { background: #e2e8f0; }
+
+  .section-footer { margin-top: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .score-display { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+  .sent-status { font-size: 0.8rem; color: var(--success); font-weight: 600; display: none; }
+  .sent-status.show { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div>
+      <div class="header-title">Revisão da aula de 15/09/26</div>
+      <div class="header-subtitle">Olá, Carlos!</div>
+    </div>
+    <label class="audio-toggle" id="audioToggleBtn" onclick="toggleAudioSpeed()">
+      Áudio:&nbsp;<span id="speedNorm" class="active">Normal</span>&nbsp;|&nbsp;<span id="speedSlow">0.75x</span>
+    </label>
+  </div>
+</header>
+
+<div class="encouragement-card">
+  Sua fluidez e capacidade de sustentar argumentos complexos sobre temas globais estão consolidadas. Os pequenos deslizes estruturais sob velocidade são naturais e servem como excelente guia para o polimento da sua comunicação antes do evento internacional.
+</div>
+
+<section id="regra-section">
+  <h2>📖 Recapitulação da Regra</h2>
+  <div class="rule-box">
+    <h3>Reported Speech e Debriefing Estratégico C-Level</h3>
+    <p>Ao relatar declarações, decisões ou diretrizes corporativas de terceiros, ajustamos os tempos verbais (backshifting) e empregamos verbos de relato específicos para transmitir a mensagem com precisão executiva.</p>
+    
+    <div class="example-item">
+      <div class="example-en">
+        <span>He stated that the post-mortem analysis generated over one hundred strategic leads.</span>
+        <button class="audio-btn" onclick="playAudio('He stated that the post-mortem analysis generated over one hundred strategic leads.')">🔊</button>
+      </div>
+      <div class="example-pt">Ele declarou que a análise pós-evento gerou mais de cem contatos estratégicos.</div>
+    </div>
+
+    <div class="example-item">
+      <div class="example-en">
+        <span>The executive explained that brand awareness was the primary objective of the campaign.</span>
+        <button class="audio-btn" onclick="playAudio('The executive explained that brand awareness was the primary objective of the campaign.')">🔊</button>
+      </div>
+      <div class="example-pt">O executivo explicou que o reconhecimento de marca era o objetivo principal da campanha.</div>
+    </div>
+  </div>
+</section>
+
+<section id="cumulativa-section">
+  <h2>🔁 Revisão Cumulativa</h2>
+  
+  <div class="topic-group">
+    <div class="topic-title">Reported Speech - Backshifting e Reporting Verbs</div>
+    <div class="topic-resumo">Para relatar declarações de terceiros no passado, recuamos os tempos verbais e usamos verbos específicos como state, urge, propose e recommend.</div>
+    
+    <div class="exercise-card" id="cum-card-0">
+      <div class="exercise-prompt">1. The director stated that the team ____ all the financial targets the previous quarter.</div>
+      <div class="options-grid" id="cum-opts-0"></div>
+      <div class="feedback-box" id="cum-fb-0"></div>
+    </div>
+
+    <div class="exercise-card" id="cum-card-1">
+      <div class="exercise-prompt">2. The senior manager mentioned that he ____ (already / send) the revised project schedule to the client.</div>
+      <input type="text" class="text-input-gap" id="cum-input-1" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      <div class="feedback-box" id="cum-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="topic-group">
+    <div class="topic-title">Wishes e If Only</div>
+    <div class="topic-resumo">Usamos wish + past simple para desejos presentes, wish + past perfect para arrependimentos passados e wish + would para críticas a comportamentos.</div>
+    
+    <div class="exercise-card" id="cum-card-2">
+      <div class="exercise-prompt">3. I wish our department ____ so much time on unnecessary administrative tasks every week.</div>
+      <div class="options-grid" id="cum-opts-2"></div>
+      <div class="feedback-box" id="cum-fb-2"></div>
+    </div>
+
+    <div class="exercise-card" id="cum-card-3">
+      <div class="exercise-prompt">4. If only we ____ (book) the direct flight to London earlier; the tickets are much more expensive now.</div>
+      <input type="text" class="text-input-gap" id="cum-input-3" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      <div class="feedback-box" id="cum-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="section-footer">
+    <div class="score-display" id="cum-score"></div>
+    <button class="action-btn" id="cum-btn" onclick="verificarCumulativa()">Verificar</button>
+    <div class="sent-status" id="cum-status">📤 Resultado enviado ao professor</div>
+  </div>
+</section>
+
+<section id="vocab-section">
+  <h2>📚 Vocabulário Novo</h2>
+  <div class="flashcard-container">
+    <div class="flashcard-counter" id="vocab-counter">1 de 8 revisadas</div>
+    <div class="flashcard">
+      <div class="flashcard-en">
+        <span id="vocab-word-en">brand awareness</span>
+        <button class="audio-btn" id="vocab-audio-btn" onclick="playVocabAudio()">🔊</button>
+      </div>
+      <div class="flashcard-pt" id="vocab-word-pt">reconhecimento de marca</div>
+    </div>
+    <div class="flashcard-actions" id="vocab-actions-initial">
+      <button class="btn-reveal" onclick="revelarTraducao()">Revelar tradução</button>
+    </div>
+    <div class="flashcard-actions" id="vocab-actions-eval" style="display: none;">
+      <button class="btn-eval knew" onclick="responderVocab(true)">✅ Eu sabia</button>
+      <button class="btn-eval review" onclick="responderVocab(false)">🔄 Preciso revisar</button>
+    </div>
+  </div>
+</section>
+
+<section id="fixacao-section">
+  <h2>✏️ Exercício de Fixação</h2>
+  <div id="fixacao-container"></div>
+  <div class="section-footer">
+    <div class="score-display" id="fix-score"></div>
+    <button class="action-btn" id="fix-btn" onclick="verificarFixacao()">Verificar</button>
+    <div class="sent-status" id="fix-status">📤 Resultado enviado ao professor</div>
+  </div>
+</section>
+
+<section id="homework-section">
+  <h2>🏠 Homework</h2>
+  <ul class="homework-list" id="hw-list">
+    <li>Praticar a correção estrutural da voz passiva indevida com verbos intransitivos, utilizando a forma ativa simples no passado.</li>
+    <li>Treinar a concordância nominal e quantificadores em frases rápidas.</li>
+    <li>Manter a escuta ativa de podcasts executivos em inglês como aquecimento diário para a conferência em Las Vegas.</li>
+  </ul>
+  <button class="action-btn secondary" onclick="copiarHomework()">Copiar homework</button>
+</section>
+
+<script>
+const META_ENVIO = {"aluno_id": "carlos-rafael", "aluno": "Carlos Rafael", "data_aula": "15/09/26", "accent": "UK", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+
+let audioRate = 1.0;
+
+function toggleAudioSpeed() {
+  if (audioRate === 1.0) {
+    audioRate = 0.75;
+    document.getElementById('speedNorm').classList.remove('active');
+    document.getElementById('speedSlow').classList.add('active');
+  } else {
+    audioRate = 1.0;
+    document.getElementById('speedSlow').classList.remove('active');
+    document.getElementById('speedNorm').classList.add('active');
+  }
+}
+
+function playAudio(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'en-GB';
+  utterance.rate = audioRate;
+  const voices = window.speechSynthesis.getVoices();
+  const ukVoice = voices.find(v => v.lang && (v.lang.includes('en-GB') || v.lang.includes('en_GB')));
+  if (ukVoice) utterance.voice = ukVoice;
+  window.speechSynthesis.speak(utterance);
+}
+
+function normalizeStr(str) {
+  if (!str) return '';
+  return str
+    .replace(/[’‘“”]/g, "'")
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLowerCase()
+    .replace(/^["']|["']$/g, '')
+    .replace(/[.!?]+$/, '')
+    .trim();
+}
+
+function shuffleArray(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+const enviados = {};
+function enviarResultado(secao, acertos, total) {
+  if (!META_ENVIO.apps_script_url || enviados[secao]) return;
+  enviados[secao] = true;
+  fetch(META_ENVIO.apps_script_url, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({
+      aluno_id: META_ENVIO.aluno_id,
+      aluno: META_ENVIO.aluno,
+      data_aula: META_ENVIO.data_aula,
+      secao: secao,
+      acertos: acertos,
+      total: total
+    })
+  }).catch(() => {});
+}
+
+/* REVISÃO CUMULATIVA DATA */
+const cumData = [
+  {
+    type: 'multiple_choice_simples',
+    correct: "had met",
+    options: ["has met", "had met", "meets"],
+    exp: "No Reported Speech com verbo no passado (stated), fazemos o recuo temporal (backshifting) do Past Simple/Present Perfect para o Past Perfect (had met)."
+  },
+  {
+    type: 'gap_fill',
+    correctAnswers: ["had already sent"],
+    exp: "Como a ação ocorreu antes do momento do relato no passado, fazemos o recuo temporal para o Past Perfect: had already sent."
+  },
+  {
+    type: 'multiple_choice_simples',
+    correct: "didn't spend",
+    options: ["doesn't spend", "didn't spend", "won't spend"],
+    exp: "Para expressar um desejo sobre uma situação presente que gostaríamos que fosse diferente, usamos wish + Past Simple (didn't spend)."
+  },
+  {
+    type: 'gap_fill',
+    correctAnswers: ["had booked"],
+    exp: "Para expressar um erro ou arrependimento em relação ao passado, utilizamos a estrutura If only + Past Perfect (had booked)."
+  }
+];
+
+let cumSelections = {};
+let cumState = 'initial'; // initial, verified
+
+function initCumulativa() {
+  cumData.forEach((item, index) => {
+    if (item.type === 'multiple_choice_simples') {
+      const container = document.getElementById(`cum-opts-${index}`);
+      if (!container) return;
+      const shuffled = shuffleArray(item.options);
+      container.innerHTML = '';
+      shuffled.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt;
+        btn.onclick = () => {
+          if (cumState === 'verified') return;
+          cumSelections[index] = opt;
+          container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+        container.appendChild(btn);
+      });
+    }
+  });
+}
+
+function verificarCumulativa() {
+  if (cumState === 'verified') {
+    // Reset
+    cumState = 'initial';
+    cumSelections = {};
+    cumData.forEach((item, index) => {
+      const card = document.getElementById(`cum-card-${index}`);
+      const fb = document.getElementById(`cum-fb-${index}`);
+      card.className = 'exercise-card';
+      fb.className = 'feedback-box';
+      fb.innerHTML = '';
+      if (item.type === 'multiple_choice_simples') {
+        const container = document.getElementById(`cum-opts-${index}`);
+        container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      } else {
+        const input = document.getElementById(`cum-input-${index}`);
+        if (input) input.value = '';
+      }
+    });
+    document.getElementById('cum-score').innerText = '';
+    document.getElementById('cum-btn').innerText = 'Verificar';
+    return;
+  }
+
+  let acertos = 0;
+  cumData.forEach((item, index) => {
+    const card = document.getElementById(`cum-card-${index}`);
+    const fb = document.getElementById(`cum-fb-${index}`);
+    let isCorrect = false;
+
+    if (item.type === 'multiple_choice_simples') {
+      const selected = cumSelections[index];
+      if (selected === item.correct) isCorrect = true;
+    } else {
+      const input = document.getElementById(`cum-input-${index}`);
+      const userVal = normalizeStr(input ? input.value : '');
+      const validAnswers = item.correctAnswers.map(normalizeStr);
+      if (validAnswers.includes(userVal)) isCorrect = true;
+    }
+
+    if (isCorrect) {
+      acertos++;
+      card.className = 'exercise-card correct';
+      fb.innerHTML = `<div class="explanation">💡 ${item.exp}</div>`;
+    } else {
+      card.className = 'exercise-card incorrect';
+      const ansDisplay = item.type === 'multiple_choice_simples' ? item.correct : item.correctAnswers[0];
+      fb.innerHTML = `<div class="correct-ans">✅ Resposta correta: ${ansDisplay}</div><div class="explanation">💡 ${item.exp}</div>`;
+    }
+    fb.classList.add('show');
+  });
+
+  document.getElementById('cum-score').innerText = `${acertos} de ${cumData.length} corretas`;
+  document.getElementById('cum-btn').innerText = 'Tentar de novo';
+  cumState = 'verified';
+
+  enviarResultado("Revisão Cumulativa", acertos, cumData.length);
+  if (META_ENVIO.apps_script_url) {
+    document.getElementById('cum-status').classList.add('show');
+  }
+}
+
+/* VOCABULARIO DATA */
+const vocabList = [
+  {"palavra": "brand awareness", "traducao": "reconhecimento de marca"},
+  {"palavra": "post-mortem", "traducao": "análise pós-evento / debriefing"},
+  {"palavra": "hostage", "traducao": "refém"},
+  {"palavra": "status quo", "traducao": "estado atual das coisas"},
+  {"palavra": "space weapon", "traducao": "arma espacial"},
+  {"palavra": "separatist movement", "traducao": "movimento separatista"},
+  {"palavra": "workforce", "traducao": "força de trabalho / mão de obra"},
+  {"palavra": "deterrent", "traducao": "fator de dissuasão"}
+];
+
+let vocabIdx = 0;
+let vocabReviewedCount = 0;
+
+function updateVocabCard() {
+  const current = vocabList[vocabIdx];
+  document.getElementById('vocab-word-en').innerText = current.palavra;
+  document.getElementById('vocab-word-pt').innerText = current.traducao;
+  document.getElementById('vocab-word-pt').classList.remove('show');
+  document.getElementById('vocab-actions-initial').style.display = 'flex';
+  document.getElementById('vocab-actions-eval').style.display = 'none';
+  document.getElementById('vocab-counter').innerText = `${vocabReviewedCount} de ${vocabList.length} revisadas`;
+}
+
+function playVocabAudio() {
+  playAudio(vocabList[vocabIdx].palavra);
+}
+
+function revelarTraducao() {
+  document.getElementById('vocab-word-pt').classList.add('show');
+  document.getElementById('vocab-actions-initial').style.display = 'none';
+  document.getElementById('vocab-actions-eval').style.display = 'flex';
+}
+
+function responderVocab(knew) {
+  vocabReviewedCount = Math.min(vocabReviewedCount + 1, vocabList.length);
+  vocabIdx = (vocabIdx + 1) % vocabList.length;
+  updateVocabCard();
+}
+
+/* EXERCÍCIO DE FIXAÇÃO DATA */
+const fixacaoData = [
+  {
+    sentence_before: "1. The marketing team launched a campaign to increase global ",
+    sentence_after: " in major international markets.",
+    correct: "brand awareness",
+    distractors: ["status quo", "workforce", "deterrent"],
+    exp: "'brand awareness' significa reconhecimento de marca."
+  },
+  {
+    sentence_before: "2. After the project failed, executives conducted a thorough ",
+    sentence_after: " to analyze what went wrong.",
+    correct: "post-mortem",
+    distractors: ["space weapon", "status quo", "workforce"],
+    exp: "'post-mortem' refere-se à análise pós-evento ou debriefing."
+  },
+  {
+    sentence_before: "3. The company refused to be held ",
+    sentence_after: " by unreasonable supplier demands.",
+    correct: "hostage",
+    distractors: ["deterrent", "workforce", "status quo"],
+    exp: "'hostage' significa refém neste contexto de negociação."
+  },
+  {
+    sentence_before: "4. Innovative leaders always challenge the ",
+    sentence_after: " to drive continuous growth and progress.",
+    correct: "status quo",
+    distractors: ["brand awareness", "post-mortem", "deterrent"],
+    exp: "'status quo' refere-se ao estado atual das coisas."
+  },
+  {
+    sentence_before: "5. International treaties strictly ban the deployment of any ",
+    sentence_after: " in Earth's orbit.",
+    correct: "space weapon",
+    distractors: ["status quo", "deterrent", "workforce"],
+    exp: "'space weapon' significa arma espacial."
+  },
+  {
+    sentence_before: "6. Regional instability grew due to the rising influence of a ",
+    sentence_after: " in the province.",
+    correct: "separatist movement",
+    distractors: ["status quo", "workforce", "hostage"],
+    exp: "'separatist movement' refere-se a um movimento separatista."
+  },
+  {
+    sentence_before: "7. The technology firm announced plans to expand its operational ",
+    sentence_after: " by twenty percent.",
+    correct: "workforce",
+    distractors: ["brand awareness", "status quo", "post-mortem"],
+    exp: "'workforce' significa força de trabalho ou mão de obra."
+  },
+  {
+    sentence_before: "8. A robust cybersecurity system serves as an effective ",
+    sentence_after: " against potential threats.",
+    correct: "deterrent",
+    distractors: ["status quo", "hostage", "workforce"],
+    exp: "'deterrent' significa fator de dissuasão."
+  }
+];
+
+let fixState = 'initial'; // initial, verified
+
+function initFixacao() {
+  const container = document.getElementById('fixacao-container');
+  container.innerHTML = '';
+
+  fixacaoData.forEach((item, index) => {
+    const card = document.createElement('div');
+    card.className = 'exercise-card';
+    card.id = `fix-card-${index}`;
+
+    const prompt = document.createElement('div');
+    prompt.className = 'exercise-prompt';
+    prompt.appendChild(document.createTextNode(item.sentence_before));
+
+    const select = document.createElement('select');
+    select.className = 'select-gap';
+    select.id = `fix-select-${index}`;
+
+    const defaultOpt = document.createElement('option');
+    defaultOpt.value = "";
+    defaultOpt.innerText = "-- Selecione --";
+    defaultOpt.disabled = true;
+    defaultOpt.selected = true;
+    select.appendChild(defaultOpt);
+
+    const optionsList = shuffleArray([item.correct, ...item.distractors]);
+    optionsList.forEach(opt => {
+      const o = document.createElement('option');
+      o.value = opt;
+      o.innerText = opt;
+      select.appendChild(o);
+    });
+
+    prompt.appendChild(select);
+    prompt.appendChild(document.createTextNode(item.sentence_after));
+
+    const fb = document.createElement('div');
+    fb.className = 'feedback-box';
+    fb.id = `fix-fb-${index}`;
+
+    card.appendChild(prompt);
+    card.appendChild(fb);
+    container.appendChild(card);
+  });
+}
+
+function verificarFixacao() {
+  if (fixState === 'verified') {
+    fixState = 'initial';
+    fixacaoData.forEach((item, index) => {
+      const card = document.getElementById(`fix-card-${index}`);
+      const fb = document.getElementById(`fix-fb-${index}`);
+      const select = document.getElementById(`fix-select-${index}`);
+      card.className = 'exercise-card';
+      fb.className = 'feedback-box';
+      fb.innerHTML = '';
+      select.selectedIndex = 0;
+    });
+    document.getElementById('fix-score').innerText = '';
+    document.getElementById('fix-btn').innerText = 'Verificar';
+    return;
+  }
+
+  let acertos = 0;
+  fixacaoData.forEach((item, index) => {
+    const card = document.getElementById(`fix-card-${index}`);
+    const fb = document.getElementById(`fix-fb-${index}`);
+    const select = document.getElementById(`fix-select-${index}`);
+    const selectedVal = select.value;
+
+    if (selectedVal === item.correct) {
+      acertos++;
+      card.className = 'exercise-card correct';
+      fb.innerHTML = `<div class="explanation">💡 ${item.exp}</div>`;
+    } else {
+      card.className = 'exercise-card incorrect';
+      fb.innerHTML = `<div class="correct-ans">✅ Resposta correta: ${item.correct}</div><div class="explanation">💡 ${item.exp}</div>`;
+    }
+    fb.classList.add('show');
+  });
+
+  document.getElementById('fix-score').innerText = `${acertos} de ${fixacaoData.length} corretas`;
+  document.getElementById('fix-btn').innerText = 'Tentar de novo';
+  fixState = 'verified';
+
+  enviarResultado("Exercício de Fixação", acertos, fixacaoData.length);
+  if (META_ENVIO.apps_script_url) {
+    document.getElementById('fix-status').classList.add('show');
+  }
+}
+
+function copiarHomework() {
+  const items = Array.from(document.querySelectorAll('#hw-list li')).map(li => li.innerText.trim());
+  const textToCopy = "Homework:\n" + items.map(i => "- " + i).join("\n");
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    alert("Homework copiado para a área de transferência!");
+  }).catch(() => {});
+}
+
+// Check SpeechSynthesis availability
+window.addEventListener('DOMContentLoaded', () => {
+  if (!('speechSynthesis' in window)) {
+    document.querySelectorAll('.audio-btn').forEach(btn => btn.style.display = 'none');
+    document.getElementById('audioToggleBtn').style.display = 'none';
+  }
+  initCumulativa();
+  updateVocabCard();
+  initFixacao();
+});
+</script>
+</body>
+</html>
