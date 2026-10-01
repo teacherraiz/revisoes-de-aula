@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão 04/09/26 — Carlos</title>
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --success: #16a34a;
+    --success-bg: #f0fdf4;
+    --error: #dc2626;
+    --error-bg: #fef2f2;
+    --warning: #d97706;
+    --warning-bg: #fffbeb;
+    --radius: 12px;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    padding: 16px;
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  header {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .header-title h1 {
+    font-size: 1.25rem;
+    color: var(--text-main);
+  }
+
+  .header-title p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .speed-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-main);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    font-size: 0.875rem;
+  }
+
+  .btn-speed {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    min-height: 36px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .encouragement {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary);
+    padding: 16px;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin-bottom: 20px;
+    font-style: italic;
+    color: #1e40af;
+  }
+
+  .example-item {
+    background: var(--bg-main);
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .example-en {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .example-pt {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .btn-audio {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .btn-audio:hover {
+    background: var(--border);
+  }
+
+  /* Exercise Styles */
+  .topic-group {
+    margin-bottom: 24px;
+  }
+
+  .topic-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+
+  .topic-rule {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    background: var(--bg-main);
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+
+  .ex-card {
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+  }
+
+  .ex-card.correct {
+    border-color: var(--success);
+    background: var(--success-bg);
+  }
+
+  .ex-card.incorrect {
+    border-color: var(--error);
+    background: var(--error-bg);
+  }
+
+  .ex-prompt {
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-option {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 6px;
+    text-align: left;
+    font-size: 0.95rem;
+    cursor: pointer;
+    min-height: 44px;
+    width: 100%;
+    transition: background 0.1s;
+  }
+
+  .btn-option.selected {
+    border-color: var(--primary);
+    background: #eff6ff;
+    font-weight: 600;
+  }
+
+  input[type="text"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    margin-top: 6px;
+    background: var(--card-bg);
+    min-height: 44px;
+  }
+
+  input[type="text"]:focus, select:focus {
+    outline: 2px solid var(--primary);
+  }
+
+  .feedback-msg {
+    margin-top: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .feedback-msg.correct { color: var(--success); }
+  .feedback-msg.incorrect { color: var(--error); }
+
+  .explanation-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .action-area {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-action {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    min-height: 44px;
+    width: 100%;
+  }
+
+  .btn-action:hover {
+    background: var(--primary-hover);
+  }
+
+  .score-board {
+    font-weight: 600;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  .sent-status {
+    font-size: 0.8rem;
+    color: var(--success);
+    text-align: center;
+    display: none;
+  }
+
+  /* Flashcards */
+  .fc-container {
+    text-align: center;
+  }
+
+  .fc-counter {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .flashcard {
+    background: var(--bg-main);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 16px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .fc-word {
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+
+  .fc-trans {
+    font-size: 1.1rem;
+    color: var(--primary);
+    font-weight: 500;
+  }
+
+  .fc-nav {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .btn-eval {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 44px;
+  }
+
+  .btn-knew {
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    color: var(--success);
+  }
+
+  .btn-review {
+    background: var(--warning-bg);
+    border: 1px solid var(--warning);
+    color: var(--warning);
+  }
+
+  /* Homework */
+  .hw-list {
+    list-style: none;
+    margin-bottom: 16px;
+  }
+
+  .hw-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .hw-list li:last-child {
+    border-bottom: none;
+  }
+
+  .btn-copy {
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    min-height: 44px;
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 10px; }
+    header { padding: 14px; }
+    .card { padding: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-title">
+    <h1>Revisão da aula de 04/09/26</h1>
+    <p>Olá, Carlos!</p>
+  </div>
+  <div class="speed-toggle">
+    <span>🔊 Áudio:</span>
+    <button id="speedBtn" class="btn-speed" onclick="toggleAudioSpeed()">1.0x</button>
+  </div>
+</header>
+
+<div class="encouragement">
+  "Sua capacidade de expor argumentos complexos 100% em inglês é impressionante. Continue praticando o vocabulário específico para ganhar ainda mais precisão."
+</div>
+
+<div class="card">
+  <div class="section-title">📖 Recapitulação da Regra</div>
+  <p><strong>Vocabulário de tecnologia, segurança e defesa</strong></p>
+  <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:12px;">
+    Para discutir temas de tecnologia e segurança com precisão, é importante usar o vocabulário específico de equipamentos e diferenciar termos parecidos na pronúncia.
+  </p>
+
+  <div class="example-item">
+    <div class="example-en">
+      <span>New technology helps protect facilities against unauthorized drones.</span>
+      <button class="btn-audio" onclick="speak('New technology helps protect facilities against unauthorized drones.')">🔊</button>
+    </div>
+    <div class="example-pt">A nova tecnologia ajuda a proteger instalações contra drones não autorizados.</div>
+  </div>
+
+  <div class="example-item">
+    <div class="example-en">
+      <span>Security teams need appropriate weapons and signal jammers.</span>
+      <button class="btn-audio" onclick="speak('Security teams need appropriate weapons and signal jammers.')">🔊</button>
+    </div>
+    <div class="example-pt">As equipes de segurança precisam de armas adequadas e bloqueadores de sinal.</div>
+  </div>
+
+  <div class="example-item">
+    <div class="example-en">
+      <span>Fiber optic cables ensure stable communication over long distances.</span>
+      <button class="btn-audio" onclick="speak('Fiber optic cables ensure stable communication over long distances.')">🔊</button>
+    </div>
+    <div class="example-pt">Cabos de fibra óptica garantem comunicação estável em longas distâncias.</div>
+  </div>
+</div>
+
+<!-- Revisão Cumulativa -->
+<div class="card" id="sec-cumulativa">
+  <div class="section-title">🔁 Revisão Cumulativa</div>
+  
+  <div class="topic-group">
+    <div class="topic-title">Reported Speech - Backshifting</div>
+    <div class="topic-rule">No discurso indireto, os tempos verbais recuam para o passado: o Present Simple vira Past Simple e o Will vira Would.</div>
+    
+    <div class="ex-card" id="cum-ex-0">
+      <div class="ex-prompt">During the meeting, the director mentioned that she ____ a new strategy to improve client engagement.</div>
+      <div class="options-grid" id="cum-opt-0"></div>
+      <div class="feedback-msg" id="cum-fb-0"></div>
+    </div>
+
+    <div class="ex-card" id="cum-ex-1">
+      <div class="ex-prompt">He reassured the team that he ____ (call) the London office later that afternoon.</div>
+      <input type="text" id="cum-in-1" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      <div class="feedback-msg" id="cum-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="topic-group">
+    <div class="topic-title">Wishes and Regrets</div>
+    <div class="topic-rule">Usamos 'wish' + Past Simple para desejos no presente e 'wish' + Past Perfect para arrependimentos no passado.</div>
+    
+    <div class="ex-card" id="cum-ex-2">
+      <div class="ex-prompt">I wish our department ____ more resources to manage this project currently.</div>
+      <div class="options-grid" id="cum-opt-2"></div>
+      <div class="feedback-msg" id="cum-fb-2"></div>
+    </div>
+
+    <div class="ex-card" id="cum-ex-3">
+      <div class="ex-prompt">She wishes she ____ (not / decline) the job offer in Manchester last month.</div>
+      <input type="text" id="cum-in-3" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      <div class="feedback-msg" id="cum-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="action-area">
+    <div class="score-board" id="cum-score"></div>
+    <button class="btn-action" id="cum-btn" onclick="checkCumulativa()">Verificar</button>
+    <div class="sent-status" id="cum-sent">📤 Resultado enviado ao professor</div>
+  </div>
+</div>
+
+<!-- Vocabulário Novo Flashcards -->
+<div class="card">
+  <div class="section-title">📚 Vocabulário Novo</div>
+  <div class="fc-container">
+    <div class="fc-counter" id="fcCounter">1 de 8 revisadas</div>
+    <div class="flashcard">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span class="fc-word" id="fcWord">drone</span>
+        <button class="btn-audio" onclick="speakCurrentFc()">🔊</button>
+      </div>
+      <div class="fc-trans" id="fcTrans" style="display:none;">drone / veículo aéreo não tripulado</div>
+    </div>
+    
+    <div id="fcActions">
+      <button class="btn-action" id="btnRevealFc" onclick="revealFc()">Revelar tradução</button>
+      <div class="fc-nav" id="fcEvalBtns" style="display:none;">
+        <button class="btn-eval btn-knew" onclick="nextFc()">✅ Eu sabia</button>
+        <button class="btn-eval btn-review" onclick="nextFc()">🔄 Preciso revisar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Exercício de Fixação -->
+<div class="card" id="sec-fixacao">
+  <div class="section-title">✏️ Exercício de Fixação</div>
+  <div id="fixContainer"></div>
+  
+  <div class="action-area">
+    <div class="score-board" id="fix-score"></div>
+    <button class="btn-action" id="fix-btn" onclick="checkFixacao()">Verificar</button>
+    <div class="sent-status" id="fix-sent">📤 Resultado enviado ao professor</div>
+  </div>
+</div>
+
+<!-- Homework -->
+<div class="card">
+  <div class="section-title">🏠 Homework</div>
+  <ul class="hw-list">
+    <li>📌 Praticar a pronúncia e diferenciação entre 'drone', 'drawing' e 'weapon'.</li>
+    <li>📌 Assistir a um vídeo sobre tecnologia de segurança anti-drone em inglês para fixar o vocabulário.</li>
+  </ul>
+  <button class="btn-copy" onclick="copyHomework()">Copiar homework</button>
+</div>
+
+<script>
+// Data Setup
+const META_ENVIO = {"aluno_id": "carlos-rafael", "aluno": "Carlos Rafael", "data_aula": "04/09/26", "accent": "UK", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+
+const VOCABULARIO = [
+  {"palavra": "drone", "traducao": "drone / veículo aéreo não tripulado"},
+  {"palavra": "weapon", "traducao": "arma / armamento"},
+  {"palavra": "optical fiber", "traducao": "fibra óptica"},
+  {"palavra": "jammer", "traducao": "bloqueador de sinal eletrônico"},
+  {"palavra": "shotgun", "traducao": "espingarda / escopeta"},
+  {"palavra": "spider web", "traducao": "teia de aranha"},
+  {"palavra": "narco-trafficker", "traducao": "traficante de drogas"},
+  {"palavra": "BB gun", "traducao": "arma de chumbinho / munição de chumbo esférico"}
+];
+
+const CUMULATIVA_DATA = [
+  {
+    type: "mc",
+    prompt: "During the meeting, the director mentioned that she ____ a new strategy to improve client engagement.",
+    options: ["wants", "wanted", "will want"],
+    correct: "wanted",
+    exp: "No discurso indireto, o verbo no Present Simple ('want') recua para o Past Simple ('wanted')."
+  },
+  {
+    type: "gap",
+    prompt: "He reassured the team that he ____ (call) the London office later that afternoon.",
+    correct: ["would call"],
+    exp: "Ao relatar uma promessa ou intenção futura no discurso indireto, 'will' recua para 'would'."
+  },
+  {
+    type: "mc",
+    prompt: "I wish our department ____ more resources to manage this project currently.",
+    options: ["had", "has", "had had"],
+    correct: "had",
+    exp: "Para expressar um desejo sobre o presente, usamos 'wish' seguido do Past Simple (had)."
+  },
+  {
+    type: "gap",
+    prompt: "She wishes she ____ (not / decline) the job offer in Manchester last month.",
+    correct: ["hadn't declined", "had not declined"],
+    exp: "Para expressar um arrependimento referente a um evento do passado, usamos 'wish' seguido do Past Perfect (hadn't declined)."
+  }
+];
+
+const FIXACAO_DATA = [
+  { sentence: "The security team deployed an aerial ____ to monitor the border.", correct: "drone" },
+  { sentence: "The guard was instructed not to use his ____ unless strictly necessary.", correct: "weapon" },
+  { sentence: "They installed high-speed ____ cables to protect the signal from interference.", correct: "optical fiber" },
+  { sentence: "A powerful signal ____ was used to disable remote control communications.", correct: "jammer" },
+  { sentence: "The officer carried a specialized ____ to clear heavy barriers in the building.", correct: "shotgun" },
+  { sentence: "The pattern of the cracked glass looked remarkably like a ____.", correct: "spider web" },
+  { sentence: "Authorities intercepted a high-profile ____ attempting to cross the maritime border.", correct: "narco-trafficker" },
+  { sentence: "He practiced shooting target boards at home using a non-lethal ____.", correct: "BB gun" }
+];
+
+// Audio State
+let audioSpeed = 1.0;
+function toggleAudioSpeed() {
+  audioSpeed = audioSpeed === 1.0 ? 0.75 : 1.0;
+  document.getElementById('speedBtn').innerText = audioSpeed === 1.0 ? '1.0x' : '0.75x';
+}
+
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = META_ENVIO.accent === 'UK' ? 'en-GB' : 'en-US';
+  utter.rate = audioSpeed;
+  window.speechSynthesis.speak(utter);
+}
+
+// Helpers
+function shuffleArray(arr) {
+  const newArr = [...arr];
+  for (let i = newArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+  }
+  return newArr;
+}
+
+function normalizeStr(str) {
+  if (!str) return '';
+  return str
+    .replace(/[’‘]/g, "'")
+    .replace(/[“”]/g, '"')
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLowerCase()
+    .replace(/^["']|["']$/g, '')
+    .replace(/[.!?]+$/g, '')
+    .trim();
+}
+
+// Result Sender
+const enviados = {};
+function enviarResultado(secao, acertos, total) {
+  if (enviados[secao] || !META_ENVIO.apps_script_url) return;
+  enviados[secao] = true;
+  fetch(META_ENVIO.apps_script_url, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({
+      aluno_id: META_ENVIO.aluno_id,
+      aluno: META_ENVIO.aluno,
+      data_aula: META_ENVIO.data_aula,
+      secao: secao,
+      acertos: acertos,
+      total: total
+    })
+  }).catch(() => {});
+}
+
+// Initialize Cumulativa
+const cumAnswers = {};
+function initCumulativa() {
+  CUMULATIVA_DATA.forEach((item, idx) => {
+    if (item.type === 'mc') {
+      const container = document.getElementById(`cum-opt-${idx}`);
+      container.innerHTML = '';
+      const shuffled = shuffleArray(item.options);
+      shuffled.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-option';
+        btn.innerText = opt;
+        btn.onclick = () => {
+          cumAnswers[idx] = opt;
+          Array.from(container.children).forEach(c => c.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+        container.appendChild(btn);
+      });
+    }
+  });
+}
+
+let cumChecked = false;
+function checkCumulativa() {
+  if (cumChecked) {
+    // Reset
+    cumChecked = false;
+    cumAnswers = {};
+    document.getElementById('cum-btn').innerText = 'Verificar';
+    document.getElementById('cum-score').innerText = '';
+    CUMULATIVA_DATA.forEach((item, idx) => {
+      const card = document.getElementById(`cum-ex-${idx}`);
+      card.className = 'ex-card';
+      document.getElementById(`cum-fb-${idx}`).innerHTML = '';
+      if (item.type === 'mc') {
+        const container = document.getElementById(`cum-opt-${idx}`);
+        Array.from(container.children).forEach(c => c.classList.remove('selected'));
+      } else {
+        document.getElementById(`cum-in-${idx}`).value = '';
+      }
+    });
+    return;
+  }
+
+  let acertos = 0;
+  CUMULATIVA_DATA.forEach((item, idx) => {
+    const card = document.getElementById(`cum-ex-${idx}`);
+    const fb = document.getElementById(`cum-fb-${idx}`);
+    let isCorrect = false;
+
+    if (item.type === 'mc') {
+      const ans = cumAnswers[idx];
+      isCorrect = (ans === item.correct);
+    } else {
+      const val = normalizeStr(document.getElementById(`cum-in-${idx}`).value);
+      const validAnswers = item.correct.map(normalizeStr);
+      isCorrect = validAnswers.includes(val);
+    }
+
+    if (isCorrect) {
+      acertos++;
+      card.className = 'ex-card correct';
+      fb.className = 'feedback-msg correct';
+      fb.innerHTML = `✅ Correto! <div class="explanation-text">${item.exp}</div>`;
+    } else {
+      card.className = 'ex-card incorrect';
+      fb.className = 'feedback-msg incorrect';
+      const rightAns = Array.isArray(item.correct) ? item.correct[0] : item.correct;
+      fb.innerHTML = `❌ Resposta incorreta.<br>✅ Resposta correta: <strong>${rightAns}</strong><div class="explanation-text">${item.exp}</div>`;
+    }
+  });
+
+  const total = CUMULATIVA_DATA.length;
+  document.getElementById('cum-score').innerText = `Pontuação: ${acertos} de ${total} corretas`;
+  document.getElementById('cum-btn').innerText = 'Tentar de novo';
+  cumChecked = true;
+
+  enviarResultado('Revisão Cumulativa', acertos, total);
+  if (META_ENVIO.apps_script_url) {
+    document.getElementById('cum-sent').style.display = 'block';
+  }
+}
+
+// Flashcards
+let fcIndex = 0;
+let fcReviewedCount = 0;
+const reviewedSet = new Set();
+
+function updateFc() {
+  const current = VOCABULARIO[fcIndex];
+  document.getElementById('fcWord').innerText = current.palavra;
+  document.getElementById('fcTrans').innerText = current.traducao;
+  document.getElementById('fcTrans').style.display = 'none';
+  document.getElementById('btnRevealFc').style.display = 'block';
+  document.getElementById('fcEvalBtns').style.display = 'none';
+  document.getElementById('fcCounter').innerText = `${reviewedSet.size} de ${VOCABULARIO.length} revisadas`;
+}
+
+function revealFc() {
+  document.getElementById('fcTrans').style.display = 'block';
+  document.getElementById('btnRevealFc').style.display = 'none';
+  document.getElementById('fcEvalBtns').style.display = 'flex';
+}
+
+function nextFc() {
+  reviewedSet.add(fcIndex);
+  fcIndex = (fcIndex + 1) % VOCABULARIO.length;
+  updateFc();
+}
+
+function speakCurrentFc() {
+  speak(VOCABULARIO[fcIndex].palavra);
+}
+
+// Fixação
+const fixAnswers = {};
+function initFixacao() {
+  const container = document.getElementById('fixContainer');
+  container.innerHTML = '';
+  
+  FIXACAO_DATA.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'ex-card';
+    card.id = `fix-ex-${idx}`;
+
+    const prompt = document.createElement('div');
+    prompt.className = 'ex-prompt';
+    prompt.innerText = `${idx + 1}. ${item.sentence}`;
+
+    // Options: 1 correct + 3 distractors
+    const otherWords = VOCABULARIO.map(v => v.palavra).filter(w => w !== item.correct);
+    const distractors = shuffleArray(otherWords).slice(0, 3);
+    const allOptions = shuffleArray([item.correct, ...distractors]);
+
+    const select = document.createElement('select');
+    select.id = `fix-sel-${idx}`;
+    
+    const defaultOpt = document.createElement('option');
+    defaultOpt.value = '';
+    defaultOpt.innerText = '-- Selecione --';
+    defaultOpt.disabled = true;
+    defaultOpt.selected = true;
+    select.appendChild(defaultOpt);
+
+    allOptions.forEach(opt => {
+      const o = document.createElement('option');
+      o.value = opt;
+      o.innerText = opt;
+      select.appendChild(o);
+    });
+
+    const fb = document.createElement('div');
+    fb.className = 'feedback-msg';
+    fb.id = `fix-fb-${idx}`;
+
+    card.appendChild(prompt);
+    card.appendChild(select);
+    card.appendChild(fb);
+    container.appendChild(card);
+  });
+}
+
+let fixChecked = false;
+function checkFixacao() {
+  if (fixChecked) {
+    fixChecked = false;
+    document.getElementById('fix-btn').innerText = 'Verificar';
+    document.getElementById('fix-score').innerText = '';
+    FIXACAO_DATA.forEach((_, idx) => {
+      document.getElementById(`fix-ex-${idx}`).className = 'ex-card';
+      document.getElementById(`fix-fb-${idx}`).innerHTML = '';
+      document.getElementById(`fix-sel-${idx}`).selectedIndex = 0;
+    });
+    return;
+  }
+
+  let acertos = 0;
+  FIXACAO_DATA.forEach((item, idx) => {
+    const card = document.getElementById(`fix-ex-${idx}`);
+    const fb = document.getElementById(`fix-fb-${idx}`);
+    const val = document.getElementById(`fix-sel-${idx}`).value;
+
+    if (val === item.correct) {
+      acertos++;
+      card.className = 'ex-card correct';
+      fb.className = 'feedback-msg correct';
+      fb.innerText = '✅ Correto!';
+    } else {
+      card.className = 'ex-card incorrect';
+      fb.className = 'feedback-msg incorrect';
+      fb.innerHTML = `❌ Incorreto.<br>✅ Resposta correta: <strong>${item.correct}</strong>`;
+    }
+  });
+
+  const total = FIXACAO_DATA.length;
+  document.getElementById('fix-score').innerText = `Pontuação: ${acertos} de ${total} corretas`;
+  document.getElementById('fix-btn').innerText = 'Tentar de novo';
+  fixChecked = true;
+
+  enviarResultado('Exercício de Fixação', acertos, total);
+  if (META_ENVIO.apps_script_url) {
+    document.getElementById('fix-sent').style.display = 'block';
+  }
+}
+
+// Copy Homework
+function copyHomework() {
+  const text = "Praticar a pronúncia e diferenciação entre 'drone', 'drawing' e 'weapon'.\nAssistir a um vídeo sobre tecnologia de segurança anti-drone em inglês para fixar o vocabulário.";
+  navigator.clipboard.writeText(text).then(() => {
+    alert("Homework copiado para a área de transferência!");
+  }).catch(() => {});
+}
+
+// On Load
+window.onload = () => {
+  initCumulativa();
+  updateFc();
+  initFixacao();
+};
+</script>
+
+</body>
+</html>
