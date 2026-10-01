@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 15/09/26 — Raphael</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --error: #dc2626;
+      --warning: #eab308;
+      
+      /* Treino de Desbloqueio palette */
+      --td-primary: #1E5AA8;
+      --td-accent: #FF7A00;
+      --td-correct: #1E5AA8;
+      --td-incorrect: #C75000;
+      --td-bg: #FFF9F5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Common Card Styles */
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    h1 { font-size: 1.4rem; color: var(--text); margin-bottom: 4px; }
+    h2 { font-size: 1.2rem; color: var(--text); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    h3 { font-size: 1.05rem; color: var(--text); margin-bottom: 8px; }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    /* Buttons & Inputs */
+    button {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, opacity 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      width: 100%;
+      margin-top: 12px;
+    }
+    .btn-primary:hover { background-color: var(--primary-hover); }
+
+    .btn-audio {
+      background-color: #eff6ff;
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      padding: 6px 12px;
+      min-height: 38px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .toggle-audio {
+      background: #e2e8f0;
+      color: var(--text);
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-top: 6px;
+      background-color: #fff;
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB6%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px top 50%;
+      background-size: 12px auto;
+      padding-right: 32px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    /* Rule section */
+    .rule-example {
+      background: #f1f5f9;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+    .rule-example-en {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .rule-example-pt {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Treino de Desbloqueio Specifics */
+    .td-card {
+      border: 2px solid var(--td-accent);
+      background-color: var(--td-bg);
+    }
+    .td-card h2 { color: var(--td-primary); }
+    .td-btn { background-color: var(--td-primary); color: white; width: 100%; margin-top: 12px; }
+    .td-btn:hover { opacity: 0.9; }
+
+    .option-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 8px;
+      cursor: pointer;
+      background: white;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+    .option-card:hover { border-color: var(--primary); }
+
+    .mc-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    @media (min-width: 480px) {
+      .mc-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .mc-button {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-align: left;
+      justify-content: flex-start;
+      border-radius: 8px;
+    }
+    .mc-button.selected {
+      border-color: var(--primary);
+      background-color: #eff6ff;
+    }
+    .td-section .mc-button.selected {
+      border-color: var(--td-primary);
+      background-color: #eef4fc;
+    }
+
+    /* Word Reorder Tokens */
+    .token-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+      min-height: 48px;
+      padding: 6px;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      background: #fafafa;
+    }
+    .token {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    /* Flashcards */
+    .flashcard {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      margin-top: 12px;
+      background: white;
+    }
+    .flashcard-word {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .flashcard-trans {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin: 12px 0;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+    }
+    .flashcard-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .btn-know { border: 2px solid var(--success); color: var(--success); background: white; flex: 1; }
+    .btn-review { border: 2px solid var(--warning); color: #b45309; background: white; flex: 1; }
+
+    /* Feedback styles */
+    .feedback {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .feedback-explanation {
+      margin-top: 4px;
+      color: var(--text-muted);
+    }
+    .feedback-correct-ans {
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* Section States */
+    .is-correct { border-color: var(--success) !important; background-color: #f0fdf4 !important; }
+    .is-incorrect { border-color: var(--error) !important; background-color: #fef2f2 !important; }
+
+    .td-section .is-correct { border-color: var(--td-correct) !important; background-color: #eef4fc !important; color: var(--td-correct); }
+    .td-section .is-incorrect { border-color: var(--td-incorrect) !important; background-color: #fff1f0 !important; color: var(--td-incorrect); }
+
+    .score-board {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .submission-msg {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      text-align: center;
+      display: none;
+    }
+
+    .dialogue-line {
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.7);
+    }
+    .dialogue-q { font-weight: 600; margin-bottom: 4px; }
+
+    /* Homework */
+    .hw-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <h1>Revisão da aula de 15/09/26</h1>
+      <div class="subtitle">Olá, Raphael! Vamos consolidar o aprendizado de hoje.</div>
+    </div>
+    <button class="toggle-audio" onclick="toggleAudioSpeed()" id="speed-btn">🔊 1.0x</button>
+  </div>
+
+  <!-- Encorajamento -->
+  <div class="card" style="border-left: 4px solid var(--primary);">
+    <p>Sua capacidade de se expressar espontaneamente sobre temas do dia a dia está cada vez mais forte. Lembre-se de que cada ajuste de estrutura faz parte da consolidação do seu aprendizado.</p>
+  </div>
+
+  <!-- Recapitulação da Regra -->
+  <div class="card">
+    <h2>📖 Demonstrativos (This, That, These, Those)</h2>
+    <p style="margin-bottom: 12px;">Usamos 'this' (este/esta) e 'these' (estes/estas) para objetos que estão ao alcance das mãos. Usamos 'that' (aquele/aquela) e 'those' (aqueles/aquelas) para coisas mais distantes.</p>
+    
+    <div class="rule-example">
+      <div class="rule-example-en">
+        <span>This notebook is on my desk.</span>
+        <button class="btn-audio" onclick="speak('This notebook is on my desk.')">🔊</button>
+      </div>
+      <div class="rule-example-pt">Este notebook está na minha mesa.</div>
+    </div>
+
+    <div class="rule-example">
+      <div class="rule-example-en">
+        <span>That machine is in the factory.</span>
+        <button class="btn-audio" onclick="speak('That machine is in the factory.')">🔊</button>
+      </div>
+      <div class="rule-example-pt">Aquela máquina está na fábrica.</div>
+    </div>
+
+    <div class="rule-example">
+      <div class="rule-example-en">
+        <span>These samples are ready.</span>
+        <button class="btn-audio" onclick="speak('These samples are ready.')">🔊</button>
+      </div>
+      <div class="rule-example-pt">Estas amostras estão prontas.</div>
+    </div>
+
+    <div class="rule-example">
+      <div class="rule-example-en">
+        <span>Those products belong to a client.</span>
+        <button class="btn-audio" onclick="speak('Those products belong to a client.')">🔊</button>
+      </div>
+      <div class="rule-example-pt">Aqueles produtos pertencem a um cliente.</div>
+    </div>
+  </div>
+
+  <!-- Treino de Desbloqueio -->
+  <div class="card td-card td-section" id="sec-treino">
+    <h2>🎯 Treino de Desbloqueio</h2>
+    <div class="subtitle">Superando o uso incorreto do verbo 'have' para existência.</div>
+    <div class="score-board" id="score-treino"></div>
+
+    <!-- Item 1: compare_contrast_implicito -->
+    <div style="margin-bottom: 16px;" class="td-item" data-type="cc" data-correct="a" data-exp="Para dizer que algo ou alguém existe, usamos 'there is' (singular) ou 'there are' (plural). O verbo 'has/have' indica posse, não existência.">
+      <p><strong>1. Qual frase indica corretamente a existência de um novo funcionário?</strong></p>
+      <div class="cc-options"></div>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Item 2: multiple_choice_avancado -->
+    <div style="margin-bottom: 16px;" class="td-item" data-type="mc" data-correct="there is" data-exp="Para indicar a presença/existência de um elemento no singular ('an anxious employee'), a estrutura correta é 'there is'.">
+      <p><strong>2. Look, ____ an anxious employee in the meeting room.</strong></p>
+      <div class="mc-grid" data-options='["has", "there is", "there are", "have"]'></div>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Item 3: dialogo_tempos_mistos -->
+    <div style="margin-bottom: 16px;" class="td-item" data-type="dialogue" data-exp="Usamos 'there is' para coisas no singular ou incontáveis (a crisis, medicine) e 'there are' para o plural (two employees).">
+      <p><strong>3. Complete as respostas do diálogo:</strong></p>
+      <div class="dialogue-line" data-correct='["there is"]' data-full="Yes, there is a small crisis right now.">
+        <div class="dialogue-q">A: Is there a crisis at the factory?</div>
+        <div>B: Yes, <input type="text" style="width: 120px; display: inline-block;" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="____"> a small crisis right now.</div>
+        <div class="feedback"></div>
+      </div>
+      <div class="dialogue-line" data-correct='["there are"]' data-full="No, there are only two employees.">
+        <div class="dialogue-q">A: Are there many employees working at midnight?</div>
+        <div>B: No, <input type="text" style="width: 120px; display: inline-block;" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="____"> only two employees.</div>
+        <div class="feedback"></div>
+      </div>
+      <div class="dialogue-line" data-correct='["there is"]' data-full="Yes, there is some medicine here.">
+        <div class="dialogue-q">A: Is there any medicine in the building?</div>
+        <div>B: Yes, <input type="text" style="width: 120px; display: inline-block;" autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="____"> some medicine here.</div>
+        <div class="feedback"></div>
+      </div>
+    </div>
+
+    <!-- Item 4: reordenar_palavras -->
+    <div style="margin-bottom: 16px;" class="td-item" data-type="reorder" data-correct="Is there a dry place nearby?" data-exp="Em perguntas sobre existência, invertemos o verbo e usamos 'Is there' antes do substantivo.">
+      <p><strong>4. Ordene as palavras para formar a pergunta correta:</strong></p>
+      <div class="token-container target-tokens" style="min-height: 44px; background: white;"></div>
+      <div class="token-container source-tokens" data-tokens='["there", "dry", "Is", "place", "a", "nearby?"]'></div>
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Item 5: translation_challenge 1 -->
+    <div style="margin-bottom: 16px;" class="td-item" data-type="text" data-correct='["There is a crisis in the office at midnight.", "There&#39;s a crisis in the office at midnight."]' data-exp="Para traduzir 'Há' indicando existência no singular, usa-se 'there is' (ou 'there's'). Nunca utilize 'have' ou 'has'.">
+      <p><strong>5. Traduza: "Há uma crise no escritório à meia-noite."</strong></p>
+      <input type="text" class="text-ans" placeholder="Type in English..." autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Item 6: translation_challenge 2 -->
+    <div style="margin-bottom: 16px;" class="td-item" data-type="text" data-correct='["There are anxious employees in the factory.", "There are anxious workers in the factory."]' data-exp="Para o plural 'funcionários ansiosos', a forma correta do verbo haver/existir é 'there are'.">
+      <p><strong>6. Traduza: "Existem funcionários ansiosos na fábrica."</strong></p>
+      <input type="text" class="text-ans" placeholder="Type in English..." autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
+      <div class="feedback"></div>
+    </div>
+
+    <!-- Item 7: translation_challenge 3 -->
+    <div style="margin-bottom: 16px;" class="td-item" data-type="text" data-correct='["There is no medicine near the factory.", "There isn&#39;t any medicine near the factory.", "There is not any medicine near the factory.", "There&#39;s no medicine near the factory."]' data-exp="Para frases negativas no singular, usamos 'there is no' ou 'there isn't any' para dizer que não há algo.">
+      <p><strong>7. Traduza: "Não há remédio perto da fábrica."</strong></p>
+      <input type="text" class="text-ans" placeholder="Type in English..." autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
+      <div class="feedback"></div>
+    </div>
+
+    <button class="td-btn btn-check" onclick="checkTreino()">Verificar Treino</button>
+    <div class="submission-msg" id="sub-treino">📤 Resultado enviado ao professor</div>
+  </div>
+
+  <!-- Revisão Cumulativa -->
+  <div class="card" id="sec-cumulativa">
+    <h2>🔁 Revisão Cumulativa</h2>
+    <div class="score-board" id="score-cumulativa"></div>
+
+    <!-- Tópico 1 -->
+    <div style="margin-bottom: 20px;">
+      <h3>Demonstratives (This, That, These, Those)</h3>
+      <p class="subtitle">Usamos 'this' (singular) e 'these' (plural) para coisas ao alcance das mãos; 'that' (singular) e 'those' (plural) para coisas distantes.</p>
+
+      <div style="margin-bottom: 12px;" class="cum-item" data-type="mc" data-correct="those" data-exp="Usamos 'those' para objetos no plural que estão distantes do falante ('over there').">
+        <p>1. Can you pass me ____ keys over there on the table?</p>
+        <div class="mc-grid" data-options='["this", "those", "these"]'></div>
+        <div class="feedback"></div>
+      </div>
+
+      <div style="margin-bottom: 12px;" class="cum-item" data-type="text" data-correct='["these"]' data-exp="Como o substantivo está no plural ('documents') e ao alcance das mãos ('in my hand'), mudamos 'this' para 'these'.">
+        <p>2. Look at ____ (this) documents here in my hand.</p>
+        <input type="text" class="text-ans" placeholder="Digite sua resposta em inglês..." autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
+        <div class="feedback"></div>
+      </div>
+    </div>
+
+    <!-- Tópico 2 -->
+    <div>
+      <h3>Nouns & Pronouns (Posição dos Adjetivos)</h3>
+      <p class="subtitle">Em inglês, os adjetivos vêm antes do substantivo (ex: waterproof labels, new machinery).</p>
+
+      <div style="margin-bottom: 12px;" class="cum-item" data-type="mc" data-correct="big desk" data-exp="Em inglês, a qualidade/adjetivo ('big') vem sempre antes do objeto/substantivo ('desk').">
+        <p>3. We need to buy a ____ for the main office.</p>
+        <div class="mc-grid" data-options='["desk big", "big desk", "desks big"]'></div>
+        <div class="feedback"></div>
+      </div>
+
+      <div style="margin-bottom: 12px;" class="cum-item" data-type="text" data-correct='["red coat"]' data-exp="O adjetivo 'red' deve ser posicionado antes do substantivo 'coat'.">
+        <p>4. She wears a ____ (coat / red) to work on rainy days.</p>
+        <input type="text" class="text-ans" placeholder="Digite sua resposta em inglês..." autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false">
+        <div class="feedback"></div>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="checkCumulativa()">Verificar Revisão</button>
+    <div class="submission-msg" id="sub-cumulativa">📤 Resultado enviado ao professor</div>
+  </div>
+
+  <!-- Vocabulário Novo -->
+  <div class="card">
+    <h2>📚 Vocabulário Novo</h2>
+    <div class="subtitle" id="vocab-counter">0 de 8 revisadas</div>
+
+    <div class="flashcard">
+      <div class="flashcard-word">
+        <span id="fc-word">midnight</span>
+        <button class="btn-audio" id="fc-audio">🔊</button>
+      </div>
+      <div class="flashcard-trans" id="fc-trans" style="display:none;">meia-noite</div>
+      
+      <button class="btn-primary" id="fc-btn-reveal" onclick="revealFlashcard()">Revelar tradução</button>
+      
+      <div class="flashcard-actions" id="fc-actions" style="display:none;">
+        <button class="btn-know" onclick="answerFlashcard(true)">✅ Eu sabia</button>
+        <button class="btn-review" onclick="answerFlashcard(false)">🔄 Preciso revisar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercício de Fixação -->
+  <div class="card" id="sec-fixacao">
+    <h2>✏️ Exercício de Fixação</h2>
+    <div class="subtitle">Complete as frases com o vocabulário correto aprendidos nesta aula.</div>
+    <div class="score-board" id="score-fixacao"></div>
+
+    <div class="fix-item" data-correct="midnight" style="margin-bottom: 12px;">
+      <p>1. The factory shift ends at <select data-options='["midnight", "medicine", "crisis", "employee"]'></select>, so everyone goes home late.</p>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="fix-item" data-correct="medicine" style="margin-bottom: 12px;">
+      <p>2. He felt sick, so he took some <select data-options='["medicine", "employee", "crisis", "dry"]'></select> before going to bed.</p>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="fix-item" data-correct="anxious" style="margin-bottom: 12px;">
+      <p>3. The team was very <select data-options='["anxious", "dry", "midnight", "lead"]'></select> before the big presentation.</p>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="fix-item" data-correct="crisis" style="margin-bottom: 12px;">
+      <p>4. The manager solved the financial <select data-options='["crisis", "medicine", "employee", "lead"]'></select> very quickly.</p>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="fix-item" data-correct="lead" style="margin-bottom: 12px;">
+      <p>5. A good manager knows how to <select data-options='["lead", "kick out", "dry", "anxious"]'></select> a team during difficult times.</p>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="fix-item" data-correct="kick out" style="margin-bottom: 12px;">
+      <p>6. They had to <select data-options='["kick out", "lead", "dry", "medicine"]'></select> the rowdy guest from the building.</p>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="fix-item" data-correct="dry" style="margin-bottom: 12px;">
+      <p>7. Please keep these documents in a <select data-options='["dry", "anxious", "midnight", "crisis"]'></select> place away from water.</p>
+      <div class="feedback"></div>
+    </div>
+
+    <div class="fix-item" data-correct="employee" style="margin-bottom: 12px;">
+      <p>8. She is a new <select data-options='["employee", "crisis", "medicine", "midnight"]'></select> who joined the marketing department today.</p>
+      <div class="feedback"></div>
+    </div>
+
+    <button class="btn-primary" onclick="checkFixacao()">Verificar Fixação</button>
+    <div class="submission-msg" id="sub-fixacao">📤 Resultado enviado ao professor</div>
+  </div>
+
+  <!-- Homework -->
+  <div class="card">
+    <h2>🏠 Homework</h2>
+    <div class="hw-item">
+      <span>•</span>
+      <div>Grave 4 frases curtas descrevendo a fábrica ou o escritório usando 'there is' ou 'there are'.</div>
+    </div>
+    <div class="hw-item">
+      <span>•</span>
+      <div>Pratique em voz alta 4 frases usando os demonstrativos 'this, that, these, those' com itens ao seu redor.</div>
+    </div>
+    <button class="btn-primary" style="background-color: #475569;" onclick="copyHomework()">Copiar homework</button>
+  </div>
+
+  <script>
+    // Globals
+    let audioSpeed = 1.0;
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec";
+    const ALUNO_ID = "raphael-bigal-barboza";
+    const ALUNO_NOME = "Raphael Bigal Barboza";
+    const DATA_AULA = "15/09/26";
+    const enviados = {};
+
+    function toggleAudioSpeed() {
+      audioSpeed = audioSpeed === 1.0 ? 0.75 : 1.0;
+      document.getElementById('speed-btn').innerText = `🔊 ${audioSpeed}x`;
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'en-GB';
+      utter.rate = audioSpeed;
+      window.speechSynthesis.speak(utter);
+    }
+
+    function normalizeText(text) {
+      if (!text) return '';
+      return text
+        .replace(/[’‘“”]/g, "'")
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .replace(/^["']|["']$/g, '')
+        .replace(/[.!?]$/, '');
+    }
+
+    function enviarResultado(secao, acertos, total) {
+      if (!APPS_SCRIPT_URL || enviados[secao]) return;
+      enviados[secao] = true;
+      fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: ALUNO_ID,
+          aluno: ALUNO_NOME,
+          data_aula: DATA_AULA,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+    }
+
+    // Helper: Shuffle Array
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // Flashcard System
+    const vocabList = [
+      {"palavra": "midnight", "traducao": "meia-noite"},
+      {"palavra": "medicine", "traducao": "remédio / medicamento"},
+      {"palavra": "anxious", "traducao": "ansioso"},
+      {"palavra": "crisis", "traducao": "crise"},
+      {"palavra": "lead", "traducao": "liderar / conduzir"},
+      {"palavra": "kick out", "traducao": "expulsar / demitir"},
+      {"palavra": "dry", "traducao": "seco / estiagem"},
+      {"palavra": "employee", "traducao": "funcionário / colaborador"}
+    ];
+    let fcIndex = 0;
+    let fcReviewedCount = 0;
+    const reviewedSet = new Set();
+
+    function updateFlashcard() {
+      const item = vocabList[fcIndex];
+      document.getElementById('fc-word').innerText = item.palavra;
+      document.getElementById('fc-trans').innerText = item.traducao;
+      document.getElementById('fc-trans').style.display = 'none';
+      document.getElementById('fc-btn-reveal').style.display = 'block';
+      document.getElementById('fc-actions').style.display = 'none';
+      document.getElementById('fc-audio').onclick = () => speak(item.palavra);
+    }
+
+    function revealFlashcard() {
+      document.getElementById('fc-trans').style.display = 'block';
+      document.getElementById('fc-btn-reveal').style.display = 'none';
+      document.getElementById('fc-actions').style.display = 'flex';
+    }
+
+    function answerFlashcard(knew) {
+      reviewedSet.add(fcIndex);
+      document.getElementById('vocab-counter').innerText = `${reviewedSet.size} de ${vocabList.length} revisadas`;
+      fcIndex = (fcIndex + 1) % vocabList.length;
+      updateFlashcard();
+    }
+
+    // Initialize UI on load
+    window.addEventListener('DOMContentLoaded', () => {
+      // Setup audio buttons hiding if no speech synth
+      if (!('speechSynthesis' in window)) {
+        document.querySelectorAll('.btn-audio, .toggle-audio').forEach(b => b.style.display = 'none');
+      }
+
+      // Init Flashcard
+      updateFlashcard();
+
+      // Render Compare / Contrast
+      document.querySelectorAll('.td-item[data-type="cc"]').forEach(item => {
+        const container = item.querySelector('.cc-options');
+        let options = [
+          { key: 'a', text: 'In the office, there is a new employee today.' },
+          { key: 'b', text: 'In the office, has a new employee today.' }
+        ];
+        options = shuffle(options);
+        container.innerHTML = options.map(o => `
+          <div class="option-card" onclick="selectOption(this, '${o.key}')" data-key="${o.key}">
+            ${o.text}
+          </div>
+        `).join('');
+      });
+
+      // Render Multiple Choice Grids
+      document.querySelectorAll('.mc-grid').forEach(grid => {
+        const rawOptions = JSON.parse(grid.getAttribute('data-options'));
+        const shuffled = shuffle(rawOptions);
+        grid.innerHTML = shuffled.map(opt => `
+          <button class="mc-button" onclick="selectMC(this, '${opt}')">${opt}</button>
+        `).join('');
+      });
+
+      // Render Reorder Tokens
+      document.querySelectorAll('.td-item[data-type="reorder"]').forEach(item => {
+        const sourceContainer = item.querySelector('.source-tokens');
+        const targetContainer = item.querySelector('.target-tokens');
+        const rawTokens = JSON.parse(sourceContainer.getAttribute('data-tokens'));
+        const shuffled = shuffle(rawTokens);
+
+        function renderTokens() {
+          sourceContainer.innerHTML = '';
+          shuffled.forEach((tok, idx) => {
+            if (!tok) return;
+            const btn = document.createElement('div');
+            btn.className = 'token';
+            btn.innerText = tok;
+            btn.onclick = () => {
+              targetContainer.appendChild(btn);
+              btn.onclick = () => {
+                sourceContainer.appendChild(btn);
+                btn.onclick = arguments.callee;
+              };
+            };
+            sourceContainer.appendChild(btn);
+          });
+        }
+        renderTokens();
+      });
+
+      // Render Fixação Select Options
+      document.querySelectorAll('.fix-item select').forEach(sel => {
+        const raw = JSON.parse(sel.getAttribute('data-options'));
+        const shuffled = shuffle(raw);
+        sel.innerHTML = `<option value="" disabled selected>-- Selecione --</option>` + 
+          shuffled.map(o => `<option value="${o}">${o}</option>`).join('');
+      });
+    });
+
+    // Option Selection Helpers
+    function selectOption(el, key) {
+      const parent = el.closest('.cc-options');
+      parent.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      parent.setAttribute('data-selected', key);
+    }
+
+    function selectMC(el, val) {
+      const parent = el.closest('.mc-grid');
+      parent.querySelectorAll('.mc-button').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+      parent.setAttribute('data-selected', val);
+    }
+
+    // CHECKING LOGIC
+
+    // 1. Treino de Desbloqueio
+    let treinoAttempts = 0;
+    function checkTreino() {
+      const sec = document.getElementById('sec-treino');
+      const btn = sec.querySelector('.td-btn');
+
+      if (btn.innerText === 'Tentar de novo') {
+        resetSection(sec);
+        btn.innerText = 'Verificar Treino';
+        return;
+      }
+
+      let total = 0;
+      let acertos = 0;
+
+      sec.querySelectorAll('.td-item').forEach(item => {
+        const type = item.getAttribute('data-type');
+        const exp = item.getAttribute('data-exp');
+        const fb = item.querySelector('.feedback');
+        let isCorrect = false;
+
+        if (type === 'cc') {
+          total++;
+          const selected = item.querySelector('.cc-options').getAttribute('data-selected');
+          const correctKey = item.getAttribute('data-correct');
+          isCorrect = (selected === correctKey);
+
+          item.querySelectorAll('.option-card').forEach(card => {
+            if (card.getAttribute('data-key') === correctKey) {
+              card.classList.add('is-correct');
+            } else if (card.getAttribute('data-key') === selected && !isCorrect) {
+              card.classList.add('is-incorrect');
+            }
+          });
+          showFB(fb, isCorrect, exp);
+        } else if (type === 'mc') {
+          total++;
+          const selected = item.querySelector('.mc-grid').getAttribute('data-selected');
+          const correctVal = item.getAttribute('data-correct');
+          isCorrect = (normalizeText(selected) === normalizeText(correctVal));
+
+          item.querySelectorAll('.mc-button').forEach(btn => {
+            if (normalizeText(btn.innerText) === normalizeText(correctVal)) {
+              btn.classList.add('is-correct');
+            } else if (normalizeText(btn.innerText) === normalizeText(selected) && !isCorrect) {
+              btn.classList.add('is-incorrect');
+            }
+          });
+          showFB(fb, isCorrect, exp, correctVal);
+        } else if (type === 'dialogue') {
+          item.querySelectorAll('.dialogue-line').forEach(line => {
+            total++;
+            const input = line.querySelector('input');
+            const userVal = normalizeText(input.value);
+            const correctArr = JSON.parse(line.getAttribute('data-correct')).map(normalizeText);
+            const lineFB = line.querySelector('.feedback');
+            const fullAns = line.getAttribute('data-full');
+
+            const lineCorrect = correctArr.includes(userVal);
+            if (lineCorrect) {
+              input.classList.add('is-correct');
+              acertos++;
+            } else {
+              input.classList.add('is-incorrect');
+            }
+            showFB(lineFB, lineCorrect, exp, fullAns);
+          });
+          return; // Dialogue scoring handled line-by-line
+        } else if (type === 'reorder') {
+          total++;
+          const target = item.querySelector('.target-tokens');
+          const userVal = normalizeText(Array.from(target.children).map(c => c.innerText).join(' '));
+          const correctVal = item.getAttribute('data-correct');
+          isCorrect = (userVal === normalizeText(correctVal));
+          target.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
+          showFB(fb, isCorrect, exp, correctVal);
+        } else if (type === 'text') {
+          total++;
+          const input = item.querySelector('.text-ans');
+          const userVal = normalizeText(input.value);
+          const correctArr = JSON.parse(item.getAttribute('data-correct')).map(normalizeText);
+          const displayCorrect = JSON.parse(item.getAttribute('data-correct'))[0];
+          isCorrect = correctArr.includes(userVal);
+          input.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
+          showFB(fb, isCorrect, exp, displayCorrect);
+        }
+
+        if (isCorrect) acertos++;
+      });
+
+      document.getElementById('score-treino').innerText = `Placar: ${acertos} de ${total} corretas`;
+      
+      if (treinoAttempts === 0) {
+        enviarResultado("Treino de Desbloqueio", acertos, total);
+        if (APPS_SCRIPT_URL) document.getElementById('sub-treino').style.display = 'block';
+      }
+      treinoAttempts++;
+      btn.innerText = 'Tentar de novo';
+    }
+
+    // 2. Revisão Cumulativa
+    let cumAttempts = 0;
+    function checkCumulativa() {
+      const sec = document.getElementById('sec-cumulativa');
+      const btn = sec.querySelector('.btn-primary');
+
+      if (btn.innerText === 'Tentar de novo') {
+        resetSection(sec);
+        btn.innerText = 'Verificar Revisão';
+        return;
+      }
+
+      let total = 0;
+      let acertos = 0;
+
+      sec.querySelectorAll('.cum-item').forEach(item => {
+        total++;
+        const type = item.getAttribute('data-type');
+        const exp = item.getAttribute('data-exp');
+        const fb = item.querySelector('.feedback');
+        let isCorrect = false;
+
+        if (type === 'mc') {
+          const selected = item.querySelector('.mc-grid').getAttribute('data-selected');
+          const correctVal = item.getAttribute('data-correct');
+          isCorrect = (normalizeText(selected) === normalizeText(correctVal));
+
+          item.querySelectorAll('.mc-button').forEach(b => {
+            if (normalizeText(b.innerText) === normalizeText(correctVal)) {
+              b.classList.add('is-correct');
+            } else if (normalizeText(b.innerText) === normalizeText(selected) && !isCorrect) {
+              b.classList.add('is-incorrect');
+            }
+          });
+          showFB(fb, isCorrect, exp, correctVal);
+        } else if (type === 'text') {
+          const input = item.querySelector('.text-ans');
+          const userVal = normalizeText(input.value);
+          const correctArr = JSON.parse(item.getAttribute('data-correct')).map(normalizeText);
+          const displayCorrect = JSON.parse(item.getAttribute('data-correct'))[0];
+          isCorrect = correctArr.includes(userVal);
+          input.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
+          showFB(fb, isCorrect, exp, displayCorrect);
+        }
+
+        if (isCorrect) acertos++;
+      });
+
+      document.getElementById('score-cumulativa').innerText = `Placar: ${acertos} de ${total} corretas`;
+
+      if (cumAttempts === 0) {
+        enviarResultado("Revisão Cumulativa", acertos, total);
+        if (APPS_SCRIPT_URL) document.getElementById('sub-cumulativa').style.display = 'block';
+      }
+      cumAttempts++;
+      btn.innerText = 'Tentar de novo';
+    }
+
+    // 3. Exercício de Fixação
+    let fixAttempts = 0;
+    function checkFixacao() {
+      const sec = document.getElementById('sec-fixacao');
+      const btn = sec.querySelector('.btn-primary');
+
+      if (btn.innerText === 'Tentar de novo') {
+        resetSection(sec);
+        btn.innerText = 'Verificar Fixação';
+        return;
+      }
+
+      let total = 0;
+      let acertos = 0;
+
+      sec.querySelectorAll('.fix-item').forEach(item => {
+        total++;
+        const select = item.querySelector('select');
+        const fb = item.querySelector('.feedback');
+        const correctVal = item.getAttribute('data-correct');
+        const userVal = select.value;
+        const isCorrect = (normalizeText(userVal) === normalizeText(correctVal));
+
+        select.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
+        showFB(fb, isCorrect, "", correctVal);
+
+        if (isCorrect) acertos++;
+      });
+
+      document.getElementById('score-fixacao').innerText = `Placar: ${acertos} de ${total} corretas`;
+
+      if (fixAttempts === 0) {
+        enviarResultado("Exercício de Fixação", acertos, total);
+        if (APPS_SCRIPT_URL) document.getElementById('sub-fixacao').style.display = 'block';
+      }
+      fixAttempts++;
+      btn.innerText = 'Tentar de novo';
+    }
+
+    // Helper: Display Feedback
+    function showFB(fbEl, isCorrect, exp, correctAns) {
+      if (!fbEl) return;
+      fbEl.style.display = 'block';
+      fbEl.style.color = isCorrect ? 'var(--success)' : 'var(--error)';
+      
+      let html = isCorrect ? '<div>✅ Correto!</div>' : '<div>❌ Incorreto.</div>';
+      if (!isCorrect && correctAns) {
+        html += `<div class="feedback-correct-ans">✅ Resposta correta: ${correctAns}</div>`;
+      }
+      if (exp) {
+        html += `<div class="feedback-explanation">${exp}</div>`;
+      }
+      fbEl.innerHTML = html;
+    }
+
+    // Helper: Reset Section UI
+    function resetSection(sec) {
+      sec.querySelectorAll('.feedback').forEach(f => {
+        f.style.display = 'none';
+        f.innerHTML = '';
+      });
+      sec.querySelectorAll('.is-correct, .is-incorrect, .selected').forEach(e => {
+        e.classList.remove('is-correct', 'is-incorrect', 'selected');
+      });
+      sec.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+      sec.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+      sec.querySelectorAll('[data-selected]').forEach(s => s.removeAttribute('data-selected'));
+      
+      // Reset tokens if reorder
+      sec.querySelectorAll('.td-item[data-type="reorder"]').forEach(item => {
+        const source = item.querySelector('.source-tokens');
+        const target = item.querySelector('.target-tokens');
+        while (target.firstChild) {
+          source.appendChild(target.firstChild);
+        }
+      });
+    }
+
+    // Copy Homework
+    function copyHomework() {
+      const text = "• Grave 4 frases curtas descrevendo a fábrica ou o escritório usando 'there is' ou 'there are'.\n• Pratique em voz alta 4 frases usando os demonstrativos 'this, that, these, those' com itens ao seu redor.";
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Homework copiado para a área de transferência!");
+      }).catch(() => {});
+    }
+  </script>
+</body>
+</html>
