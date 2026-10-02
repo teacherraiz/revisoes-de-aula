@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 02/10/26 — Sidarta</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+
+      /* Visual do Treino de Desbloqueio */
+      --unlock-orange: #FF7A00;
+      --unlock-blue: #1E5AA8;
+      --unlock-correct: #1E5AA8;
+      --unlock-incorrect: #C75000;
+      --unlock-correct-bg: #eff6ff;
+      --unlock-incorrect-bg: #fff7ed;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px 12px 40px 12px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Cabeçalho */
+    header {
+      background: var(--card-bg);
+      padding: 20px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .header-title h1 {
+      font-size: 1.25rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .header-title p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .audio-toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      align-self: flex-start;
+    }
+
+    .speed-btn {
+      border: none;
+      background: transparent;
+      padding: 4px 8px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      min-height: 32px;
+    }
+
+    .speed-btn.active {
+      background: var(--card-bg);
+      color: var(--primary);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* Encorajamento */
+    .encouragement-card {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 0 12px 12px 0;
+      font-size: 0.95rem;
+      color: #1e40af;
+    }
+
+    /* Seções Genéricas */
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 20px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Regras e Exemplos */
+    .rule-box {
+      background: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .example-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 12px;
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+
+    .example-en {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .example-pt {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Botão Áudio */
+    .audio-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 4px 8px;
+      min-height: 44px;
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .audio-btn:hover {
+      background: rgba(0,0,0,0.05);
+    }
+
+    /* Flashcards */
+    .flashcard-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .flashcard-progress {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .flashcard {
+      width: 100%;
+      min-height: 160px;
+      background: #f8fafc;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .flashcard.known {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .flashcard.review {
+      border-color: #eab308;
+      background-color: #fefce8;
+    }
+
+    .flashcard-en {
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flashcard-pt {
+      font-size: 1rem;
+      color: var(--text-muted);
+      border-top: 1px dashed var(--border);
+      padding-top: 8px;
+      width: 100%;
+    }
+
+    .flashcard-actions {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+    }
+
+    /* Exercícios Container */
+    .exercise-item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .exercise-item.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .exercise-item.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    .prompt-text {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* Inputs e Selects */
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      outline: none;
+      min-height: 44px;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--primary);
+    }
+
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background-color: #fff;
+      outline: none;
+      min-height: 44px;
+    }
+
+    select:focus {
+      border-color: var(--primary);
+    }
+
+    /* Botões Genericos */
+    .btn {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      transition: background 0.2s, opacity 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    /* Múltipla Escolha Botões */
+    .mc-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mc-option-btn {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      min-height: 44px;
+    }
+
+    .mc-option-btn.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      font-weight: 600;
+    }
+
+    /* Paleta do Treino de Desbloqueio */
+    .section-unlock {
+      border-top: 4px solid var(--unlock-orange);
+    }
+
+    .section-unlock h2 {
+      color: var(--unlock-blue);
+    }
+
+    .section-unlock .exercise-item.correct {
+      border-color: var(--unlock-correct);
+      background-color: var(--unlock-correct-bg);
+    }
+
+    .section-unlock .exercise-item.incorrect {
+      border-color: var(--unlock-incorrect);
+      background-color: var(--unlock-incorrect-bg);
+    }
+
+    .section-unlock .btn-primary {
+      background: var(--unlock-orange);
+    }
+
+    .section-unlock .btn-primary:hover {
+      background: #e06c00;
+    }
+
+    .section-unlock .mc-option-btn.selected {
+      border-color: var(--unlock-blue);
+      background: #e0f2fe;
+    }
+
+    .compare-card {
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      background: #fff;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .compare-card.selected {
+      border-color: var(--unlock-blue);
+      background: #e0f2fe;
+    }
+
+    /* Tokens / Reordenar */
+    .tokens-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px;
+      background: #f8fafc;
+      border-radius: 8px;
+      min-height: 52px;
+      border: 1px dashed var(--border);
+    }
+
+    .token {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      user-select: none;
+    }
+
+    /* Feedback */
+    .feedback-box {
+      font-size: 0.85rem;
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .feedback-box .correct-ans {
+      font-weight: 600;
+      color: var(--success);
+    }
+
+    .section-unlock .feedback-box .correct-ans {
+      color: var(--unlock-correct);
+    }
+
+    .feedback-box .explanation {
+      color: var(--text-muted);
+    }
+
+    .score-banner {
+      padding: 10px;
+      background: #f1f5f9;
+      border-radius: 6px;
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .submit-notice {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* Homework */
+    .homework-item {
+      padding: 12px;
+      background: #f8fafc;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      border-left: 3px solid var(--primary);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- CABEÇALHO -->
+  <header>
+    <div class="header-top">
+      <div class="header-title">
+        <h1>Revisão da aula de 02/10/26</h1>
+        <p>Olá, Sidarta!</p>
+      </div>
+      <div class="audio-toggle-container">
+        <span>🔊 Velocidade:</span>
+        <button class="speed-btn active" data-rate="1" onclick="setAudioRate(1.0)">1.0x</button>
+        <button class="speed-btn" data-rate="0.75" onclick="setAudioRate(0.75)">0.75x</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MENSAGEM DE ENCORAJAMENTO -->
+  <div class="encouragement-card">
+    Sua habilidade de transmitir pensamentos e filosofias de vida em inglês está cada vez mais forte. Continuar praticando a estrutura vai te dar ainda mais confiança!
+  </div>
+
+  <!-- 📖 RECAPITULAÇÃO DA REGRA -->
+  <section class="section-card">
+    <div class="section-header">
+      <h2>📖 Recapitulação da Regra</h2>
+      <div class="section-subtitle">Conversação e Expressão de Ideias (Valores e Cotidiano)</div>
+    </div>
+    <div class="rule-box">
+      Para compartilhar opiniões e experiências passadas, usamos o passado simples e estruturas de perguntas de experiência como 'Have you ever...'.
+    </div>
+    <div class="example-list">
+      
+      <div class="example-item">
+        <div class="example-en">
+          <span>I helped a stranger at the airport.</span>
+          <button class="audio-btn" onclick="speak('I helped a stranger at the airport.')">🔊</button>
+        </div>
+        <div class="example-pt">Eu ajudei um desconhecido no aeroporto.</div>
+      </div>
+      
+      <div class="example-item">
+        <div class="example-en">
+          <span>My mother always tells the truth.</span>
+          <button class="audio-btn" onclick="speak('My mother always tells the truth.')">🔊</button>
+        </div>
+        <div class="example-pt">Minha mãe sempre diz a verdade.</div>
+      </div>
+      
+      <div class="example-item">
+        <div class="example-en">
+          <span>Have you ever broken a promise?</span>
+          <button class="audio-btn" onclick="speak('Have you ever broken a promise?')">🔊</button>
+        </div>
+        <div class="example-pt">Você alguma vez já quebrou uma promessa?</div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- 🎯 TREINO DE DESBLOQUEIO -->
+  
+  <section class="section-card section-unlock" id="sec-unlock">
+    <div class="section-header">
+      <h2>🎯 Treino de Desbloqueio</h2>
+      <div class="section-subtitle">Foco: Mistura de tempos verbais e uso do presente no lugar do passado em relatos espontâneos (ex.: 'When I go to the airport' em vez de 'went')</div>
+    </div>
+
+    <div id="unlock-container" style="display:flex; flex-direction:column; gap:16px;"></div>
+
+    <div id="unlock-score" class="score-banner" style="display:none;"></div>
+
+    <button id="unlock-check-btn" class="btn btn-primary btn-full" onclick="checkUnlock()">Verificar</button>
+    <div id="unlock-notice" class="submit-notice" style="display:none;">📤 Resultado enviado ao professor</div>
+  </section>
+  
+
+  <!-- 🔁 REVISÃO CUMULATIVA -->
+  
+  <section class="section-card" id="sec-cumulativa">
+    <div class="section-header">
+      <h2>🔁 Revisão Cumulativa</h2>
+      <div class="section-subtitle">Prática de tópicos estudados anteriormente</div>
+    </div>
+
+    <div id="cumulativa-container" style="display:flex; flex-direction:column; gap:20px;"></div>
+
+    <div id="cumulativa-score" class="score-banner" style="display:none;"></div>
+
+    <button id="cumulativa-check-btn" class="btn btn-primary btn-full" onclick="checkCumulativa()">Verificar</button>
+    <div id="cumulativa-notice" class="submit-notice" style="display:none;">📤 Resultado enviado ao professor</div>
+  </section>
+  
+
+  <!-- 📚 VOCABULÁRIO NOVO -->
+  <section class="section-card">
+    <div class="section-header">
+      <h2>📚 Vocabulário Novo</h2>
+      <div class="section-subtitle">Flashcards de autoavaliação</div>
+    </div>
+
+    <div class="flashcard-container">
+      <div class="flashcard-progress" id="fc-progress">0 de 10 revisadas</div>
+      
+      <div class="flashcard" id="flashcard-box">
+        <div class="flashcard-en">
+          <span id="fc-en-text">ethics</span>
+          <button class="audio-btn" id="fc-audio-btn" onclick="speakCurrentFlashcard()">🔊</button>
+        </div>
+        <div class="flashcard-pt" id="fc-pt-text" style="display:none;">
+          ética
+        </div>
+      </div>
+
+      <button id="fc-reveal-btn" class="btn btn-secondary btn-full" onclick="revealFlashcard()">Revelar tradução</button>
+
+      <div class="flashcard-actions" id="fc-actions" style="display:none;">
+        <button class="btn btn-secondary btn-full" style="border-color: #eab308; color: #854d0e;" onclick="rateFlashcard(false)">🔄 Preciso revisar</button>
+        <button class="btn btn-secondary btn-full" style="border-color: var(--success); color: var(--success);" onclick="rateFlashcard(true)">✅ Eu sabia</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✏️ EXERCÍCIO DE FIXAÇÃO -->
+  <section class="section-card" id="sec-fixacao">
+    <div class="section-header">
+      <h2>✏️ Exercício de Fixação</h2>
+      <div class="section-subtitle">Selecione a opção correta para cada lacuna</div>
+    </div>
+
+    <div id="fixacao-container" style="display:flex; flex-direction:column; gap:16px;"></div>
+
+    <div id="fixacao-score" class="score-banner" style="display:none;"></div>
+
+    <button id="fixacao-check-btn" class="btn btn-primary btn-full" onclick="checkFixacao()">Verificar</button>
+    <div id="fixacao-notice" class="submit-notice" style="display:none;">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- 🏠 HOMEWORK -->
+  <section class="section-card">
+    <div class="section-header">
+      <h2>🏠 Homework</h2>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      
+      <div class="homework-item">
+        Grave um áudio curto no WhatsApp respondendo a duas perguntas sobre uma decisão do passado e um compromisso para a próxima semana.
+      </div>
+      
+    </div>
+    <button class="btn btn-secondary btn-full" onclick="copyHomework()">Copiar homework</button>
+  </section>
+
+</div>
+
+<div class="toast" id="toast">Copiado para a área de transferência!</div>
+
+<script>
+/* DATAS DE ENTRADA DO ENGINE PYTHON */
+const META_ENVIO = {"aluno_id": "sidarta-gadelha", "aluno": "Sidarta Gadelha", "data_aula": "02/10/26", "accent": "UK", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+const VOCABULARIO = [{"palavra": "ethics", "traducao": "ética"}, {"palavra": "stranger", "traducao": "desconhecido / estranho"}, {"palavra": "have you ever", "traducao": "você alguma vez já"}, {"palavra": "truth", "traducao": "verdade"}, {"palavra": "white lie", "traducao": "mentira inofensiva / mentira branca"}, {"palavra": "rude", "traducao": "grosseiro / mal-educado"}, {"palavra": "break a promise", "traducao": "quebrar uma promessa"}, {"palavra": "right thing", "traducao": "coisa certa"}, {"palavra": "sacrifice", "traducao": "sacrifício"}, {"palavra": "responsible", "traducao": "responsável"}];
+const TREINO_DESBLOQUEIO = {"module_id": "treino_desbloqueio", "erro_alvo": "Mistura de tempos verbais e uso do presente no lugar do passado em relatos espontâneos (ex.: 'When I go to the airport' em vez de 'went')", "nivel_cefr": "A1", "accent": "UK", "items": [{"type": "compare_contrast_implicito", "sentence_a": "When I went to the office yesterday, I saved time.", "sentence_b": "When I go to the office yesterday, I save time.", "question_pt": "Qual frase relata corretamente um evento no passado?", "correct_answer": "a", "explanation_pt": "Para relatar eventos que já aconteceram (indicados por 'yesterday'), devemos usar os verbos no passado ('went' e 'saved'), e não no presente ('go' e 'save')."}, {"type": "multiple_choice_avancado", "prompt_en": "Last night, I ____ a promise to tell the truth.", "options": ["break", "broke", "breaks", "breaking"], "correct_index": 1, "explanation_pt": "Como a frase se refere ao passado ('Last night'), usamos a forma do passado simples 'broke', e não a forma do presente 'break'."}, {"type": "dialogo_tempos_mistos", "linhas": [{"pergunta": "Do you usually attend meetings?", "resposta_com_lacuna": "Yes, I ____ meetings every week.", "resposta_lacuna": ["attend"], "resposta_completa": "Yes, I attend meetings every week.", "tempo": "presente"}, {"pergunta": "Did you attend the meeting yesterday?", "resposta_com_lacuna": "No, I ____ it to save time.", "resposta_lacuna": ["postponed"], "resposta_completa": "No, I postponed it to save time.", "tempo": "passado"}, {"pergunta": "Will you attend the meeting tomorrow?", "resposta_com_lacuna": "Yes, I ____ attend it.", "resposta_lacuna": ["will"], "resposta_completa": "Yes, I will attend it.", "tempo": "futuro"}], "explanation_pt": "Observe a mudança do tempo verbal: rotinas usam o presente ('attend'), ações do passado usam o passado simples ('postponed') e o futuro usa 'will'."}, {"type": "reordenar_palavras", "tokens_embaralhados": ["When", "I", "saw", "the", "stranger,", "I", "told", "the", "truth."], "frase_correta": "When I saw the stranger, I told the truth.", "explanation_pt": "Em relatos no passado, os verbos precisam estar no passado simples ('saw' e 'told')."}, {"type": "translation_challenge", "source_text_pt": "Quando eu fui para o trabalho ontem, eu economizei tempo.", "correct_answer": ["When I went to work yesterday, I saved time.", "When I went to work yesterday I saved time."], "explanation_pt": "Para contar algo do passado ('ontem'), use 'went' (passado de go) e 'saved' (passado de save)."}, {"type": "translation_challenge", "source_text_pt": "Eu disse a verdade para o desconhecido.", "correct_answer": ["I told the truth to the stranger.", "I told the stranger the truth."], "explanation_pt": "Como é um fato que já aconteceu, usa-se 'told' (passado do verbo tell)."}, {"type": "translation_challenge", "source_text_pt": "Nós adiamos a reunião na semana passada.", "correct_answer": ["We postponed the meeting last week.", "Last week we postponed the meeting.", "Last week, we postponed the meeting."], "explanation_pt": "Para eventos marcados no passado ('na semana passada'), usa-se o verbo no passado simples 'postponed'."}]};
+const REVISAO_CUMULATIVA = {"module_id": "revisao_cumulativa", "topicos": [{"topico": "Questions and Answers (do - did - will - would)", "resumo_regra": "Usamos auxiliares no início de perguntas para definir o tempo verbal: do (presente), did (passado), will (futuro).", "exercicios": [{"type": "multiple_choice_simples", "prompt_en": "____ you go to London yesterday?", "options": ["Do", "Did", "Will"], "correct_index": 1, "explanation_pt": "Usamos o auxiliar 'Did' para perguntas sobre ações no passado (indicado por 'yesterday')."}, {"type": "gap_fill", "sentence_with_gap": "Where ____ (do) you work every day?", "correct_answer": ["do"], "explanation_pt": "Usamos o auxiliar 'do' para fazer perguntas no presente sobre hábitos e rotinas."}]}, {"topico": "Simple Past - relatos básicos", "resumo_regra": "Para contar fatos passados usamos verbos conjugados no passado ou 'did' em perguntas e negativas.", "exercicios": [{"type": "multiple_choice_simples", "prompt_en": "I ____ a good film yesterday evening.", "options": ["watch", "watching", "watched"], "correct_index": 2, "explanation_pt": "Para indicar uma ação concluída no passado (yesterday), acrescentamos -ed ao verbo regular: watched."}, {"type": "gap_fill", "sentence_with_gap": "They ____ (not / go) to work yesterday.", "correct_answer": ["didn't go", "did not go"], "explanation_pt": "Na negativa do passado simples, usamos didn't (ou did not) acompanhado do verbo na forma base."}]}]};
+
+/* ESTADO GLOBAL */
+let currentAudioRate = 1.0;
+const enviados = {};
+
+/* ÁUDIO TTS */
+function setAudioRate(rate) {
+  currentAudioRate = rate;
+  document.querySelectorAll('.speed-btn').forEach(btn => {
+    btn.classList.toggle('active', parseFloat(btn.dataset.rate) === rate);
+  });
+}
+
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const ut = new SpeechSynthesisUtterance(text);
+  ut.lang = META_ENVIO.accent === 'UK' ? 'en-GB' : 'en-US';
+  ut.rate = currentAudioRate;
+  
+  // Tentar selecionar voz do idioma se disponível
+  const voices = window.speechSynthesis.getVoices();
+  const langTarget = META_ENVIO.accent === 'UK' ? 'en-GB' : 'en-US';
+  const voice = voices.find(v => v.lang.includes(langTarget));
+  if (voice) ut.voice = voice;
+
+  window.speechSynthesis.speak(ut);
+}
+
+// Esconder botões de áudio se SpeechSynthesis não estiver disponível
+window.addEventListener('DOMContentLoaded', () => {
+  if (!('speechSynthesis' in window)) {
+    document.querySelectorAll('.audio-btn, .audio-toggle-container').forEach(el => el.style.display = 'none');
+  }
+});
+
+/* NORMALIZAÇÃO PARA COMPARAÇÃO */
+function normalize(str) {
+  if (!str) return '';
+  return str.toString()
+    .replace(/[’‘“”]/g, c => (c === '’' || c === '‘') ? "'" : '"')
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLowerCase()
+    .replace(/^["']|["']$/g, '')
+    .replace(/[.!?]$/, '');
+}
+
+/* ENVIO DE RESULTADOS */
+function enviarResultado(secao, acertos, total) {
+  if (!META_ENVIO.apps_script_url || enviados[secao]) return;
+  enviados[secao] = true;
+  
+  fetch(META_ENVIO.apps_script_url, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({
+      aluno_id: META_ENVIO.aluno_id,
+      aluno: META_ENVIO.aluno,
+      data_aula: META_ENVIO.data_aula,
+      secao: secao,
+      acertos: acertos,
+      total: total
+    })
+  }).catch(() => {});
+
+  if (secao === 'Treino de Desbloqueio') document.getElementById('unlock-notice').style.display = 'block';
+  if (secao === 'Revisão Cumulativa') document.getElementById('cumulativa-notice').style.display = 'block';
+  if (secao === 'Exercício de Fixação') document.getElementById('fixacao-notice').style.display = 'block';
+}
+
+/* FLASHCARDS */
+let fcIndex = 0;
+let fcReviewedCount = 0;
+const fcReviewedSet = new Set();
+
+function loadFlashcard() {
+  const item = VOCABULARIO[fcIndex];
+  document.getElementById('fc-en-text').innerText = item.palavra;
+  document.getElementById('fc-pt-text').innerText = item.traducao;
+  document.getElementById('fc-pt-text').style.display = 'none';
+  document.getElementById('fc-reveal-btn').style.display = 'block';
+  document.getElementById('fc-actions').style.display = 'none';
+  
+  const card = document.getElementById('flashcard-box');
+  card.className = 'flashcard';
+}
+
+function speakCurrentFlashcard() {
+  speak(VOCABULARIO[fcIndex].palavra);
+}
+
+function revealFlashcard() {
+  document.getElementById('fc-pt-text').style.display = 'block';
+  document.getElementById('fc-reveal-btn').style.display = 'none';
+  document.getElementById('fc-actions').style.display = 'flex';
+}
+
+function rateFlashcard(known) {
+  const card = document.getElementById('flashcard-box');
+  if (known) card.classList.add('known');
+  else card.classList.add('review');
+
+  fcReviewedSet.add(fcIndex);
+  document.getElementById('fc-progress').innerText = `${fcReviewedSet.size} de ${VOCABULARIO.length} revisadas`;
+
+  setTimeout(() => {
+    fcIndex = (fcIndex + 1) % VOCABULARIO.length;
+    loadFlashcard();
+  }, 400);
+}
+
+/* 🎯 TREINO DE DESBLOQUEIO */
+let unlockState = { checked: false };
+
+function renderUnlock() {
+  if (!TREINO_DESBLOQUEIO) return;
+  const container = document.getElementById('unlock-container');
+  container.innerHTML = '';
+
+  TREINO_DESBLOQUEIO.items.forEach((item, idx) => {
+    const el = document.createElement('div');
+    el.className = 'exercise-item';
+    el.id = `unlock-item-${idx}`;
+
+    if (item.type === 'compare_contrast_implicito') {
+      const isAShort = Math.random() < 0.5;
+      const option1 = isAShort ? item.sentence_a : item.sentence_b;
+      const option2 = isAShort ? item.sentence_b : item.sentence_a;
+      const val1 = isAShort ? 'a' : 'b';
+      const val2 = isAShort ? 'b' : 'a';
+
+      el.innerHTML = `
+        <div class="prompt-text">${item.question_pt}</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div class="compare-card" data-val="${val1}" onclick="selectCompare(${idx}, '${val1}')">${option1}</div>
+          <div class="compare-card" data-val="${val2}" onclick="selectCompare(${idx}, '${val2}')">${option2}</div>
+        </div>
+        <div class="feedback-box" id="unlock-fb-${idx}"></div>
+      `;
+    } else if (item.type === 'multiple_choice_avancado') {
+      const shuffledOptions = item.options.map((opt, i) => ({ opt, isCorrect: i === item.correct_index }));
+      shuffledOptions.sort(() => Math.random() - 0.5);
+
+      let optsHtml = shuffledOptions.map(o => `
+        <button class="mc-option-btn" data-correct="${o.isCorrect}" onclick="selectMC(${idx}, this)">${o.opt}</button>
+      `).join('');
+
+      el.innerHTML = `
+        <div class="prompt-text">${item.prompt_en}</div>
+        <div class="mc-options">${optsHtml}</div>
+        <div class="feedback-box" id="unlock-fb-${idx}"></div>
+      `;
+    } else if (item.type === 'dialogo_tempos_mistos') {
+      let linesHtml = item.linhas.map((l, lIdx) => `
+        <div style="margin-bottom:8px;" id="unlock-line-${idx}-${lIdx}">
+          <div style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">${l.pergunta}</div>
+          <div style="font-size:0.95rem; margin-top:2px;">
+            ${l.resposta_com_lacuna.replace('____', `<input type="text" id="unlock-input-${idx}-${lIdx}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Digite sua resposta em inglês..." style="width:140px; display:inline-block; margin:0 4px;" />`)}
+          </div>
+          <div class="feedback-box" id="unlock-fb-line-${idx}-${lIdx}"></div>
+        </div>
+      `).join('');
+
+      el.innerHTML = `
+        <div class="prompt-text">Complete o diálogo com a forma verbal correta:</div>
+        <div>${linesHtml}</div>
+        <div class="feedback-box" id="unlock-fb-${idx}"></div>
+      `;
+    } else if (item.type === 'reordenar_palavras') {
+      el.dataset.tokens = JSON.stringify(item.tokens_embaralhados);
+      el.dataset.selected = JSON.stringify([]);
+
+      el.innerHTML = `
+        <div class="prompt-text">Ordene as palavras para formar a frase correta:</div>
+        <div class="tokens-container" id="unlock-target-${idx}"></div>
+        <div class="tokens-container" id="unlock-source-${idx}"></div>
+        <div class="feedback-box" id="unlock-fb-${idx}"></div>
+      `;
+      setTimeout(() => renderTokens(idx), 0);
+    } else if (item.type === 'translation_challenge') {
+      el.innerHTML = `
+        <div class="prompt-text">Traduza para o inglês:</div>
+        <div style="font-style:italic; font-size:0.9rem; color:var(--text-muted);">${item.source_text_pt}</div>
+        <input type="text" id="unlock-input-${idx}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Type in English..." />
+        <div class="feedback-box" id="unlock-fb-${idx}"></div>
+      `;
+    }
+
+    container.appendChild(el);
+  });
+}
+
+function selectCompare(itemIdx, val) {
+  if (unlockState.checked) return;
+  const itemEl = document.getElementById(`unlock-item-${itemIdx}`);
+  itemEl.querySelectorAll('.compare-card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.val === val);
+  });
+}
+
+function selectMC(itemIdx, btn) {
+  if (unlockState.checked) return;
+  const itemEl = document.getElementById(`unlock-item-${itemIdx}`);
+  itemEl.querySelectorAll('.mc-option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function renderTokens(idx) {
+  const itemEl = document.getElementById(`unlock-item-${idx}`);
+  const tokens = JSON.parse(itemEl.dataset.tokens);
+  const selected = JSON.parse(itemEl.dataset.selected);
+
+  const targetEl = document.getElementById(`unlock-target-${idx}`);
+  const sourceEl = document.getElementById(`unlock-source-${idx}`);
+
+  targetEl.innerHTML = '';
+  sourceEl.innerHTML = '';
+
+  selected.forEach((tIdx) => {
+    const chip = document.createElement('span');
+    chip.className = 'token';
+    chip.innerText = tokens[tIdx];
+    chip.onclick = () => {
+      if (unlockState.checked) return;
+      const newSel = selected.filter(i => i !== tIdx);
+      itemEl.dataset.selected = JSON.stringify(newSel);
+      renderTokens(idx);
+    };
+    targetEl.appendChild(chip);
+  });
+
+  tokens.forEach((t, i) => {
+    if (!selected.includes(i)) {
+      const chip = document.createElement('span');
+      chip.className = 'token';
+      chip.innerText = t;
+      chip.onclick = () => {
+        if (unlockState.checked) return;
+        selected.push(i);
+        itemEl.dataset.selected = JSON.stringify(selected);
+        renderTokens(idx);
+      };
+      sourceEl.appendChild(chip);
+    }
+  });
+}
+
+function checkUnlock() {
+  if (unlockState.checked) {
+    // Resetar
+    unlockState.checked = false;
+    renderUnlock();
+    document.getElementById('unlock-score').style.display = 'none';
+    document.getElementById('unlock-check-btn').innerText = 'Verificar';
+    return;
+  }
+
+  let totalItems = 0;
+  let correctItems = 0;
+
+  TREINO_DESBLOQUEIO.items.forEach((item, idx) => {
+    const itemEl = document.getElementById(`unlock-item-${idx}`);
+    const fbEl = document.getElementById(`unlock-fb-${idx}`);
+    fbEl.innerHTML = '';
+
+    if (item.type === 'compare_contrast_implicito') {
+      totalItems++;
+      const selected = itemEl.querySelector('.compare-card.selected');
+      const val = selected ? selected.dataset.val : null;
+      const isCorrect = val === item.correct_answer;
+
+      if (isCorrect) {
+        correctItems++;
+        itemEl.className = 'exercise-item correct';
+      } else {
+        itemEl.className = 'exercise-item incorrect';
+        const correctText = item.correct_answer === 'a' ? item.sentence_a : item.sentence_b;
+        fbEl.innerHTML = `<span class="correct-ans">✅ Resposta correta: ${correctText}</span>`;
+      }
+      fbEl.innerHTML += `<span class="explanation">${item.explanation_pt}</span>`;
+    } else if (item.type === 'multiple_choice_avancado') {
+      totalItems++;
+      const selected = itemEl.querySelector('.mc-option-btn.selected');
+      const isCorrect = selected && selected.dataset.correct === 'true';
+
+      if (isCorrect) {
+        correctItems++;
+        itemEl.className = 'exercise-item correct';
+      } else {
+        itemEl.className = 'exercise-item incorrect';
+        const correctText = item.options[item.correct_index];
+        fbEl.innerHTML = `<span class="correct-ans">✅ Resposta correta: ${correctText}</span>`;
+      }
+      fbEl.innerHTML += `<span class="explanation">${item.explanation_pt}</span>`;
+    } else if (item.type === 'dialogo_tempos_mistos') {
+      let allLinesCorrect = true;
+      item.linhas.forEach((l, lIdx) => {
+        totalItems++;
+        const input = document.getElementById(`unlock-input-${idx}-${lIdx}`);
+        const lineFb = document.getElementById(`unlock-fb-line-${idx}-${lIdx}`);
+        const userVal = normalize(input.value);
+        const isLineCorrect = l.resposta_lacuna.some(ans => normalize(ans) === userVal);
+
+        if (isLineCorrect) {
+          correctItems++;
+          lineFb.innerHTML = `<span class="correct-ans" style="font-size:0.8rem;">✅ Resposta correta</span>`;
+        } else {
+          allLinesCorrect = false;
+          lineFb.innerHTML = `<span class="correct-ans" style="font-size:0.8rem; color:var(--unlock-incorrect);">✅ Resposta correta: ${l.resposta_completa}</span>`;
+        }
+      });
+      itemEl.className = allLinesCorrect ? 'exercise-item correct' : 'exercise-item incorrect';
+      fbEl.innerHTML = `<span class="explanation">${item.explanation_pt}</span>`;
+    } else if (item.type === 'reordenar_palavras') {
+      totalItems++;
+      const tokens = JSON.parse(itemEl.dataset.tokens);
+      const selected = JSON.parse(itemEl.dataset.selected);
+      const builtPhrase = selected.map(i => tokens[i]).join(' ');
+      const isCorrect = normalize(builtPhrase) === normalize(item.frase_correta);
+
+      if (isCorrect) {
+        correctItems++;
+        itemEl.className = 'exercise-item correct';
+      } else {
+        itemEl.className = 'exercise-item incorrect';
+        fbEl.innerHTML = `<span class="correct-ans">✅ Resposta correta: ${item.frase_correta}</span>`;
+      }
+      fbEl.innerHTML += `<span class="explanation">${item.explanation_pt}</span>`;
+    } else if (item.type === 'translation_challenge') {
+      totalItems++;
+      const input = document.getElementById(`unlock-input-${idx}`);
+      const userVal = normalize(input.value);
+      const isCorrect = item.correct_answer.some(ans => normalize(ans) === userVal);
+
+      if (isCorrect) {
+        correctItems++;
+        itemEl.className = 'exercise-item correct';
+      } else {
+        itemEl.className = 'exercise-item incorrect';
+        fbEl.innerHTML = `<span class="correct-ans">✅ Resposta correta: ${item.correct_answer[0]}</span>`;
+      }
+      fbEl.innerHTML += `<span class="explanation">${item.explanation_pt}</span>`;
+    }
+  });
+
+  unlockState.checked = true;
+  const scoreBanner = document.getElementById('unlock-score');
+  scoreBanner.innerText = `Resultado: ${correctItems} de ${totalItems} acertos`;
+  scoreBanner.style.display = 'block';
+
+  document.getElementById('unlock-check-btn').innerText = 'Tentar de novo';
+  enviarResultado('Treino de Desbloqueio', correctItems, totalItems);
+}
+
+/* 🔁 REVISÃO CUMULATIVA */
+let cumulativaState = { checked: false };
+
+function renderCumulativa() {
+  if (!REVISAO_CUMULATIVA || !REVISAO_CUMULATIVA.topicos) return;
+  const container = document.getElementById('cumulativa-container');
+  container.innerHTML = '';
+
+  let exGlobalIdx = 0;
+
+  REVISAO_CUMULATIVA.topicos.forEach((topico) => {
+    const topicBox = document.createElement('div');
+    topicBox.style.display = 'flex';
+    topicBox.style.flexDirection = 'column';
+    topicBox.style.gap = '12px';
+
+    const header = document.createElement('div');
+    header.innerHTML = `
+      <div style="font-weight:700; font-size:1rem; color:var(--primary);">${topico.topico}</div>
+      <div class="rule-box" style="margin-top:4px;">${topico.resumo_regra}</div>
+    `;
+    topicBox.appendChild(header);
+
+    topico.exercicios.forEach((ex) => {
+      const idx = exGlobalIdx++;
+      const el = document.createElement('div');
+      el.className = 'exercise-item';
+      el.id = `cumulativa-item-${idx}`;
+
+      if (ex.type === 'multiple_choice_simples') {
+        const shuffled = ex.options.map((opt, i) => ({ opt, isCorrect: i === ex.correct_index }));
+        shuffled.sort(() => Math.random() - 0.5);
+
+        let optsHtml = shuffled.map(o => `
+          <button class="mc-option-btn" data-correct="${o.isCorrect}" onclick="selectMCSC(${idx}, this)">${o.opt}</button>
+        `).join('');
+
+        el.innerHTML = `
+          <div class="prompt-text">${ex.prompt_en}</div>
+          <div class="mc-options">${optsHtml}</div>
+          <div class="feedback-box" id="cumulativa-fb-${idx}"></div>
+        `;
+      } else if (ex.type === 'gap_fill') {
+        const gapSentence = ex.sentence_with_gap.replace('____', `<input type="text" id="cumulativa-input-${idx}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Digite sua resposta em inglês..." style="width:160px; display:inline-block; margin:0 4px;" />`);
+        el.innerHTML = `
+          <div class="prompt-text">${gapSentence}</div>
+          <div class="feedback-box" id="cumulativa-fb-${idx}"></div>
+        `;
+      }
+
+      el.dataset.exData = JSON.stringify(ex);
+      topicBox.appendChild(el);
+    });
+
+    container.appendChild(topicBox);
+  });
+}
+
+function selectMCSC(idx, btn) {
+  if (cumulativaState.checked) return;
+  const itemEl = document.getElementById(`cumulativa-item-${idx}`);
+  itemEl.querySelectorAll('.mc-option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function checkCumulativa() {
+  if (cumulativaState.checked) {
+    cumulativaState.checked = false;
+    renderCumulativa();
+    document.getElementById('cumulativa-score').style.display = 'none';
+    document.getElementById('cumulativa-check-btn').innerText = 'Verificar';
+    return;
+  }
+
+  let totalItems = 0;
+  let correctItems = 0;
+
+  const items = document.querySelectorAll('#cumulativa-container .exercise-item');
+  items.forEach((itemEl, idx) => {
+    totalItems++;
+    const ex = JSON.parse(itemEl.dataset.exData);
+    const fbEl = document.getElementById(`cumulativa-fb-${idx}`);
+    fbEl.innerHTML = '';
+
+    if (ex.type === 'multiple_choice_simples') {
+      const selected = itemEl.querySelector('.mc-option-btn.selected');
+      const isCorrect = selected && selected.dataset.correct === 'true';
+
+      if (isCorrect) {
+        correctItems++;
+        itemEl.className = 'exercise-item correct';
+      } else {
+        itemEl.className = 'exercise-item incorrect';
+        const correctText = ex.options[ex.correct_index];
+        fbEl.innerHTML = `<span class="correct-ans">✅ Resposta correta: ${correctText}</span>`;
+      }
+    } else if (ex.type === 'gap_fill') {
+      const input = document.getElementById(`cumulativa-input-${idx}`);
+      const userVal = normalize(input.value);
+      const accepts = Array.isArray(ex.correct_answer) ? ex.correct_answer : [ex.correct_answer];
+      const isCorrect = accepts.some(ans => normalize(ans) === userVal);
+
+      if (isCorrect) {
+        correctItems++;
+        itemEl.className = 'exercise-item correct';
+      } else {
+        itemEl.className = 'exercise-item incorrect';
+        fbEl.innerHTML = `<span class="correct-ans">✅ Resposta correta: ${accepts[0]}</span>`;
+      }
+    }
+
+    fbEl.innerHTML += `<span class="explanation">${ex.explanation_pt}</span>`;
+  });
+
+  cumulativaState.checked = true;
+  const scoreBanner = document.getElementById('cumulativa-score');
+  scoreBanner.innerText = `Resultado: ${correctItems} de ${totalItems} acertos`;
+  scoreBanner.style.display = 'block';
+
+  document.getElementById('cumulativa-check-btn').innerText = 'Tentar de novo';
+  enviarResultado('Revisão Cumulativa', correctItems, totalItems);
+}
+
+/* ✏️ EXERCÍCIO DE FIXAÇÃO */
+const FIXACAO_DATA = [
+  {
+    sentence: "Good business leaders always follow strong professional ____.",
+    correct: "ethics",
+    distractors: ["sacrifices", "truths", "promises"],
+    explanation_pt: "'ethics' significa ética e se encaixa no contexto de princípios profissionais."
+  },
+  {
+    sentence: "A ____ asked me for directions near the station.",
+    correct: "stranger",
+    distractors: ["sacrifice", "white lie", "truth"],
+    explanation_pt: "'stranger' significa pessoa desconhecida / estranho."
+  },
+  {
+    sentence: "____ visited London during the winter?",
+    correct: "Have you ever",
+    distractors: ["Do you ever", "Will you ever", "Did you ever"],
+    explanation_pt: "'Have you ever' é a estrutura usada para perguntar sobre experiências de vida."
+  },
+  {
+    sentence: "He is an honest person, so he always tells the ____.",
+    correct: "truth",
+    distractors: ["ethics", "sacrifice", "white lie"],
+    explanation_pt: "'truth' significa verdade."
+  },
+  {
+    sentence: "She told a small ____ to avoid hurting his feelings.",
+    correct: "white lie",
+    distractors: ["sacrifice", "truth", "promise"],
+    explanation_pt: "'white lie' é uma mentira inofensiva dita por consideração."
+  },
+  {
+    sentence: "It is very ____ to interrupt people when they are speaking.",
+    correct: "rude",
+    distractors: ["responsible", "polite", "honest"],
+    explanation_pt: "'rude' significa grosseiro ou mal-educado."
+  },
+  {
+    sentence: "If you give your word, you should never ____.",
+    correct: "break a promise",
+    distractors: ["tell a lie", "do the right thing", "make a sacrifice"],
+    explanation_pt: "'break a promise' significa quebrar uma promessa."
+  },
+  {
+    sentence: "Even when it is hard, you should do the ____.",
+    correct: "right thing",
+    distractors: ["white lie", "sacrifice", "truth"],
+    explanation_pt: "'right thing' significa a coisa certa."
+  },
+  {
+    sentence: "Parents often make a big ____ for their children.",
+    correct: "sacrifice",
+    distractors: ["promise", "truth", "white lie"],
+    explanation_pt: "'sacrifice' significa sacrifício."
+  },
+  {
+    sentence: "You are ____ for completing your own tasks on time.",
+    correct: "responsible",
+    distractors: ["rude", "ethical", "honest"],
+    explanation_pt: "'responsible' significa responsável."
+  }
+];
+
+let fixacaoState = { checked: false };
+
+function renderFixacao() {
+  const container = document.getElementById('fixacao-container');
+  container.innerHTML = '';
+
+  FIXACAO_DATA.forEach((item, idx) => {
+    const el = document.createElement('div');
+    el.className = 'exercise-item';
+    el.id = `fixacao-item-${idx}`;
+
+    const options = [item.correct, ...item.distractors];
+    options.sort(() => Math.random() - 0.5);
+
+    const selectHtml = `
+      <select id="fixacao-select-${idx}">
+        <option value="" disabled selected>-- Selecione --</option>
+        ${options.map(o => `<option value="${o}">${o}</option>`).join('')}
+      </select>
+    `;
+
+    const sentenceWithSelect = item.sentence.replace('____', selectHtml);
+
+    el.innerHTML = `
+      <div class="prompt-text">${sentenceWithSelect}</div>
+      <div class="feedback-box" id="fixacao-fb-${idx}"></div>
+    `;
+
+    container.appendChild(el);
+  });
+}
+
+function checkFixacao() {
+  if (fixacaoState.checked) {
+    fixacaoState.checked = false;
+    renderFixacao();
+    document.getElementById('fixacao-score').style.display = 'none';
+    document.getElementById('fixacao-check-btn').innerText = 'Verificar';
+    return;
+  }
+
+  let totalItems = 0;
+  let correctItems = 0;
+
+  FIXACAO_DATA.forEach((item, idx) => {
+    totalItems++;
+    const itemEl = document.getElementById(`fixacao-item-${idx}`);
+    const select = document.getElementById(`fixacao-select-${idx}`);
+    const fbEl = document.getElementById(`fixacao-fb-${idx}`);
+    fbEl.innerHTML = '';
+
+    const userVal = select.value;
+    const isCorrect = userVal === item.correct;
+
+    if (isCorrect) {
+      correctItems++;
+      itemEl.className = 'exercise-item correct';
+    } else {
+      itemEl.className = 'exercise-item incorrect';
+      fbEl.innerHTML = `<span class="correct-ans">✅ Resposta correta: ${item.correct}</span>`;
+    }
+    fbEl.innerHTML += `<span class="explanation">${item.explanation_pt}</span>`;
+  });
+
+  fixacaoState.checked = true;
+  const scoreBanner = document.getElementById('fixacao-score');
+  scoreBanner.innerText = `Resultado: ${correctItems} de ${totalItems} acertos`;
+  scoreBanner.style.display = 'block';
+
+  document.getElementById('fixacao-check-btn').innerText = 'Tentar de novo';
+  enviarResultado('Exercício de Fixação', correctItems, totalItems);
+}
+
+/* HOMEWORK COPY */
+function copyHomework() {
+  const hwText = "Grave um áudio curto no WhatsApp respondendo a duas perguntas sobre uma decisão do passado e um compromisso para a próxima semana.";
+  navigator.clipboard.writeText(hwText).then(() => {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }).catch(() => {});
+}
+
+/* INICIALIZAÇÃO DA PÁGINA */
+window.onload = function() {
+  loadFlashcard();
+  renderUnlock();
+  renderCumulativa();
+  renderFixacao();
+};
+</script>
+</body>
+</html>
