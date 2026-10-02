@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 02/10/26 — Luiz</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      
+      /* Treino Desbloqueio Special Palette */
+      --td-orange: #FF7A00;
+      --td-blue: #1E5AA8;
+      --td-blue-bg: #edf4fc;
+      --td-burnt-orange: #C75000;
+      --td-burnt-bg: #fff6f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 16px 8px 40px 8px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Header */
+    .header {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .header-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .header-greeting {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: 20px;
+    }
+
+    .speed-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      min-height: 36px;
+    }
+
+    .speed-btn.active {
+      background: var(--bg-card);
+      color: var(--primary);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* Encouragement Card */
+    .encouragement-card {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1px solid #bfdbfe;
+      border-radius: 16px;
+      padding: 18px;
+      color: #1e40af;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    /* Rule Card */
+    .card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rule-topic {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .rule-explanation {
+      color: var(--text-main);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .example-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .example-item {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 10px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .example-en {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .example-pt {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .audio-icon-btn {
+      background: #e0e7ff;
+      border: none;
+      color: #4338ca;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      font-size: 1rem;
+
+    }
+
+    .audio-icon-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Section Header and Score */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .score-badge {
+      background: #e2e8f0;
+      color: var(--text-main);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    /* Buttons & Form Elements */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.2s, transform 0.1s;
+      width: 100%;
+    }
+
+    .btn:active {
+      transform: scale(0.99);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-td {
+      background: var(--td-blue);
+      color: white;
+    }
+
+    .btn-td:hover {
+      background: #174685;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .status-msg {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      background-color: white;
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"]:focus, select:focus {
+      outline: 2px solid var(--primary);
+      border-color: transparent;
+    }
+
+    /* Treino Desbloqueio Custom Formatting */
+    .td-card {
+      border-color: #fde68a;
+      background: #fffdfa;
+    }
+
+    .td-title {
+      color: var(--td-burnt-orange);
+    }
+
+    .td-item {
+      background: white;
+      border: 1px solid #fed7aa;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .td-item.td-correct {
+      border: 2px solid var(--td-blue) !important;
+      background-color: var(--td-blue-bg) !important;
+    }
+
+    .td-item.td-incorrect {
+      border: 2px solid var(--td-burnt-orange) !important;
+      background-color: var(--td-burnt-bg) !important;
+    }
+
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px;
+      min-height: 44px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: white;
+      margin-top: 6px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      font-weight: 600;
+    }
+
+    .option-btn.td-selected {
+      border-color: var(--td-blue);
+      background: var(--td-blue-bg);
+      font-weight: 600;
+    }
+
+    /* Word Reorder Tokens */
+    .tokens-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+      min-height: 48px;
+      padding: 8px;
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+
+    .token-btn {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      min-height: 38px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .token-target {
+      border: 2px dashed #cbd5e1;
+      background: white;
+    }
+
+    /* Standard Exercise Items */
+    .ex-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .ex-item.correct {
+      border: 2px solid var(--success) !important;
+      background-color: var(--success-bg) !important;
+    }
+
+    .ex-item.incorrect {
+      border: 2px solid var(--error) !important;
+      background-color: var(--error-bg) !important;
+    }
+
+    .feedback-box {
+      margin-top: 10px;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      display: none;
+    }
+
+    .correct-answer-text {
+      font-weight: 700;
+      color: var(--success);
+      margin-bottom: 4px;
+    }
+
+    .td-correct-text {
+      color: var(--td-blue);
+    }
+
+    /* Flashcards */
+    .flashcard-wrapper {
+      perspective: 1000px;
+      margin-bottom: 16px;
+    }
+
+    .flashcard {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .fc-word {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fc-translation {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      width: 100%;
+    }
+
+    .fc-actions {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .btn-fc-knew {
+      background: white;
+      border: 2px solid var(--success);
+      color: var(--success);
+    }
+
+    .btn-fc-review {
+      background: white;
+      border: 2px solid #eab308;
+      color: #ca8a04;
+    }
+
+    /* Topic Grouping in Cumulative Review */
+    .topic-group {
+      border-left: 3px solid var(--primary);
+      padding-left: 12px;
+      margin-bottom: 20px;
+    }
+
+    .topic-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--primary);
+    }
+
+    .topic-rule {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    /* Homework List */
+    .hw-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .hw-item {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .hw-bullet {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .copied-toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 1. Header -->
+  <header class="header">
+    <div class="header-top">
+      <div>
+        <div class="header-title">Revisão da aula de 02/10/26</div>
+        <div class="header-greeting">Olá, Luiz! 👋</div>
+      </div>
+      <div class="audio-controls" id="audio-control-box">
+        <button class="speed-btn active" id="rate-1" onclick="setRate(1)">🔊 1.0x</button>
+        <button class="speed-btn" id="rate-075" onclick="setRate(0.75)">🐢 0.75x</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. Encorajamento -->
+  <section class="encouragement-card">
+    Sua habilidade de argumentar e defender pontos de vista complexos em inglês está cada vez mais forte. Cada conversa é uma oportunidade para lapidar os detalhes e ganhar ainda mais autoridade.
+  </section>
+
+  <!-- 3. Recapitulação da Regra -->
+  <section class="card">
+    <div class="card-title">📖 Recapitulação da Regra</div>
+    <div class="rule-topic">Expressando opiniões e diferenças culturais no trabalho</div>
+    <div class="rule-explanation">
+      Ao comparar culturas de trabalho e hábitos do dia a dia, usamos o Present Simple para fatos gerais, prestando atenção à concordância da 3ª pessoa do singular (acrescentando 's' ao verbo).
+    </div>
+    <div class="example-list">
+      <div class="example-item">
+        <div class="example-en">
+          <span>European teams value strict boundaries between work and personal time.</span>
+          <button class="audio-icon-btn" onclick="speak('European teams value strict boundaries between work and personal time.')">🔊</button>
+        </div>
+        <div class="example-pt">As equipes europeias valorizam limites rígidos entre o trabalho e o tempo pessoal.</div>
+      </div>
+      <div class="example-item">
+        <div class="example-en">
+          <span>He always handles urgent issues during his on-call shift.</span>
+          <button class="audio-icon-btn" onclick="speak('He always handles urgent issues during his on-call shift.')">🔊</button>
+        </div>
+        <div class="example-pt">Ele sempre lida com problemas urgentes durante seu plantão de sobreaviso.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Treino de Desbloqueio -->
+  <section class="card td-card" id="sec-treino">
+    <div class="section-header">
+      <div class="card-title td-title">🎯 Treino de Desbloqueio</div>
+      <span class="score-badge" id="score-treino" style="display:none;"></span>
+    </div>
+    
+    <div id="td-container"></div>
+
+    <button class="btn btn-td" id="btn-verify-treino" onclick="verificarTreino()">Verificar Treino</button>
+    <div class="status-msg" id="status-treino"></div>
+  </section>
+
+  <!-- 5. Revisão Cumulativa -->
+  <section class="card" id="sec-cumulativa">
+    <div class="section-header">
+      <div class="card-title">🔁 Revisão Cumulativa</div>
+      <span class="score-badge" id="score-cumulativa" style="display:none;"></span>
+    </div>
+
+    <div id="cumulativa-container"></div>
+
+    <button class="btn btn-primary" id="btn-verify-cumulativa" onclick="verificarCumulativa()">Verificar Revisão</button>
+    <div class="status-msg" id="status-cumulativa"></div>
+  </section>
+
+  <!-- 6. Vocabulário Novo -->
+  <section class="card">
+    <div class="section-header">
+      <div class="card-title">📚 Vocabulário Novo</div>
+      <span class="score-badge" id="fc-counter">0 de 7 revisadas</span>
+    </div>
+
+    <div class="flashcard-wrapper">
+      <div class="flashcard" id="flashcard-box">
+        <div class="fc-word">
+          <span id="fc-en-text"></span>
+          <button class="audio-icon-btn" id="fc-audio-btn">🔊</button>
+        </div>
+        <div class="fc-translation" id="fc-pt-text" style="display:none;"></div>
+        
+        <button class="btn btn-secondary" id="fc-reveal-btn" onclick="revelarFlashcard()" style="margin-top:8px;">Revelar tradução</button>
+        
+        <div class="fc-actions" id="fc-eval-btns" style="display:none;">
+          <button class="btn btn-fc-knew" onclick="avaliarFlashcard(true)">✅ Eu sabia</button>
+          <button class="btn btn-fc-review" onclick="avaliarFlashcard(false)">🔄 Preciso revisar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Exercício de Fixação -->
+  <section class="card" id="sec-fixacao">
+    <div class="section-header">
+      <div class="card-title">✏️ Exercício de Fixação</div>
+      <span class="score-badge" id="score-fixacao" style="display:none;"></span>
+    </div>
+
+    <div id="fixacao-container"></div>
+
+    <button class="btn btn-primary" id="btn-verify-fixacao" onclick="verificarFixacao()">Verificar Fixação</button>
+    <div class="status-msg" id="status-fixacao"></div>
+  </section>
+
+  <!-- 8. Homework -->
+  <section class="card">
+    <div class="card-title">🏠 Homework</div>
+    <ul class="hw-list">
+      <li class="hw-item">
+        <span class="hw-bullet">•</span>
+        <span>Elaborar 4 frases corporativas comparando a postura laboral e políticas de sobreaviso (on-call) entre equipes do Brasil e da Europa.</span>
+      </li>
+      <li class="hw-item">
+        <span class="hw-bullet">•</span>
+        <span>Criar 3 solicitações formais de permissão e alinhamento de entregas em TI utilizando Can e Could.</span>
+      </li>
+    </ul>
+    <button class="btn btn-secondary" onclick="copiarHomework()">📋 Copiar homework</button>
+  </section>
+
+</div>
+
+<div class="copied-toast" id="toast">Homework copiado para a área de transferência!</div>
+
+<script>
+// --- GLOBAL DATA & SETUP ---
+const META = {"aluno_id": "luiz-maia", "aluno": "Luiz Maia", "data_aula": "02/10/26", "accent": "UK", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+
+const VOCAB = [
+  {"palavra": "Coffin / Casket", "traducao": "Caixão / Urna funerária"},
+  {"palavra": "Mourn", "traducao": "Lamentar / Guardar luto"},
+  {"palavra": "Grief", "traducao": "Luto / Pesar profundo"},
+  {"palavra": "On-call policy", "traducao": "Política de sobreaviso / Plantão"},
+  {"palavra": "Complainer", "traducao": "Pessoa reativa / Queixosa"},
+  {"palavra": "Overprotective", "traducao": "Superprotetor(a)"},
+  {"palavra": "Short arms", "traducao": "Braço curto / Acomodação no trabalho"}
+];
+
+const DATA_TREINO = {"module_id": "treino_desbloqueio", "erro_alvo": "Regência indevida com o verbo handle (inserção da preposição 'with', ex.: 'handle with problems' em vez de 'handle problems')", "nivel_cefr": "A2", "accent": "UK", "items": [{"type": "compare_contrast_implicito", "sentence_a": "How will you handle the new on-call policy?", "sentence_b": "How will you handle with the new on-call policy?", "question_pt": "Qual frase usa a regência correta do verbo 'handle' em inglês?", "correct_answer": "a", "explanation_pt": "O verbo 'handle' é transitivo direto e não aceita a preposição 'with'. Dizer 'handle with' é um vício de tradução direta do português 'lidar com'."}, {"type": "multiple_choice_avancado", "prompt_en": "If the neighbours make noise, the manager can ____ the situation.", "options": ["handle with", "handle", "handling", "handled with"], "correct_index": 1, "explanation_pt": "Após o verbo modal 'can', usamos o verbo principal na forma base sem preposição: 'can handle'. A forma 'handle with' está incorreta."}, {"type": "dialogo_tempos_mistos", "linhas": [{"pergunta": "Do you handle client requests every morning?", "resposta_com_lacuna": "Yes, I ____ them as soon as I arrive.", "resposta_lacuna": ["handle"], "resposta_completa": "Yes, I handle them as soon as I arrive.", "tempo": "presente"}, {"pergunta": "Did you handle the budget issue yesterday?", "resposta_com_lacuna": "Yes, I ____ it in the afternoon.", "resposta_lacuna": ["handled"], "resposta_completa": "Yes, I handled it in the afternoon.", "tempo": "passado"}, {"pergunta": "Will you handle the new schedule tomorrow?", "resposta_com_lacuna": "Yes, I will ____ it first thing.", "resposta_lacuna": ["handle"], "resposta_completa": "Yes, I will handle it first thing.", "tempo": "futuro"}], "explanation_pt": "O verbo 'handle' adapta-se ao tempo verbal (handle / handled / will handle), mas em nenhum momento utiliza a preposição 'with'."}, {"type": "reordenar_palavras", "tokens_embaralhados": ["He", "can", "handle", "the", "complainers", "easily."], "frase_correta": "He can handle the complainers easily.", "explanation_pt": "O verbo 'handle' conecta-se diretamente ao complemento ('the complainers') sem usar 'with'."}, {"type": "translation_challenge", "source_text_pt": "Você consegue lidar com a política de sobreaviso?", "correct_answer": ["Can you handle the on-call policy?", "Could you handle the on-call policy?", "Are you able to handle the on-call policy?"], "explanation_pt": "Para dizer 'lidar com a política', use 'handle the policy'. Não adicione 'with' após 'handle'."}, {"type": "translation_challenge", "source_text_pt": "Como você lida com vizinhos barulhentos?", "correct_answer": ["How do you handle noisy neighbours?", "How do you handle noisy neighbors?"], "explanation_pt": "'Lidar com' traduz-se simplesmente como 'handle'. A estrutura é 'handle' + objeto direto."}, {"type": "translation_challenge", "source_text_pt": "Eles não conseguiram lidar com os clientes queixosos.", "correct_answer": ["They couldn't handle the complainers.", "They could not handle the complainers.", "They couldn't handle the complaining clients.", "They could not handle the complaining clients."], "explanation_pt": "No passado, 'não conseguiram lidar' fica 'couldn't handle'. Lembre-se de não colocar 'with'."}]};
+
+const DATA_CUMULATIVA = {"module_id": "revisao_cumulativa", "topicos": [{"topico": "Preposições de Tempo em TI (for, since, during, until, by)", "resumo_regra": "Usamos 'by' para prazos limites (by Friday) e 'until' para ações contínuas que duram até certo momento (until 2 a.m.).", "exercicios": [{"type": "multiple_choice_simples", "prompt_en": "We have been testing this software programme ____ two hours.", "options": ["since", "during", "for"], "correct_index": 2, "explanation_pt": "Usamos 'for' para indicar a duração de um período de tempo (por duas horas)."}, {"type": "gap_fill", "sentence_with_gap": "Please complete the server migration ____ (by / until) 5 p.m. today.", "correct_answer": ["by"], "explanation_pt": "Usamos 'by' para indicar um prazo limite ou horário máximo para conclusão."}]}, {"topico": "Possessive Pronouns (ours, theirs, mine)", "resumo_regra": "Substituem o substantivo para indicar posse sem repetição: 'The responsibility is ours'.", "exercicios": [{"type": "multiple_choice_simples", "prompt_en": "This is not my laptop. Is it ____?", "options": ["yours", "your", "you"], "correct_index": 0, "explanation_pt": "Usamos 'yours' no final da frase para substituir 'your laptop' sem repetir a palavra."}, {"type": "gap_fill", "sentence_with_gap": "Their code works fine, but we prefer ____ (our / ours).", "correct_answer": ["ours"], "explanation_pt": "Usamos 'ours' para indicar posse ('o nosso') sem precisar repetir o substantivo 'code'."}]}]};
+
+// --- AUDIO SPEECH SYNTHESIS ---
+let currentRate = 1;
+
+function setRate(rate) {
+  currentRate = rate;
+  document.getElementById('rate-1').classList.toggle('active', rate === 1);
+  document.getElementById('rate-075').classList.toggle('active', rate === 0.75);
+}
+
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = META.accent === 'UK' ? 'en-GB' : 'en-US';
+  utter.rate = currentRate;
+  const voices = window.speechSynthesis.getVoices();
+  const voice = voices.find(v => v.lang.includes(META.accent === 'UK' ? 'GB' : 'US'));
+  if (voice) utter.voice = voice;
+  window.speechSynthesis.speak(utter);
+}
+
+// Hide audio buttons if speechSynthesis unavailable
+if (!('speechSynthesis' in window)) {
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById('audio-control-box').style.display = 'none';
+    document.querySelectorAll('.audio-icon-btn').forEach(b => b.style.display = 'none');
+  });
+}
+
+// --- NORMALIZATION HELPER ---
+function normalizeText(str) {
+  if (!str) return '';
+  return str
+    .replace(/[’‘“”`]/g, "'")
+    .replace(/[""]/g, '"')
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLowerCase()
+    .replace(/^["']|["']$/g, '')
+    .replace(/[.!?]$/, '')
+    .trim();
+}
+
+// --- API DISPATCH ---
+const enviados = {};
+function enviarResultado(secao, acertos, total) {
+  if (enviados[secao] || !META.apps_script_url) return;
+  enviados[secao] = true;
+  fetch(META.apps_script_url, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({
+      aluno_id: META.aluno_id,
+      aluno: META.aluno,
+      data_aula: META.data_aula,
+      secao: secao,
+      acertos: acertos,
+      total: total
+    })
+  }).catch(() => {});
+}
+
+// Array shuffle helper
+function shuffleArray(arr) {
+  const newArr = [...arr];
+  for (let i = newArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+  }
+  return newArr;
+}
+
+// --- 4. RENDER TREINO DE DESBLOQUEIO ---
+let stateTreino = { verified: false, reorderTokens: {} };
+
+function renderTreino() {
+  const container = document.getElementById('td-container');
+  if (!DATA_TREINO || !DATA_TREINO.items) {
+    document.getElementById('sec-treino').style.display = 'none';
+    return;
+  }
+
+  let html = '';
+  DATA_TREINO.items.forEach((item, idx) => {
+    html += `<div class="td-item" id="td-item-${idx}">`;
+
+    if (item.type === 'compare_contrast_implicito') {
+      html += `<div style="font-weight:600; margin-bottom:8px;">${item.question_pt}</div>`;
+      // Shuffle options sentence_a/b presentation
+      const correctText = item.correct_answer === 'a' ? item.sentence_a : item.sentence_b;
+      const options = [
+        { key: 'a', text: item.sentence_a },
+        { key: 'b', text: item.sentence_b }
+      ];
+      // Store correct text on item
+      item._correctText = correctText;
+      if (!item._shuffled) {
+        item._shuffled = shuffleArray(options);
+      }
+
+      item._shuffled.forEach(opt => {
+        html += `<button class="option-btn" onclick="selectTDOption(${idx}, '${opt.text}')" id="td-opt-${idx}-${encodeURIComponent(opt.text)}">${opt.text}</button>`;
+      });
+
+    } else if (item.type === 'multiple_choice_avancado') {
+      html += `<div style="font-weight:600; margin-bottom:8px;">${item.prompt_en}</div>`;
+      const correctText = item.options[item.correct_index];
+      item._correctText = correctText;
+      if (!item._shuffled) {
+        item._shuffled = shuffleArray(item.options);
+      }
+
+      item._shuffled.forEach(opt => {
+        html += `<button class="option-btn" onclick="selectTDOption(${idx}, '${opt}')" id="td-opt-${idx}-${encodeURIComponent(opt)}">${opt}</button>`;
+      });
+
+    } else if (item.type === 'dialogo_tempos_mistos') {
+      html += `<div style="font-size:0.9rem; color:var(--text-muted); margin-bottom:8px;">Complete o diálogo com a forma correta do verbo:</div>`;
+      item.linhas.forEach((line, lIdx) => {
+        const parts = line.resposta_com_lacuna.split('____');
+        html += `<div style="margin-bottom:10px; background:#f8fafc; padding:8px; border-radius:6px;" id="td-dialogo-line-${idx}-${lIdx}">
+          <div style="font-weight:600; font-size:0.9rem;">${line.pergunta}</div>
+          <div style="margin-top:4px;">
+            ${parts[0]}<input type="text" id="td-input-${idx}-${lIdx}" style="width:130px; display:inline-block; margin:0 4px;" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="...">${parts[1] || ''}
+          </div>
+          <div class="feedback-box" id="td-dialogo-fb-${idx}-${lIdx}"></div>
+        </div>`;
+      });
+
+    } else if (item.type === 'reordenar_palavras') {
+      html += `<div style="font-size:0.9rem; color:var(--text-muted); margin-bottom:8px;">Clique nas palavras para montar a frase:</div>`;
+      if (!stateTreino.reorderTokens[idx]) {
+        stateTreino.reorderTokens[idx] = {
+          pool: shuffleArray(item.tokens_embaralhados),
+          selected: []
+        };
+      }
+      html += `<div class="tokens-container token-target" id="td-reorder-target-${idx}"></div>`;
+      html += `<div class="tokens-container" id="td-reorder-pool-${idx}"></div>`;
+
+    } else if (item.type === 'translation_challenge') {
+      html += `<div style="font-weight:600; margin-bottom:4px;">Traduza para o inglês:</div>`;
+      html += `<div style="color:var(--text-muted); font-size:0.95rem; margin-bottom:8px;">"${item.source_text_pt}"</div>`;
+      html += `<input type="text" id="td-input-${idx}" placeholder="Type in English..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">`;
+    }
+
+    html += `<div class="feedback-box" id="td-fb-${idx}"></div>`;
+    html += `</div>`;
+  });
+
+  container.innerHTML = html;
+  renderReorderTokens();
+}
+
+function selectTDOption(itemIdx, val) {
+  if (stateTreino.verified) return;
+  DATA_TREINO.items[itemIdx]._userSelection = val;
+  const item = DATA_TREINO.items[itemIdx];
+  item._shuffled.forEach(opt => {
+    const optVal = typeof opt === 'object' ? opt.text : opt;
+    const btn = document.getElementById(`td-opt-${itemIdx}-${encodeURIComponent(optVal)}`);
+    if (btn) {
+      btn.classList.toggle('td-selected', optVal === val);
+    }
+  });
+}
+
+function renderReorderTokens() {
+  DATA_TREINO.items.forEach((item, idx) => {
+    if (item.type !== 'reordenar_palavras') return;
+    const data = stateTreino.reorderTokens[idx];
+    const targetEl = document.getElementById(`td-reorder-target-${idx}`);
+    const poolEl = document.getElementById(`td-reorder-pool-${idx}`);
+    if (!targetEl || !poolEl) return;
+
+    targetEl.innerHTML = data.selected.map((tok, tIdx) => 
+      `<button class="token-btn" onclick="popToken(${idx}, ${tIdx})">${tok}</button>`
+    ).join('');
+
+    poolEl.innerHTML = data.pool.map((tok, pIdx) => 
+      `<button class="token-btn" onclick="pushToken(${idx}, ${pIdx})">${tok}</button>`
+    ).join('');
+  });
+}
+
+function pushToken(itemIdx, poolIdx) {
+  if (stateTreino.verified) return;
+  const data = stateTreino.reorderTokens[itemIdx];
+  const tok = data.pool.splice(poolIdx, 1)[0];
+  data.selected.push(tok);
+  renderReorderTokens();
+}
+
+function popToken(itemIdx, selectIdx) {
+  if (stateTreino.verified) return;
+  const data = stateTreino.reorderTokens[itemIdx];
+  const tok = data.selected.splice(selectIdx, 1)[0];
+  data.pool.push(tok);
+  renderReorderTokens();
+}
+
+function verificarTreino() {
+  const btn = document.getElementById('btn-verify-treino');
+  if (stateTreino.verified) {
+    // Reset
+    stateTreino.verified = false;
+    DATA_TREINO.items.forEach(item => {
+      delete item._userSelection;
+    });
+    stateTreino.reorderTokens = {};
+    renderTreino();
+    btn.textContent = 'Verificar Treino';
+    document.getElementById('score-treino').style.display = 'none';
+    return;
+  }
+
+  let totalItems = 0;
+  let correctCount = 0;
+
+  DATA_TREINO.items.forEach((item, idx) => {
+    const cardEl = document.getElementById(`td-item-${idx}`);
+    const fbEl = document.getElementById(`td-fb-${idx}`);
+    let isCorrect = false;
+
+    if (item.type === 'compare_contrast_implicito' || item.type === 'multiple_choice_avancado') {
+      totalItems++;
+      const userSel = item._userSelection;
+      if (userSel === item._correctText) {
+        isCorrect = true;
+      }
+      cardEl.className = `td-item ${isCorrect ? 'td-correct' : 'td-incorrect'}`;
+      fbEl.style.display = 'block';
+      fbEl.innerHTML = `${!isCorrect ? `<div class="correct-answer-text td-correct-text">✅ Resposta correta: ${item._correctText}</div>` : ''}${item.explanation_pt}`;
+
+    } else if (item.type === 'dialogo_tempos_mistos') {
+      item.linhas.forEach((line, lIdx) => {
+        totalItems++;
+        const lineEl = document.getElementById(`td-dialogo-line-${idx}-${lIdx}`);
+        const lineFbEl = document.getElementById(`td-dialogo-fb-${idx}-${lIdx}`);
+        const inputEl = document.getElementById(`td-input-${idx}-${lIdx}`);
+        const userVal = normalizeText(inputEl ? inputEl.value : '');
+        const accepts = line.resposta_lacuna.map(normalizeText);
+        const lineCorrect = accepts.includes(userVal);
+
+        if (lineCorrect) correctCount++;
+        lineEl.style.background = lineCorrect ? 'var(--td-blue-bg)' : 'var(--td-burnt-bg)';
+        lineEl.style.border = lineCorrect ? '1px solid var(--td-blue)' : '1px solid var(--td-burnt-orange)';
+        lineFbEl.style.display = 'block';
+        lineFbEl.innerHTML = lineCorrect ? '' : `<div class="correct-answer-text td-correct-text">✅ Resposta correta: ${line.resposta_completa}</div>`;
+      });
+      fbEl.style.display = 'block';
+      fbEl.innerHTML = item.explanation_pt;
+
+    } else if (item.type === 'reordenar_palavras') {
+      totalItems++;
+      const userSentence = stateTreino.reorderTokens[idx].selected.join(' ');
+      if (normalizeText(userSentence) === normalizeText(item.frase_correta)) {
+        isCorrect = true;
+      }
+      cardEl.className = `td-item ${isCorrect ? 'td-correct' : 'td-incorrect'}`;
+      fbEl.style.display = 'block';
+      fbEl.innerHTML = `${!isCorrect ? `<div class="correct-answer-text td-correct-text">✅ Resposta correta: ${item.frase_correta}</div>` : ''}${item.explanation_pt}`;
+
+    } else if (item.type === 'translation_challenge') {
+      totalItems++;
+      const inputEl = document.getElementById(`td-input-${idx}`);
+      const userVal = normalizeText(inputEl ? inputEl.value : '');
+      const accepts = item.correct_answer.map(normalizeText);
+      if (accepts.includes(userVal)) {
+        isCorrect = true;
+      }
+      cardEl.className = `td-item ${isCorrect ? 'td-correct' : 'td-incorrect'}`;
+      fbEl.style.display = 'block';
+      fbEl.innerHTML = `${!isCorrect ? `<div class="correct-answer-text td-correct-text">✅ Resposta correta: ${item.correct_answer[0]}</div>` : ''}${item.explanation_pt}`;
+    }
+
+    if (item.type !== 'dialogo_tempos_mistos' && isCorrect) {
+      correctCount++;
+    }
+  });
+
+  stateTreino.verified = true;
+  btn.textContent = 'Tentar de novo';
+  
+  const scoreEl = document.getElementById('score-treino');
+  scoreEl.textContent = `${correctCount} de ${totalItems} corretas`;
+  scoreEl.style.display = 'inline-block';
+
+  enviarResultado("Treino de Desbloqueio", correctCount, totalItems);
+  if (enviados["Treino de Desbloqueio"]) {
+    document.getElementById('status-treino').textContent = '📤 Resultado enviado ao professor';
+  }
+}
+
+// --- 5. RENDER REVISÃO CUMULATIVA ---
+let stateCumulativa = { verified: false };
+
+function renderCumulativa() {
+  const container = document.getElementById('cumulativa-container');
+  if (!DATA_CUMULATIVA || !DATA_CUMULATIVA.topicos || DATA_CUMULATIVA.topicos.length === 0) {
+    document.getElementById('sec-cumulativa').style.display = 'none';
+    return;
+  }
+
+  let html = '';
+  let globalExIdx = 0;
+
+  DATA_CUMULATIVA.topicos.forEach((topico, tIdx) => {
+    html += `<div class="topic-group">
+      <div class="topic-title">${topico.topico}</div>
+      <div class="topic-rule">${topico.resumo_regra}</div>`;
+
+    topico.exercicios.forEach((ex, eIdx) => {
+      const exId = `cum-${globalExIdx}`;
+      ex._globalId = exId;
+      globalExIdx++;
+
+      html += `<div class="ex-item" id="card-${exId}">`;
+
+      if (ex.type === 'multiple_choice_simples') {
+        html += `<div style="font-weight:600; margin-bottom:8px;">${ex.prompt_en}</div>`;
+        const correctText = ex.options[ex.correct_index];
+        ex._correctText = correctText;
+        if (!ex._shuffled) {
+          ex._shuffled = shuffleArray(ex.options);
+        }
+
+        ex._shuffled.forEach(opt => {
+          html += `<button class="option-btn" onclick="selectCumOption('${exId}', '${opt}')" id="opt-${exId}-${encodeURIComponent(opt)}">${opt}</button>`;
+        });
+
+      } else if (ex.type === 'gap_fill') {
+        const parts = ex.sentence_with_gap.split('____');
+        html += `<div style="font-weight:600; margin-bottom:8px;">
+          ${parts[0]}<input type="text" id="input-${exId}" style="width:140px; display:inline-block; margin:0 4px;" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="..."> ${parts[1] || ''}
+        </div>`;
+      }
+
+      html += `<div class="feedback-box" id="fb-${exId}"></div>`;
+      html += `</div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function selectCumOption(exId, val) {
+  if (stateCumulativa.verified) return;
+  
+  // Find exercise item
+  DATA_CUMULATIVA.topicos.forEach(t => {
+    t.exercicios.forEach(ex => {
+      if (ex._globalId === exId) {
+        ex._userSelection = val;
+        ex._shuffled.forEach(opt => {
+          const btn = document.getElementById(`opt-${exId}-${encodeURIComponent(opt)}`);
+          if (btn) btn.classList.toggle('selected', opt === val);
+        });
+      }
+    });
+  });
+}
+
+function verificarCumulativa() {
+  const btn = document.getElementById('btn-verify-cumulativa');
+  if (stateCumulativa.verified) {
+    stateCumulativa.verified = false;
+    DATA_CUMULATIVA.topicos.forEach(t => {
+      t.exercicios.forEach(ex => delete ex._userSelection);
+    });
+    renderCumulativa();
+    btn.textContent = 'Verificar Revisão';
+    document.getElementById('score-cumulativa').style.display = 'none';
+    return;
+  }
+
+  let total = 0;
+  let correct = 0;
+
+  DATA_CUMULATIVA.topicos.forEach(t => {
+    t.exercicios.forEach(ex => {
+      total++;
+      const exId = ex._globalId;
+      const cardEl = document.getElementById(`card-${exId}`);
+      const fbEl = document.getElementById(`fb-${exId}`);
+      let isCorrect = false;
+
+      if (ex.type === 'multiple_choice_simples') {
+        if (ex._userSelection === ex._correctText) isCorrect = true;
+        fbEl.innerHTML = `${!isCorrect ? `<div class="correct-answer-text">✅ Resposta correta: ${ex._correctText}</div>` : ''}${ex.explanation_pt}`;
+
+      } else if (ex.type === 'gap_fill') {
+        const inputEl = document.getElementById(`input-${exId}`);
+        const userVal = normalizeText(inputEl ? inputEl.value : '');
+        const accepts = Array.isArray(ex.correct_answer) ? ex.correct_answer.map(normalizeText) : [normalizeText(ex.correct_answer)];
+        if (accepts.includes(userVal)) isCorrect = true;
+        const correctDisplay = Array.isArray(ex.correct_answer) ? ex.correct_answer[0] : ex.correct_answer;
+        fbEl.innerHTML = `${!isCorrect ? `<div class="correct-answer-text">✅ Resposta correta: ${correctDisplay}</div>` : ''}${ex.explanation_pt}`;
+      }
+
+      if (isCorrect) correct++;
+      cardEl.className = `ex-item ${isCorrect ? 'correct' : 'incorrect'}`;
+      fbEl.style.display = 'block';
+    });
+  });
+
+  stateCumulativa.verified = true;
+  btn.textContent = 'Tentar de novo';
+
+  const scoreEl = document.getElementById('score-cumulativa');
+  scoreEl.textContent = `${correct} de ${total} corretas`;
+  scoreEl.style.display = 'inline-block';
+
+  enviarResultado("Revisão Cumulativa", correct, total);
+  if (enviados["Revisão Cumulativa"]) {
+    document.getElementById('status-cumulativa').textContent = '📤 Resultado enviado ao professor';
+  }
+}
+
+// --- 6. FLASHCARDS VOCABULÁRIO ---
+let currentFcIdx = 0;
+let reviewedCount = 0;
+
+function renderFlashcard() {
+  if (VOCAB.length === 0) return;
+  const item = VOCAB[currentFcIdx];
+  document.getElementById('fc-en-text').textContent = item.palavra;
+  document.getElementById('fc-pt-text').textContent = item.traducao;
+  document.getElementById('fc-pt-text').style.display = 'none';
+  document.getElementById('fc-reveal-btn').style.display = 'inline-flex';
+  document.getElementById('fc-eval-btns').style.display = 'none';
+
+  document.getElementById('fc-audio-btn').onclick = () => speak(item.palavra.split('/')[0]);
+  document.getElementById('fc-counter').textContent = `${reviewedCount} de ${VOCAB.length} revisadas`;
+}
+
+function revelarFlashcard() {
+  document.getElementById('fc-pt-text').style.display = 'block';
+  document.getElementById('fc-reveal-btn').style.display = 'none';
+  document.getElementById('fc-eval-btns').style.display = 'flex';
+}
+
+function avaliarFlashcard(knew) {
+  reviewedCount++;
+  currentFcIdx = (currentFcIdx + 1) % VOCAB.length;
+  renderFlashcard();
+}
+
+// --- 7. EXERCÍCIO DE FIXAÇÃO ---
+const FIXACAO_DATA = [
+  {
+    sentence: "During the solemn ceremony, they carried the wooden ____.",
+    correct: "coffin",
+    distractors: ["grief", "complainer", "policy"]
+  },
+  {
+    sentence: "It takes time to ____ the loss of a close friend.",
+    correct: "mourn",
+    distractors: ["grief", "overprotective", "complainer"]
+  },
+  {
+    sentence: "Therapy can help people process deep ____ after a tragic event.",
+    correct: "grief",
+    distractors: ["mourn", "coffin", "policy"]
+  },
+  {
+    sentence: "Our team updated the IT ____ to handle emergency tickets.",
+    correct: "on-call policy",
+    distractors: ["grief", "short arms", "complainer"]
+  },
+  {
+    sentence: "He is a constant ____ who never offers solutions to problems.",
+    correct: "complainer",
+    distractors: ["coffin", "grief", "overprotective"]
+  },
+  {
+    sentence: "The manager is ____ and micromanages every small detail.",
+    correct: "overprotective",
+    distractors: ["complainer", "mourn", "short arms"]
+  },
+  {
+    sentence: "Having ____ means being reluctant to pay or take responsibility.",
+    correct: "short arms",
+    distractors: ["on-call policy", "grief", "overprotective"]
+  }
+];
+
+let stateFixacao = { verified: false };
+
+function renderFixacao() {
+  const container = document.getElementById('fixacao-container');
+  let html = '';
+
+  FIXACAO_DATA.forEach((item, idx) => {
+    if (!item._options) {
+      const allOpts = [item.correct, ...item.distractors];
+      item._options = shuffleArray(allOpts);
+    }
+
+    const parts = item.sentence.split('____');
+    html += `<div class="ex-item" id="fix-card-${idx}">
+      <div style="font-weight:600; font-size:0.95rem; margin-bottom:8px;">
+        ${idx + 1}. ${parts[0]}
+        <select id="fix-select-${idx}" style="width:160px; display:inline-block; margin:0 4px;">
+          <option value="" disabled selected>-- Selecione --</option>
+          ${item._options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+        </select>
+        ${parts[1] || ''}
+      </div>
+      <div class="feedback-box" id="fix-fb-${idx}"></div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function verificarFixacao() {
+  const btn = document.getElementById('btn-verify-fixacao');
+  if (stateFixacao.verified) {
+    stateFixacao.verified = false;
+    renderFixacao();
+    btn.textContent = 'Verificar Fixação';
+    document.getElementById('score-fixacao').style.display = 'none';
+    return;
+  }
+
+  let total = FIXACAO_DATA.length;
+  let correct = 0;
+
+  FIXACAO_DATA.forEach((item, idx) => {
+    const cardEl = document.getElementById(`fix-card-${idx}`);
+    const fbEl = document.getElementById(`fix-fb-${idx}`);
+    const selectEl = document.getElementById(`fix-select-${idx}`);
+    const userVal = selectEl ? selectEl.value : '';
+    const isCorrect = userVal === item.correct;
+
+    if (isCorrect) correct++;
+    cardEl.className = `ex-item ${isCorrect ? 'correct' : 'incorrect'}`;
+    fbEl.style.display = 'block';
+    fbEl.innerHTML = !isCorrect ? `<div class="correct-answer-text">✅ Resposta correta: ${item.correct}</div>` : '';
+  });
+
+  stateFixacao.verified = true;
+  btn.textContent = 'Tentar de novo';
+
+  const scoreEl = document.getElementById('score-fixacao');
+  scoreEl.textContent = `${correct} de ${total} corretas`;
+  scoreEl.style.display = 'inline-block';
+
+  enviarResultado("Exercício de Fixação", correct, total);
+  if (enviados["Exercício de Fixação"]) {
+    document.getElementById('status-fixacao').textContent = '📤 Resultado enviado ao professor';
+  }
+}
+
+// --- 8. HOMEWORK COPY ---
+function copiarHomework() {
+  const text = "Homework Luiz Maia (02/10/26):\n- Elaborar 4 frases corporativas comparando a postura laboral e políticas de sobreaviso (on-call) entre equipes do Brasil e da Europa.\n- Criar 3 solicitações formais de permissão e alinhamento de entregas em TI utilizando Can e Could.";
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('toast');
+    toast.style.display = 'block';
+    setTimeout(() => toast.style.display = 'none', 3000);
+  });
+}
+
+// --- INITIALIZATION ---
+document.addEventListener("DOMContentLoaded", () => {
+  renderTreino();
+  renderCumulativa();
+  renderFlashcard();
+  renderFixacao();
+});
+</script>
+</body>
+</html>
