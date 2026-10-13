@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 13/10/26 — Camilla</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --warning: #eab308;
+      --warning-bg: #fefce8;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card);
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      color: var(--primary);
+    }
+
+    .greeting {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .audio-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .audio-toggle button {
+      border: none;
+      background: transparent;
+      padding: 4px 8px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .audio-toggle button.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .section-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+
+    .encouragement {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #1e40af;
+      margin-bottom: 20px;
+    }
+
+    .rule-box {
+      background: var(--bg);
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .example-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+
+    .example-en {
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .example-pt {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .btn-audio {
+      background: #e0e7ff;
+      color: var(--primary);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .btn-audio:active {
+      transform: scale(0.95);
+    }
+
+    /* Exercises General */
+    .exercise-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .exercise-item.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .exercise-item.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    .prompt-en {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn-option {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+      transition: background 0.15s;
+    }
+
+    .btn-option.selected {
+      border-color: var(--primary);
+      background-color: #eff6ff;
+      font-weight: 600;
+    }
+
+    .text-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      margin-top: 6px;
+      background: var(--card);
+    }
+
+    .inline-select {
+      min-height: 44px;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: var(--card);
+      margin: 0 4px;
+      max-width: 100%;
+    }
+
+    .explanation {
+      margin-top: 8px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    .correct-answer-display {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--success);
+      display: none;
+    }
+
+    /* Actions */
+    .action-block {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .score-board {
+      font-weight: 700;
+      font-size: 1rem;
+      display: none;
+      margin-bottom: 8px;
+    }
+
+    .submission-status {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: none;
+      text-align: center;
+    }
+
+    /* Flashcards */
+    .flashcard-counter {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .flashcards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .flashcard {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .flashcard-front {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flashcard-word {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .flashcard-back {
+      display: none;
+      border-top: 1px dashed var(--border);
+      padding-top: 12px;
+      font-size: 1rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .flashcard-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-reveal {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      width: 100%;
+      min-height: 44px;
+    }
+
+    .btn-eval {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      border: 2px solid transparent;
+      background: var(--bg);
+    }
+
+    .btn-eval.knew {
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    .btn-eval.knew.selected {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-eval.review {
+      border-color: var(--warning);
+      color: #b45309;
+    }
+
+    .btn-eval.review.selected {
+      background: var(--warning);
+      color: white;
+    }
+
+    /* Homework */
+    .homework-list {
+      list-style-type: disc;
+      padding-left: 20px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .homework-list li {
+      margin-bottom: 8px;
+    }
+
+    .copied-toast {
+      font-size: 0.85rem;
+      color: var(--success);
+      display: none;
+      text-align: center;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-top">
+      <h1>Revisão da aula de 13/10/26</h1>
+      <div class="audio-toggle">
+        <span>Velocidade 🔊</span>
+        <button id="rate-1" class="active" onclick="setAudioRate(1.0)">1.0x</button>
+        <button id="rate-075" onclick="setAudioRate(0.75)">0.75x</button>
+      </div>
+    </div>
+    <div class="greeting">Olá, Camilla!</div>
+  </header>
+
+  <!-- Encorajamento -->
+  <div class="encouragement">
+    Sua espontaneidade e vontade de se comunicar fazem toda a diferença. Cada nova palavra praticada deixa sua fala mais natural!
+  </div>
+
+  <!-- 📖 Recapitulação da Regra -->
+  <section class="section-card">
+    <div class="section-title">📖 Recapitulação da Regra</div>
+    <div class="rule-box">
+      <strong>Simple Present: Identidade, Fatos Permanentes e Rotina</strong>
+      <p style="margin-top: 6px;">Usamos o Simple Present para falar de hábitos, rotinas e fatos permanentes do dia a dia. Para fazer perguntas e negativas, usamos os auxiliares 'do' e 'don't'.</p>
+    </div>
+    
+    <div class="example-item">
+      <div class="example-en">
+        <span>I work from home and support clients in the Americas.</span>
+        <button class="btn-audio" onclick="speak('I work from home and support clients in the Americas.')">🔊</button>
+      </div>
+      <div class="example-pt">Eu trabalho de casa e atendo clientes nas Américas.</div>
+    </div>
+
+    <div class="example-item">
+      <div class="example-en">
+        <span>They solve system problems every day.</span>
+        <button class="btn-audio" onclick="speak('They solve system problems every day.')">🔊</button>
+      </div>
+      <div class="example-pt">Eles resolvem problemas do sistema todos os dias.</div>
+    </div>
+
+    <div class="example-item">
+      <div class="example-en">
+        <span>Do you go to work by car?</span>
+        <button class="btn-audio" onclick="speak('Do you go to work by car?')">🔊</button>
+      </div>
+      <div class="example-pt">Você vai para o trabalho de carro?</div>
+    </div>
+  </section>
+
+  <!-- Treino de Desbloqueio (omitted since JSON_TREINO_DESBLOQUEIO is null) -->
+
+  <!-- 🔁 Revisão Cumulativa -->
+  <section class="section-card">
+    <div class="section-title">🔁 Revisão Cumulativa</div>
+    
+    <!-- Topic 1 -->
+    <div class="rule-box">
+      <strong>Demonstratives - time expressions</strong>
+      <p style="margin-top: 4px;">Usamos 'this/these' para referência temporal presente ou próxima e 'that/those' para momentos passados ou distantes.</p>
+    </div>
+
+    <div class="exercise-item" id="rc-ex-0" data-type="mc" data-correct="this">
+      <div class="prompt-en">I am very busy ____ morning.</div>
+      <div class="options-group" id="rc-opt-0"></div>
+      <div class="explanation" id="rc-exp-0">Usamos 'this' para nos referirmos ao momento presente ou próximo (esta manhã).</div>
+      <div class="correct-answer-display" id="rc-ans-0"></div>
+    </div>
+
+    <div class="exercise-item" id="rc-ex-1" data-type="gap" data-correct='["these"]'>
+      <div class="prompt-en">
+        <input type="text" class="text-input" id="rc-in-1" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" style="display:inline-block; width: 120px;"> days, I work from home.
+      </div>
+      <div class="explanation" id="rc-exp-1">Usamos 'these' (plural de 'this') para indicar um período de tempo plural e presente (estes dias).</div>
+      <div class="correct-answer-display" id="rc-ans-1"></div>
+    </div>
+
+    <!-- Topic 2 -->
+    <div class="rule-box" style="margin-top: 20px;">
+      <strong>Questions and Answers (do/did/will/would)</strong>
+      <p style="margin-top: 4px;">Usamos auxiliares no início de perguntas em inglês e para responder de forma polida e curta.</p>
+    </div>
+
+    <div class="exercise-item" id="rc-ex-2" data-type="mc" data-correct="Did">
+      <div class="prompt-en">____ you go to the office yesterday?</div>
+      <div class="options-group" id="rc-opt-2"></div>
+      <div class="explanation" id="rc-exp-2">Usamos o auxiliar 'Did' para iniciar perguntas no passado.</div>
+      <div class="correct-answer-display" id="rc-ans-2"></div>
+    </div>
+
+    <div class="exercise-item" id="rc-ex-3" data-type="gap" data-correct='["will"]'>
+      <div class="prompt-en">
+        <input type="text" class="text-input" id="rc-in-3" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" style="display:inline-block; width: 120px;"> you call the manager tomorrow?
+      </div>
+      <div class="explanation" id="rc-exp-3">Usamos o auxiliar 'Will' no início da frase para fazer perguntas sobre o futuro.</div>
+      <div class="correct-answer-display" id="rc-ans-3"></div>
+    </div>
+
+    <div class="action-block">
+      <div class="score-board" id="score-rc"></div>
+      <button class="btn-primary" id="btn-rc" onclick="verificarRevisaoCumulativa()">Verificar</button>
+      <div class="submission-status" id="status-Revisão-Cumulativa"></div>
+    </div>
+  </section>
+
+  <!-- 📚 Vocabulário Novo -->
+  <section class="section-card">
+    <div class="section-title">📚 Vocabulário Novo</div>
+    <div class="flashcard-counter" id="fc-counter">0 de 9 revisadas</div>
+    
+    <div class="flashcards-grid" id="flashcards-container"></div>
+  </section>
+
+  <!-- ✏️ Exercício de Fixação -->
+  <section class="section-card">
+    <div class="section-title">✏️ Exercício de Fixação</div>
+    
+    <div id="fixacao-container"></div>
+
+    <div class="action-block">
+      <div class="score-board" id="score-fix"></div>
+      <button class="btn-primary" id="btn-fix" onclick="verificarFixacao()">Verificar</button>
+      <div class="submission-status" id="status-Exercício-de-Fixação"></div>
+    </div>
+  </section>
+
+  <!-- 🏠 Homework -->
+  <section class="section-card">
+    <div class="section-title">🏠 Homework</div>
+    <ul class="homework-list" id="hw-list">
+      <li>Acesse o link do Google Docs compartilhado em aula para praticar a leitura e escuta do texto sobre Simple Present.</li>
+      <li>Leia o texto Camilla's Global Routine em voz alta prestando atenção nas frases afirmativas e negativas.</li>
+    </ul>
+    <button class="btn-primary" onclick="copiarHomework()">Copiar homework</button>
+    <div class="copied-toast" id="hw-toast">Copiado para a área de transferência!</div>
+  </section>
+
+  <script>
+    // Global Config & State
+    let audioRate = 1.0;
+    const metaEnvio = {"aluno_id": "camilla-leal", "aluno": "Camilla Leal", "data_aula": "13/10/26", "accent": "US", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+    const enviados = {};
+
+    function setAudioRate(rate) {
+      audioRate = rate;
+      document.getElementById('rate-1').classList.toggle('active', rate === 1.0);
+      document.getElementById('rate-075').classList.toggle('active', rate === 0.75);
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'en-US';
+      utter.rate = audioRate;
+      window.speechSynthesis.speak(utter);
+    }
+
+    // Hide speech buttons if API unavailable
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!('speechSynthesis' in window)) {
+        document.querySelectorAll('.btn-audio').forEach(b => b.style.display = 'none');
+      }
+    });
+
+    function normalizeText(str) {
+      if (!str) return '';
+      return str
+        .replace(/[’‘]/g, "'")
+        .replace(/[“”]/g, '"')
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .replace(/^["']|["']$/g, '')
+        .replace(/[.!?]$/, '');
+    }
+
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function enviarResultado(secao, acertos, total) {
+      if (!metaEnvio.apps_script_url || enviados[secao]) return;
+      enviados[secao] = true;
+      fetch(metaEnvio.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: metaEnvio.aluno_id,
+          aluno: metaEnvio.aluno,
+          data_aula: metaEnvio.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+      
+      const safeId = `status-${secao.replace(/\s+/g, '-')}`;
+      const statusElem = document.getElementById(safeId);
+      if (statusElem) {
+        statusElem.style.display = 'block';
+        statusElem.innerText = "📤 Resultado enviado ao professor";
+      }
+    }
+
+    // ==========================================
+    // 🔁 REVISÃO CUMULATIVA - SETUP & VERIFY
+    // ==========================================
+    const rcMcData = {
+      0: { options: ["this", "that", "those"], selected: null },
+      2: { options: ["Do", "Did", "Will"], selected: null }
+    };
+
+    function initRevisaoCumulativa() {
+      // Render shuffled options for MC
+      [0, 2].forEach(idx => {
+        const container = document.getElementById(`rc-opt-${idx}`);
+        container.innerHTML = '';
+        const shuffled = shuffle(rcMcData[idx].options);
+        shuffled.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'btn-option';
+          btn.innerText = opt;
+          btn.onclick = () => {
+            if (document.getElementById('btn-rc').dataset.state === 'retry') return;
+            rcMcData[idx].selected = opt;
+            container.querySelectorAll('.btn-option').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+          };
+          container.appendChild(btn);
+        });
+      });
+    }
+
+    function verificarRevisaoCumulativa() {
+      const btn = document.getElementById('btn-rc');
+      
+      if (btn.dataset.state === 'retry') {
+        // Reset
+        btn.dataset.state = 'check';
+        btn.innerText = "Verificar";
+        document.getElementById('score-rc').style.display = 'none';
+        
+        [0, 1, 2, 3].forEach(i => {
+          const item = document.getElementById(`rc-ex-${i}`);
+          item.classList.remove('correct', 'incorrect');
+          document.getElementById(`rc-exp-${i}`).style.display = 'none';
+          document.getElementById(`rc-ans-${i}`).style.display = 'none';
+          
+          if (i === 0 || i === 2) {
+            rcMcData[i].selected = null;
+            document.querySelectorAll(`#rc-opt-${i} .btn-option`).forEach(b => b.classList.remove('selected'));
+          } else {
+            const input = document.getElementById(`rc-in-${i}`);
+            input.value = '';
+            input.disabled = false;
+          }
+        });
+        return;
+      }
+
+      let score = 0;
+      const total = 4;
+
+      // Ex 0: MC
+      const ex0 = document.getElementById('rc-ex-0');
+      const ans0 = ex0.dataset.correct;
+      if (rcMcData[0].selected === ans0) {
+        score++;
+        ex0.classList.add('correct');
+      } else {
+        ex0.classList.add('incorrect');
+        document.getElementById('rc-ans-0').innerText = `✅ Resposta correta: ${ans0}`;
+        document.getElementById('rc-ans-0').style.display = 'block';
+      }
+      document.getElementById('rc-exp-0').style.display = 'block';
+
+      // Ex 1: Gap
+      const ex1 = document.getElementById('rc-ex-1');
+      const in1 = document.getElementById('rc-in-1');
+      in1.disabled = true;
+      const val1 = normalizeText(in1.value);
+      const acc1 = JSON.parse(ex1.dataset.correct).map(normalizeText);
+      if (acc1.includes(val1)) {
+        score++;
+        ex1.classList.add('correct');
+      } else {
+        ex1.classList.add('incorrect');
+        document.getElementById('rc-ans-1').innerText = `✅ Resposta correta: These`;
+        document.getElementById('rc-ans-1').style.display = 'block';
+      }
+      document.getElementById('rc-exp-1').style.display = 'block';
+
+      // Ex 2: MC
+      const ex2 = document.getElementById('rc-ex-2');
+      const ans2 = ex2.dataset.correct;
+      if (rcMcData[2].selected === ans2) {
+        score++;
+        ex2.classList.add('correct');
+      } else {
+        ex2.classList.add('incorrect');
+        document.getElementById('rc-ans-2').innerText = `✅ Resposta correta: ${ans2}`;
+        document.getElementById('rc-ans-2').style.display = 'block';
+      }
+      document.getElementById('rc-exp-2').style.display = 'block';
+
+      // Ex 3: Gap
+      const ex3 = document.getElementById('rc-ex-3');
+      const in3 = document.getElementById('rc-in-3');
+      in3.disabled = true;
+      const val3 = normalizeText(in3.value);
+      const acc3 = JSON.parse(ex3.dataset.correct).map(normalizeText);
+      if (acc3.includes(val3)) {
+        score++;
+        ex3.classList.add('correct');
+      } else {
+        ex3.classList.add('incorrect');
+        document.getElementById('rc-ans-3').innerText = `✅ Resposta correta: Will`;
+        document.getElementById('rc-ans-3').style.display = 'block';
+      }
+      document.getElementById('rc-exp-3').style.display = 'block';
+
+      // Score board & Toggle state
+      const scoreElem = document.getElementById('score-rc');
+      scoreElem.innerText = `Placar: ${score} de ${total} corretas`;
+      scoreElem.style.display = 'block';
+
+      btn.innerText = "Tentar de novo";
+      btn.dataset.state = 'retry';
+
+      enviarResultado("Revisão Cumulativa", score, total);
+    }
+
+    // ==========================================
+    // 📚 FLASHCARDS
+    // ==========================================
+    const vocabularies = [
+      {"palavra": "Mermaid", "traducao": "Sereia"},
+      {"palavra": "Ticket", "traducao": "Ingresso / Bilhete"},
+      {"palavra": "Cost", "traducao": "Custo / Preço"},
+      {"palavra": "Parking lot", "traducao": "Estacionamento"},
+      {"palavra": "Cheap", "traducao": "Barato(a)"},
+      {"palavra": "Expensive", "traducao": "Caro(a)"},
+      {"palavra": "Free", "traducao": "Livre / Solto(a)"},
+      {"palavra": "Busy", "traducao": "Ocupado(a) / Atarefado(a)"},
+      {"palavra": "Colleagues", "traducao": "Colegas de trabalho"}
+    ];
+
+    const fcReviewed = new Set();
+
+    function initFlashcards() {
+      const container = document.getElementById('flashcards-container');
+      container.innerHTML = '';
+      
+      vocabularies.forEach((v, idx) => {
+        const fc = document.createElement('div');
+        fc.className = 'flashcard';
+        fc.id = `fc-${idx}`;
+        fc.innerHTML = `
+          <div class="flashcard-front">
+            <span class="flashcard-word">${v.palavra}</span>
+            <button class="btn-audio" onclick="speak('${v.palavra.replace(/'/g, "\\'")}')">🔊</button>
+          </div>
+          <div class="flashcard-back" id="fc-back-${idx}">${v.traducao}</div>
+          <button class="btn-reveal" id="fc-rev-${idx}" onclick="revealFlashcard(${idx})">Revelar tradução</button>
+          <div class="flashcard-actions" id="fc-act-${idx}" style="display:none;">
+            <button class="btn-eval knew" id="btn-knew-${idx}" onclick="evalFlashcard(${idx}, true)">✅ Eu sabia</button>
+            <button class="btn-eval review" id="btn-rev-${idx}" onclick="evalFlashcard(${idx}, false)">🔄 Preciso revisar</button>
+          </div>
+        `;
+        container.appendChild(fc);
+      });
+    }
+
+    function revealFlashcard(idx) {
+      document.getElementById(`fc-back-${idx}`).style.display = 'block';
+      document.getElementById(`fc-rev-${idx}`).style.display = 'none';
+      document.getElementById(`fc-act-${idx}`).style.display = 'flex';
+    }
+
+    function evalFlashcard(idx, knew) {
+      const btnKnew = document.getElementById(`btn-knew-${idx}`);
+      const btnRev = document.getElementById(`btn-rev-${idx}`);
+      
+      if (knew) {
+        btnKnew.classList.add('selected');
+        btnRev.classList.remove('selected');
+      } else {
+        btnRev.classList.add('selected');
+        btnKnew.classList.remove('selected');
+      }
+
+      fcReviewed.add(idx);
+      document.getElementById('fc-counter').innerText = `${fcReviewed.size} de ${vocabularies.length} revisadas`;
+    }
+
+    // ==========================================
+    // ✏️ EXERCÍCIO DE FIXAÇÃO - SETUP & VERIFY
+    // ==========================================
+    const fixacaoSentences = [
+      {
+        target: "Mermaid",
+        correctForm: "mermaid",
+        prefix: "In the fairy tale, the ",
+        suffix: " lives in the ocean.",
+        distractors: ["parking lot", "ticket", "colleague"]
+      },
+      {
+        target: "Ticket",
+        correctForm: "ticket",
+        prefix: "I bought a ",
+        suffix: " for the concert online.",
+        distractors: ["cost", "cheap", "busy"]
+      },
+      {
+        target: "Cost",
+        correctForm: "cost",
+        prefix: "What is the total ",
+        suffix: " of the new project?",
+        distractors: ["parking lot", "colleagues", "cheap"]
+      },
+      {
+        target: "Parking lot",
+        correctForm: "parking lot",
+        prefix: "I parked my car in the company ",
+        suffix: ".",
+        distractors: ["ticket", "mermaid", "expensive"]
+      },
+      {
+        target: "Cheap",
+        correctForm: "cheap",
+        prefix: "This lunch option is very ",
+        suffix: ", it only costs $5.",
+        distractors: ["busy", "expensive", "free"]
+      },
+      {
+        target: "Expensive",
+        correctForm: "expensive",
+        prefix: "Flight tickets are usually ",
+        suffix: " during holidays.",
+        distractors: ["cheap", "free", "busy"]
+      },
+      {
+        target: "Free",
+        correctForm: "free",
+        prefix: "Are you ",
+        suffix: " for a quick meeting right now?",
+        distractors: ["expensive", "cheap", "busy"]
+      },
+      {
+        target: "Busy",
+        correctForm: "busy",
+        prefix: "She is too ",
+        suffix: " with work to attend the call.",
+        distractors: ["free", "cheap", "expensive"]
+      },
+      {
+        target: "Colleagues",
+        correctForm: "colleagues",
+        prefix: "I usually discuss new ideas with my ",
+        suffix: ".",
+        distractors: ["parking lot", "mermaid", "cost"]
+      }
+    ];
+
+    function initFixacao() {
+      const container = document.getElementById('fixacao-container');
+      container.innerHTML = '';
+
+      fixacaoSentences.forEach((item, idx) => {
+        const options = shuffle([item.correctForm, ...item.distractors]);
+        
+        const card = document.createElement('div');
+        card.className = 'exercise-item';
+        card.id = `fix-item-${idx}`;
+        card.dataset.correct = item.correctForm;
+
+        let optionsHtml = `<option value="" disabled selected>-- Selecione --</option>`;
+        options.forEach(opt => {
+          optionsHtml += `<option value="${opt}">${opt}</option>`;
+        });
+
+        card.innerHTML = `
+          <div class="prompt-en">
+            ${idx + 1}. ${item.prefix}
+            <select class="inline-select" id="fix-select-${idx}">
+              ${optionsHtml}
+            </select>
+            ${item.suffix}
+          </div>
+          <div class="correct-answer-display" id="fix-ans-${idx}"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function verificarFixacao() {
+      const btn = document.getElementById('btn-fix');
+
+      if (btn.dataset.state === 'retry') {
+        btn.dataset.state = 'check';
+        btn.innerText = "Verificar";
+        document.getElementById('score-fix').style.display = 'none';
+
+        fixacaoSentences.forEach((_, idx) => {
+          const item = document.getElementById(`fix-item-${idx}`);
+          item.classList.remove('correct', 'incorrect');
+          document.getElementById(`fix-ans-${idx}`).style.display = 'none';
+          
+          const sel = document.getElementById(`fix-select-${idx}`);
+          sel.selectedIndex = 0;
+          sel.disabled = false;
+        });
+        return;
+      }
+
+      let score = 0;
+      const total = fixacaoSentences.length;
+
+      fixacaoSentences.forEach((item, idx) => {
+        const card = document.getElementById(`fix-item-${idx}`);
+        const sel = document.getElementById(`fix-select-${idx}`);
+        sel.disabled = true;
+
+        if (sel.value === item.correctForm) {
+          score++;
+          card.classList.add('correct');
+        } else {
+          card.classList.add('incorrect');
+          const ansDisplay = document.getElementById(`fix-ans-${idx}`);
+          ansDisplay.innerText = `✅ Resposta correta: ${item.correctForm}`;
+          ansDisplay.style.display = 'block';
+        }
+      });
+
+      const scoreElem = document.getElementById('score-fix');
+      scoreElem.innerText = `Placar: ${score} de ${total} corretas`;
+      scoreElem.style.display = 'block';
+
+      btn.innerText = "Tentar de novo";
+      btn.dataset.state = 'retry';
+
+      enviarResultado("Exercício de Fixação", score, total);
+    }
+
+    // ==========================================
+    // 🏠 HOMEWORK COPY
+    // ==========================================
+    function copiarHomework() {
+      const listItems = document.querySelectorAll('#hw-list li');
+      const text = Array.from(listItems).map(li => `• ${li.innerText}`).join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('hw-toast');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2500);
+      });
+    }
+
+    // Initialize all sections
+    document.addEventListener('DOMContentLoaded', () => {
+      initRevisaoCumulativa();
+      initFlashcards();
+      initFixacao();
+    });
+  </script>
+</body>
+</html>
