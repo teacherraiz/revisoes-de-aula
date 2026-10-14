@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 14/10/26 — Carlos</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px 12px 40px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .header-title h1 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .header-title p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .speed-toggle {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 44px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .encouragement {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-size: 0.95rem;
+      color: #1e40af;
+      margin-bottom: 20px;
+    }
+
+    .rule-box {
+      background: #f1f5f9;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .example-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .example-en {
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .example-pt {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .btn-audio {
+      background: #e0e7ff;
+      border: none;
+      color: #4338ca;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-audio:active {
+      transform: scale(0.95);
+    }
+
+    .exercise-item {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .exercise-item.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .exercise-item.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    .topic-group-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 16px 0 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .prompt-text {
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      font-weight: 600;
+    }
+
+    .input-gap {
+      width: 100%;
+      max-width: 240px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      min-height: 44px;
+      margin: 4px 0;
+    }
+
+    .select-gap {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      min-height: 44px;
+      background-color: var(--card-bg);
+      color: var(--text);
+      margin-top: 6px;
+    }
+
+    .feedback-msg {
+      margin-top: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .feedback-msg.correct-text { color: var(--success); }
+    .feedback-msg.incorrect-text { color: var(--error); }
+
+    .explanation-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .btn-action {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      min-height: 44px;
+      margin-top: 12px;
+    }
+
+    .btn-action:hover {
+      background: var(--primary-hover);
+    }
+
+    .score-banner {
+      background: #f1f5f9;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .submission-status {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 6px;
+      display: none;
+    }
+
+    /* Flashcards */
+    .flashcards-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .flashcards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .flashcard {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .flashcard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flashcard-word {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .flashcard-translation {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+      font-size: 0.95rem;
+      color: var(--primary);
+      font-weight: 600;
+      display: none;
+    }
+
+    .flashcard-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-fc-reveal {
+      background: #e2e8f0;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      width: 100%;
+    }
+
+    .btn-fc-eval {
+      flex: 1;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      background: var(--card-bg);
+      display: none;
+    }
+
+    .btn-fc-knew {
+      border: 2px solid var(--success);
+      color: var(--success);
+    }
+
+    .btn-fc-review {
+      border: 2px solid #eab308;
+      color: #ca8a04;
+    }
+
+    /* Homework */
+    .homework-list {
+      list-style-type: disc;
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    .homework-list li {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .btn-copy {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      min-height: 44px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Cabeçalho -->
+  <header>
+    <div class="header-top">
+      <div class="header-title">
+        <h1>Revisão da aula de 14/10/26</h1>
+        <p>Olá, Carlos!</p>
+      </div>
+      <button class="speed-toggle" id="speedToggleBtn" onclick="toggleAudioSpeed()">
+        🔊 Velocidade: <span id="speedLabel">1.0x</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 2. Encorajamento -->
+  <div class="encouragement">
+    Sua capacidade de comunicar ideias complexas e visões de negócios em inglês é excelente. Cada treino de estrutura fortalece ainda mais sua autoridade em conversas corporativas.
+  </div>
+
+  <!-- 3. Recapitulação da Regra -->
+  <section class="card">
+    <h2 class="section-title">📖 Recapitulação da Regra</h2>
+    <div class="rule-box">
+      <strong>Discurso Indireto no Ambiente Executivo (Reported Speech)</strong><br>
+      Para relatar o que outra pessoa disse em reuniões ou relatórios, recuamos o tempo verbal. O Present Continuous passa a Past Continuous e o futuro com 'will' passa a 'would'.
+    </div>
+    
+    <div class="example-item">
+      <div class="example-en">
+        <span>The director said that the European team was facing logistical delays.</span>
+        <button class="btn-audio" onclick="playAudio('The director said that the European team was facing logistical delays.')">🔊</button>
+      </div>
+      <div class="example-pt">O diretor disse que a equipe europeia estava enfrentando atrasos logísticos.</div>
+    </div>
+
+    <div class="example-item">
+      <div class="example-en">
+        <span>Several regional heads said they would push back against cost cuts.</span>
+        <button class="btn-audio" onclick="playAudio('Several regional heads said they would push back against cost cuts.')">🔊</button>
+      </div>
+      <div class="example-pt">Vários gestores regionais disseram que iriam resistir aos cortes de custos.</div>
+    </div>
+  </section>
+
+  <!-- 4. Treino de Desbloqueio (Omitido pois JSON_TREINO_DESBLOQUEIO é null) -->
+
+  <!-- 5. Revisão Cumulativa -->
+  <section class="card" id="sec-cumulativa">
+    <h2 class="section-title">🔁 Revisão Cumulativa</h2>
+    <div class="score-banner" id="score-cumulativa"></div>
+
+    <!-- Tópico 1 -->
+    <div class="topic-group-title">Reported Speech - Discurso Indireto</div>
+    <div class="rule-box">
+      Ao relatar o que alguém disse, recuamos o tempo verbal (backshifting): o presente vira passado e o futuro com 'will' vira 'would'.
+    </div>
+
+    <!-- Ex 1.1 (Multiple Choice) -->
+    <div class="exercise-item" id="cum-ex-0" data-type="mc" data-correct="would finish">
+      <div class="prompt-text">During the meeting yesterday, Sarah mentioned that she ____ the project report by Friday.</div>
+      <div class="options-grid" id="cum-options-0"></div>
+      <div class="feedback-msg" id="cum-fb-0"></div>
+      <div class="explanation-text">Como a ação de falar ocorreu no passado ('mentioned'), o futuro com 'will' recua para 'would' no discurso indireto.</div>
+    </div>
+
+    <!-- Ex 1.2 (Gap Fill) -->
+    <div class="exercise-item" id="cum-ex-1" data-type="gap" data-correct="had">
+      <div class="prompt-text">The HR director said that all team members ____ (have) to submit their timesheets before midday.</div>
+      <input type="text" class="input-gap" id="cum-gap-1" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      <div class="feedback-msg" id="cum-fb-1"></div>
+      <div class="explanation-text">No discurso indireto relatado no passado ('said'), o verbo no presente ('have') recua para o passado simples ('had').</div>
+    </div>
+
+    <!-- Tópico 2 -->
+    <div class="topic-group-title">Wishes and Regrets - Expressando Desejos</div>
+    <div class="rule-box">
+      Usamos 'wish + Simple Past' para desejos no presente e 'wish + Past Perfect' para arrepender-se de algo no passado.
+    </div>
+
+    <!-- Ex 2.1 (Multiple Choice) -->
+    <div class="exercise-item" id="cum-ex-2" data-type="mc" data-correct="had">
+      <div class="prompt-text">I have so many emails to answer today; I wish I ____ more time to focus on strategic planning.</div>
+      <div class="options-grid" id="cum-options-2"></div>
+      <div class="feedback-msg" id="cum-fb-2"></div>
+      <div class="explanation-text">Para expressar um desejo sobre uma situação presente (ter mais tempo agora), usamos 'wish' seguido do Simple Past ('had').</div>
+    </div>
+
+    <!-- Ex 2.2 (Gap Fill) -->
+    <div class="exercise-item" id="cum-ex-3" data-type="gap" data-correct="had taken">
+      <div class="prompt-text">It was a mistake to turn down that offer. I wish I ____ (take) the job at the London office last year.</div>
+      <input type="text" class="input-gap" id="cum-gap-3" placeholder="Digite sua resposta em inglês..." autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      <div class="feedback-msg" id="cum-fb-3"></div>
+      <div class="explanation-text">Para expressar um arrependimento sobre algo no passado ('last year'), usamos 'wish' acompanhado do Past Perfect ('had taken').</div>
+    </div>
+
+    <button class="btn-action" id="btn-cumulativa" onclick="checkCumulativa()">Verificar Revisão Cumulativa</button>
+    <div class="submission-status" id="sub-cumulativa">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- 6. Vocabulário Novo -->
+  <section class="card">
+    <h2 class="section-title">📚 Vocabulário Novo</h2>
+    <div class="flashcards-header">
+      <span>Flashcards</span>
+      <span id="fc-counter">0 de 12 revisadas</span>
+    </div>
+    <div class="flashcards-grid" id="flashcards-container"></div>
+  </section>
+
+  <!-- 7. Exercício de Fixação -->
+  <section class="card" id="sec-fixacao">
+    <h2 class="section-title">✏️ Exercício de Fixação</h2>
+    <div class="score-banner" id="score-fixacao"></div>
+    <div id="fixacao-container"></div>
+    <button class="btn-action" id="btn-fixacao" onclick="checkFixacao()">Verificar Fixação</button>
+    <div class="submission-status" id="sub-fixacao">📤 Resultado enviado ao professor</div>
+  </section>
+
+  <!-- 8. Homework -->
+  <section class="card">
+    <h2 class="section-title">🏠 Homework</h2>
+    <ul class="homework-list" id="hw-list">
+      <li>Releia o texto corporativo de Reported Speech observando as mudanças de tempos verbais.</li>
+      <li>Escreva três frases relatando falas de clientes ou colegas da sua viagem no interior.</li>
+    </ul>
+    <button class="btn-copy" onclick="copyHomework()">Copiar homework</button>
+  </section>
+
+  <script>
+    // Configurações e Dados
+    const META_ENVIO = {"aluno_id": "carlos-rafael", "aluno": "Carlos Rafael", "data_aula": "14/10/26", "accent": "UK", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+    
+    const VOCABULARIO_COMPLETO = [
+      {"palavra": "briefing", "traducao": "reunião de alinhamento"},
+      {"palavra": "bottleneck", "traducao": "gargalo"},
+      {"palavra": "shareholder", "traducao": "acionista"},
+      {"palavra": "turnover", "traducao": "rotatividade"},
+      {"palavra": "revenue", "traducao": "receita"},
+      {"palavra": "oversight", "traducao": "supervisão"},
+      {"palavra": "guideline", "traducao": "diretriz"},
+      {"palavra": "thermals", "traducao": "estância termal"},
+      {"palavra": "countryside", "traducao": "interior"},
+      {"palavra": "pleasant", "traducao": "agradável"},
+      {"palavra": "blueprint", "traducao": "planta baixa"},
+      {"palavra": "attendees", "traducao": "participantes"}
+    ];
+
+    const CUMULATIVA_MC_DATA = {
+      0: ["will finish", "would finish", "finishes"],
+      2: ["had", "have", "would have"]
+    };
+
+    const FIXACAO_DATA = [
+      { prompt: "We need to schedule a short _____ with the sales team before launching the campaign.", answer: "briefing", options: ["briefing", "turnover", "blueprint", "guideline"] },
+      { prompt: "The delay in production created a major _____ in our distribution network.", answer: "bottleneck", options: ["bottleneck", "revenue", "oversight", "attendees"] },
+      { prompt: "Every _____ received an official report regarding the company's annual dividends.", answer: "shareholder", options: ["shareholder", "attendees", "thermals", "turnover"] },
+      { prompt: "Reducing staff _____ is one of HR's highest priorities this year.", answer: "turnover", options: ["turnover", "revenue", "bottleneck", "guideline"] },
+      { prompt: "Strong international sales resulted in a notable increase in total _____.", answer: "revenue", options: ["revenue", "shareholder", "briefing", "turnover"] },
+      { prompt: "Due to an unfortunate administrative _____, the invoice was processed twice.", answer: "oversight", options: ["oversight", "blueprint", "bottleneck", "guideline"] },
+      { prompt: "Please follow the compliance _____ provided in the corporate portal.", answer: "guideline", options: ["guideline", "briefing", "oversight", "blueprint"] },
+      { prompt: "During our business trip, we stayed at a charming hotel near the local _____.", answer: "thermals", options: ["thermals", "attendees", "countryside", "shareholders"] },
+      { prompt: "The structural engineer reviewed the technical _____ before construction began.", answer: "blueprint", options: ["blueprint", "oversight", "briefing", "guideline"] },
+      { prompt: "All event _____ must display their badges at the entrance.", answer: "attendees", options: ["attendees", "shareholders", "thermals", "guidelines"] }
+    ];
+
+    let audioSpeed = 1.0;
+    const enviados = {};
+    const fcReviewed = new Set();
+    const mcSelected = {};
+
+    // Helper: Normalização de texto
+    function normalizeStr(str) {
+      if (!str) return '';
+      return str
+        .replace(/[’‘“”]/g, (m) => (m === '’' || m === '‘' ? "'" : '"'))
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .replace(/^["']|["']$/g, '')
+        .replace(/[.!?]+$/, '');
+    }
+
+    // Helper: Embaralhar Array
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // Controle de Áudio
+    function toggleAudioSpeed() {
+      audioSpeed = audioSpeed === 1.0 ? 0.75 : 1.0;
+      document.getElementById('speedLabel').textContent = audioSpeed === 1.0 ? '1.0x' : '0.75x';
+    }
+
+    function playAudio(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = META_ENVIO.accent === 'UK' ? 'en-GB' : 'en-US';
+      utterance.rate = audioSpeed;
+
+      // Tenta selecionar voz apropriada se disponível
+      const voices = window.speechSynthesis.getVoices();
+      const targetLang = META_ENVIO.accent === 'UK' ? 'en-GB' : 'en-US';
+      const voice = voices.find(v => v.lang === targetLang || v.lang.startsWith(targetLang.slice(0,2)));
+      if (voice) utterance.voice = voice;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Esconde botões de áudio se não suportado
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!('speechSynthesis' in window)) {
+        document.querySelectorAll('.btn-audio').forEach(b => b.style.display = 'none');
+      }
+      initCumulativaMC();
+      initFlashcards();
+      initFixacao();
+    });
+
+    // Envio de Resultados
+    function enviarResultado(secao, acertos, total) {
+      if (!META_ENVIO.apps_script_url || enviados[secao]) return;
+      enviados[secao] = true;
+      fetch(META_ENVIO.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META_ENVIO.aluno_id,
+          aluno: META_ENVIO.aluno,
+          data_aula: META_ENVIO.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+    }
+
+    // --- REVISÃO CUMULATIVA ---
+    function initCumulativaMC() {
+      [0, 2].forEach(idx => {
+        const container = document.getElementById(`cum-options-${idx}`);
+        container.innerHTML = '';
+        const shuffled = shuffleArray(CUMULATIVA_MC_DATA[idx]);
+        shuffled.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'option-btn';
+          btn.textContent = opt;
+          btn.onclick = () => {
+            if (document.getElementById('btn-cumulativa').dataset.state === 'retry') return;
+            container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            mcSelected[idx] = opt;
+          };
+          container.appendChild(btn);
+        });
+      });
+    }
+
+    function checkCumulativa() {
+      const btn = document.getElementById('btn-cumulativa');
+      if (btn.dataset.state === 'retry') {
+        // Reset
+        for (let i = 0; i < 4; i++) {
+          const ex = document.getElementById(`cum-ex-${i}`);
+          ex.classList.remove('correct', 'incorrect');
+          document.getElementById(`cum-fb-${i}`).textContent = '';
+          document.getElementById(`cum-fb-${i}`).className = 'feedback-msg';
+        }
+        document.querySelectorAll('#sec-cumulativa .input-gap').forEach(i => i.value = '');
+        document.querySelectorAll('#sec-cumulativa .option-btn').forEach(b => b.classList.remove('selected'));
+        delete mcSelected[0];
+        delete mcSelected[2];
+        document.getElementById('score-cumulativa').style.display = 'none';
+        btn.textContent = 'Verificar Revisão Cumulativa';
+        btn.dataset.state = 'check';
+        return;
+      }
+
+      let acertos = 0;
+      const total = 4;
+
+      for (let i = 0; i < total; i++) {
+        const item = document.getElementById(`cum-ex-${i}`);
+        const type = item.dataset.type;
+        const correct = item.dataset.correct;
+        const fb = document.getElementById(`cum-fb-${i}`);
+        let isCorrect = false;
+
+        if (type === 'mc') {
+          const sel = mcSelected[i];
+          if (sel && sel === correct) isCorrect = true;
+        } else if (type === 'gap') {
+          const val = document.getElementById(`cum-gap-${i}`).value;
+          if (normalizeStr(val) === normalizeStr(correct)) isCorrect = true;
+        }
+
+        if (isCorrect) {
+          acertos++;
+          item.classList.add('correct');
+          fb.textContent = '✅ Correto!';
+          fb.className = 'feedback-msg correct-text';
+        } else {
+          item.classList.add('incorrect');
+          fb.textContent = `✅ Resposta correta: ${correct}`;
+          fb.className = 'feedback-msg incorrect-text';
+        }
+      }
+
+      const scoreBanner = document.getElementById('score-cumulativa');
+      scoreBanner.textContent = `Pontuação: ${acertos} de ${total} corretas`;
+      scoreBanner.style.display = 'block';
+
+      btn.textContent = 'Tentar de novo';
+      btn.dataset.state = 'retry';
+
+      if (META_ENVIO.apps_script_url) {
+        enviarResultado('Revisão Cumulativa', acertos, total);
+        document.getElementById('sub-cumulativa').style.display = 'block';
+      }
+    }
+
+    // --- FLASHCARDS ---
+    function initFlashcards() {
+      const container = document.getElementById('flashcards-container');
+      container.innerHTML = '';
+      VOCABULARIO_COMPLETO.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'flashcard';
+        card.innerHTML = `
+          <div class="flashcard-top">
+            <span class="flashcard-word">${item.palavra}</span>
+            <button class="btn-audio" onclick="playAudio('${item.palavra}')">🔊</button>
+          </div>
+          <div class="flashcard-translation" id="fc-trans-${index}">${item.traducao}</div>
+          <div class="flashcard-actions">
+            <button class="btn-fc-reveal" id="fc-rev-${index}" onclick="revealFlashcard(${index})">Revelar tradução</button>
+            <button class="btn-fc-eval btn-fc-knew" id="fc-knew-${index}" onclick="evalFlashcard(${index})">✅ Eu sabia</button>
+            <button class="btn-fc-eval btn-fc-review" id="fc-revbtn-${index}" onclick="evalFlashcard(${index})">🔄 Preciso revisar</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function revealFlashcard(index) {
+      document.getElementById(`fc-trans-${index}`).style.display = 'block';
+      document.getElementById(`fc-rev-${index}`).style.display = 'none';
+      document.getElementById(`fc-knew-${index}`).style.display = 'block';
+      document.getElementById(`fc-revbtn-${index}`).style.display = 'block';
+    }
+
+    function evalFlashcard(index) {
+      fcReviewed.add(index);
+      document.getElementById('fc-counter').textContent = `${fcReviewed.size} de ${VOCABULARIO_COMPLETO.length} revisadas`;
+    }
+
+    // --- EXERCÍCIO DE FIXAÇÃO ---
+    function initFixacao() {
+      const container = document.getElementById('fixacao-container');
+      container.innerHTML = '';
+      FIXACAO_DATA.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'exercise-item';
+        div.id = `fix-ex-${index}`;
+        div.dataset.correct = item.answer;
+
+        const optionsShuffled = shuffleArray(item.options);
+        let optionsHTML = `<option value="" disabled selected>-- Selecione --</option>`;
+        optionsShuffled.forEach(opt => {
+          optionsHTML += `<option value="${opt}">${opt}</option>`;
+        });
+
+        div.innerHTML = `
+          <div class="prompt-text">${index + 1}. ${item.prompt}</div>
+          <select class="select-gap" id="fix-select-${index}">
+            ${optionsHTML}
+          </select>
+          <div class="feedback-msg" id="fix-fb-${index}"></div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function checkFixacao() {
+      const btn = document.getElementById('btn-fixacao');
+      if (btn.dataset.state === 'retry') {
+        FIXACAO_DATA.forEach((_, index) => {
+          const ex = document.getElementById(`fix-ex-${index}`);
+          ex.classList.remove('correct', 'incorrect');
+          document.getElementById(`fix-fb-${index}`).textContent = '';
+          document.getElementById(`fix-fb-${index}`).className = 'feedback-msg';
+          document.getElementById(`fix-select-${index}`).value = '';
+        });
+        document.getElementById('score-fixacao').style.display = 'none';
+        btn.textContent = 'Verificar Fixação';
+        btn.dataset.state = 'check';
+        return;
+      }
+
+      let acertos = 0;
+      const total = FIXACAO_DATA.length;
+
+      FIXACAO_DATA.forEach((item, index) => {
+        const ex = document.getElementById(`fix-ex-${index}`);
+        const select = document.getElementById(`fix-select-${index}`);
+        const fb = document.getElementById(`fix-fb-${index}`);
+        const userVal = select.value;
+
+        if (userVal === item.answer) {
+          acertos++;
+          ex.classList.add('correct');
+          fb.textContent = '✅ Correto!';
+          fb.className = 'feedback-msg correct-text';
+        } else {
+          ex.classList.add('incorrect');
+          fb.textContent = `✅ Resposta correta: ${item.answer}`;
+          fb.className = 'feedback-msg incorrect-text';
+        }
+      });
+
+      const scoreBanner = document.getElementById('score-fixacao');
+      scoreBanner.textContent = `Pontuação: ${acertos} de ${total} corretas`;
+      scoreBanner.style.display = 'block';
+
+      btn.textContent = 'Tentar de novo';
+      btn.dataset.state = 'retry';
+
+      if (META_ENVIO.apps_script_url) {
+        enviarResultado('Exercício de Fixação', acertos, total);
+        document.getElementById('sub-fixacao').style.display = 'block';
+      }
+    }
+
+    // --- HOMEWORK ---
+    function copyHomework() {
+      const items = document.querySelectorAll('#hw-list li');
+      const text = Array.from(items).map(li => '• ' + li.textContent).join('\n');
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Homework copiado para a área de transferência!');
+        }).catch(() => {
+          fallbackCopy(text);
+        });
+      } else {
+        fallbackCopy(text);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      alert('Homework copiado para a área de transferência!');
+    }
+  </script>
+</body>
+</html>
