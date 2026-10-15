@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisão 15/09/26 — Renato</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+
+      /* Treino Section Custom Palette */
+      --treino-blue: #1E5AA8;
+      --treino-blue-bg: #eff6ff;
+      --treino-orange: #FF7A00;
+      --treino-orange-bg: #fff7ed;
+      --treino-error: #C75000;
+      --treino-error-bg: #fef3c7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px 12px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Layout Components */
+    .header {
+      background: var(--card-bg);
+      padding: 20px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .date-badge {
+      font-size: 0.85rem;
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .greeting {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .audio-toggle-container {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f1f5f9;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .toggle-btn {
+      background: #cbd5e1;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      min-width: 80px;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 20px 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .encouragement {
+      background: #f0f9ff;
+      border-left: 4px solid var(--primary);
+      padding: 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: #0369a1;
+    }
+
+    /* Rule Recap */
+    .rule-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .rule-explanation {
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+    }
+
+    .example-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .example-en {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .example-pt {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Audio Button */
+    .audio-btn {
+      background: #e2e8f0;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .audio-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Exercises General */
+    .exercise-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .exercise-card.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .exercise-card.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    /* Treino Section Custom Styling */
+    .treino-section .exercise-card.correct {
+      border-color: var(--treino-blue);
+      background-color: var(--treino-blue-bg);
+    }
+
+    .treino-section .exercise-card.incorrect {
+      border-color: var(--treino-error);
+      background-color: var(--treino-error-bg);
+    }
+
+    .q-prompt {
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .input-text {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      margin-top: 6px;
+    }
+
+    .input-text:focus {
+      outline: 2px solid var(--primary);
+    }
+
+    .select-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background: white;
+      margin-top: 6px;
+    }
+
+    /* Options Stack */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .option-btn {
+      min-height: 44px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      border-radius: 6px;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option-btn:hover {
+      background: #f1f5f9;
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      font-weight: 600;
+    }
+
+    .treino-section .option-btn.selected {
+      border-color: var(--treino-orange);
+      background: var(--treino-orange-bg);
+    }
+
+    /* Reorder Tokens */
+    .tokens-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      min-height: 48px;
+      padding: 6px;
+      background: #f1f5f9;
+      border-radius: 6px;
+    }
+
+    .assembled-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      min-height: 48px;
+      padding: 6px;
+      border: 2px dashed var(--border);
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .token {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      user-select: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    /* Dialogue Lines */
+    .dialogue-line {
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .dialogue-line:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    /* Feedback Display */
+    .feedback-box {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    .exercise-card.correct .feedback-box,
+    .exercise-card.incorrect .feedback-box {
+      display: block;
+    }
+
+    .explanation-text {
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .correct-answer-text {
+      font-weight: 700;
+      color: var(--success);
+      margin-top: 4px;
+    }
+
+    .treino-section .correct-answer-text {
+      color: var(--treino-blue);
+    }
+
+    /* Section Control Buttons */
+    .action-btn {
+      width: 100%;
+      min-height: 48px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: background 0.2s;
+    }
+
+    .action-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .treino-section .action-btn {
+      background: var(--treino-orange);
+    }
+
+    .treino-section .action-btn:hover {
+      background: #e66e00;
+    }
+
+    .score-board {
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .submission-status {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      display: none;
+    }
+
+    /* Flashcards */
+    .flashcards-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .flashcard {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .flashcard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .flashcard-word {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .flashcard-translation {
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin: 12px 0;
+      font-weight: 600;
+      display: none;
+    }
+
+    .flashcard-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .btn-reveal {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      min-height: 44px;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .btn-eval {
+      flex: 1;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid;
+      cursor: pointer;
+      min-height: 44px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    .btn-knew {
+      border-color: var(--success);
+      color: var(--success);
+      background: var(--success-bg);
+    }
+
+    .btn-review {
+      border-color: #eab308;
+      color: #a16207;
+      background: #fefce8;
+    }
+
+    .progress-tracker {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      text-align: right;
+    }
+
+    /* Homework List */
+    .homework-list {
+      list-style-type: none;
+      margin-bottom: 16px;
+    }
+
+    .homework-item {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .homework-item::before {
+      content: "📌";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .copy-btn {
+      background: #f1f5f9;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px;
+      border-radius: 8px;
+      width: 100%;
+      min-height: 44px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .topic-group {
+      margin-bottom: 20px;
+    }
+
+    .topic-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .topic-rule-summary {
+      font-size: 0.85rem;
+      background: #f1f5f9;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <span class="date-badge">Aula de 15/09/26</span>
+    </div>
+    <div class="greeting">Olá, Renato! 👋</div>
+    <div class="audio-toggle-container">
+      <span>Velocidade do áudio:</span>
+      <button id="btn-speed-normal" class="toggle-btn active" onclick="setAudioSpeed(1.0)">1.0x</button>
+      <button id="btn-speed-slow" class="toggle-btn" onclick="setAudioSpeed(0.75)">0.75x</button>
+    </div>
+  </header>
+
+  <!-- 2. ENCOURAGEMENT -->
+  <div class="encouragement">
+    Sua facilidade em integrar vocabulário técnico e debater temas complexos é um grande diferencial. Continue praticando o passado de forma natural, sem medo de cometer deslizes.
+  </div>
+
+  <!-- 3. RECAPITULAÇÃO DA REGRA -->
+  <section class="section-card">
+    <h2 class="section-title">📖 Recapitulação da Regra</h2>
+    <div class="rule-title">Preposições de Tempo (IN, ON, AT)</div>
+    <p class="rule-explanation">Para acertar as preposições de tempo em inglês, lembre-se da dimensão do período: IN é usado para prazos maiores que 24 horas (meses, anos, séculos), ON para exatamente 24 horas (dias da semana e datas específicas) e AT para períodos menores que 24 horas (horários e pontos específicos do dia).</p>
+    
+    <div class="example-item">
+      <div class="example-en">
+        <span>The team meeting starts at 9 AM on Monday.</span>
+        <button class="audio-btn" onclick="speakText('The team meeting starts at 9 AM on Monday.')">🔊</button>
+      </div>
+      <div class="example-pt">A reunião da equipe começa às 9h na segunda-feira.</div>
+    </div>
+
+    <div class="example-item">
+      <div class="example-en">
+        <span>We plan to launch the new software in December.</span>
+        <button class="audio-btn" onclick="speakText('We plan to launch the new software in December.')">🔊</button>
+      </div>
+      <div class="example-pt">Planejamos lançar o novo software em dezembro.</div>
+    </div>
+  </section>
+
+  <!-- 4. TREINO DE DESBLOQUEIO -->
+  <section id="sec-treino" class="section-card treino-section">
+    <h2 class="section-title" style="color: var(--treino-orange);">🎯 Treino de Desbloqueio</h2>
+    <div id="treino-container"></div>
+    <div id="treino-score" class="score-board"></div>
+    <div id="treino-status" class="submission-status">📤 Resultado enviado ao professor</div>
+    <button id="btn-check-treino" class="action-btn" onclick="checkTreino()">Verificar</button>
+  </section>
+
+  <!-- 5. REVISÃO CUMULATIVA -->
+  <section id="sec-cumulativa" class="section-card">
+    <h2 class="section-title">🔁 Revisão Cumulativa</h2>
+    <div id="cumulativa-container"></div>
+    <div id="cumulativa-score" class="score-board"></div>
+    <div id="cumulativa-status" class="submission-status">📤 Resultado enviado ao professor</div>
+    <button id="btn-check-cumulativa" class="action-btn" onclick="checkCumulativa()">Verificar</button>
+  </section>
+
+  <!-- 6. VOCABULÁRIO NOVO (FLASHCARDS) -->
+  <section class="section-card">
+    <h2 class="section-title">📚 Vocabulário Novo</h2>
+    <div class="progress-tracker" id="flashcards-tracker">0 de 6 revisadas</div>
+    <div class="flashcards-container" id="flashcards-container"></div>
+  </section>
+
+  <!-- 7. EXERCÍCIO DE FIXAÇÃO -->
+  <section id="sec-fixacao" class="section-card">
+    <h2 class="section-title">✏️ Exercício de Fixação</h2>
+    <div id="fixacao-container"></div>
+    <div id="fixacao-score" class="score-board"></div>
+    <div id="fixacao-status" class="submission-status">📤 Resultado enviado ao professor</div>
+    <button id="btn-check-fixacao" class="action-btn" onclick="checkFixacao()">Verificar</button>
+  </section>
+
+  <!-- 8. HOMEWORK -->
+  <section class="section-card">
+    <h2 class="section-title">🏠 Homework</h2>
+    <ul class="homework-list" id="homework-list">
+      <li class="homework-item">Resolver os exercícios sobre preposições de tempo (IN, ON, AT) enviados no WhatsApp.</li>
+      <li class="homework-item">Gravar 3 áudios curtos (40 a 60 segundos) contando sobre acontecimentos passados reais, prestando atenção aos verbos no Simple Past.</li>
+    </ul>
+    <button class="copy-btn" onclick="copyHomework()">Copiar homework</button>
+  </section>
+
+  <script>
+    // --- DATA INPUTS ---
+    const META = {"aluno_id": "renato-saletti", "aluno": "Renato Saletti", "data_aula": "15/09/26", "accent": "US", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"};
+    
+    const TREINO_DATA = {"module_id": "treino_desbloqueio", "erro_alvo": "Instabilidade no Simple Past em relatos e narrativas livres (ex.: 'Nobody believe' em vez de 'Nobody believed')", "nivel_cefr": "A2", "accent": "US", "items": [{"type": "compare_contrast_implicito", "sentence_a": "During the meeting about the takeover, nobody believed the news.", "sentence_b": "During the meeting about the takeover, nobody believe the news.", "question_pt": "Qual frase relata a reunião no passado de forma correta?", "correct_answer": "a", "explanation_pt": "Em relatos no passado (Simple Past), verbos regulares recebem a terminação '-ed' ('believed'). Usar a forma base ('believe') é um erro comum de falta de conjugação."}, {"type": "multiple_choice_avancado", "prompt_en": "When the doctor talked about longevity, everyone ____ the presentation was impressive.", "options": ["think", "thought", "thinks", "was think"], "correct_index": 1, "explanation_pt": "Para manter a concordância narrativa no passado ('talked'), usamos o passado do verbo 'think', que é irregular: 'thought'."}, {"type": "dialogo_tempos_mistos", "linhas": [{"pergunta": "Do you usually solve complex database queries?", "resposta_com_lacuna": "Yes, I ____ them every day.", "resposta_lacuna": ["solve"], "resposta_completa": "Yes, I solve them every day.", "tempo": "presente"}, {"pergunta": "Did someone faint during the presentation?", "resposta_com_lacuna": "Yes, a patient ____ during the talk.", "resposta_lacuna": ["fainted"], "resposta_completa": "Yes, a patient fainted during the talk.", "tempo": "passado"}, {"pergunta": "Will the team finish the project ahead of schedule?", "resposta_com_lacuna": "Yes, they ____ it tomorrow.", "resposta_lacuna": ["will finish", "'ll finish"], "resposta_completa": "Yes, they will finish it tomorrow.", "tempo": "futuro"}], "explanation_pt": "Observe a mudança de tempo: rotina no presente usa 'solve', relato no passado exige 'fainted' com -ed, e plano futuro usa 'will finish'."}, {"type": "reordenar_palavras", "tokens_embaralhados": ["Nobody", "believed", "the", "report", "about", "the", "disease."], "frase_correta": "Nobody believed the report about the disease.", "explanation_pt": "Em relatos no passado, o verbo principal deve estar conjugado no Simple Past ('believed')."}, {"type": "translation_challenge", "source_text_pt": "Ninguém acreditou na história sobre o desmaio.", "correct_answer": ["Nobody believed the story about the fainting.", "No one believed the story about the fainting.", "Nobody believed the story about the faint.", "No one believed the story about the faint."], "explanation_pt": "Para dizer 'ninguém acreditou' no passado, usamos 'Nobody believed' ou 'No one believed' com o verbo no passado."}, {"type": "translation_challenge", "source_text_pt": "A equipe resolveu as consultas de banco de dados à frente do prazo.", "correct_answer": ["The team solved the database queries ahead of schedule.", "The team resolved the database queries ahead of schedule.", "The team solved the queries ahead of schedule.", "The team resolved the queries ahead of schedule."], "explanation_pt": "Narrativas de ações concluídas exigem o verbo no passado: 'solved' ou 'resolved'."}, {"type": "translation_challenge", "source_text_pt": "Ela desmaiou durante a reunião sobre a aquisição da empresa.", "correct_answer": ["She fainted during the meeting about the takeover.", "She fainted during the takeover meeting."], "explanation_pt": "'Desmaiou' é uma ação pontual no passado, conjugada como 'fainted' (verbo regular com -ed)."}]};
+
+    const CUMULATIVA_DATA = {"module_id": "revisao_cumulativa", "topicos": [{"topico": "Prepositions of Time (IN, ON, AT)", "resumo_regra": "Usamos 'IN' para períodos maiores que 24h (meses, anos), 'ON' para exatamente 24h (dias da semana, datas) e 'AT' para menos de 24h (horários, momentos).", "exercicios": [{"type": "multiple_choice_simples", "prompt_en": "The team meeting is scheduled ____ 9:00 AM tomorrow.", "options": ["in", "on", "at"], "correct_index": 2, "explanation_pt": "Usamos 'at' para horários específicos (menos de 24 horas)."}, {"type": "gap_fill", "sentence_with_gap": "Our company usually starts new projects ____ (in/on/at) January.", "correct_answer": ["in"], "explanation_pt": "Usamos 'in' para meses do ano, pois representam um período maior que 24 horas."}]}, {"topico": "Modals for Ability & Permission (Can / Could)", "resumo_regra": "Usamos 'can' para habilidades e permissões no presente e 'could' para o passado ou solicitações mais polidas.", "exercicios": [{"type": "multiple_choice_simples", "prompt_en": "When he worked at the agency, he ____ design complete websites in one day.", "options": ["can", "could", "can to"], "correct_index": 1, "explanation_pt": "Usamos 'could' para indicar uma habilidade que a pessoa possuía no passado."}, {"type": "gap_fill", "sentence_with_gap": "A few years ago, I ____ (not / can) speak English fluently during presentations.", "correct_answer": ["couldn't", "could not"], "explanation_pt": "Usamos 'couldn't' (ou 'could not') para indicar uma incapacidade ou falta de habilidade no passado."}]}]};
+
+    const VOCAB_DATA = [{"palavra": "Rejuvenation", "traducao": "Rejuvenescimento"}, {"palavra": "Longevity", "traducao": "Longevidade"}, {"palavra": "Disease", "traducao": "Doença / Enfermidade"}, {"palavra": "Tip of the iceberg", "traducao": "Ponta do iceberg"}, {"palavra": "Ahead", "traducao": "À frente / Adiantado"}, {"palavra": "At the weekend", "traducao": "No fim de semana"}];
+
+    // --- AUDIO & UTILS ---
+    let globalAudioSpeed = 1.0;
+    const sentSubmissions = {};
+
+    function setAudioSpeed(speed) {
+      globalAudioSpeed = speed;
+      document.getElementById('btn-speed-normal').classList.toggle('active', speed === 1.0);
+      document.getElementById('btn-speed-slow').classList.toggle('active', speed === 0.75);
+    }
+
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = META.accent === 'UK' ? 'en-GB' : 'en-US';
+      utterance.rate = globalAudioSpeed;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function normalizeText(text) {
+      if (!text) return '';
+      return text
+        .replace(/[’‘“”`]/g, "'")
+        .replace(/[""]/g, '"')
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+        .replace(/^["']|["']$/g, '')
+        .replace(/[.!?]$/g, '')
+        .trim();
+    }
+
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function enviarResultado(secao, acertos, total) {
+      if (!META.apps_script_url || sentSubmissions[secao]) return;
+      sentSubmissions[secao] = true;
+      
+      const statusEl = document.getElementById(
+        secao === 'Treino de Desbloqueio' ? 'treino-status' :
+        secao === 'Revisão Cumulativa' ? 'cumulativa-status' : 'fixacao-status'
+      );
+      if (statusEl) statusEl.style.display = 'block';
+
+      fetch(META.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META.aluno_id,
+          aluno: META.aluno,
+          data_aula: META.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(() => {});
+    }
+
+    // --- RENDER TREINO DE DESBLOQUEIO ---
+    let treinoState = [];
+
+    function renderTreino() {
+      const container = document.getElementById('treino-container');
+      if (!TREINO_DATA || !TREINO_DATA.items) {
+        document.getElementById('sec-treino').style.display = 'none';
+        return;
+      }
+      
+      container.innerHTML = '';
+      treinoState = [];
+
+      TREINO_DATA.items.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        card.id = `treino-card-${index}`;
+
+        let innerHTML = '';
+
+        if (item.type === 'compare_contrast_implicito') {
+          const isAFirst = Math.random() < 0.5;
+          const opt1 = isAFirst ? { key: 'a', text: item.sentence_a } : { key: 'b', text: item.sentence_b };
+          const opt2 = isAFirst ? { key: 'b', text: item.sentence_b } : { key: 'a', text: item.sentence_a };
+
+          innerHTML = `
+            <div class="q-prompt">${item.question_pt}</div>
+            <div class="options-group">
+              <button class="option-btn" id="tr-${index}-opt1" onclick="selectTreinoOpt(${index}, '${opt1.key}')">${opt1.text}</button>
+              <button class="option-btn" id="tr-${index}-opt2" onclick="selectTreinoOpt(${index}, '${opt2.key}')">${opt2.text}</button>
+            </div>
+            <div class="feedback-box">
+              <div class="explanation-text">${item.explanation_pt}</div>
+              <div class="correct-answer-text" id="tr-${index}-correct"></div>
+            </div>
+          `;
+          treinoState.push({ type: item.type, selected: null, correct: item.correct_answer, correctText: item.correct_answer === 'a' ? item.sentence_a : item.sentence_b });
+
+        } else if (item.type === 'multiple_choice_avancado') {
+          const correctText = item.options[item.correct_index];
+          const shuffledOpts = shuffleArray(item.options);
+
+          innerHTML = `
+            <div class="q-prompt">${item.prompt_en}</div>
+            <div class="options-group">
+              ${shuffledOpts.map((opt, i) => `
+                <button class="option-btn" id="tr-${index}-opt-${i}" onclick="selectTreinoMc(${index}, ${i}, '${opt.replace(/'/g, "\\'")}')">${opt}</button>
+              `).join('')}
+            </div>
+            <div class="feedback-box">
+              <div class="explanation-text">${item.explanation_pt}</div>
+              <div class="correct-answer-text">✅ Resposta correta: ${correctText}</div>
+            </div>
+          `;
+          treinoState.push({ type: item.type, selectedText: null, correctText: correctText, shuffledCount: shuffledOpts.length });
+
+        } else if (item.type === 'dialogo_tempos_mistos') {
+          innerHTML = item.linhas.map((l, lIdx) => `
+            <div class="dialogue-line" id="tr-${index}-line-${lIdx}">
+              <div class="q-prompt">🗣️ ${l.pergunta}</div>
+              <div style="font-size:0.95rem;">
+                ${l.resposta_com_lacuna.replace('____', `<input type="text" class="input-text" style="width:160px; display:inline-block;" id="tr-${index}-line-${lIdx}-input" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Digite sua resposta em inglês...">`)}
+              </div>
+              <div class="correct-answer-text" id="tr-${index}-line-${lIdx}-correct" style="display:none; font-size:0.85rem;">✅ Resposta correta: ${l.resposta_completa}</div>
+            </div>
+          `).join('');
+          innerHTML += `
+            <div class="feedback-box">
+              <div class="explanation-text">${item.explanation_pt}</div>
+            </div>
+          `;
+          treinoState.push({ type: item.type, lines: item.linhas });
+
+        } else if (item.type === 'reordenar_palavras') {
+          const shuffledTokens = shuffleArray(item.tokens_embaralhados);
+          innerHTML = `
+            <div class="q-prompt">Monte a frase correta clicando nas palavras:</div>
+            <div class="assembled-container" id="tr-${index}-assembled"></div>
+            <div class="tokens-container" id="tr-${index}-pool">
+              ${shuffledTokens.map((tok, tIdx) => `
+                <span class="token" id="tr-${index}-tok-${tIdx}" onclick="moveToken(${index}, ${tIdx})">${tok}</span>
+              `).join('')}
+            </div>
+            <div class="feedback-box">
+              <div class="explanation-text">${item.explanation_pt}</div>
+              <div class="correct-answer-text">✅ Resposta correta: ${item.frase_correta}</div>
+            </div>
+          `;
+          treinoState.push({ type: item.type, correct: item.frase_correta, assembled: [] });
+
+        } else if (item.type === 'translation_challenge') {
+          innerHTML = `
+            <div class="q-prompt">Traduza: "${item.source_text_pt}"</div>
+            <input type="text" class="input-text" id="tr-${index}-input" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Type in English...">
+            <div class="feedback-box">
+              <div class="explanation-text">${item.explanation_pt}</div>
+              <div class="correct-answer-text">✅ Resposta correta: ${item.correct_answer[0]}</div>
+            </div>
+          `;
+          treinoState.push({ type: item.type, correctAnswers: item.correct_answer });
+        }
+
+        card.innerHTML = innerHTML;
+        container.appendChild(card);
+      });
+    }
+
+    function selectTreinoOpt(itemIdx, key) {
+      if (treinoState[itemIdx].checked) return;
+      treinoState[itemIdx].selected = key;
+      const card = document.getElementById(`treino-card-${itemIdx}`);
+      card.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      const btn = event.target;
+      btn.classList.add('selected');
+    }
+
+    function selectTreinoMc(itemIdx, optIdx, text) {
+      if (treinoState[itemIdx].checked) return;
+      treinoState[itemIdx].selectedText = text;
+      const card = document.getElementById(`treino-card-${itemIdx}`);
+      card.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById(`tr-${itemIdx}-opt-${optIdx}`).classList.add('selected');
+    }
+
+    function moveToken(itemIdx, tokenIdx) {
+      if (treinoState[itemIdx].checked) return;
+      const st = treinoState[itemIdx];
+      const tokEl = document.getElementById(`tr-${itemIdx}-tok-${tokenIdx}`);
+      const assembledEl = document.getElementById(`tr-${itemIdx}-assembled`);
+      const poolEl = document.getElementById(`tr-${itemIdx}-pool`);
+
+      if (tokEl.parentElement === poolEl) {
+        assembledEl.appendChild(tokEl);
+      } else {
+        poolEl.appendChild(tokEl);
+      }
+    }
+
+    function checkTreino() {
+      const btn = document.getElementById('btn-check-treino');
+      if (btn.innerText === 'Tentar de novo') {
+        renderTreino();
+        document.getElementById('treino-score').style.display = 'none';
+        btn.innerText = 'Verificar';
+        return;
+      }
+
+      let score = 0;
+      let total = treinoState.length;
+
+      treinoState.forEach((st, idx) => {
+        st.checked = true;
+        const card = document.getElementById(`treino-card-${idx}`);
+
+        if (st.type === 'compare_contrast_implicito') {
+          const isCorrect = st.selected === st.correct;
+          card.classList.add(isCorrect ? 'correct' : 'incorrect');
+          if (isCorrect) score++;
+          else {
+            document.getElementById(`tr-${idx}-correct`).innerText = `✅ Resposta correta: ${st.correctText}`;
+          }
+
+        } else if (st.type === 'multiple_choice_avancado') {
+          const isCorrect = st.selectedText === st.correctText;
+          card.classList.add(isCorrect ? 'correct' : 'incorrect');
+          if (isCorrect) score++;
+
+        } else if (st.type === 'dialogo_tempos_mistos') {
+          let lineScore = 0;
+          st.lines.forEach((l, lIdx) => {
+            const inputVal = document.getElementById(`tr-${idx}-line-${lIdx}-input`).value;
+            const normInput = normalizeText(inputVal);
+            const isLineCorrect = l.resposta_lacuna.some(ans => normalizeText(ans) === normInput);
+            const lineEl = document.getElementById(`tr-${idx}-line-${lIdx}`);
+            
+            if (isLineCorrect) {
+              lineScore++;
+            } else {
+              document.getElementById(`tr-${idx}-line-${lIdx}-correct`).style.display = 'block';
+            }
+          });
+          const isAllCorrect = lineScore === st.lines.length;
+          card.classList.add(isAllCorrect ? 'correct' : 'incorrect');
+          if (isAllCorrect) score++;
+
+        } else if (st.type === 'reordenar_palavras') {
+          const assembledTokens = Array.from(document.getElementById(`tr-${idx}-assembled`).children).map(c => c.innerText);
+          const assembledStr = assembledTokens.join(' ');
+          const isCorrect = normalizeText(assembledStr) === normalizeText(st.correct);
+          card.classList.add(isCorrect ? 'correct' : 'incorrect');
+          if (isCorrect) score++;
+
+        } else if (st.type === 'translation_challenge') {
+          const inputVal = document.getElementById(`tr-${idx}-input`).value;
+          const normInput = normalizeText(inputVal);
+          const isCorrect = st.correctAnswers.some(ans => normalizeText(ans) === normInput);
+          card.classList.add(isCorrect ? 'correct' : 'incorrect');
+          if (isCorrect) score++;
+        }
+      });
+
+      const scoreEl = document.getElementById('treino-score');
+      scoreEl.innerText = `Resultado: ${score} de ${total} corretas`;
+      scoreEl.style.display = 'block';
+
+      enviarResultado('Treino de Desbloqueio', score, total);
+      btn.innerText = 'Tentar de novo';
+    }
+
+    // --- RENDER REVISÃO CUMULATIVA ---
+    let cumulativaState = [];
+
+    function renderCumulativa() {
+      const container = document.getElementById('cumulativa-container');
+      if (!CUMULATIVA_DATA || !CUMULATIVA_DATA.topicos || CUMULATIVA_DATA.topicos.length === 0) {
+        document.getElementById('sec-cumulativa').style.display = 'none';
+        return;
+      }
+
+      container.innerHTML = '';
+      cumulativaState = [];
+      let globalExIdx = 0;
+
+      CUMULATIVA_DATA.topicos.forEach((topico) => {
+        const group = document.createElement('div');
+        group.className = 'topic-group';
+
+        let groupHTML = `
+          <div class="topic-title">${topico.topico}</div>
+          <div class="topic-rule-summary">${topico.resumo_regra}</div>
+        `;
+
+        topico.exercicios.forEach((ex) => {
+          const exIdx = globalExIdx++;
+          let exHTML = `<div class="exercise-card" id="cum-card-${exIdx}">`;
+
+          if (ex.type === 'multiple_choice_simples') {
+            const correctText = ex.options[ex.correct_index];
+            const shuffledOpts = shuffleArray(ex.options);
+
+            exHTML += `
+              <div class="q-prompt">${ex.prompt_en}</div>
+              <div class="options-group">
+                ${shuffledOpts.map((opt, i) => `
+                  <button class="option-btn" id="cum-${exIdx}-opt-${i}" onclick="selectCumMc(${exIdx}, ${i}, '${opt.replace(/'/g, "\\'")}')">${opt}</button>
+                `).join('')}
+              </div>
+              <div class="feedback-box">
+                <div class="explanation-text">${ex.explanation_pt}</div>
+                <div class="correct-answer-text">✅ Resposta correta: ${correctText}</div>
+              </div>
+            `;
+            cumulativaState.push({ type: ex.type, selectedText: null, correctText: correctText });
+
+          } else if (ex.type === 'gap_fill') {
+            const gapHTML = `<input type="text" class="input-text" id="cum-${exIdx}-input" style="width:140px; display:inline-block;" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Digite...">`;
+            const promptStr = ex.sentence_with_gap.replace('____', gapHTML);
+
+            exHTML += `
+              <div class="q-prompt">${promptStr}</div>
+              <div class="feedback-box">
+                <div class="explanation-text">${ex.explanation_pt}</div>
+                <div class="correct-answer-text">✅ Resposta correta: ${ex.correct_answer.join(' / ')}</div>
+              </div>
+            `;
+            cumulativaState.push({ type: ex.type, correctAnswers: ex.correct_answer });
+          }
+
+          exHTML += `</div>`;
+          groupHTML += exHTML;
+        });
+
+        group.innerHTML = groupHTML;
+        container.appendChild(group);
+      });
+    }
+
+    function selectCumMc(exIdx, optIdx, text) {
+      if (cumulativaState[exIdx].checked) return;
+      cumulativaState[exIdx].selectedText = text;
+      const card = document.getElementById(`cum-card-${exIdx}`);
+      card.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById(`cum-${exIdx}-opt-${optIdx}`).classList.add('selected');
+    }
+
+    function checkCumulativa() {
+      const btn = document.getElementById('btn-check-cumulativa');
+      if (btn.innerText === 'Tentar de novo') {
+        renderCumulativa();
+        document.getElementById('cumulativa-score').style.display = 'none';
+        btn.innerText = 'Verificar';
+        return;
+      }
+
+      let score = 0;
+      let total = cumulativaState.length;
+
+      cumulativaState.forEach((st, idx) => {
+        st.checked = true;
+        const card = document.getElementById(`cum-card-${idx}`);
+
+        if (st.type === 'multiple_choice_simples') {
+          const isCorrect = st.selectedText === st.correctText;
+          card.classList.add(isCorrect ? 'correct' : 'incorrect');
+          if (isCorrect) score++;
+
+        } else if (st.type === 'gap_fill') {
+          const inputVal = document.getElementById(`cum-${idx}-input`).value;
+          const normInput = normalizeText(inputVal);
+          const isCorrect = st.correctAnswers.some(ans => normalizeText(ans) === normInput);
+          card.classList.add(isCorrect ? 'correct' : 'incorrect');
+          if (isCorrect) score++;
+        }
+      });
+
+      const scoreEl = document.getElementById('cumulativa-score');
+      scoreEl.innerText = `Resultado: ${score} de ${total} corretas`;
+      scoreEl.style.display = 'block';
+
+      enviarResultado('Revisão Cumulativa', score, total);
+      btn.innerText = 'Tentar de novo';
+    }
+
+    // --- RENDER VOCABULÁRIO (FLASHCARDS) ---
+    const reviewedCards = new Set();
+
+    function renderFlashcards() {
+      const container = document.getElementById('flashcards-container');
+      container.innerHTML = '';
+
+      VOCAB_DATA.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'flashcard';
+        card.innerHTML = `
+          <div class="flashcard-top">
+            <span class="flashcard-word">${item.palavra}</span>
+            <button class="audio-btn" onclick="speakText('${item.palavra.replace(/'/g, "\\'")}')">🔊</button>
+          </div>
+          <div class="flashcard-translation" id="flash-trans-${idx}">${item.traducao}</div>
+          <div class="flashcard-actions">
+            <button class="btn-reveal" id="flash-rev-${idx}" onclick="revealFlashcard(${idx})">Revelar tradução</button>
+            <button class="btn-eval btn-knew" id="flash-knew-${idx}" onclick="evalFlashcard(${idx})">✅ Eu sabia</button>
+            <button class="btn-eval btn-review" id="flash-revbtn-${idx}" onclick="evalFlashcard(${idx})">🔄 Preciso revisar</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+      updateFlashcardTracker();
+    }
+
+    function revealFlashcard(idx) {
+      document.getElementById(`flash-trans-${idx}`).style.display = 'block';
+      document.getElementById(`flash-rev-${idx}`).style.display = 'none';
+      document.getElementById(`flash-knew-${idx}`).style.display = 'block';
+      document.getElementById(`flash-revbtn-${idx}`).style.display = 'block';
+    }
+
+    function evalFlashcard(idx) {
+      reviewedCards.add(idx);
+      updateFlashcardTracker();
+      document.getElementById(`flash-knew-${idx}`).style.opacity = '0.5';
+      document.getElementById(`flash-revbtn-${idx}`).style.opacity = '0.5';
+    }
+
+    function updateFlashcardTracker() {
+      document.getElementById('flashcards-tracker').innerText = `${reviewedCards.size} de ${VOCAB_DATA.length} revisadas`;
+    }
+
+    // --- RENDER EXERCÍCIO DE FIXAÇÃO ---
+    let fixacaoState = [];
+
+    const FIXACAO_SENTENCES = [
+      {
+        word: "Rejuvenation",
+        correct: "rejuvenation",
+        sentence: "The new therapy promotes cellular repair and skin ____.",
+        distractors: ["longevity", "disease", "ahead"]
+      },
+      {
+        word: "Longevity",
+        correct: "longevity",
+        sentence: "Healthy habits contribute to overall ____ and a better quality of life.",
+        distractors: ["rejuvenation", "disease", "ahead"]
+      },
+      {
+        word: "Disease",
+        correct: "disease",
+        sentence: "Researchers are trying to find a cure for this rare ____.",
+        distractors: ["rejuvenation", "longevity", "ahead"]
+      },
+      {
+        word: "Tip of the iceberg",
+        correct: "tip of the iceberg",
+        sentence: "This small delay is only the ____; there are larger problems ahead.",
+        distractors: ["rejuvenation", "longevity", "disease"]
+      },
+      {
+        word: "Ahead",
+        correct: "ahead",
+        sentence: "The software team finished the project ____ of schedule.",
+        distractors: ["disease", "rejuvenation", "longevity"]
+      },
+      {
+        word: "At the weekend",
+        correct: "at the weekend",
+        sentence: "I usually relax and spend time with my family ____.",
+        distractors: ["ahead", "tip of the iceberg", "disease"]
+      }
+    ];
+
+    function renderFixacao() {
+      const container = document.getElementById('fixacao-container');
+      container.innerHTML = '';
+      fixacaoState = [];
+
+      FIXACAO_SENTENCES.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        card.id = `fix-card-${idx}`;
+
+        const allOptions = shuffleArray([item.correct, ...item.distractors]);
+
+        const selectHTML = `
+          <select class="select-input" id="fix-select-${idx}">
+            <option value="" disabled selected>-- Selecione --</option>
+            ${allOptions.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+          </select>
+        `;
+
+        const sentenceHTML = item.sentence.replace('____', selectHTML);
+
+        card.innerHTML = `
+          <div class="q-prompt">${idx + 1}. ${sentenceHTML}</div>
+          <div class="feedback-box">
+            <div class="correct-answer-text">✅ Resposta correta: ${item.correct}</div>
+          </div>
+        `;
+
+        fixacaoState.push({ correct: item.correct });
+        container.appendChild(card);
+      });
+    }
+
+    function checkFixacao() {
+      const btn = document.getElementById('btn-check-fixacao');
+      if (btn.innerText === 'Tentar de novo') {
+        renderFixacao();
+        document.getElementById('fixacao-score').style.display = 'none';
+        btn.innerText = 'Verificar';
+        return;
+      }
+
+      let score = 0;
+      let total = fixacaoState.length;
+
+      fixacaoState.forEach((st, idx) => {
+        const selectEl = document.getElementById(`fix-select-${idx}`);
+        const card = document.getElementById(`fix-card-${idx}`);
+        const selectedVal = selectEl.value;
+
+        const isCorrect = selectedVal === st.correct;
+        card.classList.add(isCorrect ? 'correct' : 'incorrect');
+        if (isCorrect) score++;
+      });
+
+      const scoreEl = document.getElementById('fixacao-score');
+      scoreEl.innerText = `Resultado: ${score} de ${total} corretas`;
+      scoreEl.style.display = 'block';
+
+      enviarResultado('Exercício de Fixação', score, total);
+      btn.innerText = 'Tentar de novo';
+    }
+
+    // --- HOMEWORK COPY ---
+    function copyHomework() {
+      const items = Array.from(document.querySelectorAll('#homework-list li')).map(li => li.innerText);
+      const textToCopy = "Homework:\n" + items.map(it => `- ${it}`).join('\n');
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert("Homework copiado para a área de transferência!");
+      }).catch(() => {
+        alert("Não foi possível copiar automaticamente.");
+      });
+    }
+
+    // --- INITIALIZATION ---
+    window.addEventListener('DOMContentLoaded', () => {
+      renderTreino();
+      renderCumulativa();
+      renderFlashcards();
+      renderFixacao();
+    });
+  </script>
+</body>
+</html>
