@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Revisão 29/10/26 — Renato</title>
+<style>
+:root{--navy:#14397a;--navy-d:#0b2a5e;--navy-t:#e1eafa;--orange-t:#fde6d3;--orange-d:#7a3208;--ok:#166534;--ok-bg:#dcfce7;--ok-b:#16a34a;--bad:#991b1b;--bad-bg:#fee2e2;--bad-b:#dc2626}
+*{box-sizing:border-box}
+body{margin:0;background:#f5f8fd;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--navy-d)}
+.pg{max-width:560px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.card{background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;box-shadow:0 4px 14px rgba(20,57,122,.10)}
+h1{margin:0;font-size:21px;line-height:1.25;color:var(--navy)}
+h2{margin:0;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);background:var(--navy-t);border-radius:999px;padding:6px 12px;align-self:flex-start}
+h3{margin:0;font-size:15px}
+p{margin:0;font-size:15px;line-height:1.55}
+.hi{font-weight:700;font-size:17px;margin-top:8px}
+.spd{display:flex;align-items:center;gap:6px;background:#f5f8fd;border-radius:999px;padding:4px 6px;font-size:13px;font-weight:600;align-self:flex-start}
+.spd span{padding:0 6px}
+.spd button{min-height:44px;min-width:56px;border:0;border-radius:999px;background:transparent;color:#4a5f85;font-weight:700;font-size:13px;cursor:pointer}
+.spd button.on{background:var(--navy);color:#fff}
+.enc{background:var(--orange-t);border-radius:20px;padding:16px 18px;color:var(--orange-d)}
+.rule{background:#eef3fc;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.ex{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff6ee;border-radius:16px;padding:12px 14px}
+.en{font-weight:600}
+.pt{color:#4a5f85;font-size:14px}
+.au{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:var(--navy-t);color:var(--navy);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.no-tts .au,.no-tts .spd{display:none}
+.fc{background:#f5f8fd;border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.fc .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.fc strong{font-size:18px}
+.rv{min-height:44px;border:0;background:var(--orange-t);color:var(--orange-d);border-radius:999px;font-weight:600;font-size:14px;cursor:pointer}
+.trn{color:#9a3f0b;font-weight:700}
+.act{min-height:48px;border:0;border-radius:999px;background:var(--navy);color:#fff;font-weight:700;font-size:15px;cursor:pointer;padding:0 20px}
+.cp{min-height:48px;border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:999px;font-weight:700;font-size:15px;cursor:pointer;padding:0 20px}
+.fx{border:2px solid transparent;border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;background:#f5f8fd}
+.fx.ok{border-color:var(--ok-b);background:var(--ok-bg)}
+.fx.bad{border-color:var(--bad-b);background:var(--bad-bg)}
+.sent{line-height:2.4}
+select{min-height:44px;max-width:100%;border:2px solid #c9d6ee;border-radius:14px;padding:0 10px;font-size:15px;background:#fff;color:var(--navy-d)}
+.fb{font-size:14px;line-height:1.5}
+.fx.ok .fb{color:var(--ok)}
+.fx.bad .fb{color:var(--bad)}
+.score{font-weight:700}
+.sentmsg{font-size:12px;color:#4a5f85}
+ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+[hidden]{display:none!important}
+@media (max-width:380px){.card{padding:16px;border-radius:20px}}
+</style>
+</head>
+<body>
+<main class="pg" id="app"></main>
+<script>
+(function () {
+  "use strict";
+  var DATA = {"meta": {"aluno_id": "renato-saletti", "aluno": "Renato Saletti", "aluno_primeiro": "Renato", "data_aula": "29/10/26", "accent": "US", "apps_script_url": "https://script.google.com/macros/s/AKfycbw2_pzQPliZkVlqihV7VQl-DtzESSJSQcOPFjeuZlAL1-XoGtDyxD7T3YXFphwO7eUE/exec"}, "encorajamento": "Sua capacidade de expressar opiniões complexas sobre tecnologia em inglês melhora a cada aula. Não tenha receio dos pequenos deslizes gramaticais no passado; eles fazem parte do processo de automação da fala.", "topico_aula": "Concordâncias curtas em inglês (So do I / So can I) e debates de atualidades", "explicacao_pt": "Para concordar rapidamente com uma afirmação, usamos 'So' seguido do verbo auxiliar correspondente e do sujeito. Se a pessoa diz 'I can fix code errors', você responde 'So can I'.", "exemplos": [{"en": "I want to automate our cloud reports. - So do I.", "pt": "Eu quero automatizar nossos relatórios na nuvem. - Eu também."}, {"en": "I was very busy checking database security yesterday. - So was I.", "pt": "Eu estava muito ocupado checando a segurança do banco de dados ontem. - Eu também estava."}, {"en": "I can resolve system vulnerabilities quickly. - So can I.", "pt": "Eu consigo resolver vulnerabilidades do sistema rapidamente. - Eu também consigo."}], "vocab": [{"palavra": "Fake news", "traducao": "Notícias falsas"}, {"palavra": "Algorithm", "traducao": "Algoritmo"}, {"palavra": "Defense", "traducao": "Defesa / Mecanismo de proteção"}, {"palavra": "To kidnap", "traducao": "Sequestrar"}, {"palavra": "To give up", "traducao": "Desistir / Abrir mão"}, {"palavra": "Deputy", "traducao": "Deputado"}, {"palavra": "Judiciary", "traducao": "Poder Judiciário"}, {"palavra": "Preoccupation", "traducao": "Preocupação / Inquietude"}], "fixacao": [{"palavra": "Fake news", "sentence_with_gap": "Do not share that article online because it is total ____.", "correct": "fake news", "distractors": ["preoccupation", "algorithm", "defense"], "explanation_pt": "Fake news significa notícias falsas, usada para informações incorretas ou enganosas espalhadas como verdadeiras."}, {"palavra": "Algorithm", "sentence_with_gap": "The social media ____ decides which videos appear on your feed.", "correct": "algorithm", "distractors": ["judiciary", "deputy", "preoccupation"], "explanation_pt": "Algorithm significa algoritmo, que é uma sequência de regras de computador para processar dados."}, {"palavra": "Defense", "sentence_with_gap": "The lawyer spoke in ____ of her client during the trial.", "correct": "defense", "distractors": ["preoccupation", "judiciary", "fake news"], "explanation_pt": "Defense significa defesa. Na grafia americana (US), escreve-se com 's' (defense)."}, {"palavra": "To kidnap", "sentence_with_gap": "The criminals tried to ____ the wealthy businessman for money.", "correct": "kidnap", "distractors": ["give up", "defense", "preoccupation"], "explanation_pt": "To kidnap significa sequestrar. Após o verbo modal ou a partícula 'to', usamos a forma base kidnap."}, {"palavra": "To give up", "sentence_with_gap": "This English exercise is hard, but you should not ____.", "correct": "give up", "distractors": ["kidnap", "defense", "judiciary"], "explanation_pt": "To give up significa desistir. Com 'should not', o verbo fica na sua forma base."}, {"palavra": "Deputy", "sentence_with_gap": "The newly elected ____ voted in favor of the new policy.", "correct": "deputy", "distractors": ["judiciary", "algorithm", "preoccupation"], "explanation_pt": "Deputy significa deputado ou representante público de um parlamento."}, {"palavra": "Judiciary", "sentence_with_gap": "The main role of the ____ is to interpret and apply the law.", "correct": "judiciary", "distractors": ["deputy", "defense", "fake news"], "explanation_pt": "Judiciary refere-se ao Poder Judiciário ou sistema judiciário."}, {"palavra": "Preoccupation", "sentence_with_gap": "His biggest ____ right now is finding a new job.", "correct": "preoccupation", "distractors": ["defense", "judiciary", "fake news"], "explanation_pt": "Preoccupation significa preocupação principal ou grande apreensão com algo."}], "homework": ["Ler o texto técnico 'Unlocking Cloud Permissions' enviado no chat pelo professor.", "Anotar dúvidas e preparar-se para discutir permissões de acesso e segurança na nuvem na próxima aula.", "Gravar 3 relatos curtos de 45 segundos sobre fatos passados recentes garantindo o uso correto do Simple Past."]};
+  var META = DATA.meta || {};
+  var app = document.getElementById("app");
+  var SVG = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>';
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined && text !== null) e.textContent = text;
+    return e;
+  }
+  function section(title) {
+    var s = el("section", "card");
+    s.appendChild(el("h2", null, title));
+    return s;
+  }
+  function list(x) { return Array.isArray(x) ? x : []; }
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  /* ---------- Áudio ---------- */
+  var hasTTS = false;
+  try { hasTTS = ("speechSynthesis" in window) && (typeof SpeechSynthesisUtterance !== "undefined"); } catch (e) { hasTTS = false; }
+  if (!hasTTS) app.className = "pg no-tts"; else app.className = "pg";
+  var LANG = META.accent === "UK" ? "en-GB" : "en-US";
+  var rate = 1;
+  function pickVoice() {
+    try {
+      var vs = window.speechSynthesis.getVoices() || [];
+      var want = LANG.toLowerCase();
+      for (var i = 0; i < vs.length; i++) {
+        if (vs[i].lang && vs[i].lang.replace("_", "-").toLowerCase() === want) return vs[i];
+      }
+    } catch (e) {}
+    return null;
+  }
+  function speak(text) {
+    if (!hasTTS) return;
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = LANG;
+      u.rate = rate;
+      var v = pickVoice();
+      if (v) u.voice = v;
+      window.speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+  function audioBtn(text, label) {
+    var b = el("button", "au");
+    b.type = "button";
+    b.setAttribute("aria-label", label);
+    b.innerHTML = SVG;
+    b.addEventListener("click", function () { speak(text); });
+    return b;
+  }
+
+  /* ---------- Envio de resultados ---------- */
+  var enviados = {};
+  function enviarResultado(secao, acertos, total) {
+    if (!META.apps_script_url) return false;
+    if (enviados[secao]) return false;
+    enviados[secao] = true;
+    try {
+      fetch(META.apps_script_url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          aluno_id: META.aluno_id,
+          aluno: META.aluno,
+          data_aula: META.data_aula,
+          secao: secao,
+          acertos: acertos,
+          total: total
+        })
+      }).catch(function () {});
+    } catch (e) {}
+    return true;
+  }
+
+  /* ---------- 1. Cabeçalho ---------- */
+  var header = el("header", "card");
+  var hbox = el("div");
+  hbox.appendChild(el("h1", null, "Revisão da aula de " + (META.data_aula || "")));
+  hbox.appendChild(el("p", "hi", "Olá, " + (META.aluno_primeiro || "") + "!"));
+  header.appendChild(hbox);
+  var spd = el("div", "spd");
+  spd.appendChild(el("span", null, "Velocidade"));
+  var b1 = el("button", "on", "1.0x"), b2 = el("button", null, "0.75x");
+  b1.type = "button"; b2.type = "button";
+  b1.setAttribute("aria-pressed", "true"); b2.setAttribute("aria-pressed", "false");
+  function setRate(r) {
+    rate = r;
+    b1.className = r === 1 ? "on" : "";
+    b2.className = r === 1 ? "" : "on";
+    b1.setAttribute("aria-pressed", r === 1 ? "true" : "false");
+    b2.setAttribute("aria-pressed", r === 1 ? "false" : "true");
+  }
+  b1.addEventListener("click", function () { setRate(1); });
+  b2.addEventListener("click", function () { setRate(0.75); });
+  spd.appendChild(b1); spd.appendChild(b2);
+  header.appendChild(spd);
+  app.appendChild(header);
+
+  /* ---------- 2. Encorajamento ---------- */
+  if (DATA.encorajamento) app.appendChild(el("p", "enc", DATA.encorajamento));
+
+  /* ---------- 3. Recapitulação da regra ---------- */
+  var exemplos = list(DATA.exemplos);
+  if (DATA.topico_aula || DATA.explicacao_pt || exemplos.length) {
+    var s3 = section("Recapitulação da Regra");
+    if (DATA.topico_aula || DATA.explicacao_pt) {
+      var rule = el("div", "rule");
+      if (DATA.topico_aula) rule.appendChild(el("h3", null, DATA.topico_aula));
+      if (DATA.explicacao_pt) rule.appendChild(el("p", null, DATA.explicacao_pt));
+      s3.appendChild(rule);
+    }
+    exemplos.forEach(function (ex) {
+      if (!ex || !ex.en) return;
+      var row = el("div", "ex");
+      var txt = el("div");
+      txt.appendChild(el("p", "en", ex.en));
+      if (ex.pt) txt.appendChild(el("p", "pt", ex.pt));
+      row.appendChild(txt);
+      row.appendChild(audioBtn(ex.en, "Ouvir frase"));
+      s3.appendChild(row);
+    });
+    app.appendChild(s3);
+  }
+
+  /* ---------- 4. Vocabulário novo (flashcards em cascata) ---------- */
+  var vocab = list(DATA.vocab);
+  if (vocab.length) {
+    var s4 = section("Vocabulário Novo");
+    vocab.forEach(function (v) {
+      if (!v || !v.palavra) return;
+      var card = el("div", "fc");
+      var row = el("div", "row");
+      row.appendChild(el("strong", null, v.palavra));
+      row.appendChild(audioBtn(v.palavra, "Ouvir palavra"));
+      card.appendChild(row);
+      var btn = el("button", "rv", "Revelar tradução");
+      btn.type = "button";
+      var trn = el("p", "trn", v.traducao || "");
+      trn.hidden = true;
+      btn.setAttribute("aria-expanded", "false");
+      btn.addEventListener("click", function () {
+        trn.hidden = !trn.hidden;
+        btn.textContent = trn.hidden ? "Revelar tradução" : "Ocultar tradução";
+        btn.setAttribute("aria-expanded", trn.hidden ? "false" : "true");
+      });
+      card.appendChild(btn);
+      card.appendChild(trn);
+      s4.appendChild(card);
+    });
+    app.appendChild(s4);
+  }
+
+  /* ---------- 5. Exercício de fixação ---------- */
+  var fixacao = list(DATA.fixacao).filter(function (it) { return it && it.sentence_with_gap && it.correct; });
+  if (fixacao.length) {
+    var s5 = section("Exercício de Fixação");
+    var score = el("p", "score");
+    score.hidden = true;
+    s5.appendChild(score);
+    var rows = fixacao.map(function (it, i) {
+      var wrap = el("div", "fx");
+      var sent = el("p", "sent");
+      var parts = String(it.sentence_with_gap).split("____");
+      sent.appendChild(document.createTextNode((i + 1) + ". " + parts[0]));
+      var sel = el("select");
+      sel.setAttribute("aria-label", "Escolha a opção para a frase " + (i + 1));
+      sent.appendChild(sel);
+      if (parts.length > 1) sent.appendChild(document.createTextNode(parts.slice(1).join("____")));
+      wrap.appendChild(sent);
+      var fb = el("p", "fb");
+      fb.hidden = true;
+      wrap.appendChild(fb);
+      s5.appendChild(wrap);
+      var r = { it: it, wrap: wrap, sel: sel, fb: fb };
+      fill(r);
+      return r;
+    });
+    function fill(r) {
+      r.sel.innerHTML = "";
+      var ph = document.createElement("option");
+      ph.value = ""; ph.textContent = "-- Selecione --"; ph.disabled = true; ph.selected = true;
+      r.sel.appendChild(ph);
+      shuffle([r.it.correct].concat(list(r.it.distractors))).forEach(function (t) {
+        var o = document.createElement("option");
+        o.value = t; o.textContent = t;
+        r.sel.appendChild(o);
+      });
+      r.sel.disabled = false;
+    }
+    var act = el("button", "act", "Verificar");
+    act.type = "button";
+    var sentmsg = el("p", "sentmsg", "📤 Resultado enviado ao professor");
+    sentmsg.hidden = true;
+    var verified = false;
+    act.addEventListener("click", function () {
+      if (!verified) {
+        var n = 0;
+        rows.forEach(function (r) {
+          var ok = r.sel.value === r.it.correct;
+          if (ok) n++;
+          r.wrap.className = "fx " + (ok ? "ok" : "bad");
+          r.fb.textContent = "";
+          r.fb.appendChild(document.createTextNode((ok ? "Certo! " : "Errado. ") + (r.it.explanation_pt || "")));
+          if (!ok) {
+            r.fb.appendChild(document.createElement("br"));
+            var strong = document.createElement("strong");
+            strong.textContent = "✅ Resposta correta: " + r.it.correct;
+            r.fb.appendChild(strong);
+          }
+          r.fb.hidden = false;
+          r.sel.disabled = true;
+        });
+        score.textContent = n + " de " + rows.length + " corretas";
+        score.hidden = false;
+        verified = true;
+        act.textContent = "Tentar de novo";
+        if (enviarResultado("Exercício de Fixação", n, rows.length)) sentmsg.hidden = false;
+      } else {
+        rows.forEach(function (r) {
+          r.wrap.className = "fx";
+          r.fb.hidden = true;
+          r.fb.textContent = "";
+          fill(r);
+        });
+        score.hidden = true;
+        verified = false;
+        act.textContent = "Verificar";
+      }
+    });
+    s5.appendChild(act);
+    s5.appendChild(sentmsg);
+    app.appendChild(s5);
+  }
+
+  /* ---------- 6. Homework ---------- */
+  var hw = list(DATA.homework).filter(function (t) { return t; });
+  if (hw.length) {
+    var s6 = section("Homework");
+    var ul = el("ul");
+    hw.forEach(function (t) { ul.appendChild(el("li", null, t)); });
+    s6.appendChild(ul);
+    var cp = el("button", "cp", "Copiar homework");
+    cp.type = "button";
+    cp.addEventListener("click", function () {
+      var text = hw.map(function (t, i) { return (i + 1) + ". " + t; }).join("\n");
+      function done() {
+        cp.textContent = "Copiado!";
+        setTimeout(function () { cp.textContent = "Copiar homework"; }, 2000);
+      }
+      function fallback() {
+        try {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+          done();
+        } catch (e) {}
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else {
+        fallback();
+      }
+    });
+    s6.appendChild(cp);
+    app.appendChild(s6);
+  }
+})();
+</script>
+</body>
+</html>
